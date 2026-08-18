@@ -79,7 +79,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onBrowse={noop}
       />,
     )
-    expect(html).toContain(t.calibrationLabel)
+    expect(html).toContain(t.focusLabel)
     expect(html).not.toContain('undefined')
   })
 

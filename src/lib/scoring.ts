@@ -17,10 +17,24 @@ export type LevelScore = {
 export type Result = {
   /** Alle 17 Ebenen mit ihrem Anteil, in der Ordnung der Skala. */
   scores: LevelScore[]
-  /** Der Kalibrierungswert, interpoliert zwischen den Ebenen (20 … 700). */
+  /**
+   * Der interpolierte Zahlenwert (20 … 700). Er entscheidet, welche Ebene die
+   * dominante ist — angezeigt wird er nicht.
+   *
+   * Eine dreistellige Zahl aus 34 Kreuzen sieht aus wie ein Messwert und ist
+   * keiner: zwei Aussagen je Ebene, alle gleichgerichtet, keine Normstichprobe.
+   * Was der Bogen trägt, ist eine Ebene und die Richtung, in die es von dort
+   * kippt — und das steht in `dominant` und `band`.
+   */
   calibration: number
   /** Die Ebene, auf der die Kalibrierung zu liegen kommt. */
   dominant: Level
+  /**
+   * Die beiden benachbarten Ebenen, zwischen denen der Schwerpunkt liegt — das,
+   * was die Oberfläche anstelle der Zahl zeigt. Immer zwei verschiedene, immer
+   * mit `dominant` als einer von beiden.
+   */
+  band: [Level, Level]
   /** Die höchste Ebene, die spürbar erreichbar ist — dein Spielraum nach oben. */
   reach: Level
   /** Die tiefste Ebene, die noch deutlich zieht; null, wenn keine darunter liegt. */
@@ -63,13 +77,16 @@ export function scoreLevels(levels: Level[], answers: Answers): LevelScore[] {
 }
 
 /**
- * Die Kalibrierung entsteht als gewichtetes Mittel der *Ränge* — nicht der
- * Zahlenwerte. Zwischen 600 und 700 liegen 100 Punkte, zwischen 20 und 30 nur
- * zehn; ein Mittel über die Zahlen würde deshalb von den obersten Ebenen
- * regiert. Über den Rang zählt jede Ebene gleich viel, und der Zahlenwert wird
- * erst am Ende zwischen den beiden Nachbarebenen interpoliert.
+ * Der Schwerpunkt als gewichtetes Mittel der *Ränge* — nicht der Zahlenwerte.
+ * Zwischen 600 und 700 liegen 100 Punkte, zwischen 20 und 30 nur zehn; ein
+ * Mittel über die Zahlen würde deshalb von den obersten Ebenen regiert. Über den
+ * Rang zählt jede Ebene gleich viel.
+ *
+ * Das Ergebnis ist gebrochen: 8.4 heißt "im unteren Drittel von Mut". Genau
+ * diese Nachkommastelle sagt, zu welchem Nachbarn hin das Bild kippt — mehr
+ * Aussagekraft hat sie nicht, und deshalb wird sie nirgends angezeigt.
  */
-export function calibrate(levels: Level[], scores: LevelScore[]): number {
+export function focusRank(scores: LevelScore[]): number {
   let weightSum = 0
   let rankSum = 0
 
@@ -81,9 +98,18 @@ export function calibrate(levels: Level[], scores: LevelScore[]): number {
 
   // Alles auf "Nie": kein Gewicht, kein Mittel. Dann steht das Ergebnis am
   // unteren Ende der Skala — mehr gibt der Bogen nicht her.
-  if (weightSum === 0) return levels[0].value
+  if (weightSum === 0) return 0
 
-  const rank = rankSum / weightSum
+  return rankSum / weightSum
+}
+
+/**
+ * Der Rang, umgerechnet in Hawkins' Zahlen — zwischen den beiden Nachbarebenen
+ * interpoliert. Diese Zahl bestimmt, welche Ebene die dominante ist, und sie
+ * wird bewusst nicht angezeigt: siehe die Anmerkung an `Result.calibration`.
+ */
+export function calibrate(levels: Level[], scores: LevelScore[]): number {
+  const rank = focusRank(scores)
   const lower = levels[Math.floor(rank)]
   const upper = levels[Math.min(Math.ceil(rank), levels.length - 1)]
   const fraction = rank - Math.floor(rank)
@@ -106,6 +132,21 @@ export function evaluate(levels: Level[], answers: Answers): Result {
   const dominant = levelAt(levels, calibration)
   const dominantRank = levels.indexOf(dominant)
 
+  // Das Band: die dominante Ebene und die Nachbarin auf der Seite, zu der das
+  // Antwortbild neigt. Liegt der Schwerpunkt im unteren Teil seiner Ebene, ist
+  // das die darunter, sonst die darüber — mehr Auflösung als "zwischen diesen
+  // beiden" gibt der Bogen nicht her.
+  //
+  // Das `length - 2` fängt das obere Ende ab: bei Erleuchtung gibt es keine
+  // Nachbarin darüber, das Band ist dort Frieden–Erleuchtung. So sind es immer
+  // zwei verschiedene Ebenen und die Oberfläche braucht keinen Sonderfall.
+  const leansDown = focusRank(scores) - dominantRank < 0.5
+  const bandStart = Math.min(
+    Math.max(leansDown ? dominantRank - 1 : dominantRank, 0),
+    levels.length - 2,
+  )
+  const band: [Level, Level] = [levels[bandStart], levels[bandStart + 1]]
+
   // Die höchste Ebene, die überhaupt erreichbar scheint — mindestens die
   // dominante, denn unter ihr kann der Spielraum nicht liegen.
   const reach = scores.filter((score) => score.strength >= REACHING).at(-1)?.level ?? dominant
@@ -126,6 +167,7 @@ export function evaluate(levels: Level[], answers: Answers): Result {
     scores,
     calibration,
     dominant,
+    band,
     reach: levels.indexOf(reach) > dominantRank ? reach : dominant,
     drag,
   }

@@ -99,3 +99,45 @@ describe('evaluate', () => {
     expect(result.drag).toBeNull()
   })
 })
+
+describe('Band', () => {
+  /* Die Oberfläche zeigt statt einer Zahl zwei benachbarte Ebenen. Sie muss sich
+     darauf verlassen können, dass es immer genau zwei verschiedene sind und dass
+     die dominante Ebene eine davon ist — sonst stünde in der Überschrift eine
+     Ebene, die im Band darunter gar nicht vorkommt. */
+  it('nennt immer zwei verschiedene, benachbarte Ebenen', () => {
+    for (const level of LEVELS) {
+      const { band, dominant } = evaluate(LEVELS, only(level.id))
+      const [lower, upper] = band
+
+      expect(LEVELS.indexOf(upper) - LEVELS.indexOf(lower)).toBe(1)
+      expect([lower.id, upper.id]).toContain(dominant.id)
+    }
+  })
+
+  it('hält an den Enden der Skala', () => {
+    // Unten gibt es keine Nachbarin darunter, oben keine darüber.
+    expect(evaluate(LEVELS, only('shame')).band.map((level) => level.id)).toEqual([
+      'shame',
+      'guilt',
+    ])
+    expect(evaluate(LEVELS, only('enlightenment')).band.map((level) => level.id)).toEqual([
+      'peace',
+      'enlightenment',
+    ])
+  })
+
+  it('kippt zu der Nachbarin, zu der das Antwortbild neigt', () => {
+    // Mut allein liegt genau auf seinem Wert, das Bild neigt also nach unten.
+    expect(evaluate(LEVELS, only('courage')).band[1].id).toBe('courage')
+    // Kommt Neutralität dazu, wandert der Schwerpunkt nach oben.
+    expect(evaluate(LEVELS, only('courage', 'neutrality')).band[1].id).toBe('neutrality')
+  })
+
+  it('ist in beiden Sprachen dasselbe', () => {
+    const answers = only('fear', 'pride', 'reason')
+    const de = evaluate(levelsIn('de'), answers).band
+    const en = evaluate(levelsIn('en'), answers).band
+    expect(en.map((level) => level.id)).toEqual(de.map((level) => level.id))
+  })
+})

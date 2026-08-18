@@ -1,7 +1,6 @@
 import type { ReactNode } from 'react'
 import { nextLevelId, THRESHOLD } from '../data/levels.ts'
 import { QUESTIONS } from '../data/questions.ts'
-import { useCountUp } from '../hooks/useCountUp.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
 import type { Result as Evaluation } from '../lib/scoring.ts'
@@ -42,8 +41,7 @@ export function Result({
   onRestart,
   onBrowse,
 }: ResultProps) {
-  const { calibration, dominant, drag, reach, scores } = result
-  const counted = useCountUp(calibration)
+  const { band, calibration, dominant, drag, reach, scores } = result
   const nextId = nextLevelId(dominant.id)
   const next = nextId === null ? null : levelIn(language, nextId)
   const aboveThreshold = calibration >= THRESHOLD
@@ -64,27 +62,54 @@ export function Result({
         </Button>
       </header>
 
-      {/* ── Die Zahl ─────────────────────────────────────────────────────── */}
+      {/* ── Der Schwerpunkt ──────────────────────────────────────────────
+          Hier stand einmal die interpolierte Zahl, groß und mitgezählt. Sie ist
+          raus: dreistellig aus 34 Kreuzen gerechnet sah sie aus wie ein
+          Messwert, und einer war sie nie. Was bleibt, ist die Ebene — und
+          darunter das Band, das sagt, wie scharf das überhaupt zu lesen ist.
+
+          Die Zahl der Ebene selbst (Mut · 200) bleibt stehen: die stammt von
+          Hawkins und ist ein Name, keine Messung an dieser Person. */}
       <Card className="animate-pop text-center">
         <p className="text-[11px] font-semibold tracking-[0.18em] text-muted uppercase">
-          {t.calibrationLabel}
+          {t.focusLabel}
         </p>
-        <p
-          className="tabular mt-2 font-display text-[86px] leading-none font-bold sm:text-[104px]"
+        <h1
+          className="mt-3 font-display text-[52px] leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-[64px]"
           style={{
             color: 'var(--hf-accent)',
             textShadow: '0 12px 60px color-mix(in oklab, var(--hf-accent) 45%, transparent)',
           }}
         >
-          {counted}
-        </p>
-        <h1 className="mt-3 font-display text-3xl font-bold tracking-[-0.02em]">{dominant.name}</h1>
+          {dominant.name}
+        </h1>
         {/* Hawkins' Originalbegriff steht darunter — außer im Englischen, wo er
             dasselbe Wort noch einmal wäre. */}
-        <p className="tabular mt-1 text-[13px] text-muted">
+        <p className="tabular mt-2 text-[13px] text-muted">
           {dominant.name === dominant.original
             ? dominant.value
             : `${dominant.original} · ${dominant.value}`}
+        </p>
+
+        {/* Das Band. Der Verlauf läuft von der einen Ebenenfarbe in die andere,
+            die Beschriftung trägt dieselben Farben — so ist ohne ein weiteres
+            Wort zu sehen, dass hier eine Strecke gemeint ist und kein Punkt. */}
+        <div className="mt-8">
+          <div
+            className="h-2.5 rounded-full"
+            style={{ background: `linear-gradient(90deg, ${band[0].color}, ${band[1].color})` }}
+          />
+          <div className="tabular mt-2.5 flex justify-between gap-3 text-[12px] font-semibold">
+            <span style={{ color: band[0].color }}>
+              {band[0].name} · {band[0].value}
+            </span>
+            <span style={{ color: band[1].color }}>
+              {band[1].name} · {band[1].value}
+            </span>
+          </div>
+        </div>
+        <p className="mx-auto mt-4 max-w-md text-[13px] leading-relaxed text-balance text-muted/80">
+          {t.bandNote(band[0].name, band[1].name, QUESTIONS.length)}
         </p>
 
         <div className="mt-6 flex flex-wrap justify-center gap-2">
@@ -169,6 +194,12 @@ export function Result({
           </p>
         </Card>
       )}
+
+      {/* Der Vorbehalt steht auch hier und nicht nur auf der Startseite: dort
+          war noch nichts zu glauben. */}
+      <p className="mx-auto max-w-lg px-2 text-center text-[13px] leading-relaxed text-muted/70">
+        {t.resultDisclaimer}
+      </p>
 
       <div className="flex flex-wrap justify-center gap-3 pt-2 pb-6">
         <Button onClick={onBrowse}>{t.seeAllLevels(levels.length)}</Button>

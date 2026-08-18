@@ -40,7 +40,16 @@ const de = {
   progressLabel: 'Fortschritt',
 
   // ── Ergebnis ─────────────────────────────────────────────────────────────
-  calibrationLabel: 'Deine Kalibrierung',
+  focusLabel: 'Dein Schwerpunkt',
+  // Steht unter dem Band. Sagt genau das, was der Bogen hergibt — und was
+  // nicht. Die Zahl der Aussagen kommt als Wert herein, damit der Satz stimmt,
+  // wenn der Bogen einmal wächst.
+  bandNote: (lower: string, upper: string, questions: number): string =>
+    `Aus ${questions} Aussagen lässt sich nicht genauer ablesen als: irgendwo zwischen ${lower} und ${upper}. Eine einzelne Zahl wäre eine Genauigkeit, die es hier nicht gibt.`,
+  // Der zweite Hinweis, und der wichtigere: Er steht dort, wo das Ergebnis
+  // steht, und nicht nur am Anfang, wo noch nichts zu glauben war.
+  resultDisclaimer:
+    'Dieser Bogen ist kein geprüftes Testverfahren: zwei Aussagen je Ebene, alle gleich gepolt, keine Normstichprobe, keine Validierung. Und Hawkins’ Kalibrierungen stammen aus dem kinesiologischen Muskeltest, der sich unter Verblindung nicht bestätigen lässt. Nimm das hier als Anstoß zum Nachdenken — nicht als Messung.',
   wholeScale: 'Ganze Skala',
   restart: 'Neu starten',
   emotionLabel: 'Gefühl',
@@ -53,7 +62,7 @@ const de = {
     `${answered} von ${total} Fragen beantwortet — das Bild ist noch vorläufig.`,
   profileTitle: 'Dein Profil',
   profileLead:
-    'Kein Mensch steht nur auf einer Ebene. Was hier alles leuchtet, ist gleichzeitig in dir vorhanden — die Kalibrierung ist der Schwerpunkt daraus.',
+    'Kein Mensch steht nur auf einer Ebene. Was hier alles leuchtet, ist gleichzeitig in dir vorhanden — der Schwerpunkt ist nur das Mittel daraus.',
   dragTitle: 'Was dich nach unten zieht',
   dragBody: (trap: string): string =>
     `Diese Ebene ist deutlich vorhanden, obwohl dein Schwerpunkt darüber liegt. Hier liegt meist die eigentliche Arbeit: ${trap}`,
@@ -109,7 +118,11 @@ const en: Copy = {
   answers: ['Never', 'Rarely', 'Sometimes', 'Often', 'Almost always'],
   progressLabel: 'Progress',
 
-  calibrationLabel: 'Your calibration',
+  focusLabel: 'Your centre of gravity',
+  bandNote: (lower: string, upper: string, questions: number): string =>
+    `${questions} statements cannot read closer than this: somewhere between ${lower} and ${upper}. A single number would claim a precision that is not there.`,
+  resultDisclaimer:
+    'This questionnaire is not a validated instrument: two statements per level, all worded in the same direction, no reference sample, no validation. And Hawkins’ calibrations come from applied kinesiology, which does not hold up under blinding. Take this as a prompt for reflection — not as a measurement.',
   wholeScale: 'Whole scale',
   restart: 'Start over',
   emotionLabel: 'Emotion',
@@ -122,7 +135,7 @@ const en: Copy = {
     `${answered} of ${total} questions answered — the picture is still provisional.`,
   profileTitle: 'Your profile',
   profileLead:
-    'Nobody stands on a single level. Everything lit up here is present in you at the same time — the calibration is the centre of gravity of it.',
+    'Nobody stands on a single level. Everything lit up here is present in you at the same time — your centre of gravity is only the mean of it.',
   dragTitle: 'What pulls you down',
   dragBody: (trap: string): string =>
     `This level is clearly present even though your centre of gravity sits above it. This is usually where the real work is: ${trap}`,
