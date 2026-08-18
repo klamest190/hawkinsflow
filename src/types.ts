@@ -38,8 +38,25 @@ export type LevelText = {
   trap: string
   /** Konkrete Schritte auf die nächste Ebene. */
   steps: string[]
+  /** Eine Übung, die man heute machen kann. */
+  practice: Practice
   /** Ein Satz zum Mitnehmen. */
   mantra: string
+}
+
+/**
+ * Die praktische Übung einer Ebene. Bewusst kein weiterer Aufzählungspunkt: Die
+ * Ebene hat schon zwei Listen (`signs`, `steps`), und eine dritte läse sich wie
+ * mehr vom Gleichen. Die Übung ist eine einzelne Sache mit Namen und Dauer —
+ * etwas, das man heute anfangen und morgen wiederholen kann.
+ */
+export type Practice = {
+  /** Wie die Übung heißt, z. B. „Zwei Minuten, dann Schluss". */
+  name: string
+  /** Wie lange und wie oft: „10 Minuten, einmal", „täglich". */
+  duration: string
+  /** Die Anleitung — zwei bis vier Sätze, konkret genug zum Loslegen. */
+  body: string
 }
 
 /**

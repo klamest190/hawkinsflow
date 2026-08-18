@@ -99,6 +99,20 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).not.toContain('undefined')
   })
 
+  /* Die Übung ist der einzige Inhalt, der pro Ebene aus drei Teilen besteht.
+     Ein leeres Feld fiele beim Rendern nicht auf — der Kasten stünde einfach
+     halb leer da. Also hier einmal ausgezählt. */
+  it('gibt jeder Ebene eine vollständige Übung', () => {
+    for (const level of levels) {
+      const { name, duration, body } = level.practice
+      expect(name.length, level.id).toBeGreaterThan(3)
+      expect(duration.length, level.id).toBeGreaterThan(3)
+      expect(body.length, level.id).toBeGreaterThan(80)
+    }
+    // Und keine zwei Ebenen teilen sich dieselbe Übung.
+    expect(new Set(levels.map((level) => level.practice.name)).size).toBe(levels.length)
+  })
+
   it('Skala mit aufgeklappter Ebene', () => {
     const html = renderToString(
       <ScaleBrowser

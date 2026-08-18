@@ -77,6 +77,7 @@ const de = {
   // ── Die Ebene im Detail ──────────────────────────────────────────────────
   signsHeading: 'Woran du es erkennst',
   trapHeading: 'Was dich hier hält',
+  practiceHeading: 'Die Übung',
   wayTo: (next: string): string => `Der Weg nach ${next}`,
   wayEnds: 'Der Weg endet hier',
 
@@ -149,6 +150,7 @@ const en: Copy = {
 
   signsHeading: 'How you recognise it',
   trapHeading: 'What keeps you here',
+  practiceHeading: 'The practice',
   wayTo: (next: string): string => `The way to ${next}`,
   wayEnds: 'The way ends here',
 

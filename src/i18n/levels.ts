@@ -30,6 +30,12 @@ const de = {
       'Erzähle einem einzigen Menschen, dem du traust, etwas, das du bisher verborgen hast. Scham überlebt Zeugen selten.',
       'Sorge für deinen Körper wie für einen Gast: essen, schlafen, duschen, rausgehen. Würde beginnt oft ganz praktisch.',
     ],
+    practice: {
+      name: 'Die Beobachterfassung',
+      duration: '10 Minuten, einmal',
+      body:
+        'Schreibe den Vorfall, für den du dich schämst, zweimal auf: einmal so, wie du ihn dir selbst erzählst, und einmal so, wie ihn jemand protokollieren würde, der nur gesehen hat, was geschah. Lies beide Fassungen laut. Der Unterschied zwischen ihnen ist die Scham — und der steht jetzt auf Papier statt unsichtbar in dir.',
+    },
     mantra: 'Ich habe Fehler gemacht. Ich bin kein Fehler.',
   },
   guilt: {
@@ -50,6 +56,12 @@ const de = {
       'Setze ein Ende. Ein Datum, ab dem der Fall verhandelt ist. Alte Vorwürfe danach zu wiederholen ist keine Reue mehr, sondern Gewohnheit.',
       'Frage bei jedem Vorwurf: Wäre ein Gericht dieser Meinung? Meist bleibt ein Bruchteil übrig — der ist bearbeitbar.',
     ],
+    practice: {
+      name: 'Die Rechnung',
+      duration: '15 Minuten, einmal pro Fall',
+      body:
+        'Drei Spalten auf ein Blatt: Was ist passiert. Was war tatsächlich mein Anteil. Was würde es wiedergutmachen. In die dritte Spalte gehört eine Handlung mit Datum — oder das Wort „nichts". Dann führe die Handlung aus oder wirf das Blatt weg. Offen bleiben darf keiner der beiden Fälle.',
+    },
     mantra: 'Ich mache es wieder gut — und dann lasse ich es hinter mir.',
   },
   apathy: {
@@ -70,6 +82,12 @@ const de = {
       'Nutze fremde Energie — verabrede dich. Was allein unmöglich ist, geht zu zweit oft doch.',
       'Anhaltende Apathie ist auch ein medizinisches Thema. Sie ist ein guter Grund, Hilfe zu holen, kein Zeichen von Schwäche.',
     ],
+    practice: {
+      name: 'Zwei Minuten, dann Schluss',
+      duration: 'zweimal täglich',
+      body:
+        'Such dir die kleinste sichtbare Sache im Raum — ein Teller, drei Schritte vor die Tür, eine Zeile. Stell zwei Minuten, fang an, und hör auf, wenn es klingelt, auch wenn du weitermachen könntest. Das Aufhören gehört dazu: Es hält die Übung billig genug, um sie morgen zu wiederholen.',
+    },
     mantra: 'Ich muss es nicht fühlen. Ich fange trotzdem an.',
   },
   grief: {
@@ -90,6 +108,12 @@ const de = {
       'Zähle, was geblieben ist: Menschen, Fähigkeiten, Erinnerungen. Nicht als Trost, sondern als Bestandsaufnahme.',
       'Tu etwas für jemand anderen. Trauer schaut nach innen; eine Hand, die hilft, dreht den Blick nach außen.',
     ],
+    practice: {
+      name: 'Die verabredete Stunde',
+      duration: '20 Minuten täglich, feste Zeit',
+      body:
+        'Gib der Trauer einen Termin: jeden Tag zur selben Zeit, auf demselben Stuhl. Dort ist alles erlaubt — Fotos, Tränen, Briefe. Kommt sie außerhalb, schreib den Gedanken auf einen Zettel und leg ihn auf den Stuhl für morgen. Nicht um sie kleiner zu machen, sondern damit sie ein Zimmer hat statt der ganzen Wohnung.',
+    },
     mantra: 'Ich habe verloren. Ich bin nicht verloren.',
   },
   fear: {
@@ -110,6 +134,12 @@ const de = {
       'Suche dir wöchentlich eine kleine, freiwillige Unbequemlichkeit. Mut wächst nur an Dingen, die man tatsächlich getan hat.',
       'Beruhige zuerst den Körper: langsam ausatmen, länger als einatmen. Der Kopf folgt dem Atem, nicht dem Argument.',
     ],
+    practice: {
+      name: 'Und dann?',
+      duration: '10 Minuten, wenn eine Angst kreist',
+      body:
+        'Schreib die Angst als einen Satz auf. Dann frag „und dann?" und beantworte es. Wieder „und dann?". Mach weiter, bis du an einem Punkt ankommst, an dem du wieder handelst. Die Angst hört meist beim Bild auf; der Stift geht darüber hinaus.',
+    },
     mantra: 'Ich gehe hin, auch mit weichen Knien.',
   },
   desire: {
@@ -130,6 +160,12 @@ const de = {
       'Frage bei jedem „Ich will": Welches Gefühl erwarte ich davon? Meist ist das Gefühl auch anders zu haben.',
       'Übe Genug: eine Woche ohne Neuanschaffung, und notiere, was du in der Zeit schon besessen hast, ohne es zu bemerken.',
     ],
+    practice: {
+      name: 'Die Zehn-Minuten-Kurve',
+      duration: 'bei jedem Impuls',
+      body:
+        'Wenn der Griff kommt — Handy, Kaufen, Essen —, stell zehn Minuten und tu nichts dagegen. Nicht „nie", nur „nicht jetzt". Notiere von 0 bis 10, wie stark es am Anfang war und wie stark am Ende. Nach einer Woche hast du deine eigene Kurve und weißt, was das Verlangen von allein tut.',
+    },
     mantra: 'Ich darf wollen, ohne getrieben zu sein.',
   },
   anger: {
@@ -150,6 +186,12 @@ const de = {
       'Verbrenne ihn körperlich, bevor du sprichst — laufen, Gewichte, Treppen. Dann formuliere eine Bitte statt eines Vorwurfs.',
       'Ziehe eine klare Grenze, statt weiter zu grollen. Groll ist Zorn, der zu keiner Handlung finden durfte.',
     ],
+    practice: {
+      name: 'Der Satz ohne Du',
+      duration: 'nach jedem Aufflammen',
+      body:
+        'Zuerst der Körper: zwanzig Kniebeugen, die Treppe, einmal um den Block. Dann schreib einen einzigen Satz darüber, was du wolltest und nicht bekommen hast — einen, in dem das Wort „du" nicht vorkommt. Nur dieser Satz wird ausgesprochen; der Vorwurf bleibt auf dem Papier.',
+    },
     mantra: 'Meine Wut zeigt mir, was mir wichtig ist.',
   },
   pride: {
@@ -170,6 +212,12 @@ const de = {
       'Trenne Position und Person: Du kannst eine Meinung fallen lassen, ohne dich zu verlieren.',
       'Bitte diese Woche um echte Hilfe — nicht als Test, sondern weil du sie brauchst.',
     ],
+    practice: {
+      name: 'Der teure Satz',
+      duration: 'einmal täglich',
+      body:
+        'Sag einmal am Tag laut, dort wo es etwas kostet: „Da kenne ich mich nicht aus" oder „Du hattest recht". Notiere abends, was daraufhin tatsächlich passiert ist. Fast immer: nichts. Genau dieses Nichts ist der Inhalt der Übung.',
+    },
     mantra: 'Ich muss nicht recht haben, um in Ordnung zu sein.',
   },
   courage: {
@@ -190,6 +238,12 @@ const de = {
       'Übe Loslassen im Kleinen — nicht jeder Widerstand muss überwunden werden. Manches wird leichter, wenn du aufhörst zu ziehen.',
       'Frage bei Ärger: Muss ich hier kämpfen, oder reicht es, die Lage zu nehmen, wie sie ist?',
     ],
+    practice: {
+      name: 'Die eine Sache am Morgen',
+      duration: 'einmal pro Woche',
+      body:
+        'Wähl am Sonntag die eine Sache aus, um die du dich die Woche über gedrückt hast, und erledige sie am Montag in der ersten Stunde — bevor sich etwas anderes davorschieben kann. Eine, nicht drei. Mut, der sich verteilt, wird Getriebenheit.',
+    },
     mantra: 'Ich kann das — und wenn nicht, lerne ich es.',
   },
   neutrality: {
@@ -210,6 +264,12 @@ const de = {
       'Suche eine Sache, die dir wichtig genug ist, um dafür unbequem zu werden.',
       'Biete deine Ruhe aktiv an: übernimm dort, wo andere sich verhaken.',
     ],
+    practice: {
+      name: 'Drei Dinge, für die ich unbequem werde',
+      duration: '15 Minuten, dann wöchentlich prüfen',
+      body:
+        'Schreib drei Dinge auf, für die du dich einsetzen würdest, auch wenn es dich etwas kostet. Nimm dir diese Woche das kleinste davon vor. Neutralität ist ein guter Boden und eine schlechte Wohnung — die Übung prüft, ob dir noch etwas wichtig genug ist.',
+    },
     mantra: 'Ich bin einverstanden — und ich packe trotzdem an.',
   },
   willingness: {
@@ -230,6 +290,12 @@ const de = {
       'Nimm dir etwas vor, das dich fachlich überfordert — Bereitschaft wächst am Anspruch.',
       'Übe Annehmen: Lass zu, dass etwas so bleibt, wie es ist, ohne es verbessern zu wollen.',
     ],
+    practice: {
+      name: 'Ein Ja, ein Nein',
+      duration: 'zu Wochenbeginn',
+      body:
+        'Leg am Montag beides fest: ein Ja zu etwas, das dich ein Stück überfordert, und ein Nein zu etwas, das du sonst aus Gewohnheit übernommen hättest. Schreib beide auf. Das Nein ist die schwerere Hälfte — und die, die das Ja überhaupt möglich macht.',
+    },
     mantra: 'Ich mache mit — mit ganzer Kraft und offenen Augen.',
   },
   acceptance: {
@@ -250,6 +316,12 @@ const de = {
       'Bring Ordnung ins Denken — lies, rechne, argumentiere. Akzeptanz wird durch Klarheit zu Vernunft.',
       'Vergib einer Person konkret, notfalls schriftlich und ungesendet.',
     ],
+    practice: {
+      name: 'So bin ich eben — stimmt das?',
+      duration: '15 Minuten, einmal',
+      body:
+        'Schreib drei Sätze auf, die mit „Ich bin nun mal …" anfangen. Frag bei jedem: War das vor fünf Jahren auch schon so? Würde jemand, der mich gut kennt, das unterschreiben? Was würde es kosten, es zu ändern? Angenommen ist nicht dasselbe wie unveränderlich.',
+    },
     mantra: 'Ich nehme an, was ist — und gestalte, was geht.',
   },
   reason: {
@@ -270,6 +342,12 @@ const de = {
       'Frage bei Konflikten nicht „Wer hat recht?", sondern „Was braucht dieser Mensch?".',
       'Tu etwas Gutes, das dir nichts einbringt und in keiner Bilanz auftaucht.',
     ],
+    practice: {
+      name: 'Zehn Minuten ohne Deutung',
+      duration: 'täglich',
+      body:
+        'Zehn Minuten mit etwas, das nichts von dir will: Musik, ein Baum, ein Gesicht. Sobald du anfängst zu erklären, einzuordnen oder zu bewerten, merk es und geh zurück zum bloßen Wahrnehmen. Die Übung ist nicht die Ruhe — die Übung ist das Bemerken, wie schnell der Kopf anspringt.',
+    },
     mantra: 'Verstehen ist viel. Es ist nicht alles.',
   },
   love: {
@@ -290,6 +368,12 @@ const de = {
       'Übe Dankbarkeit für Konkretes, täglich, ohne Anlass.',
       'Nimm dich selbst in dein Wohlwollen mit hinein — der häufigste blinde Fleck auf dieser Ebene.',
     ],
+    practice: {
+      name: 'Die stille Fürsprache',
+      duration: '2 Minuten täglich',
+      body:
+        'Denk an einen Menschen und wünsch ihm etwas Konkretes und Gutes — ohne dass er es erfährt und ohne etwas dafür zu tun. Am ersten Tag jemand Nahes, am zweiten ein Fremder, am dritten jemand Schwieriger. Am siebten du selbst. Der siebte Tag wird am häufigsten übersprungen.',
+    },
     mantra: 'Ich will dein Bestes, ohne Bedingung.',
   },
   joy: {
@@ -310,6 +394,12 @@ const de = {
       'Diene still: Wirken, das niemand mitbekommt.',
       'Verbringe Zeit in Stille — ohne Programm und ohne Ziel.',
     ],
+    practice: {
+      name: 'Das Unbemerkte',
+      duration: 'abends, 5 Minuten',
+      body:
+        'Notiere einen Moment des Tages, der gut war und den niemand bemerkt hätte: Licht an einer Wand, ein Satz, das Geräusch der Tür. Am Ende der Woche wirfst du die Zettel weg. Geübt wird das Bemerken, nicht das Sammeln — festgehaltene Freude wird wieder Verlangen.',
+    },
     mantra: 'Nichts muss geschehen, damit es gut ist.',
   },
   peace: {
@@ -330,6 +420,12 @@ const de = {
       'Gib weiter, was du kannst — schlicht, ohne Lehrhaltung.',
       'Halte die Praxis, die dich hierher gebracht hat. Es gibt keinen Zustand, den man besitzt.',
     ],
+    practice: {
+      name: 'Die Küche',
+      duration: 'täglich, so lange es dauert',
+      body:
+        'Nimm eine gewöhnliche Verrichtung — Abwasch, Treppe, der Weg zur Mülltonne — und mach sie ganz: ohne Musik, ohne Handy, ohne dabei etwas zu planen. Wandert der Kopf weg, komm zurück zu den Händen. Frieden bewährt sich hier und nicht auf dem Berg.',
+    },
     mantra: 'Alles ist, wie es ist. Und das genügt.',
   },
   enlightenment: {
@@ -349,6 +445,12 @@ const de = {
       'Nichts zu tun. Die Skala endet hier — der Weg dahin sind die 16 Ebenen darunter, gelebt.',
       'Praktisch bedeutsam ist die Richtung, nicht das Ende: eine Ebene nach oben verändert ein Leben.',
     ],
+    practice: {
+      name: 'Wer fragt?',
+      duration: 'kein Zeitrahmen',
+      body:
+        'Wenn ein Gedanke auftaucht, frag einmal, wem er auftaucht — und beantworte es nicht. Dann lass ihn ziehen. Das ist die einzige Übung auf dieser Liste, die nichts erreichen soll: Wer sie benutzt, um irgendwohin zu kommen, übt Verlangen.',
+    },
     mantra: 'Sein.',
   },
 } satisfies Record<LevelId, LevelText>
@@ -375,6 +477,12 @@ const en: LevelCopy = {
       'Tell one person you trust something you have kept hidden. Shame rarely survives a witness.',
       'Look after your body the way you would look after a guest: eat, sleep, shower, go outside. Dignity often starts somewhere very practical.',
     ],
+    practice: {
+      name: 'The witness version',
+      duration: '10 minutes, once',
+      body:
+        'Write the incident you are ashamed of down twice: once the way you tell it to yourself, and once the way someone would record it who saw only what happened. Read both out loud. The difference between them is the shame — and it is on paper now instead of invisible inside you.',
+    },
     mantra: 'I have made mistakes. I am not one.',
   },
   guilt: {
@@ -395,6 +503,12 @@ const en: LevelCopy = {
       'Set an end. A date after which the case has been heard. Repeating the charge past it is no longer remorse, only habit.',
       'Ask of every accusation: would a court agree? Usually a fraction is left standing — and that fraction can be worked on.',
     ],
+    practice: {
+      name: 'The bill',
+      duration: '15 minutes, once per case',
+      body:
+        'Three columns on one sheet: what happened, what my part in it actually was, what would repair it. The third column takes an action with a date — or the word “nothing”. Then carry the action out or throw the sheet away. Neither case is allowed to stay open.',
+    },
     mantra: 'I will make it right — and then I will leave it behind.',
   },
   apathy: {
@@ -415,6 +529,12 @@ const en: LevelCopy = {
       'Borrow somebody else’s energy — make a plan with a person. What is impossible alone often works in twos.',
       'Lasting apathy is also a medical matter. It is a good reason to get help, not a sign of weakness.',
     ],
+    practice: {
+      name: 'Two minutes, then stop',
+      duration: 'twice a day',
+      body:
+        'Pick the smallest visible thing in the room — one plate, three steps outside, one line. Set two minutes, begin, and stop when it rings even if you could carry on. The stopping is part of it: it keeps the exercise cheap enough to repeat tomorrow.',
+    },
     mantra: 'I do not have to feel it. I am starting anyway.',
   },
   grief: {
@@ -435,6 +555,12 @@ const en: LevelCopy = {
       'Count what remains: people, skills, memories. Not as consolation, as an inventory.',
       'Do something for someone else. Grief looks inward; a hand that helps turns the view outward.',
     ],
+    practice: {
+      name: 'The appointment',
+      duration: '20 minutes daily, at a fixed time',
+      body:
+        'Give the grief an appointment: the same time every day, the same chair. Everything is allowed there — photographs, tears, letters. If it comes outside that hour, write the thought on a slip and leave it on the chair for tomorrow. Not to make it smaller, but to give it a room instead of the whole flat.',
+    },
     mantra: 'I have lost something. I am not lost.',
   },
   fear: {
@@ -455,6 +581,12 @@ const en: LevelCopy = {
       'Pick one small, voluntary discomfort a week. Courage only grows on things actually done.',
       'Settle the body first: breathe out slowly, longer than you breathe in. The head follows the breath, not the argument.',
     ],
+    practice: {
+      name: 'And then?',
+      duration: '10 minutes, whenever a fear circles',
+      body:
+        'Write the fear down as one sentence. Then ask “and then?” and answer it. Then “and then?” again. Keep going until you arrive at a point where you are acting again. Fear usually stops at the picture; the pen carries on past it.',
+    },
     mantra: 'I am going anyway, weak knees and all.',
   },
   desire: {
@@ -475,6 +607,12 @@ const en: LevelCopy = {
       'Ask of every "I want": which feeling am I expecting from it? Usually that feeling is available by another route.',
       'Practise enough: a week without buying anything, and note what you already owned without noticing.',
     ],
+    practice: {
+      name: 'The ten-minute curve',
+      duration: 'at every impulse',
+      body:
+        'When the reach comes — phone, buying, food — set ten minutes and do nothing about it. Not “never”, only “not now”. Note from 0 to 10 how strong it was at the start and how strong at the end. After a week you have your own curve, and you know what the wanting does by itself.',
+    },
     mantra: 'I can want something without being driven by it.',
   },
   anger: {
@@ -495,6 +633,12 @@ const en: LevelCopy = {
       'Burn it off physically before you speak — running, weights, stairs. Then make a request instead of an accusation.',
       'Draw a clear line rather than carry on resenting. Resentment is anger that was never allowed to become an action.',
     ],
+    practice: {
+      name: 'The sentence without you',
+      duration: 'after every flare-up',
+      body:
+        'The body first: twenty squats, the stairs, once round the block. Then write a single sentence about what you wanted and did not get — one in which the word “you” does not appear. Only that sentence is said out loud; the accusation stays on the paper.',
+    },
     mantra: 'My anger shows me what matters to me.',
   },
   pride: {
@@ -515,6 +659,12 @@ const en: LevelCopy = {
       'Separate the position from the person: you can drop an opinion without losing yourself.',
       'Ask for real help this week — not as a test, but because you need it.',
     ],
+    practice: {
+      name: 'The expensive sentence',
+      duration: 'once a day',
+      body:
+        'Once a day, out loud, somewhere it costs you something: “I do not know about that” or “you were right”. In the evening, note what actually followed. Almost always: nothing. That nothing is the content of the exercise.',
+    },
     mantra: 'I do not have to be right to be all right.',
   },
   courage: {
@@ -535,6 +685,12 @@ const en: LevelCopy = {
       'Practise letting go in small ways — not every resistance has to be overcome. Some things get easier the moment you stop pulling.',
       'Ask when annoyed: do I have to fight here, or is it enough to take the situation as it is?',
     ],
+    practice: {
+      name: 'The one thing in the morning',
+      duration: 'once a week',
+      body:
+        'On Sunday pick the one thing you avoided all week and do it in Monday’s first hour — before anything else can push in front of it. One, not three. Courage that spreads itself out turns into drivenness.',
+    },
     mantra: 'I can do this — and if I cannot, I will learn it.',
   },
   neutrality: {
@@ -555,6 +711,12 @@ const en: LevelCopy = {
       'Find one thing important enough to you that you will be uncomfortable for it.',
       'Offer your calm actively: step in where others are getting stuck.',
     ],
+    practice: {
+      name: 'Three things worth the discomfort',
+      duration: '15 minutes, then a weekly check',
+      body:
+        'Write down three things you would stand up for even if it cost you something. Take on the smallest of them this week. Neutrality is good ground and a poor home — this exercise checks whether anything still matters to you enough.',
+    },
     mantra: 'I am at peace with it — and I am getting to work anyway.',
   },
   willingness: {
@@ -575,6 +737,12 @@ const en: LevelCopy = {
       'Take on something that is beyond you professionally — willingness grows against a demand.',
       'Practise accepting: let something stay as it is without wanting to improve it.',
     ],
+    practice: {
+      name: 'One yes, one no',
+      duration: 'at the start of the week',
+      body:
+        'On Monday settle both: one yes to something slightly beyond you, and one no to something you would otherwise have taken on out of habit. Write both down. The no is the harder half — and the one that makes the yes possible at all.',
+    },
     mantra: 'I am in — with full force and open eyes.',
   },
   acceptance: {
@@ -595,6 +763,12 @@ const en: LevelCopy = {
       'Bring order into your thinking — read, calculate, argue. Clarity is what turns acceptance into reason.',
       'Forgive one specific person, in writing and unsent if that is what it takes.',
     ],
+    practice: {
+      name: 'That is just how I am — is it?',
+      duration: '15 minutes, once',
+      body:
+        'Write down three sentences that begin with “I am just …”. Ask of each one: was that true five years ago as well? Would someone who knows me well sign it? What would it cost to change it? Accepted is not the same as unchangeable.',
+    },
     mantra: 'I accept what is — and shape what can be shaped.',
   },
   reason: {
@@ -615,6 +789,12 @@ const en: LevelCopy = {
       'In a conflict, ask not "who is right?" but "what does this person need?".',
       'Do a good thing that earns you nothing and appears on no balance sheet.',
     ],
+    practice: {
+      name: 'Ten minutes without interpreting',
+      duration: 'daily',
+      body:
+        'Ten minutes with something that wants nothing from you: music, a tree, a face. The moment you start explaining, filing or judging, notice it and go back to plain perceiving. The exercise is not the quiet — the exercise is noticing how fast the head starts up.',
+    },
     mantra: 'Understanding is a great deal. It is not everything.',
   },
   love: {
@@ -635,6 +815,12 @@ const en: LevelCopy = {
       'Practise gratitude for specific things, daily, without an occasion.',
       'Include yourself in that goodwill — the most common blind spot on this level.',
     ],
+    practice: {
+      name: 'The silent good wish',
+      duration: '2 minutes daily',
+      body:
+        'Think of one person and wish them something concrete and good — without their knowing and without doing anything about it. Day one someone close, day two a stranger, day three someone difficult. Day seven yourself. Day seven is the one most often skipped.',
+    },
     mantra: 'I want what is best for you, unconditionally.',
   },
   joy: {
@@ -655,6 +841,12 @@ const en: LevelCopy = {
       'Serve quietly: act where no one notices.',
       'Spend time in silence — with no programme and no goal.',
     ],
+    practice: {
+      name: 'The unnoticed',
+      duration: 'evenings, 5 minutes',
+      body:
+        'Note one moment of the day that was good and that nobody would have noticed: light on a wall, a sentence, the sound of the door. At the end of the week you throw the slips away. What is practised is the noticing, not the collecting — joy held on to becomes wanting again.',
+    },
     mantra: 'Nothing has to happen for this to be good.',
   },
   peace: {
@@ -675,6 +867,12 @@ const en: LevelCopy = {
       'Pass on what you can — plainly, without taking the teacher’s posture.',
       'Keep the practice that brought you here. There is no state anyone owns.',
     ],
+    practice: {
+      name: 'The kitchen',
+      duration: 'daily, for as long as it takes',
+      body:
+        'Take one ordinary task — the washing-up, the stairs, the walk to the bin — and do it whole: no music, no phone, nothing planned along the way. When the mind wanders off, come back to the hands. Peace proves itself here and not on a mountain.',
+    },
     mantra: 'Everything is as it is. And that is enough.',
   },
   enlightenment: {
@@ -694,6 +892,12 @@ const en: LevelCopy = {
       'Nothing to do. The scale ends here — the way to it is the 16 levels below, lived.',
       'What matters in practice is the direction, not the end: one level up changes a life.',
     ],
+    practice: {
+      name: 'To whom?',
+      duration: 'no time frame',
+      body:
+        'When a thought appears, ask once whom it appears to — and do not answer. Then let it go. This is the only exercise on the list that is not meant to achieve anything: whoever uses it to get somewhere is practising desire.',
+    },
     mantra: 'Being.',
   },
 }

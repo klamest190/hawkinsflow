@@ -62,6 +62,23 @@ export function LevelDetail({ level, next, t }: LevelDetailProps) {
         </ol>
       </section>
 
+      {/* Die Übung. Bewusst als eigene Fläche und nicht als vierter Punkt der
+          Liste darüber: Die Schritte sagen, wohin es geht, die Übung sagt, was
+          man heute Abend tut. Der Kasten trägt die Ebenenfarbe, damit auf einen
+          Blick zu sehen ist, dass hier etwas anderes steht. */}
+      <section className="flex flex-col gap-3">
+        <Heading>{t.practiceHeading}</Heading>
+        <div className="rounded-2xl border border-accent/30 bg-accent/8 p-5">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <p className="font-display text-[17px] font-semibold">{level.practice.name}</p>
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-accent uppercase">
+              {level.practice.duration}
+            </p>
+          </div>
+          <p className="mt-3 text-[15px] leading-relaxed text-muted">{level.practice.body}</p>
+        </div>
+      </section>
+
       {/* Die Anführungszeichen kommen aus der Sprache, nicht aus dem Text: im
           Deutschen „unten und oben", im Englischen beide oben. */}
       <p className="rounded-2xl border border-line bg-card/60 px-5 py-4 text-center font-display text-[17px] leading-snug font-medium text-balance">
