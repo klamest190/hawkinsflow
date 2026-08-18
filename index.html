@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Die Schale ist deutsch ausgezeichnet; die tatsächliche Sprache setzt
+     `useLanguage` beim Start auf das <html>-Element, sobald sie feststeht. -->
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- `viewport-fit=cover` füllt auch den Bereich hinter Notch und
+         Home-Indikator; erst dadurch werden die `env(safe-area-inset-*)` größer
+         als null. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Die Hawkins-Skala als Fragebogen: 34 Aussagen, deine Kalibrierung, und konkrete Schritte auf die nächste Ebene."
+    />
+    <title>Hawkins Flow</title>
+
+    <meta name="theme-color" content="#0b0713" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Hawkins Flow" />
+    <meta name="mobile-web-app-capable" content="yes" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

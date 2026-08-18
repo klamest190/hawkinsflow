@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* Tailwind v4 durchsucht jede Datei im Projekt nach Klassennamen und kann Code
+   nicht von Prosa unterscheiden. Ohne diese Zeile würde ein Wort aus README.md,
+   das zufällig eine Utility ist ("block", "grid", "table"), als echte Regel im
+   Bundle landen. Markdown trägt nie Klassen — also raus damit. */
+@source not "../**/*.md";
+
+/* Eine Custom Property lässt sich nur animieren, wenn der Browser ihren Typ
+   kennt — sonst gilt sie als Zeichenkette und springt hart um. Mit dieser
+   Registrierung ist --hf-accent eine echte Farbe und blendet weich über. */
+@property --hf-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.85 0.17 102);
+}
+
+/* ── Grundtöne ───────────────────────────────────────────────────────────────
+   Die Neutralen sind leicht ins Violette gezogen, damit der Regenbogen der
+   Ebenen nicht auf einem fremden Grau sitzt. Die Ebenenfarben selbst stehen in
+   src/data/levels.ts — hier steht nur, worauf sie liegen. */
+:root {
+  --hf-void: #0b0713;
+  --hf-deep: #070410;
+  --hf-card: #16101f;
+  --hf-line: #2a2038;
+  --hf-text: #f2ecfa;
+  --hf-muted: #a294b8;
+
+  /* Die Farbe der gerade betrachteten Ebene. App.tsx setzt sie am <body>; alles
+     Farbige in der App liest sie von hier, damit ein Ebenenwechsel eine einzige
+     Zuweisung ist statt zwanzig Requisiten durch den Baum. */
+  --hf-accent: oklch(0.85 0.17 102);
+}
+
+@theme inline {
+  --color-void: var(--hf-void);
+  --color-deep: var(--hf-deep);
+  --color-card: var(--hf-card);
+  --color-line: var(--hf-line);
+  --color-text: var(--hf-text);
+  --color-muted: var(--hf-muted);
+  --color-accent: var(--hf-accent);
+
+  --font-sans: -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "SF Pro Display", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --animate-drift-a: drift-a 24s ease-in-out infinite;
+  --animate-drift-b: drift-b 31s ease-in-out infinite;
+  --animate-rise: rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pop: pop 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes drift-a {
+  0%, 100% { transform: translate3d(-6%, -4%, 0) scale(1); opacity: 0.55; }
+  50%      { transform: translate3d(6%, 5%, 0) scale(1.25); opacity: 0.8; }
+}
+
+@keyframes drift-b {
+  0%, 100% { transform: translate3d(5%, 6%, 0) scale(1.2); opacity: 0.45; }
+  50%      { transform: translate3d(-6%, -5%, 0) scale(1); opacity: 0.7; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+
+html {
+  color-scheme: dark;
+  /* Verhindert, dass iOS beim Drehen die Schrift eigenmächtig vergrößert. */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background-color: var(--hf-void);
+  color: var(--hf-text);
+  font-family: var(--font-sans);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  /* Der Farbwechsel beim Ebenenwechsel läuft weich durch — sonst springt die
+     ganze Oberfläche beim Blättern durch die Skala. */
+  transition: --hf-accent 600ms ease;
+}
+
+/* Feines Korn über der ganzen Fläche: ohne Textur wirken die großen Verläufe
+   auf Displays gebändert und flach. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* Die Zahl auf der Ergebnisseite. `tabular-nums` hält sie beim Hochzählen
+   ruhig — ohne das tanzt die Breite bei jedem Frame. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
