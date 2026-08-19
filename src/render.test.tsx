@@ -9,7 +9,7 @@ import { copy } from './i18n/copy.ts'
 import { levelsIn } from './i18n/levels.ts'
 import { questionText } from './i18n/questions.ts'
 import { evaluate } from './lib/scoring.ts'
-import type { Answers, AnswerValue, Language } from './types.ts'
+import type { Answers, AnswerValue, Language, Plan } from './types.ts'
 
 /* Ein Rauchtest: jede Ansicht einmal rendern, und zwar in jeder Sprache. Er
    prüft keine Optik, sondern dass keine der vier Seiten beim Aufbau stolpert —
@@ -32,6 +32,16 @@ QUESTIONS.forEach((question, position) => {
 
 const noop = () => {}
 
+/* Ein fertiger Plan — er nimmt in beiden Ansichten den zweiten Zweig: auf der
+   Startseite die Erinnerungskarte, im Ergebnis den gespeicherten Satz statt des
+   Formulars. Ohne ihn liefe der Rauchtest nur durch die leeren Fassungen. */
+const plan: Plan = {
+  level: 'courage',
+  when: 'ich merke, dass ich im Meeting nichts sage',
+  then: 'sage ich den nächsten Satz trotzdem',
+  created: '2026-01-01T00:00:00.000Z',
+}
+
 describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
   const t = copy[language]
   const levels = levelsIn(language)
@@ -45,6 +55,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onBrowse={noop}
         resumeAt={null}
         onResume={noop}
+        plan={null}
       />,
     )
     expect(html).toContain(t.start)
@@ -75,6 +86,9 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         language={language}
         t={t}
         answered={0}
+        plan={null}
+        onSavePlan={noop}
+        onDeletePlan={noop}
         onRestart={noop}
         onBrowse={noop}
       />,
@@ -91,11 +105,53 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         language={language}
         t={t}
         answered={QUESTIONS.length}
+        plan={null}
+        onSavePlan={noop}
+        onDeletePlan={noop}
         onRestart={noop}
         onBrowse={noop}
       />,
     )
     expect(html).toContain(t.profileTitle)
+    expect(html).toContain(t.planTitle)
+    expect(html).not.toContain('undefined')
+  })
+
+  it('Ergebnis mit gespeichertem Plan', () => {
+    const html = renderToString(
+      <Result
+        result={evaluate(levels, mixed)}
+        levels={levels}
+        language={language}
+        t={t}
+        answered={QUESTIONS.length}
+        plan={plan}
+        onSavePlan={noop}
+        onDeletePlan={noop}
+        onRestart={noop}
+        onBrowse={noop}
+      />,
+    )
+    expect(html).toContain(plan.then)
+    // Der gespeicherte Plan zeigt den Satz, nicht noch einmal das Formular.
+    expect(html).not.toContain(t.planSave)
+    expect(html).not.toContain('undefined')
+  })
+
+  it('Start mit erinnertem Plan', () => {
+    const html = renderToString(
+      <Intro
+        levels={levels}
+        t={t}
+        onStart={noop}
+        onBrowse={noop}
+        resumeAt={null}
+        onResume={noop}
+        plan={plan}
+      />,
+    )
+    expect(html).toContain(t.introPlanLabel)
+    expect(html).toContain(plan.when)
     expect(html).not.toContain('undefined')
   })
 

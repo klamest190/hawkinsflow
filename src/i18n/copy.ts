@@ -88,6 +88,24 @@ const de = {
     `${levels} Ebenen von 20 bis 700. Ab ${threshold} — ${courage} — kippt das Vorzeichen: darunter zehrt das Leben, darüber gibt es. Tippe eine Ebene an.`,
   thresholdMark: (threshold: number): string => `Schwelle ${threshold}`,
   yourLevel: '◆ deine Ebene',
+  // ── Der Wenn-Dann-Plan ───────────────────────────────────────────────────
+  planTitle: 'Dein Wenn-Dann-Plan',
+  // Sagt in einem Satz, warum hier ein Formular steht statt einer weiteren Liste.
+  planLead:
+    'Ein Vorsatz sagt, was du willst. Ein Wenn-Dann-Satz sagt zusätzlich, woran du den Moment erkennst — und wird deutlich häufiger auch wirklich getan, weil die Entscheidung dann schon gefallen ist.',
+  planWhen: 'Wenn',
+  planThen: 'dann',
+  planWhenPlaceholder: 'die Situation, an der du es merkst',
+  planThenPlaceholder: 'was du in genau diesem Moment tust',
+  planCueHint: 'Anfänge für den Auslöser',
+  planCues: ['Sobald ich merke, dass …', 'Immer wenn ich …', 'Morgen früh, bevor ich …'],
+  planStepHint: 'Oder nimm einen Schritt von oben',
+  planSave: 'Plan merken',
+  planEdit: 'Ändern',
+  planDelete: 'Löschen',
+  planStoredNote:
+    'Der Plan steht ab jetzt auf der Startseite — dort, wo du ihn siehst, bevor du etwas anderes tust.',
+  introPlanLabel: 'Dein Plan',
 }
 
 /** Aus der deutschen Vorlage abgeleitet — jede Sprache trägt dieselben Schlüssel. */
@@ -160,6 +178,22 @@ const en: Copy = {
     `${levels} levels from 20 to 700. At ${threshold} — ${courage} — the sign flips: below it life drains, above it life gives. Tap a level.`,
   thresholdMark: (threshold: number): string => `Threshold ${threshold}`,
   yourLevel: '◆ your level',
+  planTitle: 'Your if–then plan',
+  planLead:
+    'An intention says what you want. An if–then sentence also says how you will recognise the moment — and gets carried out far more often, because by then the decision has already been made.',
+  planWhen: 'If',
+  planThen: 'then',
+  planWhenPlaceholder: 'the situation you notice it in',
+  planThenPlaceholder: 'what you do in exactly that moment',
+  planCueHint: 'Openings for the trigger',
+  planCues: ['The moment I notice that …', 'Whenever I …', 'Tomorrow morning, before I …'],
+  planStepHint: 'Or take one of the steps above',
+  planSave: 'Keep this plan',
+  planEdit: 'Change',
+  planDelete: 'Delete',
+  planStoredNote:
+    'From now on the plan sits on the start screen — where you see it before you do anything else.',
+  introPlanLabel: 'Your plan',
 }
 
 export const copy: Record<Language, Copy> = { de, en }

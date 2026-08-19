@@ -98,3 +98,31 @@ export type AnswerValue = 0 | 1 | 2 | 3 | 4
 
 /** Antworten liegen als Frage-ID → Wert vor; unbeantwortet heißt: kein Eintrag. */
 export type Answers = Partial<Record<QuestionId, AnswerValue>>
+
+/**
+ * Ein Wenn-Dann-Plan zu einer Ebene — ein Vorsatz, der seinen Auslöser schon
+ * kennt.
+ *
+ * Die Schritte einer Ebene sagen, *was* zu tun ist. Das ist der Teil, an dem
+ * Vorsätze regelmäßig scheitern: Sie stehen bereit, aber niemand sagt ihnen,
+ * wann sie dran sind, und im entscheidenden Moment ist der Kopf mit dem Moment
+ * beschäftigt. Ein Satz der Form „Wenn X, dann Y" verlagert die Entscheidung
+ * nach vorn — die Situation ruft die Handlung ab, statt dass man sie jedes Mal
+ * neu treffen müsste.
+ *
+ * Deshalb sind es zwei Felder und nicht eines: ein Vorhaben ohne Auslöser wäre
+ * wieder nur ein guter Wille.
+ */
+export type Plan = {
+  /** Zu welcher Ebene der Plan entstanden ist. */
+  level: LevelId
+  /** Der Auslöser: eine Situation, eine Uhrzeit, ein Ort. */
+  when: string
+  /** Was in genau diesem Moment geschieht. */
+  then: string
+  /** ISO-Datum der Anlage — die Startseite zeigt, seit wann der Plan steht. */
+  created: string
+}
+
+/** Höchstens ein Plan je Ebene; mehr wären eine Liste und kein Vorsatz. */
+export type Plans = Partial<Record<LevelId, Plan>>

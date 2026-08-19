@@ -4,9 +4,10 @@ import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
 import type { Result as Evaluation } from '../lib/scoring.ts'
-import type { Language, Level } from '../types.ts'
+import type { Language, Level, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
+import { PlanBuilder } from './PlanBuilder.tsx'
 import { Spectrum } from './Spectrum.tsx'
 
 type ResultProps = {
@@ -16,6 +17,10 @@ type ResultProps = {
   t: Copy
   /** Wie viele der Fragen beantwortet wurden — unter allen gilt ein Vorbehalt. */
   answered: number
+  /** Der Wenn-Dann-Plan zur dominanten Ebene; null, solange keiner steht. */
+  plan: Plan | null
+  onSavePlan: (when: string, then: string) => void
+  onDeletePlan: () => void
   onRestart: () => void
   onBrowse: () => void
 }
@@ -38,6 +43,9 @@ export function Result({
   language,
   t,
   answered,
+  plan,
+  onSavePlan,
+  onDeletePlan,
   onRestart,
   onBrowse,
 }: ResultProps) {
@@ -175,6 +183,24 @@ export function Result({
           {t.levelHeading(dominant.value, dominant.name)}
         </h2>
         <LevelDetail level={dominant} next={next} t={t} />
+      </Card>
+
+      {/* ── Der Wenn-Dann-Plan ───────────────────────────────────────────
+          Steht direkt unter den Schritten, weil er sie braucht: Die Karte
+          darüber sagt, was zu tun wäre, diese hier bindet es an einen Moment.
+
+          Das `key` hängt an der Ebene — wer den Bogen wiederholt und woanders
+          herauskommt, soll ein leeres Formular sehen und nicht den halb
+          passenden Plan der alten Ebene im Feld stehen haben. */}
+      <Card>
+        <PlanBuilder
+          key={dominant.id}
+          level={dominant}
+          plan={plan}
+          t={t}
+          onSave={onSavePlan}
+          onDelete={onDeletePlan}
+        />
       </Card>
 
       {/* ── Der nächste Schritt ──────────────────────────────────────────── */}

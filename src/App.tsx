@@ -9,7 +9,9 @@ import { QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
 import { useAnswers } from './hooks/useAnswers.ts'
+import { usePlans } from './hooks/usePlans.ts'
 import { useLanguage } from './hooks/useLanguage.ts'
+import { latestPlan } from './lib/plans.ts'
 import { answeredCount, evaluate } from './lib/scoring.ts'
 import type { LevelId } from './types.ts'
 
@@ -18,6 +20,10 @@ type Phase = 'intro' | 'quiz' | 'result' | 'scale'
 export default function App() {
   const { language, setLanguage } = useLanguage()
   const { answers, answer, reset } = useAnswers()
+  /* Die Pläne liegen neben den Antworten und nicht in ihnen: Sie sind das
+     Einzige, was der Mensch hier selbst geschrieben hat, und überleben deshalb
+     jedes Neustarten des Bogens. */
+  const { plans, savePlan, removePlan } = usePlans()
   const [phase, setPhase] = useState<Phase>('intro')
   const [openLevel, setOpenLevel] = useState<LevelId | null>(null)
   /* Wohin „Zurück" aus der Skalenansicht führt — sie ist von zwei Seiten aus
@@ -107,6 +113,7 @@ export default function App() {
             onResume={() => setPhase('quiz')}
             resumeAt={resumeAt}
             onBrowse={() => browse('intro')}
+            plan={latestPlan(plans)}
           />
         )}
 
@@ -129,6 +136,9 @@ export default function App() {
             language={language}
             t={t}
             answered={answered}
+            plan={plans[result.dominant.id] ?? null}
+            onSavePlan={(when, then) => savePlan(result.dominant.id, when, then)}
+            onDeletePlan={() => removePlan(result.dominant.id)}
             onRestart={startFresh}
             onBrowse={() => browse('result')}
           />
