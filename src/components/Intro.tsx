@@ -1,11 +1,13 @@
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
-import type { Level, Plan } from '../types.ts'
+import type { History, Language, Level, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
+import { HistoryTrail } from './HistoryTrail.tsx'
 import { Logo } from './Logo.tsx'
 
 type IntroProps = {
   levels: Level[]
+  language: Language
   t: Copy
   onStart: () => void
   onBrowse: () => void
@@ -14,9 +16,23 @@ type IntroProps = {
   onResume: () => void
   /** Der zuletzt angelegte Wenn-Dann-Plan; null, solange keiner steht. */
   plan: Plan | null
+  /** Die abgeschlossenen Durchgänge, ältester zuerst; leer beim ersten Besuch. */
+  history: History
+  onClearHistory: () => void
 }
 
-export function Intro({ levels, t, onStart, onBrowse, resumeAt, onResume, plan }: IntroProps) {
+export function Intro({
+  levels,
+  language,
+  t,
+  onStart,
+  onBrowse,
+  resumeAt,
+  onResume,
+  plan,
+  history,
+  onClearHistory,
+}: IntroProps) {
   // Die Ebene, zu der der Plan gehört — sie gibt ihm seine Farbe.
   const planLevel = plan === null ? null : (levels.find((level) => level.id === plan.level) ?? null)
   return (
@@ -71,6 +87,17 @@ export function Intro({ levels, t, onStart, onBrowse, resumeAt, onResume, plan }
           </p>
         </div>
       )}
+
+      {/* Der Verlauf steht unter dem Plan und über den Knöpfen: Er beantwortet
+          die Frage, die man sich vor dem Wiederholen stellt — wo stand ich beim
+          letzten Mal —, und danach steht der Knopf dafür schon da. */}
+      <HistoryTrail
+        history={history}
+        levels={levels}
+        language={language}
+        t={t}
+        onClear={onClearHistory}
+      />
 
       <div className="mt-11 flex flex-col items-center gap-3">
         {resumeAt === null ? (

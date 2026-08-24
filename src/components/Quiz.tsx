@@ -42,6 +42,43 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
     }, ADVANCE_DELAY)
   }
 
+  /* Der Bogen am Rechner: 1 bis 5 antwortet, die Pfeile blättern. Vierunddreißig
+     Fragen mit der Maus sind vierunddreißig Zielbewegungen — mit der Zifferreihe
+     bleibt die Hand liegen, und der Blick auch.
+
+     Der Lauscher hängt am Fenster und nicht an einem Element, weil der Fokus
+     nach dem Antworten nirgends besonders steht. Tastenkürzel mit Strg, Alt oder
+     Cmd bleiben unangetastet — das sind die des Browsers. */
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.metaKey || event.ctrlKey || event.altKey) return
+
+      const value = t.answers.findIndex((_, position) => event.key === String(position + 1))
+      if (value !== -1) {
+        event.preventDefault()
+        choose(value as AnswerValue)
+        return
+      }
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        if (isLast) onDone()
+        else setIndex((previous) => Math.min(previous + 1, QUESTIONS.length - 1))
+      }
+
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        setIndex((previous) => Math.max(previous - 1, 0))
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+    /* Ohne Abhängigkeitsliste, also nach jedem Rendern neu: Der Lauscher greift
+       auf die aktuelle Frage zu, und ein einmal gesetzter hielte für immer die
+       erste fest. Ein Lauscher ab- und wieder anzumelden kostet nichts. */
+  })
+
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col px-6 py-8">
       {/* Rechts bleibt Platz für die Sprachwahl, die fest in dieser Ecke
@@ -118,6 +155,12 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
               )
             })}
           </div>
+
+          {/* Nur dort, wo es eine Tastatur gibt. Auf dem Handy wäre der Satz
+              ein Rätsel. */}
+          <p aria-hidden className="mt-5 hidden text-[12px] text-muted/70 sm:block">
+            {t.quizKeyHint}
+          </p>
         </div>
       </div>
 

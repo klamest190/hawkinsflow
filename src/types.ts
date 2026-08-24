@@ -38,26 +38,58 @@ export type LevelText = {
   trap: string
   /** Konkrete Schritte auf die nächste Ebene. */
   steps: string[]
-  /** Eine Übung, die man heute machen kann. */
-  practice: Practice
+  /** Drei Übungen: eine zum Schreiben, eine zum Tun, eine zum Sitzen. */
+  practices: Practices
   /** Ein Satz zum Mitnehmen. */
   mantra: string
 }
 
 /**
- * Die praktische Übung einer Ebene. Bewusst kein weiterer Aufzählungspunkt: Die
- * Ebene hat schon zwei Listen (`signs`, `steps`), und eine dritte läse sich wie
- * mehr vom Gleichen. Die Übung ist eine einzelne Sache mit Namen und Dauer —
+ * Woraus eine Übung besteht. Die drei Sorten sind kein Etikett, sondern der
+ * Grund, warum es überhaupt drei sind: Ein Mensch, der bei Zorn herauskommt,
+ * bekommt sonst dreimal einen Stift in die Hand, obwohl das Naheliegendste wäre,
+ * einmal um den Block zu gehen und einmal still sitzen zu bleiben.
+ *
+ * - `writing` — etwas wird aufgeschrieben; wirkt, weil es aus dem Kopf heraus
+ *   auf Papier muss, wo es sich nicht mehr von selbst umschreibt.
+ * - `action` — etwas geschieht draußen, vor anderen, mit Folgen.
+ * - `sitting` — nichts geschieht; die Übung ist das Bleiben.
+ */
+export type PracticeKind = 'writing' | 'action' | 'sitting'
+
+/**
+ * Die praktische Übung einer Ebene: eine einzelne Sache mit Namen und Dauer —
  * etwas, das man heute anfangen und morgen wiederholen kann.
  */
 export type Practice = {
+  /** Schreiben, Tun oder Sitzen — jede Ebene hat von jeder Sorte genau eine. */
+  kind: PracticeKind
   /** Wie die Übung heißt, z. B. „Zwei Minuten, dann Schluss". */
   name: string
   /** Wie lange und wie oft: „10 Minuten, einmal", „täglich". */
   duration: string
+  /**
+   * Die Länge in Minuten — der Wert, mit dem die Uhr im Übungskasten läuft.
+   *
+   * Fehlt dort, wo die Übung keine feste Länge hat („einmal pro Fall", „bei
+   * jedem Impuls"); dann steht auch keine Uhr dabei. Bewusst als eigenes Feld
+   * und nicht aus `duration` gelesen: Die Zeile ist Fließtext und in zwei
+   * Sprachen verschieden gebaut — „20 Minuten täglich" und „20 minutes daily"
+   * ließen sich noch fangen, „so lange es dauert" nicht mehr.
+   */
+  minutes?: number
   /** Die Anleitung — zwei bis vier Sätze, konkret genug zum Loslegen. */
   body: string
 }
+
+/**
+ * Genau drei, immer in derselben Reihenfolge: schreiben, tun, sitzen.
+ *
+ * Als Tupel und nicht als Liste, damit der Compiler eine fehlende Übung meldet.
+ * Die Reihenfolge ist auch die Reihenfolge der Karten — sie geht von dem, was
+ * man allein am Tisch tun kann, zu dem, was Mut kostet, und endet in der Stille.
+ */
+export type Practices = [Practice, Practice, Practice]
 
 /**
  * Beides zusammen — das, womit die Oberfläche arbeitet. Sie bekommt die Ebenen
@@ -126,3 +158,25 @@ export type Plan = {
 
 /** Höchstens ein Plan je Ebene; mehr wären eine Liste und kein Vorsatz. */
 export type Plans = Partial<Record<LevelId, Plan>>
+
+/**
+ * Ein abgeschlossener Durchgang, wie er in der Historie liegt.
+ *
+ * Gespeichert wird die Ebene und nicht die Antworten: Wer wissen will, wo er im
+ * Mai stand, will keinen alten Bogen wieder aufmachen. Der Kalibrierungswert
+ * kommt mit, weil die Linie sonst nur in Stufen springen könnte — angezeigt
+ * wird er weiterhin nirgends.
+ */
+export type HistoryEntry = {
+  /** ISO-Zeitpunkt des Abschlusses. */
+  taken: string
+  /** Die dominante Ebene dieses Durchgangs. */
+  level: LevelId
+  /** Der interpolierte Wert (20 … 700) — trägt die Höhe der Linie. */
+  calibration: number
+  /** Wie viele Fragen beantwortet waren; unter allen gilt ein Vorbehalt. */
+  answered: number
+}
+
+/** Die Durchgänge, ältester zuerst. */
+export type History = HistoryEntry[]

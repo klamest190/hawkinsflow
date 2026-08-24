@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   stepNumberText: { fontSize: 7.5, fontWeight: 700, lineHeight: 1 },
   stepText: { flexBasis: 0, flexGrow: 1, fontSize: 9, lineHeight: 1.5 },
 
-  practice: { borderRadius: 5, padding: 12 },
+  practice: { borderRadius: 5, padding: 12, marginBottom: 6 },
   practiceHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
   practiceName: { fontSize: 11, fontWeight: 700 },
   practiceDuration: { fontSize: 7.5, fontWeight: 600, letterSpacing: 0.8 },
@@ -441,15 +441,26 @@ export function ResultDocument({
           ))}
 
           <Text style={[styles.subTitle, { color: accent }]}>{t.practiceHeading.toUpperCase()}</Text>
-          <View style={[styles.practice, { backgroundColor: tint }]} wrap={false}>
-            <View style={styles.practiceHead}>
-              <Text style={styles.practiceName}>{dominant.practice.name}</Text>
-              <Text style={[styles.practiceDuration, { color: accent }]}>
-                {dominant.practice.duration.toUpperCase()}
-              </Text>
+          {/* Alle drei, untereinander. Auf dem Schirm liegen sie hinter
+              Reitern, weil dort eine nach der anderen dran ist — auf Papier
+              gibt es kein Blättern, und was nicht abgedruckt ist, ist weg. */}
+          {dominant.practices.map((practice) => (
+            <View
+              key={practice.name}
+              style={[styles.practice, { backgroundColor: tint }]}
+              wrap={false}
+            >
+              <View style={styles.practiceHead}>
+                <Text style={styles.practiceName}>
+                  {t.practiceKinds[practice.kind]} · {practice.name}
+                </Text>
+                <Text style={[styles.practiceDuration, { color: accent }]}>
+                  {practice.duration.toUpperCase()}
+                </Text>
+              </View>
+              <Text style={styles.practiceBody}>{practice.body}</Text>
             </View>
-            <Text style={styles.practiceBody}>{dominant.practice.body}</Text>
-          </View>
+          ))}
 
           <Text style={styles.mantra} wrap={false}>
             {language === 'de' ? `„${dominant.mantra}“` : `“${dominant.mantra}”`}

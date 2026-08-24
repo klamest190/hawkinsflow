@@ -1,5 +1,6 @@
 import type { Copy } from '../i18n/copy.ts'
 import type { Level } from '../types.ts'
+import { PracticeDeck } from './PracticeDeck.tsx'
 
 type LevelDetailProps = {
   level: Level
@@ -62,21 +63,17 @@ export function LevelDetail({ level, next, t }: LevelDetailProps) {
         </ol>
       </section>
 
-      {/* Die Übung. Bewusst als eigene Fläche und nicht als vierter Punkt der
-          Liste darüber: Die Schritte sagen, wohin es geht, die Übung sagt, was
-          man heute Abend tut. Der Kasten trägt die Ebenenfarbe, damit auf einen
-          Blick zu sehen ist, dass hier etwas anderes steht. */}
+      {/* Die Übungen. Bewusst als eigene Fläche und nicht als vierter Punkt der
+          Liste darüber: Die Schritte sagen, wohin es geht, die Übungen sagen,
+          was man heute Abend tut. Der Kasten trägt die Ebenenfarbe, damit auf
+          einen Blick zu sehen ist, dass hier etwas anderes steht.
+
+          Drei statt einer, und nebeneinander statt untereinander: Untereinander
+          läse sich die dritte wie ein Nachtrag, den man überspringt. So steht
+          immer eine da, und die anderen beiden sind eine Taste weit weg. */}
       <section className="flex flex-col gap-3">
         <Heading>{t.practiceHeading}</Heading>
-        <div className="rounded-2xl border border-accent/30 bg-accent/8 p-5">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <p className="font-display text-[17px] font-semibold">{level.practice.name}</p>
-            <p className="text-[12px] font-semibold tracking-[0.08em] text-accent uppercase">
-              {level.practice.duration}
-            </p>
-          </div>
-          <p className="mt-3 text-[15px] leading-relaxed text-muted">{level.practice.body}</p>
-        </div>
+        <PracticeDeck practices={level.practices} t={t} />
       </section>
 
       {/* Die Anführungszeichen kommen aus der Sprache, nicht aus dem Text: im

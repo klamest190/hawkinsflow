@@ -9,6 +9,7 @@ import { QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
 import { useAnswers } from './hooks/useAnswers.ts'
+import { useHistory } from './hooks/useHistory.ts'
 import { usePlans } from './hooks/usePlans.ts'
 import { useLanguage } from './hooks/useLanguage.ts'
 import { latestPlan } from './lib/plans.ts'
@@ -24,6 +25,9 @@ export default function App() {
      Einzige, was der Mensch hier selbst geschrieben hat, und überleben deshalb
      jedes Neustarten des Bogens. */
   const { plans, savePlan, removePlan } = usePlans()
+  /* Und daneben der Verlauf, aus demselben Grund: Er entsteht überhaupt erst
+     dadurch, dass jemand den Bogen ein zweites Mal ausfüllt. */
+  const { history, record, clearHistory } = useHistory()
   const [phase, setPhase] = useState<Phase>('intro')
   const [openLevel, setOpenLevel] = useState<LevelId | null>(null)
   /* Wohin „Zurück" aus der Skalenansicht führt — sie ist von zwei Seiten aus
@@ -76,6 +80,19 @@ export default function App() {
     setPhase('quiz')
   }
 
+  /* Der Abschluss ist der einzige Ort, an dem ein Durchgang in den Verlauf
+     kommt — nicht das Betreten der Ergebnisansicht. Die ist auch aus der Skala
+     heraus wieder erreichbar, und jeder Besuch dort wäre sonst ein neuer Punkt
+     auf der Linie.
+
+     Ein leerer Bogen wird nicht aufgezeichnet: Wer sich durchklickt, ohne zu
+     antworten, landet rechnerisch bei Scham, und das als Ergebnis zu
+     protokollieren wäre schlicht unwahr. */
+  function finish() {
+    if (answered > 0) record(result.dominant.id, result.calibration, answered)
+    setPhase('result')
+  }
+
   function browse(from: Phase) {
     setReturnTo(from)
     setPhase('scale')
@@ -108,12 +125,15 @@ export default function App() {
         {phase === 'intro' && (
           <Intro
             levels={levels}
+            language={language}
             t={t}
             onStart={startFresh}
             onResume={() => setPhase('quiz')}
             resumeAt={resumeAt}
             onBrowse={() => browse('intro')}
             plan={latestPlan(plans)}
+            history={history}
+            onClearHistory={clearHistory}
           />
         )}
 
@@ -124,7 +144,7 @@ export default function App() {
             t={t}
             startIndex={resumeAt ?? 0}
             onAnswer={answer}
-            onDone={() => setPhase('result')}
+            onDone={finish}
             onLeave={() => setPhase('intro')}
           />
         )}

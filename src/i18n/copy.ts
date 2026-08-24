@@ -37,6 +37,8 @@ const de = {
   skip: 'Überspringen',
   evaluate: 'Auswerten',
   answers: ['Nie', 'Selten', 'Manchmal', 'Oft', 'Fast immer'],
+  // Steht klein unter den Antworten und nur dort, wo es eine Tastatur gibt.
+  quizKeyHint: '1 – 5 antwortet, ← → blättert',
   progressLabel: 'Fortschritt',
 
   // ── Ergebnis ─────────────────────────────────────────────────────────────
@@ -77,7 +79,26 @@ const de = {
   // ── Die Ebene im Detail ──────────────────────────────────────────────────
   signsHeading: 'Woran du es erkennst',
   trapHeading: 'Was dich hier hält',
-  practiceHeading: 'Die Übung',
+  practiceHeading: 'Die Übungen',
+  // Die drei Sorten. Stehen als Marke auf der Karte — kurz genug, dass drei
+  // davon nebeneinander passen, und ohne Fachwort: „Sitzen" trifft es besser
+  // als „Meditation", weil niemand dabei etwas Besonderes werden soll.
+  practiceKinds: { writing: 'Schreiben', action: 'Tun', sitting: 'Sitzen' },
+  practiceDeckLabel: 'Die drei Übungen dieser Ebene',
+  // Fängt mit dem an, was auf dem Reiter steht: Wer die Oberfläche per Sprache
+  // bedient, sagt „Schreiben" — und das muss im vorgelesenen Namen vorkommen,
+  // sonst findet der Befehl den Knopf nicht (WCAG 2.5.3).
+  practiceTabLabel: (kind: string, name: string): string => `${kind}: ${name}`,
+  practiceHint: 'Mit ← und → wechseln',
+
+  // ── Die Uhr im Übungskasten ──────────────────────────────────────────────
+  // Sieben der Übungen sagen wörtlich „stell zwei Minuten" — die Uhr steht
+  // deshalb dort, wo die Anweisung steht, und nicht in einer eigenen Ansicht.
+  timerStart: (minutes: number): string => `${minutes} Minuten starten`,
+  timerPause: 'Anhalten',
+  timerResume: 'Weiter',
+  timerStop: 'Abbrechen',
+  timerDone: 'Die Zeit ist um.',
   wayTo: (next: string): string => `Der Weg nach ${next}`,
   wayEnds: 'Der Weg endet hier',
 
@@ -106,6 +127,19 @@ const de = {
   planStoredNote:
     'Der Plan steht ab jetzt auf der Startseite — dort, wo du ihn siehst, bevor du etwas anderes tust.',
   introPlanLabel: 'Dein Plan',
+
+  // ── Der Verlauf ──────────────────────────────────────────────────────────
+  // Steht auf der Startseite unter dem Plan. Der Ton bleibt vorsichtig: Aus
+  // zwei Punkten eine Entwicklung zu lesen ist genau der Fehler, vor dem der
+  // Vorbehalt am Ergebnis warnt.
+  historyTitle: 'Deine Durchgänge',
+  historyLead: (runs: number): string =>
+    runs < 2
+      ? 'Ein Durchgang ist noch keine Entwicklung. Ab dem zweiten steht hier eine Linie.'
+      : `${runs} Durchgänge. Was die Linie zeigt, ist deine Stimmung an ${runs} Tagen — keine Messreihe.`,
+  historyLatest: 'zuletzt',
+  historyClear: 'Verlauf löschen',
+  historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
 
   // ── Das PDF ──────────────────────────────────────────────────────────────
   // Der Ergebnisschirm ist weg, sobald jemand den Bogen wiederholt. Das PDF ist
@@ -156,6 +190,7 @@ const en: Copy = {
   skip: 'Skip',
   evaluate: 'See result',
   answers: ['Never', 'Rarely', 'Sometimes', 'Often', 'Almost always'],
+  quizKeyHint: '1 – 5 answers, ← → moves',
   progressLabel: 'Progress',
 
   focusLabel: 'Your centre of gravity',
@@ -189,7 +224,17 @@ const en: Copy = {
 
   signsHeading: 'How you recognise it',
   trapHeading: 'What keeps you here',
-  practiceHeading: 'The practice',
+  practiceHeading: 'The practices',
+  practiceKinds: { writing: 'Writing', action: 'Doing', sitting: 'Sitting' },
+  practiceDeckLabel: 'The three practices for this level',
+  practiceTabLabel: (kind: string, name: string): string => `${kind}: ${name}`,
+  practiceHint: 'Use ← and → to switch',
+
+  timerStart: (minutes: number): string => `Start ${minutes} minutes`,
+  timerPause: 'Pause',
+  timerResume: 'Resume',
+  timerStop: 'Stop',
+  timerDone: 'Time is up.',
   wayTo: (next: string): string => `The way to ${next}`,
   wayEnds: 'The way ends here',
 
@@ -215,6 +260,15 @@ const en: Copy = {
   planStoredNote:
     'From now on the plan sits on the start screen — where you see it before you do anything else.',
   introPlanLabel: 'Your plan',
+
+  historyTitle: 'Your runs',
+  historyLead: (runs: number): string =>
+    runs < 2
+      ? 'One run is not a development yet. From the second one there will be a line here.'
+      : `${runs} runs. What the line shows is how you felt on ${runs} days — not a series of measurements.`,
+  historyLatest: 'latest',
+  historyClear: 'Clear the history',
+  historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
 
   pdfCardTitle: 'Take it with you',
   pdfCardLead:
