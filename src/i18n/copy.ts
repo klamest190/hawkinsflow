@@ -106,6 +106,27 @@ const de = {
   planStoredNote:
     'Der Plan steht ab jetzt auf der Startseite — dort, wo du ihn siehst, bevor du etwas anderes tust.',
   introPlanLabel: 'Dein Plan',
+
+  // ── Das PDF ──────────────────────────────────────────────────────────────
+  // Der Ergebnisschirm ist weg, sobald jemand den Bogen wiederholt. Das PDF ist
+  // das Einzige, was ihn überdauert — deshalb steht der Tag darauf, im
+  // Dateinamen wie im Dokument.
+  // Die Karte, die den Export sichtbar macht. Vorher stand hier nur ein
+  // stiller Knopf zwischen zwei anderen — man übersah ihn.
+  pdfCardTitle: 'Nimm es mit',
+  pdfCardLead:
+    'Dieser Bildschirm ist weg, sobald du den Bogen wiederholst. Das PDF bleibt — mit dem heutigen Tag im Dateinamen und auf jeder Seite.',
+  pdfDownload: 'Als PDF sichern',
+  pdfBusy: 'PDF wird erstellt …',
+  pdfFailed: 'Das PDF ließ sich nicht erstellen. Versuch es noch einmal.',
+  pdfSubtitle: 'Deine Auswertung',
+  // Ersetzen im Profil die Zeichen ◆ und ↓ der Oberfläche: die liegen in keiner
+  // PDF-Schrift verlässlich vor und kämen als leeres Rechteck heraus.
+  pdfMarkFocus: 'Schwerpunkt',
+  pdfMarkDrag: 'zieht',
+  pdfPage: (current: number, total: number): string => `Seite ${current} von ${total}`,
+  // Steht klein unter dem Datum in der Fußzeile.
+  pdfSource: 'Erstellt mit Hawkins Flow',
 }
 
 /** Aus der deutschen Vorlage abgeleitet — jede Sprache trägt dieselben Schlüssel. */
@@ -194,6 +215,18 @@ const en: Copy = {
   planStoredNote:
     'From now on the plan sits on the start screen — where you see it before you do anything else.',
   introPlanLabel: 'Your plan',
+
+  pdfCardTitle: 'Take it with you',
+  pdfCardLead:
+    'This screen is gone the moment you retake the questionnaire. The PDF stays — with today’s date in its name and on every page.',
+  pdfDownload: 'Save as PDF',
+  pdfBusy: 'Building the PDF …',
+  pdfFailed: 'The PDF could not be created. Please try again.',
+  pdfSubtitle: 'Your result',
+  pdfMarkFocus: 'centre',
+  pdfMarkDrag: 'pulls',
+  pdfPage: (current: number, total: number): string => `Page ${current} of ${total}`,
+  pdfSource: 'Made with Hawkins Flow',
 }
 
 export const copy: Record<Language, Copy> = { de, en }

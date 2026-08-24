@@ -1,9 +1,10 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { nextLevelId, THRESHOLD } from '../data/levels.ts'
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
 import type { Result as Evaluation } from '../lib/scoring.ts'
+import { exportResult } from '../pdf/exportResult.ts'
 import type { Language, Level, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
@@ -23,6 +24,30 @@ type ResultProps = {
   onDeletePlan: () => void
   onRestart: () => void
   onBrowse: () => void
+}
+
+/**
+ * Der Pfeil in die Ablage — das eine Zeichen, das überall „herunterladen"
+ * heißt. Es steht zweimal: groß in der Marke der Karte und klein im Knopf, damit
+ * beim Überfliegen klar ist, worauf der Satz hinausläuft.
+ */
+function DownloadMark({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.8}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden
+    >
+      <path d="M12 3.5v11" />
+      <path d="m7.5 10.5 4.5 4.5 4.5-4.5" />
+      <path d="M4 16.5V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2.5" />
+    </svg>
+  )
 }
 
 function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
@@ -49,6 +74,12 @@ export function Result({
   onRestart,
   onBrowse,
 }: ResultProps) {
+  /* Der Export hat drei Zustände und keinen mehr: bereit, läuft, ging schief.
+     Der mittlere ist wichtig — zwischen Klick und Datei liegt das Nachladen des
+     Renderers, und ohne Rückmeldung sieht das aus wie ein toter Knopf. */
+  const [exporting, setExporting] = useState(false)
+  const [exportFailed, setExportFailed] = useState(false)
+
   const { band, calibration, dominant, drag, reach, scores } = result
   const nextId = nextLevelId(dominant.id)
   const next = nextId === null ? null : levelIn(language, nextId)
@@ -57,6 +88,18 @@ export function Result({
   // auf Englisch „Courage". Aus der Liste geholt und nicht geschrieben, damit
   // beides eine Quelle hat.
   const courage = levelIn(language, 'courage').name
+
+  async function downloadPdf() {
+    setExporting(true)
+    setExportFailed(false)
+    try {
+      await exportResult({ result, language, t, answered, plan })
+    } catch {
+      setExportFailed(true)
+    } finally {
+      setExporting(false)
+    }
+  }
 
   return (
     <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-10 sm:px-6">
@@ -218,6 +261,39 @@ export function Result({
           <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-balance text-muted">
             {next.essence}
           </p>
+        </Card>
+      )}
+
+      {/* ── Mitnehmen ────────────────────────────────────────────────────
+          Steht als eigene Karte und nicht als dritter Knopf in der Reihe unten:
+          Dort war der Export ein Geist neben zwei anderen und wurde übersehen.
+          Hier hat er ein Zeichen, einen Satz und einen vollen Knopf.
+
+          Der Platz ist bewusst das Ende — erst ist das Ergebnis gelesen, dann
+          lohnt es sich, es mitzunehmen. */}
+      {answered > 0 && (
+        <Card className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
+          <span
+            aria-hidden
+            className="grid h-12 w-12 shrink-0 place-items-center self-center rounded-2xl border border-accent/40 bg-accent/10 text-accent sm:self-start"
+          >
+            <DownloadMark className="h-6 w-6" />
+          </span>
+
+          <div className="min-w-0 flex-1">
+            <h2 className="font-display text-xl font-semibold">{t.pdfCardTitle}</h2>
+            <p className="mt-1.5 text-[14px] leading-relaxed text-muted">{t.pdfCardLead}</p>
+            {exportFailed && (
+              <p role="alert" className="mt-2 text-[13px] text-muted">
+                {t.pdfFailed}
+              </p>
+            )}
+          </div>
+
+          <Button onClick={() => void downloadPdf()} disabled={exporting} className="shrink-0">
+            <DownloadMark className="h-[18px] w-[18px]" />
+            {exporting ? t.pdfBusy : t.pdfDownload}
+          </Button>
         </Card>
       )}
 
