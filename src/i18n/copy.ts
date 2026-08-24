@@ -30,7 +30,7 @@ const de = {
     'Hawkins’ Kalibrierungen stammen aus dem kinesiologischen Muskeltest und sind wissenschaftlich nicht belegt. Nimm das Ergebnis als Spiegel für die Selbstreflexion — nicht als Diagnose. Bei anhaltender Belastung hilft ein Mensch vom Fach mehr als jede App.',
 
   // ── Fragebogen ───────────────────────────────────────────────────────────
-  quizPrompt: 'Wie oft trifft das zu?',
+  quizPrompt: 'Wie oft trifft das in den letzten Wochen zu?',
   quizProgress: (current: number, total: number): string => `${current} / ${total}`,
   quizAbort: '← Abbrechen',
   back: 'Zurück',
@@ -149,7 +149,7 @@ const en: Copy = {
   disclaimer:
     'Hawkins’ calibrations come from applied kinesiology (muscle testing) and are not scientifically established. Take the result as a mirror for self-reflection — not as a diagnosis. If something weighs on you for long, a professional helps more than any app.',
 
-  quizPrompt: 'How often is this true?',
+  quizPrompt: 'How often has this been true in recent weeks?',
   quizProgress: (current: number, total: number): string => `${current} / ${total}`,
   quizAbort: '← Cancel',
   back: 'Back',
