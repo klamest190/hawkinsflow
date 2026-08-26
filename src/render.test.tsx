@@ -71,6 +71,9 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
       />,
     )
     expect(html).toContain(t.start)
+    // Das Kürzel am Fuß der Seite, mit dem laufenden Jahr statt einem
+    // einbetonierten.
+    expect(html).toContain(`© ${new Date().getFullYear()} ${t.appName} · Karsten Lamest`)
     expect(html).not.toContain('undefined')
   })
 
@@ -87,6 +90,32 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
       />,
     )
     expect(html).toContain(questionText(language, QUESTIONS[0].id))
+    /* Ohne Antwort geht es nicht weiter: Der Weiter-Knopf ist stumpf, und
+       darunter steht, woran es liegt. Stumpf sind hier zwei — „Zurück" hat auf
+       der ersten Frage ohnehin kein Ziel. */
+    expect(html).toContain(t.quizNeedsAnswer)
+    expect(html.match(/disabled=""/g)).toHaveLength(2)
+    expect(html).not.toContain('undefined')
+  })
+
+  /* Die Gegenprobe. Die erste Antwort im Muster ist die 0 — genau der Wert, den
+     eine Prüfung auf Wahrheitsgehalt statt auf `undefined` verschlucken würde. */
+  it('Fragebogen mit beantworteter Frage', () => {
+    const html = renderToString(
+      <Quiz
+        answers={mixed}
+        language={language}
+        t={t}
+        startIndex={0}
+        onAnswer={noop}
+        onDone={noop}
+        onLeave={noop}
+      />,
+    )
+    expect(html).toContain(t.next)
+    expect(html).not.toContain(t.quizNeedsAnswer)
+    // Nur noch „Zurück" ist stumpf.
+    expect(html.match(/disabled=""/g)).toHaveLength(1)
     expect(html).not.toContain('undefined')
   })
 

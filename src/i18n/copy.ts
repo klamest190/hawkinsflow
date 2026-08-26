@@ -34,11 +34,14 @@ const de = {
   quizProgress: (current: number, total: number): string => `${current} / ${total}`,
   quizAbort: '← Abbrechen',
   back: 'Zurück',
-  skip: 'Überspringen',
+  next: 'Weiter',
   evaluate: 'Auswerten',
   answers: ['Nie', 'Selten', 'Manchmal', 'Oft', 'Fast immer'],
   // Steht klein unter den Antworten und nur dort, wo es eine Tastatur gibt.
   quizKeyHint: '1 – 5 antwortet, ← → blättert',
+  // Steht dort, wo sonst der Tastaturhinweis steht, und sagt, warum der
+  // Weiter-Knopf noch stumpf ist.
+  quizNeedsAnswer: 'Wähle eine Antwort, um weiterzugehen.',
   progressLabel: 'Fortschritt',
 
   // ── Ergebnis ─────────────────────────────────────────────────────────────
@@ -187,10 +190,11 @@ const en: Copy = {
   quizProgress: (current: number, total: number): string => `${current} / ${total}`,
   quizAbort: '← Cancel',
   back: 'Back',
-  skip: 'Skip',
+  next: 'Next',
   evaluate: 'See result',
   answers: ['Never', 'Rarely', 'Sometimes', 'Often', 'Almost always'],
   quizKeyHint: '1 – 5 answers, ← → moves',
+  quizNeedsAnswer: 'Pick an answer to move on.',
   progressLabel: 'Progress',
 
   focusLabel: 'Your centre of gravity',

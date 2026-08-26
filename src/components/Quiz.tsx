@@ -33,6 +33,18 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
   const isLast = index === QUESTIONS.length - 1
   const progress = (index + (current === undefined ? 0 : 1)) / QUESTIONS.length
 
+  /* Vorwärts geht es nur mit einer Antwort. Eine ausgelassene Frage fehlt der
+     Ebene, zu der sie gehört, und die Auswertung mittelt dann über zwei
+     Aussagen, von denen nur eine da ist — das verschiebt den Schwerpunkt, ohne
+     dass man es dem Ergebnis ansieht. */
+  const canAdvance = current !== undefined
+
+  function advance() {
+    if (!canAdvance) return
+    if (isLast) onDone()
+    else setIndex((previous) => Math.min(previous + 1, QUESTIONS.length - 1))
+  }
+
   function choose(value: AnswerValue) {
     onAnswer(question.id, value)
     window.clearTimeout(timer.current)
@@ -62,8 +74,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
 
       if (event.key === 'ArrowRight') {
         event.preventDefault()
-        if (isLast) onDone()
-        else setIndex((previous) => Math.min(previous + 1, QUESTIONS.length - 1))
+        advance()
       }
 
       if (event.key === 'ArrowLeft') {
@@ -156,11 +167,17 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
             })}
           </div>
 
-          {/* Nur dort, wo es eine Tastatur gibt. Auf dem Handy wäre der Satz
-              ein Rätsel. */}
-          <p aria-hidden className="mt-5 hidden text-[12px] text-muted/70 sm:block">
-            {t.quizKeyHint}
-          </p>
+          {/* Solange nichts gewählt ist, steht hier der Grund für den stumpfen
+              Knopf — der ist auf jedem Gerät nützlich. Danach der
+              Tastaturhinweis, und nur dort, wo es eine Tastatur gibt: auf dem
+              Handy wäre der Satz ein Rätsel. */}
+          {canAdvance ? (
+            <p aria-hidden className="mt-5 hidden text-[12px] text-muted/70 sm:block">
+              {t.quizKeyHint}
+            </p>
+          ) : (
+            <p className="mt-5 text-[12px] text-muted/70">{t.quizNeedsAnswer}</p>
+          )}
         </div>
       </div>
 
@@ -173,13 +190,10 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
         >
           {t.back}
         </Button>
-        {/* Überspringen bleibt möglich: eine erzwungene Antwort ist keine. */}
-        <Button
-          variant="quiet"
-          onClick={() => (isLast ? onDone() : setIndex((previous) => previous + 1))}
-          className="-mr-4"
-        >
-          {isLast ? t.evaluate : t.skip}
+        {/* Der Knopf bleibt stehen und wird stumpf, statt zu verschwinden:
+            So ist zu sehen, dass es weitergeht — und woran es gerade hängt. */}
+        <Button variant="quiet" onClick={advance} disabled={!canAdvance} className="-mr-4">
+          {isLast ? t.evaluate : t.next}
         </Button>
       </footer>
     </div>

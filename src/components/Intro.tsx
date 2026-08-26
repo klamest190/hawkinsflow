@@ -116,6 +116,13 @@ export function Intro({
       </div>
 
       <p className="mt-12 max-w-md text-[13px] leading-relaxed text-muted/70">{t.disclaimer}</p>
+
+      {/* Steht wie in den Schwester-Apps klein am Fuß der Startseite: Es soll
+          dastehen, nicht auffallen. Das Jahr kommt aus der Uhr, damit niemand
+          es einmal im Januar nachziehen muss. */}
+      <p className="mt-8 text-[11px] tracking-wide text-muted/50">
+        {`© ${new Date().getFullYear()} ${t.appName} · Karsten Lamest`}
+      </p>
     </div>
   )
 }
