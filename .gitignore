@@ -18,3 +18,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# TypeScript incremental build cache — machine-specific, regenerated on every
+# build, and therefore a guaranteed conflict on every merge or rebase.
+*.tsbuildinfo
