@@ -18,14 +18,34 @@ function Heading({ children }: { children: string }) {
 }
 
 /**
- * Alles, was zu einer Ebene zu sagen ist: wie sie sich anfühlt, woran man sie
- * erkennt, was auf ihr festhält und wie es weitergeht. Steht im Ergebnis wie im
- * Nachschlagewerk — deshalb kennt die Komponente keinen der beiden Kontexte.
+ * Alles, was zu einer Ebene zu sagen ist: wie sie sich anfühlt, was zuerst zu
+ * tun ist, woran man sie erkennt, was auf ihr festhält und wie es weitergeht.
+ * Steht im Ergebnis wie im Nachschlagewerk — deshalb kennt die Komponente keinen
+ * der beiden Kontexte.
  */
 export function LevelDetail({ level, next, t }: LevelDetailProps) {
   return (
     <div className="flex flex-col gap-7">
       <p className="text-[16px] leading-relaxed text-text/90">{level.essence}</p>
+
+      {/* Der Rat. Er steht direkt hinter der Essenz und vor allem anderen, weil
+          er als einziges Feld Stellung nimmt: Alles darunter beschreibt oder
+          zählt auf — drei Zeichen, drei Schritte, drei Übungen —, und wer hier
+          herauskommt, weiß danach nicht, womit anzufangen ist. Der Rat nennt das
+          eine, was zuerst zählt, und meist den Fehler, den fast alle machen.
+
+          Vor der Essenz stünde er nicht besser: Erst muss benannt sein, wo man
+          steht, dann kann jemand dazu etwas sagen.
+
+          Eigene Fläche und nicht nur eine Überschrift, weil der Ton ein anderer
+          ist: Hier spricht jemand den Leser an, während der Rest der Seite über
+          eine Ebene berichtet. Der Kasten trägt die Ebenenfarbe, sehr blass —
+          kräftiger geriete er in Streit mit dem Übungskasten weiter unten, der
+          dieselbe Farbe führt und die konkretere Aufforderung enthält. */}
+      <section className="flex flex-col gap-2.5 rounded-2xl border border-accent/25 bg-accent/[0.07] px-5 py-4">
+        <Heading>{t.adviceHeading}</Heading>
+        <p className="text-[15px] leading-relaxed text-text/90">{level.advice}</p>
+      </section>
 
       <section className="flex flex-col gap-3">
         <Heading>{t.signsHeading}</Heading>

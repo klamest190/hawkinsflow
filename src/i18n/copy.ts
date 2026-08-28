@@ -106,6 +106,9 @@ const de = {
   repeatQuiz: 'Fragebogen wiederholen',
 
   // ── Die Ebene im Detail ──────────────────────────────────────────────────
+  // Der Rat steht als erstes im Detailblock — vor „Woran du es erkennst",
+  // weil er das einzige Feld ist, das gewichtet statt beschreibt.
+  adviceHeading: 'Der Rat',
   signsHeading: 'Woran du es erkennst',
   trapHeading: 'Was dich hier hält',
   practiceHeading: 'Die Übungen',
@@ -279,6 +282,7 @@ const en: Copy = {
   seeAllLevels: (count: number): string => `See all ${count} levels`,
   repeatQuiz: 'Take the questionnaire again',
 
+  adviceHeading: 'The advice',
   signsHeading: 'How you recognise it',
   trapHeading: 'What keeps you here',
   practiceHeading: 'The practices',

@@ -32,6 +32,20 @@ export type LevelText = {
   worldview: string
   /** Zwei, drei Sätze: wie sich das Leben hier anfühlt. */
   essence: string
+  /**
+   * Der Rat — was ein Mensch sagen würde, der schon einmal danebengesessen hat.
+   *
+   * Alle anderen Felder beschreiben: `essence` sagt, wie es hier ist, `signs`,
+   * woran man es merkt, `steps` und `practices` zählen auf, was möglich wäre.
+   * Keines davon gewichtet. Wer auf einer Ebene herauskommt, steht danach vor
+   * drei Schritten und drei Übungen und weiß nicht, womit anzufangen ist.
+   *
+   * Dieses Feld nimmt Stellung: Es nennt das eine, was zuerst zählt, und meist
+   * auch den Fehler, den auf dieser Ebene fast alle machen. Deshalb steht hier
+   * öfter „nicht" als sonst irgendwo in den Texten — ein Rat, der nichts
+   * ausschließt, ist keiner.
+   */
+  advice: string
   /** Woran man erkennt, dass man gerade hier steht. */
   signs: string[]
   /** Was auf dieser Ebene festhält — der Preis, den sie heimlich zahlt. */

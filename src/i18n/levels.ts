@@ -25,6 +25,8 @@ const de = {
     worldview: 'erbärmlich',
     essence:
       'Der Blick geht nach unten. Nicht „ich habe etwas Falsches getan", sondern „ich bin falsch" — der Fehler ist zur Person geworden. Das kostet so viel Kraft, dass für alles andere kaum etwas bleibt.',
+    advice:
+      'Fang nicht beim Verstehen an. Scham hält sich nicht durch falsche Gedanken, sondern dadurch, dass niemand davon weiß — und sie überlebt selten, dass ein Mensch sie hört und bleibt. Wenn du diese Woche eine einzige Sache tust, dann diese. Alles andere ordnet sich danach leichter.',
     signs: [
       'Du willst nicht gesehen werden und ziehst dich aus Räumen zurück, in denen du auffallen könntest.',
       'Erinnerungen an alte Peinlichkeiten kommen ungefragt und treffen sofort.',
@@ -71,6 +73,8 @@ const de = {
     worldview: 'strafend',
     essence:
       'Ein innerer Ankläger hat das Wort und spricht nie frei. Vergangenes wird immer wieder verhandelt, und jedes Urteil fällt gegen dich aus.',
+    advice:
+      'Prüfe zuerst, ob überhaupt jemand etwas von dir zu bekommen hat. Die Antwort ist meist kürzer als der Vorwurf — und was übrig bleibt, ist keine Reue mehr, sondern eine Gewohnheit, die sich moralisch anfühlt. Setz ein Datum, bis zu dem du das Deine tust, und behandle den Fall danach als geschlossen, auch wenn das Gefühl noch hinterherläuft.',
     signs: [
       'Du entschuldigst dich für Dinge, für die du nicht verantwortlich bist.',
       'Geht es anderen schlecht, suchst du zuerst deinen Anteil daran.',
@@ -116,6 +120,8 @@ const de = {
     worldview: 'hoffnungslos',
     essence:
       'Nichts lohnt sich, alles ist zu schwer. Die Welt ist nicht feindlich, sie ist gleichgültig — und du bist es auch geworden. Hilfe kommt an, aber sie erreicht nichts.',
+    advice:
+      'Warte nicht, bis du Lust hast — hier kommt sie nicht zuerst. Mach den ersten Schritt so klein, dass er sich zu klein anfühlt, und verabrede ihn mit jemandem: Fremde Energie trägt, wo eigene fehlt. Und wenn das seit Wochen so geht, ist es kein Charakterthema, sondern eines für eine Ärztin oder einen Arzt.',
     signs: [
       'Aufgaben stapeln sich, weil selbst kleine Schritte unmöglich groß wirken.',
       'Du sagst häufig „egal" und meinst es.',
@@ -162,6 +168,8 @@ const de = {
     worldview: 'tragisch',
     essence:
       'Der Verlust hat einen Namen, und das ist bereits Bewegung: Trauer hat Energie, wo Apathie keine hatte. Der Blick hängt an dem, was fehlt, statt an dem, was da ist.',
+    advice:
+      'Beeil dich nicht. Trauer ist auf dieser Skala ein Aufstieg — sie hat Kraft, wo vorher keine war —, und sie abzukürzen bringt niemanden weiter. Gib ihr täglich einen festen Platz, damit sie nicht den ganzen Tag braucht. Und tu einmal am Tag etwas für einen anderen Menschen: nicht als Trost, sondern weil das der schnellste Weg ist, den Blick wieder nach außen zu bekommen.',
     signs: [
       'Vieles erinnert dich an früher — und früher war besser.',
       'Tränen kommen leicht, manchmal ohne klaren Anlass.',
@@ -207,6 +215,8 @@ const de = {
     worldview: 'bedrohlich',
     essence:
       'Die Welt ist voller Möglichkeiten, schiefzugehen, und dein Kopf hat sie alle durchgespielt. Angst schützt tatsächlich — bis sie beginnt, das Leben zu verwalten.',
+    advice:
+      'Diskutiere nicht mit der Angst — sie gewinnt jedes Argument, weil sie nie eines gebraucht hat. Nimm zuerst den Körper: langsam ausatmen, länger als ein. Dann schreib den schlimmsten Fall zu Ende, samt der Frage, was du dann tust. Und geh einmal in dieser Woche freiwillig in etwas Unbequemes hinein — Angst schrumpft nur an Dingen, die man tatsächlich getan hat.',
     signs: [
       'Du planst Katastrophen durch, die zu 95 % nicht eintreten.',
       'Entscheidungen werden aufgeschoben, weil jede Option ein Risiko trägt.',
@@ -252,6 +262,8 @@ const de = {
     worldview: 'enttäuschend',
     essence:
       'Etwas fehlt immer, und das Nächste soll es richten. Verlangen bewegt viel — es ist der Motor der meisten Karrieren — und kommt nie an.',
+    advice:
+      'Du musst nicht aufhören zu wollen; Verlangen ist der Motor unter den meisten guten Dingen deines Lebens. Was fehlt, ist die Pause dazwischen. Leg zwischen Impuls und Kauf, zwischen Idee und Zusage vierundzwanzig Stunden — und schau, was das übersteht. Was danach noch zieht, war echt; der Rest war die Unruhe und nicht der Wunsch.',
     signs: [
       'Erreichte Ziele fühlen sich kurz gut an, dann steht das nächste im Raum.',
       'Du greifst zu Ablenkung, sobald es still wird: Handy, Kaufen, Essen, Serien.',
@@ -298,6 +310,8 @@ const de = {
     worldview: 'feindselig',
     essence:
       'Endlich Kraft — und sie brennt. Zorn entsteht, wo Verlangen auf Widerstand trifft. Er kann Missstände beenden oder Brücken; das entscheidet sich daran, ob er gerichtet ist.',
+    advice:
+      'Sprich nicht, solange es brennt. Zorn ist ein Zeiger und keine Aussage: Er zeigt, dass eine Grenze oder ein Wert getroffen wurde, und sagt nichts darüber, was jetzt zu tun ist. Bring ihn zuerst körperlich aus dem System — Treppen, Laufen, Gewichte —, und formuliere danach eine Bitte statt eines Vorwurfs. Was zu keiner Handlung findet, wird Groll, und der hält Jahre.',
     signs: [
       'Du reagierst schneller gereizt, als dir lieb ist, besonders auf Kleinigkeiten.',
       'Gedanklich führst du Streitgespräche, die noch gar nicht stattgefunden haben.',
@@ -342,6 +356,8 @@ const de = {
     worldview: 'fordernd',
     essence:
       'Es geht dir spürbar besser als weiter unten: Stolz gibt Halt, Leistung, Zugehörigkeit. Nur hängt er an Bedingungen — an Status, Rolle, Recht haben —, und die können wegbrechen.',
+    advice:
+      'Lies diese Ebene nicht als Vorwurf. Stolz hat dich hierher gebracht und trägt weiter als alles darunter — teuer wird er erst in dem Moment, in dem du etwas lernen müsstest. Der billigste Test ist ein täglicher: einmal laut zugeben, dass du etwas nicht weißt. Fällt das schwer, hast du gefunden, wo die Ebene dich festhält.',
     signs: [
       'Kritik trifft dich hart, auch wenn sie sachlich stimmt.',
       'Um Hilfe zu bitten fällt dir schwerer, als die Sache doppelt so lange allein zu machen.',
@@ -387,6 +403,8 @@ const de = {
     worldview: 'machbar',
     essence:
       'Die Schwelle. Ab hier gibst du der Welt mehr Kraft, als du ihr entziehst. Probleme sind nicht verschwunden, aber sie sind Aufgaben geworden, und du traust dir zu, sie anzupacken.',
+    advice:
+      'Du bist über der Schwelle, und die Gefahr ist jetzt nicht der Rückfall, sondern die Anstrengung. Mut, der alles anpackt und nichts loslässt, verbrennt. Halte deshalb zwei Dinge nebeneinander: eine unbequeme Sache pro Woche, bewusst gewählt — und bei jedem Ärger die Frage, ob hier wirklich zu kämpfen ist oder ob es reicht, die Lage zu nehmen, wie sie ist.',
     signs: [
       'Du sagst schwierige Dinge, obwohl dir dabei mulmig ist.',
       'Fehler kosten dich nicht mehr das Selbstwertgefühl.',
@@ -432,6 +450,8 @@ const de = {
     worldview: 'zufriedenstellend',
     essence:
       'Es ist gut so, wie es ist — und wenn nicht, ist das auch auszuhalten. Neutralität ist der erste wirklich entspannte Ort der Skala: kein Müssen, keine Rechthaberei, wenig Drama.',
+    advice:
+      'Halte das hier nicht für das Ziel. Neutralität ist der erste wirklich entspannte Ort auf der Skala, und genau deshalb bleiben viele darauf stehen — nach oben geht es nur über Einsatz. Such dir eine Sache, die dir wichtig genug ist, um dafür unbequem zu werden, und sag zu ihr Ja, bevor du weißt, ob sie sich lohnt.',
     signs: [
       'Ein Nein von außen wirft dich nicht mehr um.',
       'Du kannst Pläne ändern, ohne dich als Verlierer zu fühlen.',
@@ -477,6 +497,8 @@ const de = {
     worldview: 'hoffnungsvoll',
     essence:
       'Aus „es geht auch so" wird „ich mach das gern". Arbeit fühlt sich nicht mehr nach Widerstand an, Lernen macht Freude, und andere spüren, dass mit dir zu rechnen ist.',
+    advice:
+      'Dein Ja ist deine Stärke und deine Rechnung. Die Frage ist hier nicht mehr, ob du etwas übernimmst, sondern wofür du das nächste Ja aufsparst. Streich diese Woche eine Zusage, die du aus Gewohnheit gegeben hast, und leg die Kraft auf das, was dich fachlich überfordert. Erschöpfung sieht auf dieser Ebene lange aus wie Engagement.',
     signs: [
       'Du meldest dich freiwillig, bevor jemand fragen muss.',
       'Rückschläge sind Informationen, keine Urteile.',
@@ -522,6 +544,8 @@ const de = {
     worldview: 'harmonisch',
     essence:
       'Die Quelle deines Erlebens liegt in dir, nicht in den Umständen. Damit endet das Verhandeln mit der Wirklichkeit — und es beginnt echte Gestaltung.',
+    advice:
+      'Pass auf den Satz auf, der hier am leichtesten fällt: „So bin ich eben." Angenommen heißt nicht unveränderlich — Akzeptanz ist der Boden, auf dem Gestalten anfängt, und nicht die Erlaubnis, es zu lassen. Nimm dir eine Sache, die du bisher hingenommen hast, und prüf nüchtern, was daran wirklich feststeht. Und vergib einer konkreten Person, schriftlich, notfalls ungesendet.',
     signs: [
       'Du fragst zuerst, was du beitragen kannst, nicht wer schuld ist.',
       'Menschen dürfen anders sein, ohne dass es dich stört.',
@@ -567,6 +591,8 @@ const de = {
     worldview: 'sinnvoll',
     essence:
       'Der Verstand auf seiner Höhe: Zusammenhänge werden sichtbar, Wissen ordnet sich, Entscheidungen werden begründbar. Die Ebene der Wissenschaft, der Medizin, der guten Handwerkskunst.',
+    advice:
+      'Dein Verstand ist auf dieser Ebene ein ausgezeichnetes Werkzeug und ein schlechter Ratgeber in der Frage, wann er aufhören soll. Nimm dir täglich zehn Minuten, in denen du etwas wahrnimmst, ohne es zu deuten — Musik, ein Gesicht, das Wetter. Und frag im nächsten Konflikt nicht, wer recht hat, sondern was der andere braucht. Der Schritt nach oben ist keine bessere Analyse, sondern eine andere Art zu schauen.',
     signs: [
       'Du unterscheidest sauber zwischen Fakten, Meinung und Gefühl.',
       'Komplexes ordnest du, statt dich davon erschlagen zu lassen.',
@@ -612,6 +638,8 @@ const de = {
     worldview: 'wohlwollend',
     essence:
       'Nicht das Gefühl aus den Liedern, sondern eine Haltung: bedingungslos, dauerhaft, ohne Gegenleistung. Der Blick geht auf das Wesentliche in Menschen und Dingen — nicht an ihnen vorbei.',
+    advice:
+      'Der blinde Fleck auf dieser Ebene bist du selbst. Wohlwollen fließt hier reichlich nach außen und kommt bei dir am seltensten an — prüf das ehrlich, bevor du weiterliest. Und lass Menschen ihren eigenen Weg gehen, auch den unbequemen: Liebe, die retten will, hält fest, und Festhalten ist wieder Wollen.',
     signs: [
       'Du willst das Gute für andere, auch wenn du nichts davon hast.',
       'Entscheidungen fallen mehr aus dem Herzen als aus der Kalkulation — und tragen.',
@@ -657,6 +685,8 @@ const de = {
     worldview: 'vollkommen',
     essence:
       'Eine Freude, die nicht von Ereignissen abhängt. Sie kommt von innen, ist geduldig und ausdauernd — und ansteckend, ohne laut zu sein.',
+    advice:
+      'Versuch nicht, das hier festzuhalten. In dem Moment, in dem du die Freude wiederherstellen willst, ist sie Verlangen geworden, und du stehst zwölf Ebenen tiefer. Lass die schönen Zustände kommen und gehen wie Wetter. Und wenn du etwas tun willst: Wirke still, an einer Stelle, an der es niemand mitbekommt.',
     signs: [
       'Gewöhnliche Momente berühren dich: Licht, Stimmen, Alltägliches.',
       'Geduld fällt dir leicht, weil du nichts erzwingen musst.',
@@ -702,6 +732,8 @@ const de = {
     worldview: 'vollständig',
     essence:
       'Die Trennung zwischen Beobachter und Beobachtetem wird durchlässig. Alles bewegt sich, nichts drängt. Sehr selten — Hawkins schätzt: ein Mensch unter zehn Millionen.',
+    advice:
+      'Bleib in der Küche. Auf dieser Höhe ist der Rückzug verlockend und meistens ein Verlust — Frieden, der niemandem mehr dient, verliert seinen Boden. Und halte die Praxis, die dich hierhergebracht hat: Es gibt keinen Zustand, den man besitzt, und keinen, der ohne Übung bleibt.',
     signs: [
       'Stille ist voll, nicht leer.',
       'Getrenntheit fühlt sich weniger real an als Verbundenheit.',
@@ -747,6 +779,8 @@ const de = {
     worldview: 'ist',
     essence:
       'Das Ende der Skala (700 bis 1000). Kein Ich mehr, das etwas erlebt — nur noch das Sein selbst. Hawkins ordnet dieser Ebene die großen Lehrer der Menschheitsgeschichte zu.',
+    advice:
+      'Hier ist nichts zu raten. Steht diese Ebene als Ergebnis vor dir, sagt sie etwas über die Skala und die Rechnung dahinter, nicht über dich — Hawkins ordnet ihr die großen Lehrer der Menschheitsgeschichte zu, und eine Selbstauskunft ist kein Weg dorthin. Nimm sie als Richtung. Alles Praktische steht auf den sechzehn Ebenen darunter, und die eine, auf der du tatsächlich stehst, ist die einzige, auf der sich etwas ändern lässt.',
     signs: [
       'Diese Ebene beschreibt sich nicht von innen.',
       'Wer sie beansprucht, spricht meist von Stolz.',
@@ -796,6 +830,8 @@ const en: LevelCopy = {
     worldview: 'miserable',
     essence:
       'The eyes go down. Not "I did something wrong" but "I am wrong" — the mistake has become the person. It costs so much to carry that almost nothing is left over for anything else.',
+    advice:
+      'Do not start with understanding. Shame is not held in place by wrong thoughts but by the fact that nobody knows — and it rarely survives one person hearing it and staying. If you do a single thing this week, do that one. Everything else falls into place more easily afterwards.',
     signs: [
       'You would rather not be seen, and you leave rooms where you might stand out.',
       'Old embarrassments surface unasked and land instantly.',
@@ -842,6 +878,8 @@ const en: LevelCopy = {
     worldview: 'punishing',
     essence:
       'A prosecutor has the floor inside you and never acquits. The past is tried again and again, and every verdict comes back against you.',
+    advice:
+      'First check whether anyone is actually owed anything. The answer is usually shorter than the accusation — and what is left over is no longer remorse but a habit that feels moral. Set a date by which you will do your part, and treat the case as closed after it, even while the feeling is still catching up.',
     signs: [
       'You apologise for things you are not responsible for.',
       'When others are struggling, you look first for your own part in it.',
@@ -887,6 +925,8 @@ const en: LevelCopy = {
     worldview: 'hopeless',
     essence:
       'Nothing is worth it, everything is too heavy. The world is not hostile, it is indifferent — and so are you now. Help arrives, but it does not reach anything.',
+    advice:
+      'Do not wait until you feel like it; here the feeling does not come first. Make the first step so small that it feels too small, and arrange it with someone: borrowed energy carries where your own is missing. And if it has been like this for weeks, it is not a question of character but one for a doctor.',
     signs: [
       'Tasks pile up because even small steps look impossibly large.',
       'You say “whatever” a lot, and you mean it.',
@@ -933,6 +973,8 @@ const en: LevelCopy = {
     worldview: 'tragic',
     essence:
       'The loss has a name, and that alone is movement: grief has energy where apathy had none. The gaze holds on to what is missing rather than what is here.',
+    advice:
+      'Do not hurry. On this scale grief is a step up — it has force where there was none — and cutting it short gets nobody anywhere. Give it a fixed place every day so it does not need the whole day. And do something for another person once a day: not as consolation, but because it is the fastest way to turn your eyes outward again.',
     signs: [
       'A great deal reminds you of before — and before was better.',
       'Tears come easily, sometimes for no clear reason.',
@@ -978,6 +1020,8 @@ const en: LevelCopy = {
     worldview: 'threatening',
     essence:
       'The world is full of ways for things to go wrong, and your head has played through all of them. Fear genuinely protects — until it starts running the place.',
+    advice:
+      'Do not argue with fear — it wins every argument because it never needed one. Take the body first: breathe out slowly, longer than you breathe in. Then write the worst case through to the end, including what you would do then. And walk into something uncomfortable on purpose once this week — fear only shrinks against things actually done.',
     signs: [
       'You rehearse catastrophes that 95 % of the time never arrive.',
       'Decisions get postponed because every option carries a risk.',
@@ -1023,6 +1067,8 @@ const en: LevelCopy = {
     worldview: 'disappointing',
     essence:
       'Something is always missing, and the next thing is meant to fix it. Desire moves a great deal — it is the engine under most careers — and never arrives.',
+    advice:
+      'You do not have to stop wanting; desire is the engine under most of the good things in your life. What is missing is the pause. Put twenty-four hours between impulse and purchase, between idea and promise — then see what survives it. What still pulls afterwards was real; the rest was the restlessness, not the wish.',
     signs: [
       'Reaching a goal feels good briefly, then the next one is already in the room.',
       'The moment things go quiet you reach for a distraction: phone, shopping, food, another episode.',
@@ -1069,6 +1115,8 @@ const en: LevelCopy = {
     worldview: 'hostile',
     essence:
       'Force at last — and it burns. Anger appears where desire meets resistance. It can end an injustice or a friendship; what decides is whether it is aimed.',
+    advice:
+      'Do not speak while it burns. Anger is a pointer, not a statement: it shows that a boundary or a value was hit, and says nothing about what to do now. Get it out of the body first — stairs, running, weights — and then put it as a request instead of an accusation. What finds no action turns into resentment, and that lasts years.',
     signs: [
       'You snap sooner than you would like, especially at small things.',
       'You hold arguments in your head that have not happened yet.',
@@ -1113,6 +1161,8 @@ const en: LevelCopy = {
     worldview: 'demanding',
     essence:
       'Life is noticeably better than it was further down: pride gives footing, achievement, belonging. But it hangs on conditions — status, role, being right — and those can fall away.',
+    advice:
+      'Do not read this level as an accusation. Pride got you here and carries further than anything below it — it only turns expensive the moment you would have to learn something. The cheapest test is a daily one: admit out loud, once, that you do not know something. If that is hard, you have found where this level holds you.',
     signs: [
       'Criticism hits hard, even when it is factually correct.',
       'Asking for help is harder than doing the thing alone in twice the time.',
@@ -1158,6 +1208,8 @@ const en: LevelCopy = {
     worldview: 'feasible',
     essence:
       'The threshold. From here you put more strength into the world than you take out of it. The problems have not gone, but they have become tasks, and you trust yourself to take them on.',
+    advice:
+      'You are above the threshold, and the danger now is not falling back but strain. Courage that takes on everything and lets go of nothing burns out. So hold two things side by side: one uncomfortable thing a week, deliberately chosen — and, at every irritation, the question of whether there is really something to fight here, or whether it is enough to take the situation as it is.',
     signs: [
       'You say the difficult thing even though it makes you uneasy.',
       'Mistakes no longer cost you your sense of worth.',
@@ -1203,6 +1255,8 @@ const en: LevelCopy = {
     worldview: 'satisfactory',
     essence:
       'It is fine as it is — and if it is not, that can be borne too. Neutrality is the first genuinely relaxed place on the scale: no compulsion, no need to be right, very little drama.',
+    advice:
+      'Do not mistake this for the destination. Neutrality is the first genuinely relaxed place on the scale, which is exactly why so many stop here — the way up runs through commitment. Find one thing that matters enough to become uncomfortable for, and say yes to it before you know whether it pays off.',
     signs: [
       'A no from outside no longer knocks you over.',
       'You can change a plan without feeling like you lost.',
@@ -1248,6 +1302,8 @@ const en: LevelCopy = {
     worldview: 'hopeful',
     essence:
       '"It will do" becomes "I am glad to". Work stops feeling like resistance, learning becomes a pleasure, and other people can tell that you can be counted on.',
+    advice:
+      'Your yes is your strength and your bill. The question here is no longer whether you take something on, but what you are saving the next yes for. Cancel one commitment this week that you gave out of habit, and put the strength into whatever is over your head professionally. On this level exhaustion looks like dedication for a long time.',
     signs: [
       'You volunteer before anyone has to ask.',
       'Setbacks are information, not verdicts.',
@@ -1293,6 +1349,8 @@ const en: LevelCopy = {
     worldview: 'harmonious',
     essence:
       'The source of your experience is in you, not in the circumstances. That ends the negotiation with reality — and real shaping begins.',
+    advice:
+      'Watch out for the sentence that comes easiest here: “that is just how I am”. Accepted is not the same as unchangeable — acceptance is the ground shaping begins on, not permission to leave things alone. Take one thing you have been putting up with and check soberly what about it is actually fixed. And forgive one specific person, in writing, unsent if need be.',
     signs: [
       'You ask first what you can contribute, not who is at fault.',
       'People are allowed to be different without it bothering you.',
@@ -1338,6 +1396,8 @@ const en: LevelCopy = {
     worldview: 'meaningful',
     essence:
       'The mind at its height: connections become visible, knowledge arranges itself, decisions can be justified. The level of science, of medicine, of good craft.',
+    advice:
+      'At this level your mind is an excellent instrument and a poor adviser on the question of when to stop. Take ten minutes a day to perceive something without interpreting it — music, a face, the weather. And in the next conflict, do not ask who is right but what the other person needs. The step up is not a better analysis; it is a different way of looking.',
     signs: [
       'You cleanly separate fact, opinion and feeling.',
       'You organise complexity instead of being flattened by it.',
@@ -1383,6 +1443,8 @@ const en: LevelCopy = {
     worldview: 'benign',
     essence:
       'Not the feeling from the songs, but a stance: unconditional, lasting, expecting nothing back. The gaze goes to what is essential in people and things — not past them.',
+    advice:
+      'The blind spot on this level is you. Goodwill flows outward here in quantity and reaches you least of all — check that honestly before reading on. And let people walk their own road, the uncomfortable one included: love that wants to rescue holds on, and holding on is wanting again.',
     signs: [
       'You want good things for others even when there is nothing in it for you.',
       'Decisions come more from the heart than from the calculation — and they hold.',
@@ -1428,6 +1490,8 @@ const en: LevelCopy = {
     worldview: 'complete',
     essence:
       'A joy that does not depend on events. It comes from inside, it is patient and durable — and catching, without ever being loud.',
+    advice:
+      'Do not try to hold on to this. The moment you want to restore the joy it has become desire, and you are standing twelve levels lower. Let the good states come and go like weather. And if you want to do something: work quietly, somewhere nobody notices.',
     signs: [
       'Ordinary moments move you: light, voices, the everyday.',
       'Patience is easy, because nothing has to be forced.',
@@ -1473,6 +1537,8 @@ const en: LevelCopy = {
     worldview: 'whole',
     essence:
       'The separation between the observer and the observed becomes permeable. Everything moves, nothing presses. Very rare — Hawkins estimates one person in ten million.',
+    advice:
+      'Stay in the kitchen. At this height withdrawal is tempting and usually a loss — peace that serves nobody loses its ground. And keep the practice that brought you here: there is no state anyone owns, and none that lasts without practice.',
     signs: [
       'Silence is full, not empty.',
       'Separateness feels less real than connectedness.',
@@ -1518,6 +1584,8 @@ const en: LevelCopy = {
     worldview: 'is',
     essence:
       'The end of the scale (700 to 1000). No self left that experiences anything — only being itself. Hawkins assigns this level to the great teachers of human history.',
+    advice:
+      'There is nothing to advise here. If this level comes up as your result, it says something about the scale and the arithmetic behind it, not about you — Hawkins assigns it to the great teachers of human history, and a self-report is no route there. Take it as a direction. Everything practical is on the sixteen levels below, and the one you actually stand on is the only one where anything can change.',
     signs: [
       'This level does not describe itself from the inside.',
       'Anyone claiming it is usually speaking from pride.',

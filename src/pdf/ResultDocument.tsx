@@ -163,6 +163,20 @@ const styles = StyleSheet.create({
   stepNumberText: { fontSize: 7.5, fontWeight: 700, lineHeight: 1 },
   stepText: { flexBasis: 0, flexGrow: 1, fontSize: 9, lineHeight: 1.5 },
 
+  // Der Rat. Rahmen statt Fläche: Der Übungskasten weiter unten ist gefüllt und
+  // führt dieselbe Ebenenfarbe — zwei gefüllte Blöcke auf einer Seite ließen den
+  // oberen wie eine zweite Übung aussehen, und die konkretere Aufforderung soll
+  // die auffälligere bleiben.
+  advice: {
+    borderWidth: 0.7,
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: 16,
+    fontSize: 9.5,
+    lineHeight: 1.5,
+  },
+
   practice: { borderRadius: 5, padding: 12, marginBottom: 6 },
   practiceHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
   practiceName: { fontSize: 11, fontWeight: 700 },
@@ -415,6 +429,16 @@ export function ResultDocument({
           <View wrap={false}>
             <SectionTitle color={accent}>{t.levelHeading(dominant.value, dominant.name)}</SectionTitle>
             <Text style={styles.essence}>{dominant.essence}</Text>
+          </View>
+
+          {/* Der Rat steht auch hier vor allem anderen und in derselben
+              Reihenfolge wie auf dem Bildschirm — das Blatt ist das, was jemand
+              mitnimmt, und der Rat ist darauf das Einzige, was gewichtet.
+              `wrap={false}`, weil ein über den Seitenrand gerissener Rat seine
+              Pointe verliert; er ist kurz genug, dass das nie teuer wird. */}
+          <View wrap={false}>
+            <Text style={[styles.subTitle, { color: accent }]}>{t.adviceHeading.toUpperCase()}</Text>
+            <Text style={[styles.advice, { borderColor: accent }]}>{dominant.advice}</Text>
           </View>
 
           <Text style={[styles.subTitle, { color: accent }]}>{t.signsHeading.toUpperCase()}</Text>

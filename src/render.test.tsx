@@ -566,4 +566,48 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).toContain(t.scaleTitle)
     expect(html).not.toContain('undefined')
   })
+
+  /* Der Rat ist das einzige Feld, das Stellung nimmt, und er steht deshalb vor
+     allem, was beschreibt. Beides wird hier geprüft — dass er da ist, und dass
+     er vor „Woran du es erkennst" steht. Die Reihenfolge über die Fundstellen
+     im HTML: Fiele der Rat ans Ende, wäre er hinter drei Aufzählungen die
+     Fußnote, die er nicht sein soll. */
+  it('stellt den Rat vor die beschreibenden Abschnitte', () => {
+    const html = renderToString(
+      <ScaleBrowser
+        levels={levels}
+        language={language}
+        t={t}
+        open="fear"
+        onOpen={noop}
+        dominant={null}
+        onBack={noop}
+      />,
+    )
+    const fear = levelIn(language, 'fear')
+    expect(html).toContain(t.adviceHeading)
+    expect(html).toContain(fear.advice.slice(0, 40))
+    expect(html.indexOf(t.adviceHeading)).toBeLessThan(html.indexOf(t.signsHeading))
+  })
+})
+
+/* Die Ratschläge selbst. Der Compiler erzwingt bereits, dass keiner fehlt (die
+   englische Fassung wird gegen die deutsche geprüft) — was er nicht sieht, ist
+   ein Rat, der aus Versehen leer, abgeschnitten oder in beiden Sprachen
+   derselbe Text ist. */
+describe('Die Ratschläge', () => {
+  it.each(LANGUAGES)('trägt auf jeder Ebene einen ganzen Satz (%s)', (language) => {
+    for (const level of levelsIn(language)) {
+      expect(level.advice.length).toBeGreaterThan(80)
+      expect(level.advice.trim()).toBe(level.advice)
+      expect(level.advice.endsWith('.')).toBe(true)
+    }
+  })
+
+  it('sagt es in beiden Sprachen mit eigenen Worten', () => {
+    for (const de of levelsIn('de')) {
+      const en = levelIn('en', de.id)
+      expect(en.advice).not.toBe(de.advice)
+    }
+  })
 })

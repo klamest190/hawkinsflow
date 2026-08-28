@@ -75,6 +75,30 @@ describe.each(LANGUAGES)('Das PDF (%s)', (language) => {
     const pdf = await render(language, top, false)
     expect(magic(pdf)).toBe('%PDF-')
   })
+
+  /* Der Rat steht auch auf dem Blatt — das Blatt ist das, was jemand mitnimmt.
+     Nachgewiesen über die Größe und nicht über den Text: `@react-pdf` legt
+     Zeichenketten in komprimierten Strömen ab, und `pdfjs-dist` als Abhängigkeit
+     nur für diese eine Zusicherung wäre teurer als der Nachweis wert ist.
+     Dieselbe Auswertung einmal mit und einmal ohne Rat gesetzt, ist eindeutig
+     genug: Fiele die Ausgabe aus dem Dokument, wären beide gleich groß. */
+  it('nimmt den Rat mit aufs Blatt', async () => {
+    const levels = levelsIn(language)
+    const stripped = levels.map((level) => ({ ...level, advice: '' }))
+    const document = (list: typeof levels) =>
+      renderToBuffer(
+        createElement(ResultDocument, {
+          result: evaluate(list, full),
+          language,
+          t: copy[language],
+          answered: QUESTIONS.length,
+          plan: null,
+          createdAt,
+        }) as never,
+      )
+    const [withAdvice, without] = await Promise.all([document(levels), document(stripped)])
+    expect(withAdvice.length).toBeGreaterThan(without.length)
+  })
 })
 
 describe('fileName', () => {
