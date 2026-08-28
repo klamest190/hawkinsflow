@@ -44,6 +44,32 @@ const de = {
   quizNeedsAnswer: 'Wähle eine Antwort, um weiterzugehen.',
   progressLabel: 'Fortschritt',
 
+  // ── Ergebnis ohne eine einzige Antwort ───────────────────────────────────
+  // Die Auswertung liefert auch dann etwas: Ohne Gewicht fällt der Schwerpunkt
+  // auf den Anfang der Skala und damit auf Scham. Das ist der Startwert einer
+  // Rechnung und keine Aussage über den Menschen davor — deshalb steht hier ein
+  // eigener Text statt der untersten Ebene in 64 Pixeln.
+  emptyTitle: 'Nichts angekreuzt, nichts abzulesen',
+  emptyLead:
+    'Du hast keine einzige Aussage beantwortet. Ohne Antworten liegt auf der Skala nirgends ein Gewicht, und die Rechnung käme ganz unten heraus — nicht, weil dort jemand stünde, sondern weil dort das Zählen anfängt. Daraus eine Ebene zu machen wäre schlicht gelogen.',
+
+  // ── Ergebnis, das nicht zu lesen ist ─────────────────────────────────────
+  // Derselbe Fall wie oben, nur schwerer zu sehen: Hier sind alle 34 Fragen
+  // beantwortet, und der Bogen käme trotzdem zu keiner Auskunft. Ohne diesen
+  // Schirm bekäme man einen vollständigen Befund vorgesetzt — und hätte allen
+  // Grund, ihn zu glauben.
+  uniformTitle: 'Überall dasselbe Kreuz',
+  uniformLead:
+    'Alle Aussagen, die du beantwortet hast, tragen denselben Wert. Dann steht auf jeder Ebene dasselbe, und wo überall dasselbe steht, gibt es keinen Schwerpunkt. Was hier herauskäme, wäre kein Ergebnis, sondern die Stelle, an der sich alles gegenseitig aufhebt.',
+  uniformHint: 'Nimm dir die Aussagen noch einmal einzeln vor — sie fragen Verschiedenes.',
+
+  // ── Vorbehalt vor einem Ergebnis ─────────────────────────────────────────
+  // Steht als erste Karte über dem Befund und nicht als Fußnote darunter: Wer
+  // die Ebene erst in 64 Pixeln gelesen hat, liest den Vorbehalt nicht mehr.
+  bothEndsTitle: 'Das passt nicht zusammen',
+  bothEndsBody:
+    'Die untersten und die obersten Ebenen leuchten bei dir gleichzeitig stark. Beides zugleich gibt es nicht: Wer fast immer ausweicht, spricht nicht fast immer an. Lies das Folgende mit diesem Vorbehalt — oder geh den Bogen noch einmal durch und lass dir für jede Aussage einen Augenblick Zeit.',
+
   // ── Ergebnis ─────────────────────────────────────────────────────────────
   focusLabel: 'Dein Schwerpunkt',
   // Steht unter dem Band. Sagt genau das, was der Bogen hergibt — und was
@@ -97,10 +123,18 @@ const de = {
   // ── Die Uhr im Übungskasten ──────────────────────────────────────────────
   // Sieben der Übungen sagen wörtlich „stell zwei Minuten" — die Uhr steht
   // deshalb dort, wo die Anweisung steht, und nicht in einer eigenen Ansicht.
-  timerStart: (minutes: number): string => `${minutes} Minuten starten`,
+  // Die Einzahl kommt vor, seit die Minute Stille im Moment-Bogen dieselbe Uhr
+  // benutzt — „1 Minuten starten" wäre der eine Satz, an dem man merkt, dass
+  // hier eine Maschine schreibt.
+  timerStart: (minutes: number): string =>
+    minutes === 1 ? 'Eine Minute starten' : `${minutes} Minuten starten`,
   timerPause: 'Anhalten',
   timerResume: 'Weiter',
-  timerStop: 'Abbrechen',
+  // „Zurücksetzen" und nicht „Abbrechen": Der Knopf hält die Uhr nicht nur an,
+  // er stellt sie auf die volle Dauer zurück. Und im Moment-Bogen stünde ein
+  // zweites „Abbrechen" drei Zentimeter über diesem, das die ganze Ansicht
+  // verlässt — zwei Knöpfe, ein Wort, zwei Folgen.
+  timerStop: 'Zurücksetzen',
   timerDone: 'Die Zeit ist um.',
   wayTo: (next: string): string => `Der Weg nach ${next}`,
   wayEnds: 'Der Weg endet hier',
@@ -130,6 +164,12 @@ const de = {
   planStoredNote:
     'Der Plan steht ab jetzt auf der Startseite — dort, wo du ihn siehst, bevor du etwas anderes tust.',
   introPlanLabel: 'Dein Plan',
+  // Die älteren Pläne stehen darunter, einer je Zeile. Sonst wären sie nirgends
+  // mehr erreichbar: Das Ergebnis zeigt nur den Plan der Ebene, auf der man
+  // gerade herauskommt — wer beim nächsten Durchgang woanders landet, käme an
+  // den vorigen nie wieder heran, weder zum Lesen noch zum Löschen.
+  introPlanOthers: 'Früher angelegt',
+  planDeleteLabel: (level: string): string => `Plan zu ${level} löschen`,
 
   // ── Der Verlauf ──────────────────────────────────────────────────────────
   // Steht auf der Startseite unter dem Plan. Der Ton bleibt vorsichtig: Aus
@@ -197,6 +237,19 @@ const en: Copy = {
   quizNeedsAnswer: 'Pick an answer to move on.',
   progressLabel: 'Progress',
 
+  emptyTitle: 'Nothing ticked, nothing to read',
+  emptyLead:
+    'You have not answered a single statement. With no answers there is no weight anywhere on the scale, and the sum would come out at the very bottom — not because anyone stands there, but because that is where counting begins. Turning that into a level would simply be a lie.',
+
+  uniformTitle: 'The same tick everywhere',
+  uniformLead:
+    'Every statement you answered carries the same value. Then every level says the same thing, and where everything says the same, there is no centre of gravity. What would come out here is not a result but the point at which everything cancels itself out.',
+  uniformHint: 'Take the statements one at a time — they are not asking the same thing.',
+
+  bothEndsTitle: 'That does not fit together',
+  bothEndsBody:
+    'The lowest and the highest levels are both strongly lit in your answers. Both at once does not exist: someone who almost always avoids does not almost always speak up. Read what follows with that in mind — or take the questionnaire again and give each statement a moment.',
+
   focusLabel: 'Your centre of gravity',
   bandNote: (lower: string, upper: string, questions: number): string =>
     `${questions} statements cannot read closer than this: somewhere between ${lower} and ${upper}. A single number would claim a precision that is not there.`,
@@ -234,10 +287,11 @@ const en: Copy = {
   practiceTabLabel: (kind: string, name: string): string => `${kind}: ${name}`,
   practiceHint: 'Use ← and → to switch',
 
-  timerStart: (minutes: number): string => `Start ${minutes} minutes`,
+  timerStart: (minutes: number): string =>
+    minutes === 1 ? 'Start one minute' : `Start ${minutes} minutes`,
   timerPause: 'Pause',
   timerResume: 'Resume',
-  timerStop: 'Stop',
+  timerStop: 'Reset',
   timerDone: 'Time is up.',
   wayTo: (next: string): string => `The way to ${next}`,
   wayEnds: 'The way ends here',
@@ -264,6 +318,8 @@ const en: Copy = {
   planStoredNote:
     'From now on the plan sits on the start screen — where you see it before you do anything else.',
   introPlanLabel: 'Your plan',
+  introPlanOthers: 'Made earlier',
+  planDeleteLabel: (level: string): string => `Delete the plan for ${level}`,
 
   historyTitle: 'Your runs',
   historyLead: (runs: number): string =>

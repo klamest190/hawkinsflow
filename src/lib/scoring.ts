@@ -7,6 +7,27 @@ import type { Answers, Level } from '../types.ts'
    nicht wissen müssen, welche Sprache gerade eingestellt ist. Rang, Wert und ID
    sind in jeder Sprache dieselben, also rechnet sie mit jeder Fassung gleich. */
 
+/**
+ * Ein Vorbehalt gegen das Antwortbild — nicht gegen die Rechnung.
+ *
+ * Die Auswertung liefert zu jedem Bogen ein Ergebnis, auch zu einem, in dem
+ * keine Auskunft steckt. Wer überall dasselbe ankreuzt, bekommt heute einen
+ * vollständigen Befund: „Mut, Scham zieht dich herunter, du reichst bis
+ * Erleuchtung." In diesen Antworten steht nichts davon — vier der fünf
+ * gleichförmigen Muster liefern sogar denselben Befund, weil sich gleiche
+ * Gewichte auf allen Ebenen zur Mitte der Skala aufheben.
+ *
+ * - `uniform`  — alle beantworteten Aussagen tragen denselben Wert. Daraus ist
+ *                nichts zu lesen; die Ergebnisseite zeigt deshalb keinen Befund,
+ *                und der Durchgang kommt nicht in den Verlauf.
+ * - `bothEnds` — die untersten und die obersten Ebenen leuchten gleichzeitig.
+ *                Beides gleichzeitig gibt es nicht: Wer fast immer ausweicht,
+ *                spricht nicht fast immer an. Der Befund wird gezeigt, aber mit
+ *                einem Vorbehalt davor.
+ * - `null`     — nichts spricht dagegen, das Ergebnis zu lesen.
+ */
+export type Reservation = 'uniform' | 'bothEnds' | null
+
 /** Wie stark eine einzelne Ebene im Antwortbild vertreten ist. */
 export type LevelScore = {
   level: Level
@@ -39,6 +60,8 @@ export type Result = {
   reach: Level
   /** Die tiefste Ebene, die noch deutlich zieht; null, wenn keine darunter liegt. */
   drag: Level | null
+  /** Was gegen das Lesen dieses Ergebnisses spricht; null, wenn nichts. */
+  reservation: Reservation
 }
 
 /* Antworten sind 0…4; ab hier gilt eine Ebene als deutlich vorhanden. 0.5
@@ -49,6 +72,24 @@ const PRESENT = 0.5
    "manchmal" erreicht, ist noch kein Ort, an dem man schon gewesen ist. Erst ab
    "oft" ist sie mehr als eine Ahnung. */
 const REACHING = 0.6
+
+/* Ab so vielen beantworteten Aussagen gilt lauter Gleiches als durchgeklickt.
+   Darunter nicht: Fünf gleiche Kreuze hintereinander sind Zufall, und der Bogen
+   lässt sich absichtlich abbrechen und fortsetzen. Acht Aussagen verteilen sich
+   über mindestens sechs verschiedene Ebenen — dass die alle dasselbe Kreuz
+   verdienen, kommt in der Sache nicht vor. */
+const UNIFORM_MIN = 8
+
+/* Wie viele Ebenen an jedem Ende der Skala für den Widerspruch zählen: unten
+   Scham bis Angst (alle bis 100), oben Liebe bis Erleuchtung (alle ab 500).
+   Dazwischen liegt genug Platz, dass ein Mensch beides zugleich sein könnte —
+   an den Enden nicht mehr. */
+const BOTTOM = 5
+const TOP = 4
+
+/* Ab hier gilt ein Ende als deutlich beleuchtet. Höher als `PRESENT`, weil ein
+   Widerspruch erst einer ist, wenn beide Seiten laut sind. */
+const LOUD = 0.7
 
 /* Der Exponent schärft das Bild: ohne ihn zöge jede schwach angekreuzte Ebene
    den Schnitt zur Mitte, und praktisch jedes Ergebnis läge bei Akzeptanz. Mit
@@ -126,6 +167,30 @@ export function levelAt(levels: Level[], calibration: number): Level {
   return found
 }
 
+/**
+ * Der Vorbehalt gegen ein Antwortbild — siehe `Reservation`.
+ *
+ * Bewusst am Antwortbild und nicht am Ergebnis gemessen: Ob ein Befund zu lesen
+ * ist, entscheidet sich davor. Ein Ergebnis, das aus lauter gleichen Kreuzen
+ * gerechnet wurde, sieht danach genauso aus wie ein echtes — daran ist es nicht
+ * mehr zu erkennen.
+ */
+export function reservationOf(scores: LevelScore[], answers: Answers): Reservation {
+  const given = QUESTIONS.map((question) => answers[question.id]).filter(
+    (value): value is NonNullable<typeof value> => value !== undefined,
+  )
+
+  if (given.length >= UNIFORM_MIN && given.every((value) => value === given[0])) return 'uniform'
+
+  const meanOf = (from: number, to: number): number =>
+    scores.slice(from, to).reduce((sum, score) => sum + score.strength, 0) / (to - from)
+
+  const bottom = meanOf(0, BOTTOM)
+  const top = meanOf(scores.length - TOP, scores.length)
+
+  return bottom >= LOUD && top >= LOUD ? 'bothEnds' : null
+}
+
 export function evaluate(levels: Level[], answers: Answers): Result {
   const scores = scoreLevels(levels, answers)
   const calibration = calibrate(levels, scores)
@@ -170,6 +235,7 @@ export function evaluate(levels: Level[], answers: Answers): Result {
     band,
     reach: levels.indexOf(reach) > dominantRank ? reach : dominant,
     drag,
+    reservation: reservationOf(scores, answers),
   }
 }
 

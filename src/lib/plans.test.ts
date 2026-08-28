@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { levelsIn } from '../i18n/levels.ts'
-import { actionCore, isPlans, latestPlan } from './plans.ts'
+import { actionCore, isPlans, sortedPlans } from './plans.ts'
 import type { Language, Plan, Plans } from '../types.ts'
 
 const LANGUAGES: Language[] = ['de', 'en']
@@ -72,16 +72,27 @@ describe('isPlans', () => {
   })
 })
 
-describe('latestPlan', () => {
+describe('sortedPlans', () => {
   const older: Plan = { level: 'fear', when: 'A', then: 'B', created: '2026-01-01T00:00:00.000Z' }
-  const newer: Plan = { level: 'courage', when: 'C', then: 'D', created: '2026-03-01T00:00:00.000Z' }
+  const middle: Plan = { level: 'anger', when: 'C', then: 'D', created: '2026-02-01T00:00:00.000Z' }
+  const newer: Plan = { level: 'courage', when: 'E', then: 'F', created: '2026-03-01T00:00:00.000Z' }
 
-  it('gibt den zuletzt angelegten zurück', () => {
-    expect(latestPlan({ fear: older, courage: newer })).toBe(newer)
-    expect(latestPlan({ courage: newer, fear: older })).toBe(newer)
+  /* Die Reihenfolge im Objekt ist die des Einfügens und sagt nichts über das
+     Alter — deshalb beide Richtungen. */
+  it('gibt den zuletzt angelegten zuerst', () => {
+    expect(sortedPlans({ fear: older, anger: middle, courage: newer })).toEqual([
+      newer,
+      middle,
+      older,
+    ])
+    expect(sortedPlans({ courage: newer, fear: older, anger: middle })).toEqual([
+      newer,
+      middle,
+      older,
+    ])
   })
 
-  it('gibt ohne Plan null zurück', () => {
-    expect(latestPlan({})).toBeNull()
+  it('gibt ohne Plan eine leere Liste zurück', () => {
+    expect(sortedPlans({})).toEqual([])
   })
 })

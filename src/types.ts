@@ -116,6 +116,42 @@ export type LevelId =
   | 'peace'
   | 'enlightenment'
 
+/**
+ * Die acht Ebenen unter der Schwelle von 200.
+ *
+ * Sie stehen hier als eigener Typ und nicht als Kommentar, weil der
+ * Moment-Bogen ausschließlich mit ihnen arbeitet: Wer ihn aufmacht, steckt
+ * fest, und über der Schwelle steckt niemand fest. Ein `Record` über diesen Typ
+ * lässt den Compiler dann zählen — eine fehlende Rückfrage fällt beim Bauen auf
+ * und nicht im Gebrauch.
+ *
+ * Dass die Aufzählung wirklich der Skala entspricht, prüft ein Test gegen
+ * `BELOW_THRESHOLD` in `data/levels.ts`; von Hand gepflegte Listen laufen sonst
+ * irgendwann auseinander.
+ */
+export type BelowLevelId = Extract<
+  LevelId,
+  'shame' | 'guilt' | 'apathy' | 'grief' | 'fear' | 'desire' | 'anger' | 'pride'
+>
+
+/**
+ * Ein abgeschlossener Durchgang durch den Moment-Bogen.
+ *
+ * Gespeichert wird nur, wann und welche Ebene — nicht, was dabei gedacht wurde.
+ * Die Rückfrage in Schritt drei ist absichtlich kein Formular: Was man
+ * aufschreibt, schreibt man für einen Leser, und der einzige, der hier lesen
+ * würde, wäre man in vier Wochen selbst.
+ */
+export type Moment = {
+  /** ISO-Zeitpunkt des Abschlusses. */
+  taken: string
+  /** Die Ebene, mit der der Durchgang begonnen hat. */
+  level: BelowLevelId
+}
+
+/** Die Momente, ältester zuerst. */
+export type Moments = Moment[]
+
 /** Eine Frage des Bogens ohne ihren Text — der steht in `i18n/questions.ts`. */
 export type Question = {
   id: QuestionId

@@ -17,6 +17,19 @@
     <meta name="theme-color" content="#0b0713" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+    <!-- Das Manifest macht aus der Seite eine App, die man ablegen kann: Name,
+         Farben und Icons stehen darin, und `display: standalone` nimmt beim
+         Start vom Homescreen die Browserleiste weg. Die Icons liegen als PNG
+         daneben — die Quellen und der Befehl zum Neubauen stehen in
+         `assets/README.md`. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- iOS liest das Manifest bis heute nicht für das Symbol auf dem
+         Startbildschirm; ohne diese Zeile nimmt es einen Bildschirmausschnitt.
+         Randlos und ohne eigene Rundung, weil iOS seine Maske selbst darüber
+         legt. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Hawkins Flow" />

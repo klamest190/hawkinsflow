@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { QUESTIONS } from '../data/questions.ts'
 import { levelsIn } from '../i18n/levels.ts'
-import { calibrate, evaluate, levelAt, scoreLevels } from './scoring.ts'
+import { calibrate, evaluate, levelAt, reservationOf, scoreLevels } from './scoring.ts'
 import type { Answers, AnswerValue, LevelId } from '../types.ts'
 
 /* Die Auswertung bekommt die Ebenen von außen und rechnet mit Rang und Wert,
@@ -17,6 +17,53 @@ function only(...ids: LevelId[]): Answers {
   }
   return answers
 }
+
+/** Ein Bogen, in dem jede Frage denselben Wert trägt. */
+function all(value: AnswerValue): Answers {
+  const answers: Answers = {}
+  for (const question of QUESTIONS) answers[question.id] = value
+  return answers
+}
+
+/* Der Vorbehalt gegen das Antwortbild.
+
+   Der Anlass: Ohne ihn liefert der Bogen auf „alles Selten", „alles Manchmal",
+   „alles Oft" und „alles Fast immer" viermal denselben vollständigen Befund —
+   Mut 200, Scham zieht, Spielraum bis Erleuchtung. Der stammt aus der Rechnung
+   und nicht aus den Antworten: Gleiche Gewichte auf allen Ebenen heben sich zur
+   Mitte der Skala auf. */
+describe('reservationOf', () => {
+  const reservation = (answers: Answers) => reservationOf(scoreLevels(LEVELS, answers), answers)
+
+  it.each([0, 1, 2, 3, 4] as AnswerValue[])('erkennt einen Bogen aus lauter %i', (value) => {
+    expect(reservation(all(value))).toBe('uniform')
+  })
+
+  /* Ein paar gleiche Kreuze hintereinander sind kein Durchklicken — der Bogen
+     lässt sich abbrechen und fortsetzen, und die ersten Fragen können durchaus
+     alle dieselbe Antwort verdienen. */
+  it('lässt wenige gleiche Antworten durchgehen', () => {
+    const few: Answers = {}
+    for (const question of QUESTIONS.slice(0, 6)) few[question.id] = 3
+    expect(reservation(few)).toBeNull()
+  })
+
+  it('erkennt einen Bogen, in dem unten und oben gleichzeitig leuchten', () => {
+    const answers = only('shame', 'guilt', 'apathy', 'grief', 'fear', 'love', 'joy', 'peace', 'enlightenment')
+    expect(reservation(answers)).toBe('bothEnds')
+  })
+
+  it('hält ein gewöhnliches Antwortbild für lesbar', () => {
+    expect(reservation(only('courage', 'neutrality', 'fear'))).toBeNull()
+    // Auch ein Bogen, der nur unten leuchtet: Das ist ein Ergebnis, kein Widerspruch.
+    expect(reservation(only('shame', 'guilt', 'apathy', 'grief', 'fear'))).toBeNull()
+  })
+
+  it('reicht das Ergebnis an `evaluate` durch', () => {
+    expect(evaluate(LEVELS, all(4)).reservation).toBe('uniform')
+    expect(evaluate(LEVELS, only('courage')).reservation).toBeNull()
+  })
+})
 
 describe('scoreLevels', () => {
   it('gibt jeder Ebene einen Anteil zwischen 0 und 1', () => {

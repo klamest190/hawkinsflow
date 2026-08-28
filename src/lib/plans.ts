@@ -56,14 +56,19 @@ export function isPlans(value: unknown): value is Plans {
 }
 
 /**
- * Der zuletzt angelegte Plan — der, den die Startseite zeigt. Wer mehrere hat,
- * arbeitet am jüngsten; die älteren stehen weiter bei ihrer Ebene.
+ * Alle Pläne, der zuletzt angelegte zuerst.
+ *
+ * Die Startseite zeigt den jüngsten ausgeschrieben und die übrigen als Zeile
+ * darunter. Dass sie überhaupt alle herausgereicht werden, hat einen Grund: Das
+ * Ergebnis kennt nur den Plan der Ebene, auf der man gerade herauskommt. Wer den
+ * Bogen wiederholt und woanders landet, käme an den vorigen sonst nie wieder
+ * heran — er läge im Speicher, unsichtbar und unlöschbar.
+ *
+ * Sortiert wird über die ISO-Zeichenkette: Sie ist so gebaut, dass ihre
+ * alphabetische Ordnung die zeitliche ist, und spart das Umwandeln in Daten.
  */
-export function latestPlan(plans: Plans): Plan | null {
-  return (
-    Object.values(plans)
-      .filter((plan): plan is Plan => plan !== undefined)
-      .sort((a, b) => a.created.localeCompare(b.created))
-      .at(-1) ?? null
-  )
+export function sortedPlans(plans: Plans): Plan[] {
+  return Object.values(plans)
+    .filter((plan): plan is Plan => plan !== undefined)
+    .sort((a, b) => b.created.localeCompare(a.created))
 }

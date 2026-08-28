@@ -7,7 +7,13 @@ export function Logo({ className = '' }: { className?: string }) {
   return (
     <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Hawkins Flow">
       <defs>
-        <linearGradient id="hf-logo" x1="0" y1="1" x2="0" y2="0">
+        {/* `userSpaceOnUse` ist hier keine Feinheit, sondern der Unterschied
+            zwischen einer Skala und vier Farbklecksen: Ohne die Angabe rechnet
+            SVG den Verlauf je Form aus, und jeder einzelne Balken trüge den
+            ganzen Regenbogen. Die Koordinaten laufen deshalb durch den
+            Zeichenraum — von der Unterkante der untersten Stufe bis zur
+            Oberkante der obersten. */}
+        <linearGradient id="hf-logo" gradientUnits="userSpaceOnUse" x1="0" y1="51" x2="0" y2="12">
           <stop offset="0" stopColor="oklch(0.55 0.17 20)" />
           <stop offset="0.35" stopColor="oklch(0.72 0.17 70)" />
           <stop offset="0.55" stopColor="oklch(0.85 0.17 102)" />

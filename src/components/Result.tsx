@@ -101,6 +101,53 @@ export function Result({
     }
   }
 
+  /* ── Wenn nichts abzulesen ist ──────────────────────────────────────────
+     Zwei Fälle, ein Schirm — beide Male rechnet die Auswertung etwas aus, und
+     beide Male steckt in den Antworten nichts davon.
+
+     Ohne eine einzige Antwort findet `focusRank` kein Gewicht, fällt auf null
+     zurück, und das ist der Anfang der Skala: Scham. Ein Startwert, keine
+     Aussage über den Menschen davor.
+
+     Der zweite Fall ist der unangenehmere, weil er nach einem echten Ergebnis
+     aussieht: 34 beantwortete Fragen, alle mit demselben Kreuz. Dann tragen alle
+     Ebenen dasselbe Gewicht, das Mittel liegt in der Mitte der Skala, und
+     heraus kommt „Mut" — mit Band, mit Ballast, mit Spielraum nach oben. Vier
+     der fünf gleichförmigen Muster liefern genau denselben Befund; das allein
+     zeigt, dass er aus der Rechnung stammt und nicht aus den Antworten.
+
+     Deshalb hier ein eigener Schirm und kein Vorbehalt unter einem Ergebnis:
+     Beides ist kein halbes Ergebnis, sondern keines. `App.finish()` schreibt
+     beide Fälle aus demselben Grund nicht in den Verlauf. */
+  const unreadable = answered === 0 || result.reservation === 'uniform'
+
+  if (unreadable) {
+    const empty = answered === 0
+    return (
+      <div className="animate-rise mx-auto flex w-full max-w-xl flex-col gap-6 px-5 py-16 sm:px-6">
+        <Card className="animate-pop text-center">
+          <h1 className="font-display text-[30px] leading-[1.15] font-bold tracking-[-0.02em] text-balance sm:text-[36px]">
+            {empty ? t.emptyTitle : t.uniformTitle}
+          </h1>
+          <p className="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-balance text-muted">
+            {empty ? t.emptyLead : t.uniformLead}
+          </p>
+          {!empty && (
+            <p className="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-balance text-muted/70">
+              {t.uniformHint}
+            </p>
+          )}
+          <div className="mt-9 flex flex-wrap justify-center gap-3">
+            <Button onClick={onRestart}>{empty ? t.start : t.repeatQuiz}</Button>
+            <Button variant="ghost" onClick={onBrowse}>
+              {t.browseFirst}
+            </Button>
+          </div>
+        </Card>
+      </div>
+    )
+  }
+
   return (
     <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-10 sm:px-6">
       {/* Der rechte Abstand hält die Ecke frei, in der die Sprachwahl steht. */}
@@ -112,6 +159,19 @@ export function Result({
           {t.restart}
         </Button>
       </header>
+
+      {/* Der Widerspruch steht als erste Karte und nicht als Fußnote unten:
+          Wer die Ebene erst in 64 Pixeln gelesen hat, liest den Vorbehalt
+          danach nicht mehr. Bewusst ohne Akzentfarbe — er ist kein Teil des
+          Befundes, sondern etwas, das davorsteht. */}
+      {result.reservation === 'bothEnds' && (
+        <Card className="animate-pop border-line/80">
+          <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+            {t.bothEndsTitle}
+          </h2>
+          <p className="mt-3 text-[15px] leading-relaxed text-text/90">{t.bothEndsBody}</p>
+        </Card>
+      )}
 
       {/* ── Der Schwerpunkt ──────────────────────────────────────────────
           Hier stand einmal die interpolierte Zahl, groß und mitgezählt. Sie ist
@@ -185,7 +245,7 @@ export function Result({
       <Card>
         <h2 className="font-display text-xl font-semibold">{t.profileTitle}</h2>
         <p className="mt-1.5 mb-6 text-[14px] leading-relaxed text-muted">{t.profileLead}</p>
-        <Spectrum scores={scores} dominant={dominant.id} drag={drag?.id ?? null} />
+        <Spectrum scores={scores} dominant={dominant.id} drag={drag?.id ?? null} t={t} />
       </Card>
 
       {/* ── Was zieht und was trägt ──────────────────────────────────────── */}

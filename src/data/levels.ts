@@ -36,6 +36,18 @@ export const LEVELS: LevelShape[] = [
 /** Ab hier ist eine Ebene „lebensbejahend" — Hawkins' berühmte Schwelle. */
 export const THRESHOLD = 200
 
+/**
+ * Die Ebenen unter der Schwelle, aufsteigend — die Auswahl des Moment-Bogens.
+ *
+ * Aus `LEVELS` gerechnet und nicht abgeschrieben: Verschöbe jemand einen Wert,
+ * zöge diese Liste mit. Der Typ `BelowLevelId` in `types.ts` zählt dieselben
+ * acht noch einmal auf, weil ein Typ nichts rechnen kann — dass beide dasselbe
+ * sagen, prüft ein Test.
+ */
+export const BELOW_THRESHOLD: LevelId[] = LEVELS.filter((level) => level.value < THRESHOLD).map(
+  (level) => level.id,
+)
+
 /** Der Rang einer Ebene auf der Skala, 0 (Scham) bis 16 (Erleuchtung). */
 export function rankOf(id: LevelId): number {
   return LEVELS.findIndex((level) => level.id === id)

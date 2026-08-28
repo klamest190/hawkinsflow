@@ -1,3 +1,13 @@
+<!-- Dieselbe Marke wie das Favicon, aber randlos und ohne runde Ecken.
+
+     Für zwei Zwecke: das apple-touch-icon (iOS legt seine eigene Maske darüber
+     und schneidet mitgelieferte Rundungen doppelt) und das „maskable"-Icon
+     unter Android (die Ecken können jede Form annehmen, deshalb muss die
+     Fläche bis zum Rand tragen).
+
+     Die Stufen liegen zwischen 14 und 50 von 64 — das sind 56 % der Kante, ihre
+     Ecken 25.5 von 32 Einheiten vom Mittelpunkt entfernt. Damit bleiben sie
+     innerhalb der 80 %-Sicherheitszone, die eine runde Maske übrig lässt. -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
     <!-- `userSpaceOnUse` ist hier keine Feinheit, sondern der Unterschied
@@ -13,7 +23,7 @@
       <stop offset="1" stop-color="#9b6cf0" />
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="14" fill="#0b0713" />
+  <rect width="64" height="64" fill="#0b0713" />
   <g fill="url(#s)">
     <rect x="14" y="44" width="36" height="5" rx="2.5" />
     <rect x="17" y="34" width="30" height="5" rx="2.5" />
