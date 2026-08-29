@@ -173,9 +173,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 12,
     marginBottom: 16,
-    fontSize: 9.5,
-    lineHeight: 1.5,
   },
+  adviceText: { fontSize: 9.5, lineHeight: 1.5 },
+  // Die Absätze des Rats trennt ein Abstand und keine Leerzeile: Ein leerer
+  // Absatz wäre auf dem Blatt eine Zeile, die beim Umbruch allein stehen kann.
+  adviceGap: { marginTop: 7 },
 
   practice: { borderRadius: 5, padding: 12, marginBottom: 6 },
   practiceHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
@@ -434,11 +436,26 @@ export function ResultDocument({
           {/* Der Rat steht auch hier vor allem anderen und in derselben
               Reihenfolge wie auf dem Bildschirm — das Blatt ist das, was jemand
               mitnimmt, und der Rat ist darauf das Einzige, was gewichtet.
-              `wrap={false}`, weil ein über den Seitenrand gerissener Rat seine
-              Pointe verliert; er ist kurz genug, dass das nie teuer wird. */}
-          <View wrap={false}>
+
+              Er darf umbrechen. Solange er drei Sätze lang war, hielt ihn ein
+              `wrap={false}` zusammen; über drei Absätze hinweg würde dasselbe
+              Attribut im schlechtesten Fall ein Drittel Seite leer lassen, nur
+              um den Kasten ganz auf die nächste zu schieben. Stattdessen hält
+              `minPresenceAhead` die Überschrift bei ihrem ersten Absatz — ein
+              „DER RAT" als letzte Zeile einer Seite wäre der eine Umbruch, der
+              wirklich stört. */}
+          <View minPresenceAhead={72}>
             <Text style={[styles.subTitle, { color: accent }]}>{t.adviceHeading.toUpperCase()}</Text>
-            <Text style={[styles.advice, { borderColor: accent }]}>{dominant.advice}</Text>
+            <View style={[styles.advice, { borderColor: accent }]}>
+              {dominant.advice.map((paragraph, index) => (
+                <Text
+                  key={paragraph}
+                  style={index === 0 ? styles.adviceText : [styles.adviceText, styles.adviceGap]}
+                >
+                  {paragraph}
+                </Text>
+              ))}
+            </View>
           </View>
 
           <Text style={[styles.subTitle, { color: accent }]}>{t.signsHeading.toUpperCase()}</Text>

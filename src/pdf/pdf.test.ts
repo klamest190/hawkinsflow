@@ -5,7 +5,7 @@ import { QUESTIONS } from '../data/questions.ts'
 import { copy } from '../i18n/copy.ts'
 import { levelsIn } from '../i18n/levels.ts'
 import { evaluate } from '../lib/scoring.ts'
-import type { Answers, AnswerValue, Language, Plan } from '../types.ts'
+import type { Advice, Answers, AnswerValue, Language, Plan } from '../types.ts'
 import { fileName } from './exportResult.ts'
 import { ResultDocument } from './ResultDocument.tsx'
 
@@ -84,7 +84,7 @@ describe.each(LANGUAGES)('Das PDF (%s)', (language) => {
      genug: Fiele die Ausgabe aus dem Dokument, wären beide gleich groß. */
   it('nimmt den Rat mit aufs Blatt', async () => {
     const levels = levelsIn(language)
-    const stripped = levels.map((level) => ({ ...level, advice: '' }))
+    const stripped = levels.map((level) => ({ ...level, advice: ['', '', ''] as Advice }))
     const document = (list: typeof levels) =>
       renderToBuffer(
         createElement(ResultDocument, {

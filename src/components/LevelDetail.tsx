@@ -44,7 +44,16 @@ export function LevelDetail({ level, next, t }: LevelDetailProps) {
           dieselbe Farbe führt und die konkretere Aufforderung enthält. */}
       <section className="flex flex-col gap-2.5 rounded-2xl border border-accent/25 bg-accent/[0.07] px-5 py-4">
         <Heading>{t.adviceHeading}</Heading>
-        <p className="text-[15px] leading-relaxed text-text/90">{level.advice}</p>
+        {/* Drei Absätze, ohne Zwischenüberschriften: Der Griff, der Fehler, das
+            Maß (siehe `Advice` in `types.ts`). Beschriftet sähe der Rat aus wie
+            ein weiteres Formular, und hier spricht als einzige Stelle der Seite
+            jemand den Leser an. Der Abstand zwischen den Absätzen macht die
+            Gliederung sichtbar genug. */}
+        {level.advice.map((paragraph) => (
+          <p key={paragraph} className="text-[15px] leading-relaxed text-text/90">
+            {paragraph}
+          </p>
+        ))}
       </section>
 
       <section className="flex flex-col gap-3">

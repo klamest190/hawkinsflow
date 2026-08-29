@@ -22,6 +22,37 @@ export type LevelShape = {
   color: string
 }
 
+/**
+ * Der Rat — was ein Mensch sagen würde, der schon einmal danebengesessen hat.
+ *
+ * Alle anderen Felder beschreiben: `essence` sagt, wie es hier ist, `signs`,
+ * woran man es merkt, `steps` und `practices` zählen auf, was möglich wäre.
+ * Keines davon gewichtet. Wer auf einer Ebene herauskommt, steht danach vor
+ * drei Schritten und drei Übungen und weiß nicht, womit anzufangen ist.
+ *
+ * Dieses Feld nimmt Stellung: Es nennt das eine, was zuerst zählt, und meist
+ * auch den Fehler, den auf dieser Ebene fast alle machen. Deshalb steht hier
+ * öfter „nicht" als sonst irgendwo in den Texten — ein Rat, der nichts
+ * ausschließt, ist keiner.
+ *
+ * Drei Absätze und nicht einer, weil ein Rat, der nur den ersten Griff nennt,
+ * nach zwei Tagen aufgebraucht ist. Jeder hat seine Aufgabe, und die Reihenfolge
+ * ist die eines Gesprächs:
+ *
+ * 1. **Der Griff** — was zuerst zu tun ist, in einem Satz, der keine Wahl lässt.
+ * 2. **Der Fehler** — warum die Ebene hält: der Irrtum, den hier fast alle
+ *    begehen, und was ihn so teuer macht. Ohne ihn liest sich Schritt eins wie
+ *    ein guter Vorsatz unter vielen.
+ * 3. **Das Maß** — woran zu erkennen ist, dass es wirkt, und wo die Grenze der
+ *    Selbsthilfe liegt. Auf den unteren Ebenen steht hier der Satz, der zu
+ *    ärztlicher oder therapeutischer Hilfe rät; eine App, die das verschweigt,
+ *    lässt jemanden im Regen stehen, der schon zu lange allein probiert.
+ *
+ * Als Tupel und nicht als Liste, damit ein fehlender Absatz beim Bauen auffällt
+ * und nicht erst als halbe Karte im Ergebnis.
+ */
+export type Advice = [string, string, string]
+
 /** Was an einer Ebene übersetzt werden muss. Siehe `i18n/levels.ts`. */
 export type LevelText = {
   /** Der Name in der gelesenen Sprache, z. B. „Mut" / "Courage". */
@@ -32,20 +63,8 @@ export type LevelText = {
   worldview: string
   /** Zwei, drei Sätze: wie sich das Leben hier anfühlt. */
   essence: string
-  /**
-   * Der Rat — was ein Mensch sagen würde, der schon einmal danebengesessen hat.
-   *
-   * Alle anderen Felder beschreiben: `essence` sagt, wie es hier ist, `signs`,
-   * woran man es merkt, `steps` und `practices` zählen auf, was möglich wäre.
-   * Keines davon gewichtet. Wer auf einer Ebene herauskommt, steht danach vor
-   * drei Schritten und drei Übungen und weiß nicht, womit anzufangen ist.
-   *
-   * Dieses Feld nimmt Stellung: Es nennt das eine, was zuerst zählt, und meist
-   * auch den Fehler, den auf dieser Ebene fast alle machen. Deshalb steht hier
-   * öfter „nicht" als sonst irgendwo in den Texten — ein Rat, der nichts
-   * ausschließt, ist keiner.
-   */
-  advice: string
+  /** Der Rat — drei Absätze. Siehe `Advice`. */
+  advice: Advice
   /** Woran man erkennt, dass man gerade hier steht. */
   signs: string[]
   /** Was auf dieser Ebene festhält — der Preis, den sie heimlich zahlt. */

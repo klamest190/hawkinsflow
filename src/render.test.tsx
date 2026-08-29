@@ -586,28 +586,43 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     )
     const fear = levelIn(language, 'fear')
     expect(html).toContain(t.adviceHeading)
-    expect(html).toContain(fear.advice.slice(0, 40))
+    for (const paragraph of fear.advice) expect(html).toContain(paragraph.slice(0, 40))
     expect(html.indexOf(t.adviceHeading)).toBeLessThan(html.indexOf(t.signsHeading))
   })
 })
 
-/* Die Ratschläge selbst. Der Compiler erzwingt bereits, dass keiner fehlt (die
-   englische Fassung wird gegen die deutsche geprüft) — was er nicht sieht, ist
-   ein Rat, der aus Versehen leer, abgeschnitten oder in beiden Sprachen
-   derselbe Text ist. */
+/* Die Ratschläge selbst. Der Compiler erzwingt bereits, dass keiner fehlt und
+   dass jeder drei Absätze hat (die englische Fassung wird gegen die deutsche
+   geprüft, das Tupel gegen `Advice`) — was er nicht sieht, ist ein Absatz, der
+   aus Versehen leer, abgeschnitten oder in beiden Sprachen derselbe Text ist. */
 describe('Die Ratschläge', () => {
-  it.each(LANGUAGES)('trägt auf jeder Ebene einen ganzen Satz (%s)', (language) => {
+  it.each(LANGUAGES)('trägt in jedem Absatz ganze Sätze (%s)', (language) => {
     for (const level of levelsIn(language)) {
-      expect(level.advice.length).toBeGreaterThan(80)
-      expect(level.advice.trim()).toBe(level.advice)
-      expect(level.advice.endsWith('.')).toBe(true)
+      for (const paragraph of level.advice) {
+        expect(paragraph.length).toBeGreaterThan(80)
+        expect(paragraph.trim()).toBe(paragraph)
+        // Ein Satzzeichen am Ende und nicht zwingend ein Punkt: Der zweite
+        // Absatz der Liebe endet auf eine Frage, und die soll er dürfen.
+        expect(paragraph).toMatch(/[.?!]$/)
+      }
+    }
+  })
+
+  /* Die drei Absätze haben verschiedene Aufgaben — Griff, Fehler, Maß. Dass sie
+     verschieden sind, prüft das hier; ein doppelt eingefügter Absatz wäre sonst
+     nirgends zu sehen außer im Ergebnis. */
+  it.each(LANGUAGES)('sagt in den drei Absätzen dreierlei (%s)', (language) => {
+    for (const level of levelsIn(language)) {
+      expect(new Set(level.advice).size).toBe(level.advice.length)
     }
   })
 
   it('sagt es in beiden Sprachen mit eigenen Worten', () => {
     for (const de of levelsIn('de')) {
       const en = levelIn('en', de.id)
-      expect(en.advice).not.toBe(de.advice)
+      for (const [index, paragraph] of de.advice.entries()) {
+        expect(en.advice[index]).not.toBe(paragraph)
+      }
     }
   })
 })
