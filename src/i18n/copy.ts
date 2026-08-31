@@ -51,7 +51,7 @@ const de = {
   // eigener Text statt der untersten Ebene in 64 Pixeln.
   emptyTitle: 'Keine Antworten, kein Ergebnis',
   emptyLead:
-    'Du hast noch keine einzige Aussage beantwortet. Ohne Antworten gibt es nichts zu berechnen. Der Wert käme rechnerisch ganz unten heraus, aber das läge nur daran, dass die Skala dort anfängt — mit dir hätte es nichts zu tun.',
+    'Du hast noch keine einzige Aussage beantwortet. Ohne Antworten können wir nichts berechnen. Rein rechnerisch käme ganz unten etwas heraus, aber nur, weil die Skala dort anfängt. Mit dir hätte das nichts zu tun.',
 
   // ── Ergebnis, das nicht zu lesen ist ─────────────────────────────────────
   // Derselbe Fall wie oben, nur schwerer zu sehen: Hier sind alle 34 Fragen
@@ -60,7 +60,7 @@ const de = {
   // Grund, ihn zu glauben.
   uniformTitle: 'Überall dieselbe Antwort',
   uniformLead:
-    'Du hast bei allen Aussagen denselben Wert angekreuzt. Dann bekommt jede Ebene genau dasselbe Gewicht, und es gibt keinen Schwerpunkt, der sich zeigen ließe. Ein Ergebnis wäre hier nur eine Zahl ohne Aussage.',
+    'Du hast bei allen Aussagen denselben Wert angekreuzt. Dann ist jede Ebene gleich stark, und es gibt keinen Schwerpunkt, den wir dir zeigen könnten. Ein Ergebnis wäre hier nur eine Zahl, die nichts bedeutet.',
   uniformHint: 'Geh die Aussagen noch einmal einzeln durch — sie fragen sehr Verschiedenes.',
 
   // ── Vorbehalt vor einem Ergebnis ─────────────────────────────────────────
@@ -68,7 +68,7 @@ const de = {
   // die Ebene erst in 64 Pixeln gelesen hat, liest den Vorbehalt nicht mehr.
   bothEndsTitle: 'Die Antworten passen nicht zusammen',
   bothEndsBody:
-    'Bei dir sind die untersten und die obersten Ebenen gleichzeitig stark. Beides zusammen ist unwahrscheinlich: Wer fast immer ausweicht, spricht selten fast immer unangenehme Dinge an. Lies das Ergebnis also mit Vorsicht — oder geh den Fragebogen in Ruhe noch einmal durch.',
+    'Bei dir sind die untersten und die obersten Ebenen gleichzeitig stark. Beides zusammen kommt selten vor: Wenn du fast immer ausweichst, sprichst du kaum fast immer unangenehme Dinge an. Lies das Ergebnis deshalb vorsichtig, oder geh den Fragebogen in Ruhe noch einmal durch.',
 
   // ── Ergebnis ─────────────────────────────────────────────────────────────
   focusLabel: 'Dein Schwerpunkt',
@@ -76,11 +76,11 @@ const de = {
   // nicht. Die Zahl der Aussagen kommt als Wert herein, damit der Satz stimmt,
   // wenn der Bogen einmal wächst.
   bandNote: (lower: string, upper: string, questions: number): string =>
-    `Aus ${questions} Aussagen lässt sich nur so genau ablesen: irgendwo zwischen ${lower} und ${upper}. Eine einzelne Zahl würde mehr Genauigkeit vortäuschen, als hier möglich ist.`,
+    `Mit ${questions} Aussagen kommen wir nicht näher heran: Du liegst irgendwo zwischen ${lower} und ${upper}. Eine einzelne Zahl wäre genauer, als dieser Fragebogen sein kann.`,
   // Der zweite Hinweis, und der wichtigere: Er steht dort, wo das Ergebnis
   // steht, und nicht nur am Anfang, wo noch nichts zu glauben war.
   resultDisclaimer:
-    'Dieser Fragebogen ist kein geprüftes Testverfahren: zwei Aussagen je Ebene, alle in dieselbe Richtung formuliert, keine Vergleichsgruppe, keine Validierung. Und Hawkins’ Werte stammen aus dem kinesiologischen Muskeltest, der sich unter kontrollierten Bedingungen nicht bestätigen lässt. Nimm das Ergebnis als Anstoß zum Nachdenken, nicht als Messung.',
+    'Dieser Fragebogen ist kein geprüftes Testverfahren. Es gibt nur zwei Aussagen pro Ebene, sie sind alle in dieselbe Richtung formuliert, es gibt keine Vergleichsgruppe, und niemand hat geprüft, ob er misst, was er messen soll. Dazu kommt: Hawkins hat seine Werte mit dem kinesiologischen Muskeltest ermittelt, und der funktioniert unter kontrollierten Bedingungen nicht. Nimm das Ergebnis als Anstoß zum Nachdenken und nicht als Messung.',
   wholeScale: 'Ganze Skala',
   restart: 'Neu starten',
   emotionLabel: 'Gefühl',
@@ -93,13 +93,13 @@ const de = {
     `${answered} von ${total} Fragen beantwortet — das Bild ist noch vorläufig.`,
   profileTitle: 'Dein Profil',
   profileLead:
-    'Niemand steht nur auf einer einzigen Ebene. Alles, was hier leuchtet, ist gerade in dir vorhanden. Dein Schwerpunkt ist der Durchschnitt daraus.',
+    'Niemand steht nur auf einer einzigen Ebene. Alles, was hier leuchtet, ist gerade in dir. Dein Schwerpunkt ist nur der Durchschnitt daraus.',
   dragTitle: 'Was dich nach unten zieht',
   dragBody: (trap: string): string =>
     `Diese Ebene ist bei dir deutlich vorhanden, obwohl dein Schwerpunkt darüber liegt. Hier liegt meistens die eigentliche Arbeit: ${trap}`,
   reachTitle: 'Wohin du schon reichst',
   reachBody:
-    'So weit reichen deine guten Momente schon. Was du dort kennst, musst du dir nicht mehr erarbeiten — es darf nur öfter vorkommen.',
+    'So weit reichen deine guten Momente schon. Was es dort oben gibt, kennst du also. Es darf nur öfter vorkommen.',
   levelHeading: (value: number, name: string): string => `Ebene ${value} · ${name}`,
   nextLabel: 'Als Nächstes',
   seeAllLevels: (count: number): string => `Alle ${count} Ebenen ansehen`,
@@ -146,14 +146,14 @@ const de = {
   backArrow: '← Zurück',
   scaleTitle: 'Die Skala',
   scaleLead: (levels: number, threshold: number, courage: string): string =>
-    `${levels} Ebenen von 20 bis 700. Ab ${threshold} — ${courage} — dreht sich das Vorzeichen: Darunter kostet das Leben mehr Kraft, als es gibt, darüber ist es umgekehrt. Tippe eine Ebene an.`,
+    `${levels} Ebenen von 20 bis 700. Ab ${threshold} (${courage}) dreht sich das Vorzeichen: Darunter kostet dich das Leben mehr Kraft, als es dir gibt. Darüber ist es umgekehrt. Tippe eine Ebene an.`,
   thresholdMark: (threshold: number): string => `Schwelle ${threshold}`,
   yourLevel: '◆ deine Ebene',
   // ── Der Wenn-Dann-Plan ───────────────────────────────────────────────────
   planTitle: 'Dein Wenn-Dann-Plan',
   // Sagt in einem Satz, warum hier ein Formular steht statt einer weiteren Liste.
   planLead:
-    'Ein Vorsatz sagt, was du willst. Ein Wenn-Dann-Satz sagt zusätzlich, in welcher Situation du es tust. Solche Sätze werden deutlich häufiger umgesetzt, weil die Entscheidung dann schon vorher gefallen ist.',
+    'Ein Vorsatz sagt, was du willst. Ein Wenn-Dann-Satz sagt dazu, in welcher Situation du es tust. Solche Sätze setzen die Leute deutlich häufiger um, weil die Entscheidung schon vorher gefallen ist.',
   planWhen: 'Wenn',
   planThen: 'dann',
   planWhenPlaceholder: 'die Situation, an der du es merkst',
@@ -182,7 +182,7 @@ const de = {
   historyLead: (runs: number): string =>
     runs < 2
       ? 'Ein einzelner Durchgang ist noch keine Entwicklung. Ab dem zweiten siehst du hier eine Linie.'
-      : `${runs} Durchgänge. Die Linie zeigt, wie es dir an ${runs} Tagen ging — sie ist keine Messreihe.`,
+      : `${runs} Durchgänge. Die Linie zeigt, wie es dir an ${runs} Tagen ging. Sie ist keine Messreihe.`,
   historyLatest: 'zuletzt',
   historyClear: 'Verlauf löschen',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
@@ -242,22 +242,22 @@ const en: Copy = {
 
   emptyTitle: 'No answers, no result',
   emptyLead:
-    'You have not answered a single statement yet. With no answers there is nothing to calculate. The number would come out at the very bottom, but only because that is where the scale starts — it would say nothing about you.',
+    'You have not answered a single statement yet. With no answers we cannot calculate anything. The number would come out at the very bottom, but only because that is where the scale starts. It would say nothing about you.',
 
   uniformTitle: 'The same answer everywhere',
   uniformLead:
-    'You gave every statement the same value. That gives every level exactly the same weight, so there is no centre of gravity to show you. A result here would be a number without meaning.',
+    'You gave every statement the same value. Then every level is equally strong, and there is no centre of gravity we could show you. A result here would be a number that means nothing.',
   uniformHint: 'Go through the statements one at a time — they ask about very different things.',
 
   bothEndsTitle: 'These answers do not fit together',
   bothEndsBody:
-    'The lowest and the highest levels are both strong in your answers. That combination is unlikely: someone who almost always avoids things rarely also almost always speaks up. So read the result with some caution — or take the questionnaire again, calmly.',
+    'The lowest and the highest levels are both strong in your answers. That combination is rare: if you almost always avoid things, you hardly ever speak up almost always as well. So read the result carefully, or take the questionnaire again when you have time.',
 
   focusLabel: 'Your centre of gravity',
   bandNote: (lower: string, upper: string, questions: number): string =>
-    `${questions} statements can only get this close: somewhere between ${lower} and ${upper}. A single number would suggest more precision than is possible here.`,
+    `With ${questions} statements we cannot get any closer than this: you are somewhere between ${lower} and ${upper}. A single number would be more precise than this questionnaire can be.`,
   resultDisclaimer:
-    'This questionnaire is not a validated instrument: two statements per level, all worded in the same direction, no comparison group, no validation. And Hawkins’ values come from applied kinesiology, which does not hold up under controlled conditions. Take the result as something to think about, not as a measurement.',
+    'This questionnaire is not a validated instrument. There are only two statements per level, they are all worded in the same direction, there is no comparison group, and nobody has checked whether it measures what it is supposed to measure. On top of that, Hawkins arrived at his values through muscle testing, and that does not work under controlled conditions. Take the result as something to think about and not as a measurement.',
   wholeScale: 'Whole scale',
   restart: 'Start over',
   emotionLabel: 'Emotion',
@@ -270,13 +270,13 @@ const en: Copy = {
     `${answered} of ${total} questions answered — the picture is still provisional.`,
   profileTitle: 'Your profile',
   profileLead:
-    'Nobody stands on a single level. Everything lit up here is present in you right now. Your centre of gravity is the average of it.',
+    'Nobody stands on a single level. Everything lit up here is in you right now. Your centre of gravity is only the average of it.',
   dragTitle: 'What pulls you down',
   dragBody: (trap: string): string =>
     `This level is clearly present in you even though your centre of gravity sits above it. This is usually where the real work is: ${trap}`,
   reachTitle: 'How far you already reach',
   reachBody:
-    'Your good moments already reach this far. You do not have to learn what you know up there — it just needs to happen more often.',
+    'Your good moments already reach this far. So you know what it is like up there. It just needs to happen more often.',
   levelHeading: (value: number, name: string): string => `Level ${value} · ${name}`,
   nextLabel: 'Up next',
   seeAllLevels: (count: number): string => `See all ${count} levels`,
@@ -303,12 +303,12 @@ const en: Copy = {
   backArrow: '← Back',
   scaleTitle: 'The scale',
   scaleLead: (levels: number, threshold: number, courage: string): string =>
-    `${levels} levels from 20 to 700. At ${threshold} — ${courage} — the sign flips: below it life costs more strength than it gives, above it the other way round. Tap a level.`,
+    `${levels} levels from 20 to 700. At ${threshold} (${courage}) the sign flips: below it, life costs you more strength than it gives you. Above it, the other way round. Tap a level.`,
   thresholdMark: (threshold: number): string => `Threshold ${threshold}`,
   yourLevel: '◆ your level',
   planTitle: 'Your if–then plan',
   planLead:
-    'An intention says what you want. An if–then sentence also says in which situation you will do it. Plans like that get carried out far more often, because the decision has already been made beforehand.',
+    'An intention says what you want. An if–then sentence adds the situation you will do it in. People carry plans like that out far more often, because the decision has already been made.',
   planWhen: 'If',
   planThen: 'then',
   planWhenPlaceholder: 'the situation you notice it in',
@@ -329,7 +329,7 @@ const en: Copy = {
   historyLead: (runs: number): string =>
     runs < 2
       ? 'A single run is not a development yet. From the second one there will be a line here.'
-      : `${runs} runs. The line shows how you felt on ${runs} days — it is not a series of measurements.`,
+      : `${runs} runs. The line shows how you felt on ${runs} days. It is not a series of measurements.`,
   historyLatest: 'latest',
   historyClear: 'Clear the history',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,

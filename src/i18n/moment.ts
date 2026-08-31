@@ -35,7 +35,7 @@ const de = {
   // ── Schritt 1: merken ────────────────────────────────────────────────────
   pickTitle: 'Was ist es gerade?',
   pickLead:
-    'Acht Ebenen, alle unter der Schwelle. Nimm die, die am ehesten passt — du musst es nicht genau treffen. Es geht nur darum, dem Gefühl einen Namen zu geben. Sobald es einen Namen hat, ist es nicht mehr alles auf einmal.',
+    'Acht Ebenen, alle unter der Schwelle. Nimm die, die am ehesten passt. Du musst es nicht genau treffen. Es geht nur darum, dem Gefühl einen Namen zu geben. Sobald es einen Namen hat, wird es kleiner.',
 
   // ── Schritt 2: fühlen ────────────────────────────────────────────────────
   feelTitle: 'Einmal ganz fühlen',
@@ -48,7 +48,7 @@ const de = {
   // ── Schritt 3: fragen ────────────────────────────────────────────────────
   askTitle: 'Eine Frage',
   askNote:
-    'Du musst sie nicht beantworten und schon gar nicht aufschreiben. Es reicht, dass sie einmal im Raum steht.',
+    'Du musst sie nicht beantworten und schon gar nicht aufschreiben. Es reicht, dass du sie dir einmal gestellt hast.',
 
   /**
    * Die Rückfrage je Ebene — das eigentliche Werkzeug dieses Bogens.
@@ -80,7 +80,7 @@ const de = {
      nicht am Anfang: Vorher wäre er eine Belehrung gewesen, hier ist er das
      Ergebnis von anderthalb Minuten. */
   noDecision:
-    'Entscheide jetzt nichts, was du nicht zurücknehmen kannst. Unter der Schwelle liefert der Kopf Lösungen, die nur in diesem Zustand einleuchten — morgen sehen sie anders aus.',
+    'Entscheide jetzt nichts, was du nicht zurücknehmen kannst. Unter der Schwelle liefert dir dein Kopf Lösungen, die nur in diesem Zustand einleuchten. Morgen sehen sie anders aus.',
   planLabel: 'Dein Plan für diese Ebene',
   planNone:
     'Für diese Ebene hast du noch keinen Wenn-Dann-Plan. Nach dem nächsten Durchgang durch den Fragebogen kannst du einen anlegen — dann steht er beim nächsten Mal genau hier.',
@@ -88,13 +88,13 @@ const de = {
   /* Derselbe Maßstab wie beim Fragebogen: Was belegt ist, wird belegt genannt,
      und was Hawkins ist, bleibt Hawkins. */
   sourceNote:
-    'Der Ablauf ist alt und nicht von dieser App: bemerken, fühlen, fragen, handeln. Dass ein benanntes Gefühl messbar an Wucht verliert und dass eine Frage weiter trägt als ein Vorsatz, ist gut untersucht. Die Zuordnung zu Hawkins’ Ebenen ist es nicht.',
+    'Der Ablauf ist alt und nicht von dieser App: bemerken, fühlen, fragen, handeln. Dass ein Gefühl schwächer wird, sobald du es benennst, ist gut untersucht. Für Fragen gilt dasselbe: Sie bewirken mehr als ein Vorsatz. Nur die Zuordnung zu Hawkins’ Ebenen ist nicht untersucht.',
 
   // ── Die Spur auf der Startseite ──────────────────────────────────────────
   trailTitle: 'Deine Momente',
   trailLead: (count: number): string =>
     count < 2
-      ? 'Hier sammelt sich, wann du unter der Schwelle warst und es bemerkt hast. Das Bemerken ist der eigentliche Punkt.'
+      ? 'Hier sammelt sich, wann du unter der Schwelle warst und es bemerkt hast. Auf das Bemerken kommt es an.'
       : `${count} Momente. Das ist keine Bilanz, sondern ein Beleg dafür, dass du sie bemerkt hast.`,
   trailLatest: 'zuletzt',
   trailClear: 'Momente löschen',
@@ -115,7 +115,7 @@ const en: MomentCopy = {
 
   pickTitle: 'What is it right now?',
   pickLead:
-    'Eight levels, all of them below the threshold. Take the one that fits best — you do not have to get it exactly right. The point is simply to give the feeling a name. Once it has a name, it is no longer everything at once.',
+    'Eight levels, all of them below the threshold. Take the one that fits best. You do not have to get it exactly right. It is only about giving the feeling a name. Once it has a name, it gets smaller.',
 
   feelTitle: 'Feel it once, all the way',
   feelBody:
@@ -124,7 +124,7 @@ const en: MomentCopy = {
 
   askTitle: 'One question',
   askNote:
-    'You do not have to answer it, and certainly not in writing. It is enough that it has been asked once.',
+    'You do not have to answer it, and certainly not in writing. It is enough that you have asked yourself once.',
 
   questions: {
     shame: 'What exactly happened — and what have you made of it about yourself?',
@@ -140,18 +140,18 @@ const en: MomentCopy = {
 
   actTitle: 'And now',
   noDecision:
-    'Do not decide anything now that you cannot take back. Below the threshold the mind offers solutions that only make sense in this state — tomorrow they look different.',
+    'Do not decide anything now that you cannot take back. Below the threshold your mind offers you solutions that only make sense in this state. Tomorrow they look different.',
   planLabel: 'Your plan for this level',
   planNone:
     'You do not have an if–then plan for this level yet. You can write one after your next run through the questionnaire — then it will be waiting right here.',
   mantraLabel: 'To take with you',
   sourceNote:
-    'The sequence is old and not this app’s invention: notice, feel, ask, act. That naming a feeling measurably takes the force out of it, and that a question carries further than an intention, is well studied. Pinning it to Hawkins’ levels is not.',
+    'The sequence is old and not this app’s invention: notice, feel, ask, act. That a feeling gets weaker as soon as you name it is well studied. The same goes for questions: they do more than an intention does. Only the link to Hawkins’ levels has not been studied.',
 
   trailTitle: 'Your moments',
   trailLead: (count: number): string =>
     count < 2
-      ? 'This is where it collects: when you were below the threshold and noticed it. The noticing is the actual point.'
+      ? 'This is where it collects: when you were below the threshold and noticed it. The noticing is what counts.'
       : `${count} moments. This is not a tally, it is evidence that you noticed them.`,
   trailLatest: 'latest',
   trailClear: 'Clear the moments',
