@@ -13,8 +13,11 @@ type HistoryTrailProps = {
 
 /* Der Zeichenraum der Linie. Die Maße stehen hier und nicht im Markup, weil
    jeder Punkt daraus gerechnet wird — und weil die Grafik über `viewBox`
-   gleichmäßig mitwächst, sind es keine Pixel, sondern Verhältnisse. */
-const BOX = { width: 320, height: 76, padX: 12, padY: 12 }
+   gleichmäßig mitwächst, sind es keine Pixel, sondern Verhältnisse.
+
+   Flacher als früher: Was die Linie zu sagen hat, sagt sie auch auf halber
+   Höhe, und sie teilt sich die Karte inzwischen mit einer zweiten Spur. */
+const BOX = { width: 320, height: 54, padX: 12, padY: 9 }
 
 /** Die Stelle eines Durchgangs im Zeichenraum. */
 function pointAt(levels: Level[], calibration: number, index: number, total: number) {
@@ -38,6 +41,9 @@ function pointAt(levels: Level[], calibration: number, index: number, total: num
  * Bewusst ohne Achsenbeschriftung und ohne Zahlen: Was hier steht, ist eine
  * Reihe von Stimmungen an einzelnen Tagen. Ein Koordinatensystem darum würde
  * daraus eine Messreihe machen, und genau das ist sie nicht.
+ *
+ * Kein eigener Kasten mehr, sondern eine Zeile in dem, den sie sich mit den
+ * Momenten teilt — siehe `Intro`. Deshalb steht hier nur noch das Innere.
  */
 export function HistoryTrail({ history, levels, language, t, onClear }: HistoryTrailProps) {
   const latest = history.at(-1)
@@ -53,7 +59,7 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
   const date = day.format(new Date(latest.taken))
 
   return (
-    <div className="mt-6 w-full rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
+    <section className="p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
           {t.historyTitle}
@@ -67,7 +73,7 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
 
       <svg
         viewBox={`0 0 ${BOX.width} ${BOX.height}`}
-        className="mt-4 h-auto w-full overflow-visible"
+        className="mt-3 h-auto w-full overflow-visible"
         role="img"
         /* Die Linie ist für Screenreader eine Aufzählung: Datum und Ebene je
            Durchgang. Eine Grafik ohne Text wäre hier schlicht nichts. */
@@ -126,21 +132,22 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
         })}
       </svg>
 
-      <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
-        <p className="max-w-sm text-[13px] leading-relaxed text-muted/80">
-          {t.historyLead(history.length)}
+      {/* Datum und Vorbehalt teilen sich eine Zeile mit dem Löschen. Vorher
+          stand hier ein Absatz von zweieinhalb Zeilen; der Vorbehalt gehört
+          weiterhin dazu — dass diese Linie keine Messreihe ist, muss dabeistehen
+          —, aber er sagt es jetzt in einem halben Satz. */}
+      <div className="mt-2.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <p className="text-[12px] leading-relaxed text-muted/70">
+          <span className="tabular">{date}</span> · {t.historyLead(history.length)}
         </p>
-        <div className="flex items-baseline gap-3">
-          <p className="tabular text-[12px] text-muted/70">{date}</p>
-          <button
-            type="button"
-            onClick={onClear}
-            className="cursor-pointer text-[12px] font-medium text-muted/70 underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          >
-            {t.historyClear}
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={onClear}
+          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted/70 underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        >
+          {t.historyClear}
+        </button>
       </div>
-    </div>
+    </section>
   )
 }

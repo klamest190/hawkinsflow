@@ -179,10 +179,12 @@ const de = {
   // zwei Punkten eine Entwicklung zu lesen ist genau der Fehler, vor dem der
   // Vorbehalt am Ergebnis warnt.
   historyTitle: 'Deine Durchgänge',
+  // Steht klein unter der Linie, in einer Zeile mit dem Datum. Früher war das
+  // ein Absatz von zweieinhalb Zeilen — für einen Vorbehalt, der in einen
+  // halben Satz passt. Weglassen lässt er sich nicht: Eine Linie sieht aus wie
+  // eine Messreihe, und eine ist sie nicht.
   historyLead: (runs: number): string =>
-    runs < 2
-      ? 'Ein einzelner Durchgang ist noch keine Entwicklung. Ab dem zweiten siehst du hier eine Linie.'
-      : `${runs} Durchgänge. Die Linie zeigt, wie es dir an ${runs} Tagen ging. Sie ist keine Messreihe.`,
+    runs < 2 ? 'Ab dem zweiten Durchgang wird daraus eine Linie.' : `${runs} Tage, keine Messreihe.`,
   historyLatest: 'zuletzt',
   historyClear: 'Verlauf löschen',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
@@ -328,8 +330,8 @@ const en: Copy = {
   historyTitle: 'Your runs',
   historyLead: (runs: number): string =>
     runs < 2
-      ? 'A single run is not a development yet. From the second one there will be a line here.'
-      : `${runs} runs. The line shows how you felt on ${runs} days. It is not a series of measurements.`,
+      ? 'From the second run on, this becomes a line.'
+      : `${runs} days, not a measurement series.`,
   historyLatest: 'latest',
   historyClear: 'Clear the history',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,

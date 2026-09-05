@@ -97,10 +97,13 @@ const de = {
 
   // ── Die Spur auf der Startseite ──────────────────────────────────────────
   trailTitle: 'Deine Momente',
+  // Eine Zeile, wie beim Verlauf darüber. Der Satz muss die Zahl umdeuten:
+  // Vierzehn Punkte sehen aus wie vierzehn Niederlagen, und gemeint ist
+  // vierzehnmal bemerkt.
   trailLead: (count: number): string =>
     count < 2
-      ? 'Hier sammelt sich, wann du unter der Schwelle warst und es bemerkt hast. Auf das Bemerken kommt es an.'
-      : `${count} Momente. Das ist keine Bilanz, sondern ein Beleg dafür, dass du sie bemerkt hast.`,
+      ? 'Hier sammelt sich, wann du es bemerkt hast.'
+      : `${count} Momente, jeder davon bemerkt.`,
   trailLatest: 'zuletzt',
   trailClear: 'Momente löschen',
   trailEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
@@ -156,8 +159,8 @@ const en: MomentCopy = {
   trailTitle: 'Your moments',
   trailLead: (count: number): string =>
     count < 2
-      ? 'This is where it collects: when you were below the threshold and noticed it. The noticing is what counts.'
-      : `${count} moments. This is not a tally, it is evidence that you noticed them.`,
+      ? 'This is where the times you noticed it collect.'
+      : `${count} moments, every one of them noticed.`,
   trailLatest: 'latest',
   trailClear: 'Clear the moments',
   trailEntryLabel: (date: string, level: string): string => `${date}: ${level}`,

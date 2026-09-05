@@ -80,6 +80,11 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
       />,
     )
     expect(html).toContain(t.start)
+    /* Beim ersten Besuch steht keine der beiden Spuren da — und auch nicht der
+       Kasten, den sie sich teilen. Der prüft die Leere ein zweites Mal selbst;
+       ohne das stünde beim ersten Besuch ein leerer Rahmen unter dem Plan. */
+    expect(html).not.toContain(t.historyTitle)
+    expect(html).not.toContain(m.trailTitle)
     // Das Kürzel am Fuß der Seite, mit dem laufenden Jahr statt einem
     // einbetonierten.
     expect(html).toContain(`© ${new Date().getFullYear()} ${t.appName} · Karsten Lamest`)
@@ -488,6 +493,35 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).toContain(levelIn(language, 'anger').name)
     expect(html).not.toContain('undefined')
     expect(html).not.toContain('NaN')
+  })
+
+  /* Verlauf und Momente stehen in einer Karte mit zwei Zeilen. Gezählt wird der
+     Rahmen: Zwei davon wären der Zustand von vorher, und der war der Grund für
+     den Umbau. Der Plan darüber bringt seinen eigenen mit, deshalb bleibt er
+     hier weg. */
+  it('Start stellt Verlauf und Momente in einen Kasten', () => {
+    const html = renderToString(
+      <Intro
+        levels={levels}
+        language={language}
+        t={t}
+        m={m}
+        onStart={noop}
+        onBrowse={noop}
+        onMoment={noop}
+        resumeAt={null}
+        onResume={noop}
+        plans={[]}
+        onDeletePlan={noop}
+        history={history}
+        onClearHistory={noop}
+        moments={[{ taken: '2026-08-27T07:15:00.000Z', level: 'anger' }]}
+        onClearMoments={noop}
+      />,
+    )
+    expect(html).toContain(t.historyTitle)
+    expect(html).toContain(m.trailTitle)
+    expect(html.match(/rounded-2xl border border-line bg-card\/60/g)).toHaveLength(1)
   })
 
   /* Die Übungen sind der einzige Inhalt, der pro Ebene aus mehreren Teilen

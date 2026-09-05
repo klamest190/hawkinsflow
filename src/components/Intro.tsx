@@ -206,28 +206,50 @@ export function Intro({
         </div>
       )}
 
-      {/* Der Verlauf steht unter dem Plan und über den Knöpfen: Er beantwortet
-          die Frage, die man sich vor dem Wiederholen stellt — wo stand ich beim
-          letzten Mal —, und danach steht der Knopf dafür schon da. */}
-      <HistoryTrail
-        history={history}
-        levels={levels}
-        language={language}
-        t={t}
-        onClear={onClearHistory}
-      />
+      {/* Verlauf und Momente, in einer Karte mit zwei Zeilen.
 
-      {/* Und darunter die Momente. Zwei Spuren nebeneinander und nicht in einer:
-          Der Verlauf zeigt, wo jemand über Wochen steht, die Momente zeigen
-          einzelne Dienstage. In einer Grafik wären das zwei Größen in einer
-          Spalte. */}
-      <MomentTrail
-        moments={moments}
-        levels={levels}
-        language={language}
-        m={m}
-        onClear={onClearMoments}
-      />
+          Sie standen einmal in zwei Kästen untereinander — zweimal derselbe
+          Rahmen, zweimal dieselbe Kopfzeile, zweimal ein erklärender Absatz. Auf
+          einem Telefon war die Startseite damit vor allem Kachelwerk, und der
+          Verlauf, der eigentlich in einer Sekunde beantworten soll „wo stand ich
+          beim letzten Mal", brauchte dafür den halben Bildschirm.
+
+          Zwei Zeilen und trotzdem keine gemeinsame Grafik: Der Verlauf zeigt, wo
+          jemand über Wochen steht, die Momente zeigen einzelne Dienstage — in
+          einem Bild wären das zwei Größen in einer Spalte. Getrennt hält sie
+          jetzt die Linie zwischen den Zeilen statt eines zweiten Rahmens.
+
+          Beide Spuren geben von sich aus nichts aus, solange nichts da ist. Der
+          Kasten muss das noch einmal selbst prüfen, sonst stünde beim ersten
+          Besuch ein leerer Rahmen unter dem Plan.
+
+          Steht ein Plan darüber, rückt die Karte dicht an ihn heran; ohne Plan
+          hängt sie an der Leiter und braucht den vollen Abstand. */}
+      {(history.length > 0 || moments.length > 0) && (
+        <div
+          className={
+            'w-full divide-y divide-line/60 rounded-2xl border border-line bg-card/60 ' +
+            'text-left backdrop-blur-sm ' +
+            (newest === undefined ? 'mt-10' : 'mt-4')
+          }
+        >
+          <HistoryTrail
+            history={history}
+            levels={levels}
+            language={language}
+            t={t}
+            onClear={onClearHistory}
+          />
+
+          <MomentTrail
+            moments={moments}
+            levels={levels}
+            language={language}
+            m={m}
+            onClear={onClearMoments}
+          />
+        </div>
+      )}
 
       <div className="mt-11 flex flex-col items-center gap-3">
         {resumeAt === null ? (
