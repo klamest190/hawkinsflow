@@ -1,5 +1,6 @@
 import type { Copy } from '../i18n/copy.ts'
-import type { Level } from '../types.ts'
+import type { Level, Plan } from '../types.ts'
+import { PlanBuilder } from './PlanBuilder.tsx'
 import { PracticeDeck } from './PracticeDeck.tsx'
 
 type LevelDetailProps = {
@@ -8,6 +9,10 @@ type LevelDetailProps = {
       Nachschlagen die Sprache kennen muss und diese Komponente sie nicht. */
   next: Level | null
   t: Copy
+  /** Der Wenn-Dann-Plan zu dieser Ebene; null, solange keiner steht. */
+  plan: Plan | null
+  onSavePlan: (when: string, then: string) => void
+  onDeletePlan: () => void
 }
 
 /** Eine Überschrift im Detailblock — klein, gesperrt, in der Ebenenfarbe. */
@@ -23,7 +28,14 @@ function Heading({ children }: { children: string }) {
  * Steht im Ergebnis wie im Nachschlagewerk — deshalb kennt die Komponente keinen
  * der beiden Kontexte.
  */
-export function LevelDetail({ level, next, t }: LevelDetailProps) {
+export function LevelDetail({
+  level,
+  next,
+  t,
+  plan,
+  onSavePlan,
+  onDeletePlan,
+}: LevelDetailProps) {
   return (
     <div className="flex flex-col gap-7">
       <p className="text-[16px] leading-relaxed text-text/90">{level.essence}</p>
@@ -103,6 +115,31 @@ export function LevelDetail({ level, next, t }: LevelDetailProps) {
       <section className="flex flex-col gap-3">
         <Heading>{t.practiceHeading}</Heading>
         <PracticeDeck practices={level.practices} t={t} />
+      </section>
+
+      {/* Der Wenn-Dann-Plan. Er steht hinter den Übungen und vor dem Mantra:
+          Alles davor sagt, was zu tun wäre — der Plan bindet eines davon an
+          einen Moment, und danach kommt nur noch der Satz zum Mitnehmen.
+
+          Dass er hier steht und nicht im Ergebnis, ist der Unterschied: Vorher
+          gab es ihn nur zu der einen Ebene, auf der man gerade herauskam. Wer
+          die Skala durchliest oder im Moment-Bogen bei Zorn landet, konnte sich
+          zu keiner dieser Ebenen etwas vornehmen — und genau dort ist der
+          Vorsatz am nächsten.
+
+          Das `key` bindet das Formular an seine Ebene: In der Skalenansicht
+          steht derselbe Kasten siebzehnmal, und ohne das trüge der nächste den
+          halben Entwurf des vorigen im Feld. */}
+      <section className="flex flex-col gap-3">
+        <Heading>{t.planTitle}</Heading>
+        <PlanBuilder
+          key={level.id}
+          level={level}
+          plan={plan}
+          t={t}
+          onSave={onSavePlan}
+          onDelete={onDeletePlan}
+        />
       </section>
 
       {/* Die Anführungszeichen kommen aus der Sprache, nicht aus dem Text: im

@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { BELOW_THRESHOLD } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { MomentCopy } from '../i18n/moment.ts'
-import type { BelowLevelId, Level, Plans } from '../types.ts'
+import type { BelowLevelId, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
+import { PlanBuilder } from './PlanBuilder.tsx'
 import { Timer } from './Timer.tsx'
 
 type MomentProps = {
@@ -17,6 +18,8 @@ type MomentProps = {
   onPick: (level: BelowLevelId) => void
   /** Die gespeicherten Wenn-Dann-Pläne — im letzten Schritt steht der passende. */
   plans: Plans
+  /** Steht noch keiner, wird er im letzten Schritt geschrieben. */
+  onSavePlan: (level: LevelId, when: string, then: string) => void
   /** Wird einmal je Durchgang gerufen, beim Erreichen des letzten Schritts. */
   onRecord: (level: BelowLevelId) => void
   onLeave: () => void
@@ -46,6 +49,7 @@ export function Moment({
   level,
   onPick,
   plans,
+  onSavePlan,
   onRecord,
   onLeave,
 }: MomentProps) {
@@ -211,8 +215,32 @@ export function Moment({
                 <p className="text-[11px] font-semibold tracking-[0.16em] text-accent uppercase">
                   {m.planLabel}
                 </p>
+                {/* Steht noch keiner, wird er hier geschrieben und nicht auf
+                    später vertagt: Nach anderthalb Minuten mit dem Gefühl weiß
+                    dieser Mensch besser als an jedem anderen Tag, welche
+                    Situation gemeint ist und was in ihr helfen würde. Vorher
+                    stand an dieser Stelle der Hinweis, man könne nach dem
+                    nächsten Fragebogen einen anlegen — eine Sackgasse genau im
+                    Augenblick der größten Bereitschaft.
+
+                    Sobald gespeichert ist, greift der andere Zweig: Der fertige
+                    Plan steht als Satz da, ohne Ändern und ohne Löschen. Wer
+                    hier ankommt, steckt fest; ein Löschknopf daneben wäre die
+                    falsche Einladung. Geändert wird er in der Skala. */}
                 {plans[chosen.id] === undefined ? (
-                  <p className="mt-2.5 text-[14px] leading-relaxed text-muted">{m.planNone}</p>
+                  <div className="mt-2.5">
+                    <PlanBuilder
+                      level={chosen}
+                      plan={null}
+                      t={t}
+                      lead={m.planNone}
+                      onSave={(when, then) => onSavePlan(chosen.id, when, then)}
+                      /* Unerreichbar: Der fertige Plan wird nie von hier
+                         gezeigt, sondern vom Zweig darunter — sobald gespeichert
+                         ist, steht in `plans` einer und dieser Ast fällt weg. */
+                      onDelete={() => {}}
+                    />
+                  </div>
                 ) : (
                   <div className="mt-2.5 flex flex-col gap-1.5">
                     <p className="text-[16px] leading-relaxed text-text/90">

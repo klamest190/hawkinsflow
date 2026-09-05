@@ -26,7 +26,11 @@ export default function App() {
   const { answers, answer, reset } = useAnswers()
   /* Die Pläne liegen neben den Antworten und nicht in ihnen: Sie sind das
      Einzige, was der Mensch hier selbst geschrieben hat, und überleben deshalb
-     jedes Neustarten des Bogens. */
+     jedes Neustarten des Bogens.
+
+     Sie gehen an alle drei Ansichten, die eine Ebene zeigen — Ergebnis, Skala
+     und Moment-Bogen. Früher gab es sie nur zu der einen Ebene, auf der man
+     gerade herauskam; zu jeder anderen ließ sich nichts vornehmen. */
   const { plans, savePlan, removePlan } = usePlans()
   /* Und daneben der Verlauf, aus demselben Grund: Er entsteht überhaupt erst
      dadurch, dass jemand den Bogen ein zweites Mal ausfüllt. */
@@ -243,6 +247,7 @@ export default function App() {
             level={momentLevel}
             onPick={setMomentLevel}
             plans={plans}
+            onSavePlan={savePlan}
             onRecord={recordMoment}
             onLeave={() => setPhase('intro')}
           />
@@ -256,6 +261,9 @@ export default function App() {
             open={openLevel}
             onOpen={setOpenLevel}
             dominant={answered > 0 ? result.dominant.id : null}
+            plans={plans}
+            onSavePlan={savePlan}
+            onDeletePlan={removePlan}
             onBack={() => setPhase(returnTo)}
           />
         )}

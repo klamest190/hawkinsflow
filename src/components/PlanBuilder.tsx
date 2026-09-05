@@ -10,6 +10,15 @@ type PlanBuilderProps = {
   /** Der gespeicherte Plan dieser Ebene; null, solange keiner steht. */
   plan: Plan | null
   t: Copy
+  /**
+   * Der Satz über dem Formular. Vorbelegt mit dem allgemeinen — er erklärt, was
+   * ein Wenn-Dann-Satz überhaupt soll.
+   *
+   * Der Moment-Bogen setzt einen eigenen ein: Wer dort ankommt, hat gerade
+   * anderthalb Minuten mit einem Gefühl verbracht und braucht keine Erklärung
+   * mehr, sondern die Aufforderung, es jetzt festzuhalten.
+   */
+  lead?: string
   onSave: (when: string, then: string) => void
   onDelete: () => void
 }
@@ -42,8 +51,21 @@ function Keyword({ children }: { children: string }) {
  * zuerst und bekommt eigene Vorschläge, und deshalb lässt sich nichts speichern,
  * solange eines von beiden leer ist: ein Vorsatz ohne Auslöser ist wieder nur
  * ein guter Wille, und den hatte man schon vor dem Fragebogen.
+ *
+ * Die Überschrift kommt von außen. Der Kasten steht inzwischen an drei Stellen —
+ * im Detailblock einer Ebene und im letzten Schritt des Moment-Bogens —, und
+ * jede beschriftet ihn in ihrer eigenen Form: dort die kleine gesperrte Zeile
+ * aller Abschnitte, hier die Zeile über dem Plan. Eine eigene `h2` stünde
+ * überall daneben.
  */
-export function PlanBuilder({ level, plan, t, onSave, onDelete }: PlanBuilderProps) {
+export function PlanBuilder({
+  level,
+  plan,
+  t,
+  lead = t.planLead,
+  onSave,
+  onDelete,
+}: PlanBuilderProps) {
   const [when, setWhen] = useState(plan?.when ?? '')
   const [then, setThen] = useState(plan?.then ?? '')
   const [editing, setEditing] = useState(plan === null)
@@ -93,8 +115,6 @@ export function PlanBuilder({ level, plan, t, onSave, onDelete }: PlanBuilderPro
   if (!editing && plan !== null) {
     return (
       <div className="flex flex-col gap-5">
-        <h2 className="font-display text-xl font-semibold">{t.planTitle}</h2>
-
         {/* Als Satz und nicht als ausgefülltes Formular: Was hier steht, soll
             man lesen können wie etwas, das man sich selbst gesagt hat. */}
         <div className="flex flex-col gap-2 rounded-2xl border border-accent/30 bg-accent/8 p-5">
@@ -123,10 +143,7 @@ export function PlanBuilder({ level, plan, t, onSave, onDelete }: PlanBuilderPro
   // ── Das Formular ──────────────────────────────────────────────────────────
   return (
     <div className="flex flex-col gap-5">
-      <div>
-        <h2 className="font-display text-xl font-semibold">{t.planTitle}</h2>
-        <p className="mt-1.5 text-[14px] leading-relaxed text-muted">{t.planLead}</p>
-      </div>
+      <p className="text-[14px] leading-relaxed text-muted">{lead}</p>
 
       <div className="flex flex-col gap-2.5">
         <label htmlFor={`${id}-when`} className="cursor-pointer">

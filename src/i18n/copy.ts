@@ -167,10 +167,10 @@ const de = {
   planStoredNote:
     'Der Plan steht ab jetzt auf der Startseite — gleich sichtbar, wenn du die App öffnest.',
   introPlanLabel: 'Dein Plan',
-  // Die älteren Pläne stehen darunter, einer je Zeile. Sonst wären sie nirgends
-  // mehr erreichbar: Das Ergebnis zeigt nur den Plan der Ebene, auf der man
-  // gerade herauskommt — wer beim nächsten Durchgang woanders landet, käme an
-  // den vorigen nie wieder heran, weder zum Lesen noch zum Löschen.
+  // Die älteren Pläne stehen darunter, einer je Zeile. Erreichbar sind sie
+  // inzwischen auch über die Skala — jede Ebene trägt ihren Plan im Detailblock.
+  // Hier stehen sie trotzdem, und zwar beieinander: Wer wissen will, was er sich
+  // insgesamt vorgenommen hat, soll dafür nicht siebzehn Ebenen aufklappen.
   introPlanOthers: 'Früher angelegt',
   planDeleteLabel: (level: string): string => `Plan zu ${level} löschen`,
 

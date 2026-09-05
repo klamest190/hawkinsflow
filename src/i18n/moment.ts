@@ -82,8 +82,13 @@ const de = {
   noDecision:
     'Entscheide jetzt nichts, was du nicht zurücknehmen kannst. Unter der Schwelle liefert dir dein Kopf Lösungen, die nur in diesem Zustand einleuchten. Morgen sehen sie anders aus.',
   planLabel: 'Dein Plan für diese Ebene',
+  // Steht über dem Formular, wenn zu dieser Ebene noch kein Plan existiert.
+  // Früher stand hier der Hinweis, man könne nach dem nächsten Fragebogen einen
+  // anlegen — eine Sackgasse an der Stelle, an der jemand am ehesten bereit ist,
+  // sich etwas vorzunehmen. Jetzt steht dort das Formular, und dieser Satz sagt,
+  // warum gerade jetzt.
   planNone:
-    'Für diese Ebene hast du noch keinen Wenn-Dann-Plan. Nach dem nächsten Durchgang durch den Fragebogen kannst du einen anlegen — dann steht er beim nächsten Mal genau hier.',
+    'Für diese Ebene steht noch keiner. Schreib ihn jetzt auf, solange der Moment frisch ist — beim nächsten Mal steht er hier, bevor du überlegen musst.',
   mantraLabel: 'Zum Mitnehmen',
   /* Derselbe Maßstab wie beim Fragebogen: Was belegt ist, wird belegt genannt,
      und was Hawkins ist, bleibt Hawkins. */
@@ -143,7 +148,7 @@ const en: MomentCopy = {
     'Do not decide anything now that you cannot take back. Below the threshold your mind offers you solutions that only make sense in this state. Tomorrow they look different.',
   planLabel: 'Your plan for this level',
   planNone:
-    'You do not have an if–then plan for this level yet. You can write one after your next run through the questionnaire — then it will be waiting right here.',
+    'There is none for this level yet. Write it now, while the moment is still fresh — next time it will be waiting here before you have to think.',
   mantraLabel: 'To take with you',
   sourceNote:
     'The sequence is old and not this app’s invention: notice, feel, ask, act. That a feeling gets weaker as soon as you name it is well studied. The same goes for questions: they do more than an intention does. Only the link to Hawkins’ levels has not been studied.',

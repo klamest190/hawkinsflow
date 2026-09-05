@@ -8,7 +8,6 @@ import { exportResult } from '../pdf/exportResult.ts'
 import type { Language, Level, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
-import { PlanBuilder } from './PlanBuilder.tsx'
 import { Spectrum } from './Spectrum.tsx'
 
 type ResultProps = {
@@ -285,24 +284,17 @@ export function Result({
         <h2 className="mb-6 font-display text-xl font-semibold">
           {t.levelHeading(dominant.value, dominant.name)}
         </h2>
-        <LevelDetail level={dominant} next={next} t={t} />
-      </Card>
-
-      {/* ── Der Wenn-Dann-Plan ───────────────────────────────────────────
-          Steht direkt unter den Schritten, weil er sie braucht: Die Karte
-          darüber sagt, was zu tun wäre, diese hier bindet es an einen Moment.
-
-          Das `key` hängt an der Ebene — wer den Bogen wiederholt und woanders
-          herauskommt, soll ein leeres Formular sehen und nicht den halb
-          passenden Plan der alten Ebene im Feld stehen haben. */}
-      <Card>
-        <PlanBuilder
-          key={dominant.id}
+        {/* Der Wenn-Dann-Plan steht mit im Detailblock — hinter den Übungen,
+            vor dem Mantra. Früher war er eine eigene Karte darunter; seit er im
+            Detailblock sitzt, gibt es ihn zu jeder Ebene, die irgendwo
+            aufgeschlagen wird, und nicht nur zu dieser hier. */}
+        <LevelDetail
           level={dominant}
-          plan={plan}
+          next={next}
           t={t}
-          onSave={onSavePlan}
-          onDelete={onDeletePlan}
+          plan={plan}
+          onSavePlan={onSavePlan}
+          onDeletePlan={onDeletePlan}
         />
       </Card>
 

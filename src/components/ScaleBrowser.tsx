@@ -1,7 +1,7 @@
 import { nextLevelId, THRESHOLD } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
-import type { Language, Level, LevelId } from '../types.ts'
+import type { Language, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
 
@@ -14,6 +14,10 @@ type ScaleBrowserProps = {
   onOpen: (id: LevelId | null) => void
   /** Aus dem Ergebnis, falls vorhanden — wird in der Liste markiert. */
   dominant: LevelId | null
+  /** Alle Wenn-Dann-Pläne; jede aufgeklappte Ebene zeigt ihren eigenen. */
+  plans: Plans
+  onSavePlan: (level: LevelId, when: string, then: string) => void
+  onDeletePlan: (level: LevelId) => void
   onBack: () => void
 }
 
@@ -29,6 +33,9 @@ export function ScaleBrowser({
   open,
   onOpen,
   dominant,
+  plans,
+  onSavePlan,
+  onDeletePlan,
   onBack,
 }: ScaleBrowserProps) {
   const courage = levelIn(language, 'courage').name
@@ -120,6 +127,9 @@ export function ScaleBrowser({
                       level={level}
                       next={nextId === null ? null : levelIn(language, nextId)}
                       t={t}
+                      plan={plans[level.id] ?? null}
+                      onSavePlan={(when, then) => onSavePlan(level.id, when, then)}
+                      onDeletePlan={() => onDeletePlan(level.id)}
                     />
                   </div>
                 )}

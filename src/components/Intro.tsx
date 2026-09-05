@@ -77,9 +77,9 @@ export function Intro({
 }: IntroProps) {
   /* Der jüngste Plan steht ausgeschrieben, die übrigen als Zeile darunter. Nur
      einen zu zeigen wäre ehrlicher zur ursprünglichen Absicht — ein Vorsatz, an
-     den man sich erinnern soll, verträgt keine Liste —, aber die anderen wären
-     damit nirgends mehr erreichbar: Das Ergebnis zeigt nur den Plan der Ebene,
-     auf der man gerade herauskommt. */
+     den man sich erinnern soll, verträgt keine Liste —, aber dann wüsste niemand
+     mehr, was sonst noch aussteht: Die anderen liegen je bei ihrer Ebene in der
+     Skala, und dorthin sieht man von der Startseite aus nicht. */
   const [newest, ...older] = plans
 
   // Die Ebene, zu der ein Plan gehört — sie gibt ihm seine Farbe.
@@ -172,7 +172,7 @@ export function Intro({
 
           {/* Die älteren Pläne: eine Zeile je Ebene, gekürzt auf das „dann".
               Das „Wenn" fehlt hier bewusst — wer den ganzen Satz wiedersehen
-              will, kommt über den Fragebogen wieder auf die Ebene. Was diese
+              oder ändern will, klappt die Ebene in der Skala auf. Was diese
               Liste leisten muss, ist zu zeigen, dass es sie gibt, und sie
               löschbar zu machen. */}
           {older.length > 0 && (

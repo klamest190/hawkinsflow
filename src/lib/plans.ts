@@ -59,10 +59,10 @@ export function isPlans(value: unknown): value is Plans {
  * Alle Pläne, der zuletzt angelegte zuerst.
  *
  * Die Startseite zeigt den jüngsten ausgeschrieben und die übrigen als Zeile
- * darunter. Dass sie überhaupt alle herausgereicht werden, hat einen Grund: Das
- * Ergebnis kennt nur den Plan der Ebene, auf der man gerade herauskommt. Wer den
- * Bogen wiederholt und woanders landet, käme an den vorigen sonst nie wieder
- * heran — er läge im Speicher, unsichtbar und unlöschbar.
+ * darunter. Dass sie überhaupt alle herausgereicht werden, hat einen Grund: Sie
+ * sind sonst über die ganze Skala verstreut. Jede Ebene trägt ihren Plan zwar in
+ * ihrem Detailblock, aber niemand klappt siebzehn Ebenen auf, um zu sehen, was
+ * er sich vorgenommen hat.
  *
  * Sortiert wird über die ISO-Zeichenkette: Sie ist so gebaut, dass ihre
  * alphabetische Ordnung die zeitliche ist, und spart das Umwandeln in Daten.

@@ -12,7 +12,7 @@ import { momentCopy } from './i18n/moment.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
 import { questionText } from './i18n/questions.ts'
 import { evaluate } from './lib/scoring.ts'
-import type { Answers, AnswerValue, History, Language, Moments, Plan } from './types.ts'
+import type { Answers, AnswerValue, History, Language, Moments, Plan, Plans } from './types.ts'
 
 /* Ein Rauchtest: jede Ansicht einmal rendern, und zwar in jeder Sprache. Er
    prüft keine Optik, sondern dass keine der vier Seiten beim Aufbau stolpert —
@@ -424,6 +424,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         level={null}
         onPick={noop}
         plans={{}}
+        onSavePlan={noop}
         onRecord={noop}
         onLeave={noop}
       />,
@@ -446,6 +447,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         level="anger"
         onPick={noop}
         plans={{}}
+        onSavePlan={noop}
         onRecord={noop}
         onLeave={noop}
       />,
@@ -542,6 +544,9 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         open="fear"
         onOpen={noop}
         dominant={null}
+        plans={{}}
+        onSavePlan={noop}
+        onDeletePlan={noop}
         onBack={noop}
       />,
     )
@@ -549,6 +554,61 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).toContain('role="tablist"')
     // Die Angst-Übung „Und dann?" dauert zehn Minuten und bekommt deshalb eine.
     expect(html).toContain(t.timerStart(10))
+  })
+
+  /* Der Wenn-Dann-Plan steht seit dem Umzug in den Detailblock an jeder Ebene,
+     die irgendwo aufgeschlagen wird — vorher gab es ihn nur zu der einen, auf
+     der man gerade herauskam. Geprüft wird beides: das leere Formular an einer
+     Ebene ohne Plan und der fertige Satz an einer mit. */
+  it('bietet zu jeder aufgeklappten Ebene ein Plan-Formular', () => {
+    const html = renderToString(
+      <ScaleBrowser
+        levels={levels}
+        language={language}
+        t={t}
+        open="fear"
+        onOpen={noop}
+        dominant={null}
+        plans={{}}
+        onSavePlan={noop}
+        onDeletePlan={noop}
+        onBack={noop}
+      />,
+    )
+    expect(html).toContain(t.planTitle)
+    expect(html).toContain(t.planWhenPlaceholder)
+    // Die Schritte der Ebene stehen als Vorschläge unter dem „dann“.
+    expect(html).toContain(t.planStepHint)
+    expect(html).not.toContain('undefined')
+  })
+
+  it('zeigt den gespeicherten Plan der aufgeklappten Ebene', () => {
+    const stored: Plans = {
+      fear: {
+        level: 'fear',
+        when: 'ich den Anruf vor mir herschiebe',
+        then: 'wähle ich die Nummer, bevor ich weiterdenke',
+        created: '2026-01-01T00:00:00.000Z',
+      },
+    }
+    const html = renderToString(
+      <ScaleBrowser
+        levels={levels}
+        language={language}
+        t={t}
+        open="fear"
+        onOpen={noop}
+        dominant={null}
+        plans={stored}
+        onSavePlan={noop}
+        onDeletePlan={noop}
+        onBack={noop}
+      />,
+    )
+    expect(html).toContain('wähle ich die Nummer')
+    expect(html).toContain(t.planStoredNote)
+    // Und nicht noch einmal das Formular daneben.
+    expect(html).not.toContain(t.planWhenPlaceholder)
   })
 
   it('Skala mit aufgeklappter Ebene', () => {
@@ -560,6 +620,9 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         open="courage"
         onOpen={noop}
         dominant="courage"
+        plans={{}}
+        onSavePlan={noop}
+        onDeletePlan={noop}
         onBack={noop}
       />,
     )
@@ -581,6 +644,9 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         open="fear"
         onOpen={noop}
         dominant={null}
+        plans={{}}
+        onSavePlan={noop}
+        onDeletePlan={noop}
         onBack={noop}
       />,
     )
