@@ -54,7 +54,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
               <span
                 className={
                   'tabular w-[42px] shrink-0 text-[12px] ' +
-                  (isDominant ? 'font-semibold text-text' : 'text-muted/70')
+                  (isDominant ? 'font-semibold text-text' : 'text-muted')
                 }
               >
                 {level.value}
@@ -82,7 +82,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
                 wäre sie nur ein Einwurf. */}
             {level.value === THRESHOLD && (
               <li aria-hidden className="flex items-center gap-3 py-1">
-                <span className="w-[104px] shrink-0 text-right text-[10px] font-semibold tracking-[0.14em] text-muted/70 uppercase">
+                <span className="w-[104px] shrink-0 text-right text-[10px] font-semibold tracking-[0.14em] text-muted uppercase">
                   {t.thresholdMark(THRESHOLD)}
                 </span>
                 <span className="h-px flex-1 bg-gradient-to-r from-muted/30 via-muted/15 to-transparent" />

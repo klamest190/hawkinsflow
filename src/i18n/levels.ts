@@ -29,18 +29,19 @@ const de = {
     worldview: 'erbärmlich',
     essence:
       'Du schämst dich nicht für etwas, das du getan hast, sondern für dich selbst. Aus „ich habe einen Fehler gemacht“ ist „ich bin ein Fehler“ geworden. Das kostet so viel Kraft, dass für alles andere kaum noch etwas übrig bleibt.',
-    advice: [
-      'Versuch nicht, die Scham zuerst zu verstehen. Sie hält sich vor allem deshalb, weil niemand davon weiß. Erzähl einem Menschen davon, dem du vertraust. Wenn er danach bleibt, verliert die Scham ihre Grundlage. Mehr musst du diese Woche nicht tun, alles andere wird danach leichter.',
-      'Fast alle machen hier denselben Fehler: Sie wollen beweisen, dass sie in Ordnung sind. Noch eine Leistung, noch ein Gefallen, noch ein guter Grund. Das hilft ein paar Tage lang. Dann ist die Frage wieder da, und zwar schärfer als vorher. Denn was du dir verdienen musst, kannst du auch wieder verlieren. Gegen Scham hilft kein Beweis, sondern nur, dass jemand davon weiß.',
-      'Erwarte nicht, dass es sich bald besser anfühlt. Das erste Zeichen ist kleiner: Du bleibst in einem Raum, aus dem du sonst gegangen wärst. Das zählt schon, auch wenn du dabei zitterst. Und wenn du denkst, dass es für alle leichter wäre ohne dich, dann ruf noch heute jemanden an — einen Menschen, dem du vertraust, oder eine Krisennummer.',
-    ],
+    strength:
+      'Scham zeigt, dass dir wichtig ist, wie du auf andere wirkst. Dieses Gespür ist nicht das Problem. Es ist nur gerade gegen dich selbst gerichtet.',
+    advice:
+      'Fang nicht damit an, die Scham zu verstehen. Sie lebt davon, dass niemand von ihr weiß. Such dir einen Menschen, dem du vertraust, und erzähl ihm eine Sache, die du bisher versteckt hast. Wenn diese Person danach noch da ist, hat die Scham ihren Boden verloren. Mehr brauchst du diese Woche nicht zu tun. Alles andere wird danach leichter.',
     signs: [
       'Du willst nicht gesehen werden und gehst aus Räumen, in denen du auffallen könntest.',
       'Alte Peinlichkeiten fallen dir ungefragt ein und treffen dich sofort.',
       'Lob ist dir unangenehm. Es fühlt sich an, als hätte sich jemand in dir getäuscht.',
     ],
     trap:
-      'Scham verspricht dir Schutz: Wer sich klein macht, kann nicht tief fallen. Du bezahlst damit, dass niemand dich kennenlernt. Du selbst auch nicht.',
+      'Scham verspricht dir Schutz: Wer sich klein macht, kann nicht tief fallen. Der Preis ist, dass dich niemand kennenlernt, du selbst auch nicht. Und fast alle versuchen hier dasselbe: zu beweisen, dass sie in Ordnung sind. Noch eine Leistung, noch ein Gefallen. Das hält ein paar Tage, dann ist die Frage schärfer zurück. Denn was du dir verdienen musst, kannst du auch wieder verlieren.',
+    progress:
+      'Erwarte nicht, dass es sich bald gut anfühlt. Das erste Zeichen ist kleiner: Du bleibst in einem Raum, aus dem du sonst gegangen wärst. Das zählt, auch wenn du dabei zitterst. Wenn die Scham seit Monaten deinen Alltag bestimmt, musst du damit nicht allein bleiben. Therapeutische Hilfe ist genau dafür da.',
     steps: [
       'Trenne die Tat von dir selbst. Schreib auf, was passiert ist, und zwar so, wie es ein Außenstehender aufschreiben würde — ohne Urteil über dich.',
       'Erzähl einem Menschen, dem du vertraust, etwas, das du bisher versteckt hast. Scham übersteht es selten, wenn jemand davon weiß.',
@@ -80,18 +81,19 @@ const de = {
     worldview: 'strafend',
     essence:
       'In dir läuft ein Gerichtsverfahren, das nie zu Ende geht. Du gehst alte Geschichten immer wieder durch, und das Urteil fällt jedes Mal gegen dich aus.',
-    advice: [
-      'Prüf als Erstes, ob überhaupt jemand etwas von dir zu bekommen hat. Meistens ist die Antwort kürzer als der Vorwurf. Was danach übrig bleibt, ist oft keine echte Reue mehr, sondern nur eine Gewohnheit, die sich moralisch anfühlt. Setz dir ein Datum, bis wann du deinen Teil erledigst. Danach ist die Sache abgehakt, auch wenn das Gefühl noch eine Weile bleibt.',
-      'Am teuersten wird es, wenn du mit Leiden bezahlst. Du kannst oder willst etwas nicht wiedergutmachen und bestrafst stattdessen dich selbst. Davon hat niemand etwas. Der Mensch, dem du etwas schuldest, hat nichts von deinen schlechten Nächten. Er hätte etwas von einem Anruf, einem Satz oder einem Betrag.',
-      'Richte dich deshalb nicht nach deinem Gefühl, sondern nach der Rechnung. Wenn dein Teil getan ist, ist die Sache erledigt, auch wenn es sich wochenlang anders anfühlt. Und wenn niemand mehr da ist, der etwas bekommen könnte — weil der Mensch gestorben ist oder es dreißig Jahre her ist —, dann ist das keine Schuld mehr. Dann ist es Trauer. Die kannst du nicht bezahlen, die musst du durchleben.',
-    ],
+    strength:
+      'Schuld heißt, dass du ein Gewissen hast und Verantwortung ernst nimmst. Genau das brauchst du, um etwas wiedergutzumachen.',
+    advice:
+      'Mach aus dem Gefühl eine Rechnung. Wem schuldest du was, ganz konkret? Meistens ist die Antwort kürzer als der Vorwurf. Bezahl es, entschuldige dich, reparier es, und setz dir ein Datum, bis wann dein Teil erledigt ist. Danach ist die Sache abgeschlossen, auch wenn das Gefühl noch eine Weile nachhallt.',
     signs: [
       'Du entschuldigst dich für Dinge, für die du nicht verantwortlich bist.',
       'Wenn es anderen schlecht geht, suchst du zuerst deinen Anteil daran.',
       'Du kannst schwer etwas Gutes annehmen. Es fühlt sich unverdient an.',
     ],
     trap:
-      'Schuld fühlt sich moralisch an, ist aber bequem. Solange du dich anklagst, musst du nichts wiedergutmachen. Die Selbstbestrafung ersetzt die Handlung.',
+      'Schuld fühlt sich moralisch an, ist aber oft bequem. Solange du dich anklagst, musst du nichts wiedergutmachen. Das ist der Fehler, den hier fast alle machen: Sie bezahlen mit Leiden statt mit einer Handlung. Der Mensch, dem du etwas schuldest, hat nichts von deinen schlechten Nächten. Ein Anruf, ein Satz oder ein Betrag würde ihm helfen.',
+    progress:
+      'Richte dich nach der Rechnung, nicht nach dem Gefühl. Wenn dein Teil getan ist, ist es erledigt, auch wenn es sich wochenlang anders anfühlt. Und wenn niemand mehr da ist, der etwas bekommen könnte, weil der Mensch gestorben ist oder es dreißig Jahre her ist, dann ist das keine Schuld mehr. Dann ist es Trauer, und die musst du durchleben, nicht bezahlen.',
     steps: [
       'Mach aus der Schuld eine Rechnung: Wem schuldest du was, ganz konkret? Bezahl es, entschuldige dich, repariere es. Danach ist es erledigt.',
       'Setz ein Ende. Ein Datum, ab dem die Sache abgehakt ist. Wenn du danach noch alte Vorwürfe wiederholst, ist das keine Reue mehr, sondern Gewohnheit.',
@@ -130,18 +132,19 @@ const de = {
     worldview: 'hoffnungslos',
     essence:
       'Nichts lohnt sich, alles ist zu schwer. Die Welt ist dir nicht feindlich, sie ist dir egal geworden. Hilfe kommt bei dir an, aber sie ändert nichts.',
-    advice: [
-      'Warte nicht, bis du Lust bekommst. Auf dieser Ebene kommt die Lust nicht zuerst. Mach den ersten Schritt so klein, dass er sich fast albern anfühlt, und verabrede ihn mit jemandem. Fremde Energie trägt dich, wenn deine eigene fehlt. Und wenn das schon seit Wochen so geht, ist das keine Frage deines Charakters. Dann geh damit zu einer Ärztin oder einem Arzt.',
-      'Der häufigste Fehler ist, zu groß anzufangen. Weil du nichts spürst, planst du den großen Neuanfang: neue Routine, alles anders, ab Montag. Der Plan ist zu groß, du schaffst ihn nicht, und schon hast du den Beweis, dass nichts geht. Nimm lieber etwas, das du auch an einem schlechten Tag hinbekommst: einmal um den Block, ein Fenster auf, eine Nachricht an einen Menschen. Sätze wie „bringt sowieso nichts“ gehören zum Zustand dazu. Sie sagen nichts über deine Zukunft.',
-      'Miss die Woche nicht an deiner Stimmung, sondern an drei Fragen: Hast du dich bewegt? Warst du draußen im Tageslicht? Hattest du mit einem Menschen zu tun? Wenn Ärger oder Traurigkeit zurückkommen, ist das kein Rückfall. Auf dieser Skala liegen Trauer und Zorn über der Apathie. Es fühlt sich schlechter an und geht dir trotzdem besser.',
-    ],
+    strength:
+      'Apathie ist oft Erschöpfung, die sich als Gleichgültigkeit tarnt. Dein System hat abgeschaltet, um dich zu schützen. Das ist ein Signal, kein Urteil.',
+    advice:
+      'Warte nicht auf Lust. Hier kommt sie nicht zuerst, sie kommt hinterher. Nimm dir den kleinsten Schritt vor, den du auch an einem schlechten Tag schaffst: ein Fenster auf, einmal um den Block, eine Nachricht an einen Menschen. Und verabrede ihn mit jemandem. Fremde Energie trägt dich, solange deine eigene fehlt.',
     signs: [
       'Aufgaben stapeln sich, weil schon kleine Schritte riesig wirken.',
       'Du sagst oft „egal“ und meinst es auch so.',
       'Andere machen sich Sorgen um dich, und dich lässt das ziemlich kalt.',
     ],
     trap:
-      'Apathie spart Energie und hält sich damit selbst am Leben. Wenn du nichts versuchst, scheiterst du auch an nichts. Aber es gelingt dir auch nichts, was dir widersprechen könnte.',
+      'Apathie spart Energie und hält sich damit selbst am Leben: Wer nichts versucht, scheitert an nichts, aber ihm gelingt auch nichts, was der Leere widersprechen könnte. Der häufigste Fehler ist, zu groß anzufangen. Weil du nichts spürst, planst du den großen Neuanfang ab Montag. Der ist zu schwer, du schaffst ihn nicht, und schon hast du den Beweis, dass nichts geht. Sätze wie „bringt sowieso nichts“ gehören zum Zustand. Sie sagen nichts über deine Zukunft.',
+    progress:
+      'Miss die Woche nicht an deiner Stimmung, sondern an drei Fragen: Hast du dich bewegt? Warst du bei Tageslicht draußen? Hattest du mit einem Menschen zu tun? Wenn Ärger oder Traurigkeit zurückkommen, ist das kein Rückfall, sondern ein Schritt nach oben. Und wenn das seit Wochen so geht, ist das keine Charakterfrage. Dann gehört es in eine ärztliche Praxis.',
     steps: [
       'Mach den ersten Schritt so klein, dass er lächerlich wirkt: ein Glas Wasser, eine Zeile, zwei Minuten vor die Tür. Erst kommt die Bewegung, dann die Motivation.',
       'Verabrede dich und nutz die Energie der anderen. Was du allein nicht schaffst, geht zu zweit oft doch.',
@@ -181,18 +184,19 @@ const de = {
     worldview: 'tragisch',
     essence:
       'Der Verlust hat einen Namen, und das ist schon ein Fortschritt. In der Trauer steckt Kraft, in der Apathie steckte keine. Du schaust nur noch auf das, was fehlt, und nicht mehr auf das, was da ist.',
-    advice: [
-      'Lass dir Zeit. Auf dieser Skala ist die Trauer ein Schritt nach oben, und abkürzen kannst du sie nicht. Gib ihr jeden Tag einen festen Platz, dann braucht sie nicht den ganzen Tag. Und tu einmal am Tag etwas für einen anderen Menschen. Nicht, um dich zu trösten, sondern weil du so am schnellsten wieder nach außen schaust.',
-      'Der Fehler auf dieser Ebene heißt Funktionieren. Wenn die Trauer keinen Platz bekommt, verschwindet sie nicht. Sie kommt später wieder, und dann erkennst du sie schlechter: als Erschöpfung, als Gereiztheit, als ein Körper, dem dauernd etwas fehlt. Außerdem kommt sie in Wellen und nicht auf einer geraden Linie. Ein Geruch, ein Datum, ein Lied, und du bist wieder am ersten Tag. Das ist normal und kein Rückschritt.',
-      'Achte deshalb nicht darauf, ob die Wellen kleiner werden, sondern darauf, wie schnell du danach wieder auftauchst. Wenn Wochen vergehen und sich gar nichts bewegt, oder wenn nichts mehr bei dir ankommt, auch nichts Gutes, dann hol dir Unterstützung. Und sag den Menschen um dich herum, was du brauchst. Sonst raten sie, und meistens raten sie falsch.',
-    ],
+    strength:
+      'Trauer ist Liebe, die ihr Gegenüber verloren hat. Dass sie so groß ist, sagt, wie viel dir etwas bedeutet hat.',
+    advice:
+      'Gib der Trauer jeden Tag einen festen Platz: zwanzig Minuten, ein Stuhl, eine Uhrzeit. Dann braucht sie nicht den ganzen Tag. Und tu einmal am Tag etwas für einen anderen Menschen. Nicht als Trost, sondern weil du so am schnellsten wieder nach außen schaust. Abkürzen kannst du die Trauer nicht. Auf dieser Skala ist sie schon ein Schritt nach oben.',
     signs: [
       'Vieles erinnert dich an früher, und früher war besser.',
       'Tränen kommen dir leicht, manchmal ohne klaren Anlass.',
       'Wenn du etwas Neues anfängst, fühlt es sich wie Verrat an dem an, was du verloren hast.',
     ],
     trap:
-      'Die Trauer kann zur letzten Verbindung werden. Dann bekommst du Angst davor, loszulassen, weil du den anderen sonst ein zweites Mal verlierst.',
+      'Die Trauer kann zur letzten Verbindung werden. Dann hast du Angst loszulassen, weil du sonst ein zweites Mal verlierst. Der andere Weg, sie festzuhalten, heißt Funktionieren: Wenn sie keinen Platz bekommt, verschwindet sie nicht. Sie kommt später wieder, als Erschöpfung, als Gereiztheit, als ein Körper, dem dauernd etwas fehlt.',
+    progress:
+      'Trauer kommt in Wellen, nicht auf einer geraden Linie. Ein Geruch, ein Datum, ein Lied, und du bist wieder am ersten Tag. Achte deshalb nicht darauf, ob die Wellen kleiner werden, sondern wie schnell du danach wieder auftauchst. Wenn sich über Wochen gar nichts bewegt oder nichts mehr bei dir ankommt, auch nichts Gutes, hol dir Unterstützung. Und sag den Menschen um dich herum, was du brauchst. Sonst raten sie, und meistens raten sie falsch.',
     steps: [
       'Gib der Trauer eine feste Zeit und einen festen Ort: zwanzig Minuten am Tag, in denen sie da sein darf. Was einen Platz hat, überschwemmt seltener alles andere.',
       'Schreib auf, was geblieben ist: Menschen, Fähigkeiten, Erinnerungen. Nicht als Trost, sondern als Bestandsaufnahme.',
@@ -231,18 +235,19 @@ const de = {
     worldview: 'bedrohlich',
     essence:
       'Überall könnte etwas schiefgehen, und dein Kopf hat alles schon durchgespielt. Angst schützt dich wirklich — bis sie anfängt, dein Leben zu bestimmen.',
-    advice: [
-      'Diskutier nicht mit der Angst, sie gewinnt jedes Argument. Fang beim Körper an: langsam ausatmen, länger als einatmen. Dann schreib den schlimmsten Fall zu Ende und beantworte dabei die Frage, was du dann tun würdest. Und geh diese Woche einmal freiwillig in etwas hinein, das dir unangenehm ist. Kleiner wird die Angst nur an Dingen, die du wirklich getan hast.',
-      'Am Leben hält die Angst nicht dein Denken, sondern dein Ausweichen. Und das sieht ganz harmlos aus: eine Absage, ein Anruf, den du auf morgen schiebst, eine Frage, die du sicherheitshalber dreimal stellst. Jedes Mal bist du sofort erleichtert, und jedes Mal wird die Angst ein Stück größer. Prüf deshalb bei jeder Vorsicht, was daraus folgt. Bei echter Gefahr tust du etwas. Bei Angst lässt du etwas.',
-      'Rechne damit, dass es erst schlimmer wird. Wenn du dich einer Sache näherst, der du lange ausgewichen bist, steigt die Angst zuerst an. Sie fällt erst, wenn du bleibst, und das dauert meistens zwanzig Minuten und nicht zwei. Frag dich deshalb nicht, wie ruhig du bist, sondern wie kurz die Liste der Dinge wird, um die du herumgehst. Und wenn du Panikattacken hast oder die Angst deinen Tag bestimmt: Dagegen gibt es wirksame Behandlungen.',
-    ],
+    strength:
+      'Angst ist ein Schutzsystem, das funktioniert. Sie hat dich schon oft vor Dummheiten bewahrt. Sie ist nur gerade zu oft eingeschaltet.',
+    advice:
+      'Fang beim Körper an, nicht beim Argument: langsam ausatmen, länger als einatmen. Der Kopf folgt dem Atem. Dann schreib die Angst zu Ende. Was genau passiert im schlimmsten Fall, und was tust du dann? Mit einem Plan wird aus Panik ein Problem. Und geh diese Woche einmal freiwillig in etwas hinein, das dir unangenehm ist. Kleiner wird die Angst nur an Dingen, die du wirklich getan hast.',
     signs: [
       'Du spielst Katastrophen durch, die fast nie eintreten.',
       'Du schiebst Entscheidungen auf, weil jede Möglichkeit ein Risiko hat.',
       'Du sagst Ja, um Streit zu vermeiden, und nicht, weil du willst.',
     ],
     trap:
-      'Ausweichen hilft sofort und macht die Angst mit der Zeit größer. Jedes Mal, wenn du ausweichst, lernt dein Nervensystem: Die Gefahr war echt.',
+      'Am Leben hält die Angst nicht dein Denken, sondern dein Ausweichen. Es sieht harmlos aus: eine Absage, ein Anruf, den du auf morgen schiebst, eine Frage, die du sicherheitshalber dreimal stellst. Jedes Mal bist du sofort erleichtert, und jedes Mal lernt dein Nervensystem: Die Gefahr war echt. Prüf deshalb bei jeder Vorsicht, was daraus folgt. Bei echter Gefahr tust du etwas. Bei Angst lässt du etwas.',
+    progress:
+      'Rechne damit, dass es zuerst schlimmer wird. Wenn du dich einer Sache näherst, der du lange ausgewichen bist, steigt die Angst erst an und fällt nur, wenn du bleibst. Das dauert eher zwanzig Minuten als zwei. Frag dich deshalb nicht, wie ruhig du bist, sondern wie kurz die Liste der Dinge wird, um die du herumgehst. Bei Panikattacken, oder wenn die Angst deinen Tag bestimmt: Dagegen gibt es Behandlungen, die gut wirken.',
     steps: [
       'Schreib die Angst zu Ende: Was genau passiert im schlimmsten Fall, und was tust du dann? Mit einem Plan wird aus Panik ein Problem.',
       'Such dir jede Woche eine kleine Sache, die dir unangenehm ist, und mach sie freiwillig. Mut wächst nur an Dingen, die du wirklich getan hast.',
@@ -281,18 +286,19 @@ const de = {
     worldview: 'enttäuschend',
     essence:
       'Dir fehlt immer etwas, und das Nächste soll es richten. Verlangen bewegt eine Menge — hinter den meisten Karrieren steckt es — und es kommt nie an.',
-    advice: [
-      'Du musst nicht aufhören, etwas zu wollen. Hinter den meisten guten Dingen in deinem Leben steckt Verlangen. Was dir fehlt, ist die Pause dazwischen. Warte zwischen Impuls und Kauf vierundzwanzig Stunden, und genauso zwischen Idee und Zusage. Was danach immer noch zieht, war echt. Der Rest war nur Unruhe.',
-      'Wichtig ist nicht der Gegenstand, sondern das Gefühl, das er dir verspricht. Frag dich also bei dem, was dich gerade zieht: Wovon wäre ich frei, wenn ich es hätte? Die Antwort heißt selten „Schuhe“. Meistens heißt sie Ruhe, Anerkennung oder Sicherheit, und die drei bekommst du direkt billiger. Wenn du danach trotzdem kaufst, kaufst du wenigstens mit offenen Augen.',
-      'Es geht auf dieser Ebene nicht darum, zu verzichten, sondern darum, fertig zu werden: weniger anfangen, mehr abschließen. Ein zweites Zeichen ist die Stille. Wenn du nichts brauchst, um die nächsten zehn Minuten auszuhalten, bist du ein gutes Stück weiter. Und wenn du die vierundzwanzig Stunden regelmäßig nicht schaffst, geht es nicht mehr um Verlangen, sondern um eine Abhängigkeit. Damit solltest du nicht allein bleiben.',
-    ],
+    strength:
+      'Verlangen ist Antrieb. Ohne es hättest du nichts von dem, was du dir aufgebaut hast. Es muss nicht weg, es braucht eine Richtung.',
+    advice:
+      'Du musst nicht aufhören zu wollen. Hinter den meisten guten Dingen in deinem Leben steckt Verlangen. Was dir fehlt, ist die Pause dazwischen. Leg zwischen Impuls und Kauf vierundzwanzig Stunden, und genauso zwischen Idee und Zusage. Was danach noch zieht, war echt. Der Rest war Unruhe.',
     signs: [
       'Ein erreichtes Ziel fühlt sich kurz gut an, dann steht schon das nächste an.',
       'Sobald es still wird, greifst du zur Ablenkung: Handy, Kaufen, Essen, Serien.',
       'Wenn andere etwas haben, denkst du zuerst daran, was dir fehlt.',
     ],
     trap:
-      'Verlangen verwechselt wollen mit brauchen. Du bist immer nur eine Anschaffung von der Erfüllung entfernt — und kommst deshalb nie an.',
+      'Verlangen verwechselt wollen mit brauchen. Du bist immer nur eine Anschaffung von der Erfüllung entfernt und kommst deshalb nie an. Denn nicht der Gegenstand zählt, sondern das Gefühl, das er verspricht. Frag dich bei dem, was dich gerade zieht: Wovon wäre ich frei, wenn ich es hätte? Die Antwort heißt selten „Schuhe“. Meistens heißt sie Ruhe, Anerkennung oder Sicherheit, und die bekommst du direkt billiger.',
+    progress:
+      'Es geht nicht ums Verzichten, sondern ums Fertigwerden: weniger anfangen, mehr abschließen. Das zweite Zeichen ist die Stille. Wenn du nichts brauchst, um die nächsten zehn Minuten auszuhalten, bist du ein gutes Stück weiter. Und wenn du die vierundzwanzig Stunden regelmäßig nicht schaffst, geht es nicht mehr um Verlangen, sondern um eine Abhängigkeit. Damit solltest du nicht allein bleiben.',
     steps: [
       'Lass zwischen Impuls und Handlung 24 Stunden vergehen. Was danach noch zieht, war echt.',
       'Frag dich bei jedem „Ich will“: Welches Gefühl erwarte ich davon? Meistens bekommst du dieses Gefühl auch anders.',
@@ -332,18 +338,19 @@ const de = {
     worldview: 'feindselig',
     essence:
       'Endlich hast du Kraft, und sie brennt. Zorn entsteht, wenn dein Wollen auf Widerstand trifft. Er kann schlechte Zustände beenden oder Beziehungen. Das hängt davon ab, ob er ein Ziel bekommt.',
-    advice: [
-      'Sag nichts, solange es brennt. Der Zorn zeigt dir, dass jemand eine Grenze überschritten oder etwas Wichtiges verletzt hat. Was du jetzt tun sollst, sagt er dir nicht. Bring ihn erst körperlich aus dem System: Treppen, Laufen, Gewichte. Danach sagst du, was du brauchst, statt einen Vorwurf zu machen. Wenn aus dem Zorn keine Handlung wird, wird er zu Groll, und der hält Jahre.',
-      'Es gibt hier zwei Fehler, und sie sehen aus wie Gegensätze: rauslassen und runterschlucken. Beide sparen denselben Satz aus, nämlich den, in dem du sagst, was du willst. Sich Luft machen entlädt übrigens nichts, du übst dabei eher das Wütendsein. Und schau nach, was unter dem Zorn liegt. Meistens ist er das zweite Gefühl, das erste war Angst, Kränkung oder Ohnmacht. Wenn du nur das zweite zeigst, bekommst du nie, worum es dir eigentlich ging.',
-      'Frag dich nicht, wie selten du wütend wirst, sondern wie schnell du aus der Hitze einen Satz machst. Am besten noch am selben Tag, an eine bestimmte Person gerichtet und mit einer Frist. Wenn dein Zorn etwas trifft, das niemand ändern kann, gehört er eigentlich zur Trauer weiter unten. Und wenn die Menschen um dich herum vorsichtig werden oder etwas zu Bruch geht, dann hol dir Hilfe — vor dem nächsten Mal und nicht danach.',
-    ],
+    strength:
+      'Zorn ist Energie, die eine Grenze verteidigt. Er sagt dir klarer als jedes andere Gefühl, was dir wichtig ist.',
+    advice:
+      'Sag nichts, solange es brennt. Der Zorn zeigt dir, dass eine Grenze überschritten wurde. Was du jetzt tun sollst, sagt er dir nicht. Bring ihn zuerst durch den Körper: Treppen, Laufen, Gewichte. Danach sagst du in einem Satz, was du brauchst, statt einen Vorwurf zu machen. Auf einen Vorwurf folgt eine Verteidigung. Auf eine Bitte kann jemand eingehen.',
     signs: [
       'Du wirst schneller gereizt, als dir lieb ist, vor allem bei Kleinigkeiten.',
       'Du streitest im Kopf mit Leuten, mit denen es gar keinen Streit gab.',
       'Du hast recht, und es hilft niemandem.',
     ],
     trap:
-      'Zorn fühlt sich stark an, ist aber nur eine Reaktion. Solange er brennt, bestimmt der andere, was du fühlst.',
+      'Zorn fühlt sich stark an, ist aber nur eine Reaktion. Solange er brennt, bestimmt der andere, was du fühlst. Zwei Fehler sehen hier aus wie Gegensätze: rauslassen und runterschlucken. Beide sparen denselben Satz aus, den, in dem du sagst, was du willst. Und meistens ist der Zorn das zweite Gefühl. Das erste war Angst, Kränkung oder Ohnmacht. Wenn du nur das zweite zeigst, bekommst du nie, worum es dir eigentlich ging.',
+    progress:
+      'Frag dich nicht, wie selten du wütend wirst, sondern wie schnell aus der Hitze ein Satz wird: am besten noch am selben Tag, an eine bestimmte Person, mit einer Frist. Wenn aus dem Zorn keine Handlung wird, wird Groll daraus, und der hält Jahre. Und wenn die Menschen um dich herum vorsichtig werden oder etwas zu Bruch geht, hol dir Hilfe. Vor dem nächsten Mal, nicht danach.',
     steps: [
       'Schau unter den Zorn: Was wurde verletzt — eine Grenze, ein Wert, ein Bedürfnis? Der Zorn zeigt in eine Richtung, aber er ist keine Antwort.',
       'Bring ihn körperlich aus dem System, bevor du sprichst: laufen, Gewichte, Treppen. Sag danach, was du brauchst, statt Vorwürfe zu machen.',
@@ -381,18 +388,19 @@ const de = {
     worldview: 'fordernd',
     essence:
       'Dir geht es hier deutlich besser als weiter unten. Stolz gibt dir Halt, du leistest etwas und gehörst irgendwo dazu. Der Haken ist, dass das an Bedingungen hängt: an deinem Status, an deiner Rolle, daran, recht zu haben. Und das kann wegbrechen.',
-    advice: [
-      'Lies diese Ebene nicht als Vorwurf. Der Stolz hat dich hierher gebracht, und er trägt weiter als alles, was darunter liegt. Teuer wird er erst in dem Moment, in dem du etwas lernen müsstest. Der einfachste Test dafür ist ein täglicher: Gib einmal am Tag laut zu, dass du etwas nicht weißt. Wenn dir das schwerfällt, weißt du, was dich hier festhält.',
-      'Stolz wird vor allem dann teuer, wenn du deine Meinung für einen Teil von dir hältst. Dann fühlt sich jede Korrektur wie ein Angriff an, und du verteidigst deine Position länger, als du selbst noch an sie glaubst. Du merkst das kaum, die anderen aber schon: Irgendwann sagen sie dir nichts mehr, und du erfährst als Letzter, was über dich gedacht wird. Dazu kommt der ständige Vergleich. Stolz braucht immer jemanden, der schlechter ist als du, und damit hängst du von anderen ab.',
-      'Zähl deshalb nicht deine Erfolge, sondern zwei Sätze pro Woche: „Da hattest du recht“ und „Das weiß ich nicht“. Beim ersten Mal kostet dich das etwas, danach wird es leicht. Und du bekommst dafür Menschen zurück, die dir wieder etwas sagen. Geh außerdem regelmäßig irgendwohin, wo du der Schlechteste bist: in einen Anfängerkurs, in eine fremde Sprache, in einen Sport, den du nicht kannst. Von dort geht es nach oben, nicht von der Bühne.',
-    ],
+    strength:
+      'Stolz gibt dir Halt und Antrieb. Du hast etwas geleistet, und das darf sich gut anfühlen. Die Frage ist nur, was passiert, wenn es infrage gestellt wird.',
+    advice:
+      'Lies diese Ebene nicht als Vorwurf. Der Stolz hat dich hierher getragen, und er trägt weiter als alles darunter. Teuer wird er erst, wenn du etwas lernen müsstest. Deshalb ein einfacher Test, jeden Tag: Gib einmal laut zu, dass du etwas nicht weißt. Vor anderen, dort, wo es dich etwas kostet. Wie schwer dir das fällt, zeigt dir genau, was dich hier festhält.',
     signs: [
       'Kritik trifft dich hart, auch wenn sie sachlich stimmt.',
       'Du machst die Sache lieber allein und brauchst doppelt so lange, als dass du um Hilfe bittest.',
       'Du vergleichst dich oft und stellst dabei still fest, wo du besser bist.',
     ],
     trap:
-      'Stolz musst du verteidigen. Weil dein Selbstbild an deinen Erfolgen hängt, wird jeder Fehler zur Bedrohung. Und Lernen wird teuer.',
+      'Stolz musst du verteidigen. Weil dein Selbstbild an deinen Erfolgen hängt, wird jeder Fehler zur Bedrohung. Der Fehler dabei: Du hältst deine Meinung für einen Teil von dir. Dann fühlt sich jede Korrektur wie ein Angriff an, und du verteidigst eine Position länger, als du selbst noch an sie glaubst. Du merkst das kaum, die anderen aber schon. Irgendwann sagen sie dir nichts mehr, und du erfährst als Letzter, was über dich gedacht wird.',
+    progress:
+      'Zähl nicht deine Erfolge, sondern zwei Sätze pro Woche: „Da hattest du recht“ und „Das weiß ich nicht“. Beim ersten Mal kostet das etwas, danach wird es leicht. Und du bekommst Menschen zurück, die dir wieder etwas sagen. Geh außerdem regelmäßig dorthin, wo du ganz am Anfang stehst: ein Kurs, eine fremde Sprache, ein Sport, den du nicht kannst. Von dort geht es nach oben, nicht von der Bühne.',
     steps: [
       'Gib einmal am Tag zu, dass du etwas nicht weißt. Laut, vor anderen.',
       'Trenne deine Meinung von dir selbst. Du kannst eine Meinung fallen lassen, ohne dich zu verlieren.',
@@ -431,18 +439,19 @@ const de = {
     worldview: 'machbar',
     essence:
       'Das ist die Schwelle. Ab hier gibst du der Welt mehr Kraft, als sie dich kostet. Deine Probleme sind nicht weg, aber sie sind zu Aufgaben geworden, und du traust dir zu, sie anzugehen.',
-    advice: [
-      'Du bist über der Schwelle. Jetzt droht dir nicht der Rückfall, sondern die Überlastung. Wenn du alles anpackst und nichts loslässt, brennst du aus. Nimm dir deshalb zwei Dinge gleichzeitig vor: eine unangenehme Sache pro Woche, die du dir bewusst aussuchst, und bei jedem Ärger die Frage, ob du hier wirklich kämpfen musst oder ob es reicht, die Lage zu nehmen, wie sie ist.',
-      'Der Fehler auf dieser Ebene ist die Menge. Mut fühlt sich an wie eine Kraft, die nie ausgeht, und weil sich jetzt tatsächlich etwas bewegt, packst du leicht alles auf einmal an. Sortier deshalb: Liegt die Sache in deiner Hand oder nicht? Für die erste lohnt sich dein Einsatz. Die zweite kostet dich Kraft und ändert nichts. Und rechne Schlaf und Erholung zur Arbeit, nicht zur Belohnung.',
-      'Frag dich nicht, wie viel du anpackst, sondern ob du in diesem Monat auch etwas losgelassen hast. Und erwarte nicht, dass die Angst verschwindet. Auf dieser Ebene bleibt sie da, sie entscheidet nur nicht mehr. Wenn du wartest, bis es sich sicher anfühlt, wartest du vergeblich: Das gute Gefühl kommt nach der Handlung und nicht davor.',
-    ],
+    strength:
+      'Mut heißt nicht, keine Angst zu haben, sondern trotzdem zu handeln. Das kannst du bereits. Alles Weitere baut darauf auf.',
+    advice:
+      'Du bist über der Schwelle. Was dir jetzt droht, ist nicht der Rückfall, sondern die Überlastung. Nimm dir deshalb zweierlei vor: eine unangenehme Sache pro Woche, die du dir bewusst aussuchst, und bei jedem Ärger die Frage, ob du hier wirklich kämpfen musst oder ob es reicht, die Lage zu nehmen, wie sie ist. Auf dieser Ebene ist das Loslassen die schwierigere Übung, nicht das Anpacken.',
     signs: [
       'Du sprichst schwierige Dinge an, obwohl dir dabei mulmig ist.',
       'Ein Fehler kostet dich nicht mehr dein Selbstwertgefühl.',
       'Du übernimmst Verantwortung, ohne nach Schuldigen zu suchen.',
     ],
     trap:
-      'Aus Mut kann Dauerstress werden: alles anpacken, nichts loslassen. Wenn du dich ständig überwinden musst, brennst du aus.',
+      'Aus Mut kann Dauerstress werden: alles anpacken, nichts loslassen. Mut fühlt sich an wie eine Kraft, die nie ausgeht, und weil sich jetzt tatsächlich etwas bewegt, packst du leicht alles auf einmal an. Wenn du dich ständig überwinden musst, brennst du aus. Sortier deshalb: Liegt die Sache in deiner Hand oder nicht? Für die erste lohnt sich dein Einsatz. Die zweite kostet dich Kraft und ändert nichts.',
+    progress:
+      'Frag dich am Monatsende nicht, wie viel du angepackt hast, sondern ob du auch etwas losgelassen hast. Rechne Schlaf und Erholung zur Arbeit, nicht zur Belohnung. Und erwarte nicht, dass die Angst verschwindet. Auf dieser Ebene bleibt sie da, sie entscheidet nur nicht mehr. Das gute Gefühl kommt nach der Handlung, nicht davor.',
     steps: [
       'Bleib in Bewegung: eine unangenehme Sache pro Woche, die du dir bewusst aussuchst.',
       'Üb das Loslassen im Kleinen. Du musst nicht jeden Widerstand überwinden. Manches wird leichter, wenn du aufhörst zu ziehen.',
@@ -481,18 +490,19 @@ const de = {
     worldview: 'zufriedenstellend',
     essence:
       'Es ist gut, wie es ist, und wenn nicht, hältst du das auch aus. Neutralität ist der erste wirklich entspannte Ort auf der Skala: kein Müssen, kein Rechthaben, wenig Drama.',
-    advice: [
-      'Halt das hier nicht für das Ziel. Neutralität ist der erste wirklich entspannte Ort auf der Skala, und genau deshalb bleiben viele hier stehen. Weiter nach oben kommst du nur, wenn du dich einsetzt. Such dir eine Sache, die dir wichtig genug ist, um dafür unbequem zu werden, und sag Ja dazu, bevor du weißt, ob sie sich lohnt.',
-      'Achte auf den Unterschied zwischen gelassen und gleichgültig. Von innen fühlt sich beides gleich an. Gelassen heißt: Es ist mir wichtig, und ich halte es aus, wenn es anders kommt. Gleichgültig heißt: Ich habe aufgehört, es wichtig zu finden, damit es nicht mehr weh tun kann. Das Zweite ist bequem, und es kostet dich genau die Beteiligung, aus der die Ebenen darüber bestehen.',
-      'Der Test dafür ist eine einzige Frage: Wofür würdest du dich blamieren? Wenn dir nichts einfällt, hast du das eigentliche Ergebnis dieser Ebene. Nimm dir dann etwas vor, bei dem du scheitern kannst, und setz ein Datum dafür. Nicht weil Scheitern gut wäre, sondern weil dich nur das noch etwas angeht, was auch schiefgehen kann.',
-    ],
+    strength:
+      'Du hast gelernt, dass nicht alles an dir hängt. Diese Ruhe ist ein echter Gewinn, und sie ist der Boden, auf dem Engagement überhaupt erst möglich wird.',
+    advice:
+      'Halt das hier nicht für das Ziel. Neutralität ist der erste wirklich entspannte Ort auf der Skala, und genau deshalb bleiben viele hier stehen. Such dir eine Sache, die dir wichtig genug ist, um dafür unbequem zu werden, und sag Ja dazu, bevor du weißt, ob sie sich lohnt. Weiter nach oben kommst du mit Einsatz, nicht mit noch mehr Ruhe.',
     signs: [
       'Ein Nein von außen wirft dich nicht mehr um.',
       'Du kannst Pläne ändern, ohne dich als Verlierer zu fühlen.',
       'Andere kommen gern zu dir, weil du nichts hochkochst.',
     ],
     trap:
-      'Gelassenheit kann in Gleichgültigkeit umkippen. Wenn du nichts mehr brauchst, setzt du dich manchmal auch für nichts mehr ein.',
+      'Gelassenheit kann in Gleichgültigkeit kippen, und von innen fühlt sich beides gleich an. Gelassen heißt: Es ist mir wichtig, und ich halte es aus, wenn es anders kommt. Gleichgültig heißt: Ich habe aufgehört, es wichtig zu finden, damit es nicht mehr wehtun kann. Das Zweite ist bequem, und es kostet dich genau die Beteiligung, aus der die Ebenen darüber bestehen.',
+    progress:
+      'Der Test ist eine einzige Frage: Wofür würdest du dich blamieren? Wenn dir etwas einfällt, bist du auf dem Weg. Wenn nicht, hast du das eigentliche Ergebnis dieser Ebene. Nimm dir dann etwas vor, bei dem du scheitern kannst, und setz ein Datum dafür. Nur was schiefgehen kann, geht dich noch etwas an.',
     steps: [
       'Sag bewusst Ja zu etwas, das dich Aufwand kostet. Aus Neutralität wird erst Bereitschaft, wenn du dich einsetzt.',
       'Such dir eine Sache, die dir wichtig genug ist, um dafür unbequem zu werden.',
@@ -531,18 +541,19 @@ const de = {
     worldview: 'hoffnungsvoll',
     essence:
       'Aus „es geht auch so“ ist „ich mache das gern“ geworden. Arbeit fühlt sich nicht mehr nach Widerstand an, du lernst gern, und andere merken, dass sie mit dir rechnen können.',
-    advice: [
-      'Dein Ja ist deine Stärke, und es ist deine Rechnung. Die Frage ist hier nicht mehr, ob du etwas übernimmst, sondern wofür du dein nächstes Ja aufhebst. Sag diese Woche eine Zusage ab, die du nur aus Gewohnheit gegeben hast, und steck die Kraft in etwas, das dich fachlich fordert. Auf dieser Ebene sieht Erschöpfung lange wie Engagement aus.',
-      'Nicht das Ja ist das Problem, sondern dass es selbstverständlich geworden ist. Wenn du für alle der Verlässliche bist, fragt man dich zuerst und entlastet dich zuletzt. Irgendwann kommt die Rechnung, und sie kommt nicht als Erschöpfung, sondern als stiller Groll gegen Leute, die nie erfahren haben, was es dich gekostet hat. Sortier deshalb: Vieles können auch andere machen. Was nur du kannst, macht sonst niemand.',
-      'Miss die Woche an einem einzigen Nein, das gehalten hat. Nicht wegerklärt und nicht mit einer Ersatzleistung erkauft. Und prüf, ob du bei deinem Ja noch etwas lernst. Wenn du nur Bekanntes abarbeitest, ist das Fleiß und kein Fortschritt. Weiter kommst du über die Aufgabe, bei der du am Anfang nicht weißt, wie sie geht.',
-    ],
+    strength:
+      'Du bist jemand, mit dem andere rechnen können. Diese Verlässlichkeit ist selten und wertvoll. Sie braucht nur eine Grenze, damit sie dir erhalten bleibt.',
+    advice:
+      'Dein Ja ist deine Stärke, und es ist deine Rechnung. Die Frage ist hier nicht mehr, ob du etwas übernimmst, sondern wofür du dein nächstes Ja aufhebst. Sag diese Woche eine Zusage ab, die du nur aus Gewohnheit gegeben hast, und steck die Kraft in etwas, das dich wirklich fordert. Auf dieser Ebene sieht Erschöpfung lange wie Engagement aus.',
     signs: [
       'Du meldest dich freiwillig, bevor jemand fragen muss.',
       'Ein Rückschlag ist für dich eine Information und kein Urteil.',
       'Du bringst Dinge zu Ende, auch die langweiligen.',
     ],
     trap:
-      'Du sagst schnell Ja, auch zu viel. Ohne Grenze wird aus Hilfsbereitschaft Erschöpfung.',
+      'Nicht das Ja ist das Problem, sondern dass es selbstverständlich geworden ist. Wenn du für alle die verlässliche Person bist, fragt man dich zuerst und entlastet dich zuletzt. Die Rechnung kommt nicht als Müdigkeit, sondern als stiller Groll gegen Leute, die nie erfahren haben, was es dich gekostet hat. Vieles können auch andere machen. Was nur du kannst, macht sonst niemand.',
+    progress:
+      'Miss die Woche an einem einzigen Nein, das gehalten hat. Nicht wegerklärt und nicht mit einer Ersatzleistung erkauft. Und prüf, ob du bei deinem Ja noch etwas lernst. Wenn du nur Bekanntes abarbeitest, ist das Fleiß, kein Fortschritt. Weiter kommst du über die Aufgabe, bei der du am Anfang nicht weißt, wie sie geht.',
     steps: [
       'Setz Prioritäten, statt nur zuzusagen: Wozu sagst du Ja, damit ein wichtigeres Ja möglich bleibt?',
       'Nimm dir etwas vor, das dich fachlich fordert. An anspruchsvollen Aufgaben wächst die Bereitschaft.',
@@ -581,18 +592,19 @@ const de = {
     worldview: 'harmonisch',
     essence:
       'Wie es dir geht, entscheidet sich in dir und nicht in den Umständen. Damit hörst du auf, mit der Wirklichkeit zu streiten, und fängst an, sie zu gestalten.',
-    advice: [
-      'Pass auf den Satz auf, der hier am leichtesten fällt: „So bin ich eben.“ Wenn du etwas annimmst, heißt das nicht, dass es sich nicht ändern lässt. Akzeptanz ist der Boden, auf dem das Gestalten anfängt, und keine Erlaubnis, alles zu lassen. Nimm dir eine Sache vor, die du bisher hingenommen hast, und schau nüchtern nach, was daran wirklich feststeht. Und vergib einem bestimmten Menschen, schriftlich, notfalls ohne den Brief abzuschicken.',
-      'Am meisten kostet dich hier eine Verwechslung: annehmen und gutheißen sind nicht dasselbe. Annehmen heißt nur, dass du aufhörst, mit dem zu streiten, was ohnehin so ist. Ob es in Ordnung ist, sagt das nicht, und verpflichtet bist du dadurch zu nichts. Du kannst ein Unrecht annehmen und trotzdem etwas dagegen tun. Umgekehrt gilt: Was du nicht annimmst, kannst du auch nicht ändern. Du bist ja noch damit beschäftigt, dass es nicht so sein sollte.',
-      'Du erkennst diese Ebene daran, dass deine Kraft zurückkommt. Der Streit mit den Tatsachen war teuer, und wie teuer, merkst du erst, wenn er aufhört. Vergeben ist hier kein Gefühl, sondern ein Verzicht: Du gibst die Forderung auf, dass die Vergangenheit anders gelaufen sein soll. Ob es geklappt hat, siehst du nicht daran, wie du über den Menschen denkst, sondern daran, dass du seltener an ihn denkst.',
-    ],
+    strength:
+      'Du kannst die Wirklichkeit nehmen, wie sie ist, ohne dich ihr zu unterwerfen. Das ist die Fähigkeit, aus der Gestaltung entsteht.',
+    advice:
+      'Pass auf den Satz auf, der hier am leichtesten fällt: „So bin ich eben.“ Etwas anzunehmen heißt nicht, dass es sich nicht ändern lässt. Nimm dir eine Sache vor, die du bisher hingenommen hast, und schau nüchtern nach, was daran wirklich feststeht. Und vergib einem bestimmten Menschen, schriftlich, notfalls ohne den Brief abzuschicken.',
     signs: [
       'Du fragst zuerst, was du beitragen kannst, und nicht, wer schuld ist.',
       'Menschen dürfen anders sein, ohne dass es dich stört.',
       'Du kannst vergeben, ohne die Sache zu verharmlosen.',
     ],
     trap:
-      'Akzeptanz kann zur Ausrede werden: „So bin ich eben.“ Etwas anzunehmen heißt aber nicht, dass es sich nicht ändern lässt.',
+      'Am teuersten ist hier eine Verwechslung: annehmen und gutheißen sind nicht dasselbe. Annehmen heißt nur, dass du aufhörst, mit dem zu streiten, was ohnehin so ist. Ob es in Ordnung ist, sagt das nicht. Du kannst ein Unrecht annehmen und trotzdem etwas dagegen tun. Und umgekehrt: Was du nicht annimmst, kannst du auch nicht ändern, weil du noch damit beschäftigt bist, dass es nicht so sein sollte.',
+    progress:
+      'Du merkst es daran, dass deine Kraft zurückkommt. Der Streit mit den Tatsachen war teuer, und wie teuer, zeigt sich erst, wenn er aufhört. Vergeben ist hier kein Gefühl, sondern ein Verzicht: Du gibst die Forderung auf, dass die Vergangenheit anders gelaufen sein soll. Ob das geklappt hat, siehst du nicht daran, wie du über den Menschen denkst, sondern daran, dass du seltener an ihn denkst.',
     steps: [
       'Prüf deine Annahmen an der Sache: Was davon ist nachweisbar wahr, und was ist dir nur vertraut?',
       'Bring Ordnung in dein Denken: lesen, rechnen, argumentieren. Mit Klarheit wird aus Akzeptanz Vernunft.',
@@ -631,18 +643,19 @@ const de = {
     worldview: 'sinnvoll',
     essence:
       'Dein Verstand ist auf seiner Höhe: Du siehst Zusammenhänge, dein Wissen ordnet sich, und du kannst deine Entscheidungen begründen. Das ist die Ebene der Wissenschaft, der Medizin und des guten Handwerks.',
-    advice: [
-      'Auf dieser Ebene ist dein Verstand ein ausgezeichnetes Werkzeug. Er weiß nur nicht, wann er aufhören soll. Nimm dir jeden Tag zehn Minuten, in denen du etwas einfach wahrnimmst, ohne es zu deuten: Musik, ein Gesicht, das Wetter. Und frag dich im nächsten Streit nicht, wer recht hat, sondern was der andere braucht. Der nächste Schritt ist keine bessere Analyse, sondern eine andere Art zu schauen.',
-      'Der Fehler auf dieser Ebene ist, dass du das Verstehen zum Aufschieben benutzt. Es fühlt sich nach Fortschritt an und kostet nichts. Du kannst endlos weiter analysieren, während sich an der Sache selbst nichts ändert. Der zweite Fehler ist feiner: Ein guter Kopf findet auch die besseren Gründe dafür, warum er recht hat. Je klüger du bist, desto teurer werden deine Irrtümer, weil du sie länger verteidigen kannst.',
-      'Triff deshalb einmal pro Woche eine Entscheidung, bevor die Lage ganz geklärt ist — mit Datum und ohne Vorbehalt. Und schau am Ende der Woche nicht darauf, was du verstanden hast, sondern darauf, ob dich etwas berührt hat: ein Mensch, ein Stück Musik, ein Satz, den du nicht sofort einordnen konntest. Weiter kommst du nicht über den nächsten Gedanken, sondern an ihm vorbei.',
-    ],
+    strength:
+      'Du kannst denken, ordnen und begründen. Das trägt Medizin, Wissenschaft und gutes Handwerk. Es hat nur eine Grenze, und die liegt nicht im Denken.',
+    advice:
+      'Dein Verstand ist hier ein ausgezeichnetes Werkzeug. Er weiß nur nicht, wann er aufhören soll. Nimm dir jeden Tag zehn Minuten, in denen du etwas einfach wahrnimmst, ohne es zu deuten: Musik, ein Gesicht, das Wetter. Und frag dich im nächsten Streit nicht, wer recht hat, sondern was der andere gerade braucht. Der nächste Schritt ist keine bessere Analyse, sondern eine andere Art zu schauen.',
     signs: [
       'Du unterscheidest sauber zwischen Fakten, Meinung und Gefühl.',
       'Du bringst komplizierte Dinge in eine Ordnung, statt dich davon erschlagen zu lassen.',
       'Du änderst deine Meinung, wenn die Daten es verlangen.',
     ],
     trap:
-      'Der Verstand hält sich für das Ganze. Er kann alles erklären und niemanden trösten. Und er verwechselt leicht sein Modell mit der Wirklichkeit.',
+      'Der Verstand hält sich für das Ganze. Er kann alles erklären und niemanden trösten, und er verwechselt leicht sein Modell mit der Wirklichkeit. Der Fehler dabei: Verstehen fühlt sich nach Fortschritt an und kostet nichts, also analysierst du weiter, während sich an der Sache nichts ändert. Und ein guter Kopf findet auch die besseren Gründe dafür, warum er recht hat. Je klüger du bist, desto länger kannst du deine Irrtümer verteidigen.',
+    progress:
+      'Triff einmal pro Woche eine Entscheidung, bevor die Lage ganz geklärt ist, mit Datum und ohne Vorbehalt. Und schau am Ende der Woche nicht darauf, was du verstanden hast, sondern ob dich etwas berührt hat: ein Mensch, ein Stück Musik, ein Satz, den du nicht sofort einordnen konntest. Weiter kommst du nicht über den nächsten Gedanken, sondern an ihm vorbei.',
     steps: [
       'Üb, etwas wahrzunehmen, ohne es zu analysieren: zehn Minuten Musik, Natur oder ein Gesicht, ohne es zu deuten.',
       'Frag dich im Streit nicht „Wer hat recht?“, sondern „Was braucht dieser Mensch?“.',
@@ -681,18 +694,19 @@ const de = {
     worldview: 'wohlwollend',
     essence:
       'Nicht das Gefühl aus den Liedern, sondern eine Haltung: ohne Bedingung, dauerhaft und ohne Gegenleistung. Du siehst, was an einem Menschen oder an einer Sache wesentlich ist, statt daran vorbeizusehen.',
-    advice: [
-      'Der blinde Fleck auf dieser Ebene bist du selbst. Dein Wohlwollen fließt reichlich nach außen und kommt bei dir am seltensten an. Prüf das ehrlich, bevor du weiterliest. Und lass die Menschen ihren eigenen Weg gehen, auch den unbequemen. Wenn du sie retten willst, hältst du sie fest, und das ist wieder ein Wollen.',
-      'Der feine Fehler auf dieser Ebene: Du machst aus dem Helfen eine Währung. Wenn du immer gibst und nie nimmst, stehen die anderen unmerklich in deiner Schuld. Und du selbst bleibst außerhalb der Beziehung, denn Nehmen ist die verletzlichere Hälfte. Prüf das an einer Kleinigkeit: Wann hast du zuletzt etwas angenommen, ohne es innerhalb einer Woche wieder auszugleichen?',
-      'Es geht auf dieser Ebene nicht darum, wie viel du fühlst, sondern darum, wie wenig du darauf angewiesen bist, dass sich die anderen richtig verhalten. Nimm dir dafür etwas Konkretes vor: Lass diese Woche einen Menschen einen Fehler machen, ohne ihn davor zu bewahren. Und bleib dabei erreichbar. Das ist schwerer als jede Hilfe.',
-    ],
+    strength:
+      'Dein Wohlwollen ist echt und hängt nicht von Bedingungen ab. Menschen spüren das, und es verändert Räume.',
+    advice:
+      'Der blinde Fleck auf dieser Ebene bist du selbst. Dein Wohlwollen fließt reichlich nach außen und kommt bei dir am seltensten an. Prüf das ehrlich, bevor du weiterliest. Dann nimm dir etwas Konkretes vor: Lass diese Woche einen Menschen einen Fehler machen, ohne ihn davor zu bewahren, und bleib dabei erreichbar. Das ist schwerer als jede Hilfe.',
     signs: [
       'Du willst, dass es anderen gut geht, auch wenn du nichts davon hast.',
       'Du entscheidest eher aus dem Bauch als nach Kalkül, und die Entscheidungen halten.',
       'Es beruhigt die Leute schon, dass du da bist.',
     ],
     trap:
-      'Auch hier kannst du dich festhalten: an der Rolle des Liebenden und an Menschen, die du retten willst. Liebe, die festhält, ist wieder ein Wollen.',
+      'Auch hier kannst du dich festhalten: an der Rolle des Liebenden und an Menschen, die du retten willst. Liebe, die festhält, ist wieder ein Wollen. Der feine Fehler dabei: Du machst aus dem Helfen eine Währung. Wenn du immer gibst und nie nimmst, stehen die anderen unmerklich in deiner Schuld, und du bleibst außerhalb der Beziehung. Nehmen ist die verletzlichere Hälfte.',
+    progress:
+      'Es geht nicht darum, wie viel du fühlst, sondern wie wenig du darauf angewiesen bist, dass die anderen sich richtig verhalten. Prüf es an einer Kleinigkeit: Wann hast du zuletzt etwas angenommen, ohne es innerhalb einer Woche auszugleichen? Wenn dir ein Beispiel einfällt, wirkt es.',
     steps: [
       'Lass es geschehen: Menschen dürfen ihren eigenen Weg gehen, auch den unbequemen.',
       'Sei jeden Tag für etwas Konkretes dankbar, auch ohne besonderen Anlass.',
@@ -731,18 +745,19 @@ const de = {
     worldview: 'vollkommen',
     essence:
       'Eine Freude, die nicht davon abhängt, was gerade passiert. Sie kommt von innen, sie ist geduldig und hält lange an. Und sie steckt andere an, ohne laut zu sein.',
-    advice: [
-      'Versuch nicht, das hier festzuhalten. In dem Moment, in dem du diese Freude wiederhaben willst, ist sie ein Verlangen geworden, und du bist zwölf Ebenen tiefer. Lass die schönen Zustände kommen und gehen wie das Wetter. Und wenn du etwas tun willst: Tu es im Stillen, an einer Stelle, an der es niemand mitbekommt.',
-      'Meistens verlierst du diese Ebene, weil du sie wiederholen willst: dasselbe Seminar noch einmal, derselbe Ort, dieselbe Musik, dieselbe Substanz. Aus einem Zustand wird dabei ein Besitz, den du verteidigen musst. Das Erzählen gehört auch dazu. Wenn du aus der Erfahrung eine Auskunft über dich selbst machst, hast du sie schon gegen Stolz eingetauscht, und der liegt zwölf Ebenen tiefer.',
-      'Du erkennst diese Ebene nicht am Höhepunkt, sondern am Dienstag: daran, wie es dir geht, wenn nichts Besonderes passiert, wie lange du in einer Schlange stehen kannst, wie du mit einem langweiligen Menschen redest. Und wenn die Freude geht, lass sie gehen, ohne ihr etwas nachzurufen. Sie kommt zurück wie das Wetter, und zwar zu dem, der nicht darauf wartet.',
-    ],
+    strength:
+      'Du brauchst keinen Anlass, um dich zu freuen. Das ist selten, und es steckt an, ohne dass du etwas dafür tun musst.',
+    advice:
+      'Versuch nicht, das hier festzuhalten. In dem Moment, in dem du diese Freude wiederhaben willst, ist sie ein Verlangen geworden, und du bist zwölf Ebenen tiefer. Lass die schönen Zustände kommen und gehen wie das Wetter. Und wenn du etwas tun willst, tu es im Stillen, an einer Stelle, an der es niemand mitbekommt.',
     signs: [
       'Ganz gewöhnliche Momente berühren dich: Licht, Stimmen, Alltägliches.',
       'Geduld fällt dir leicht, weil du nichts erzwingen musst.',
       'Menschen fühlen sich in deiner Nähe wohler, ohne dass dafür etwas passieren muss.',
     ],
     trap:
-      'Du kannst die Erfahrung selbst festhalten wollen. Dann wird aus der Freude ein Zustand, den du wiederherstellen willst — und damit ist sie wieder ein Verlangen.',
+      'Du willst die Erfahrung wiederholen: dasselbe Seminar, derselbe Ort, dieselbe Musik, dieselbe Substanz. Aus einem Zustand wird dabei ein Besitz, den du verteidigen musst, und damit ist er wieder ein Verlangen. Das Erzählen gehört dazu. Sobald du aus der Erfahrung eine Auskunft über dich selbst machst, hast du sie gegen Stolz eingetauscht.',
+    progress:
+      'Du erkennst diese Ebene nicht am Höhepunkt, sondern am Dienstag: daran, wie es dir geht, wenn nichts Besonderes passiert, wie lange du in einer Schlange stehen kannst, wie du mit einem langweiligen Menschen redest. Und wenn die Freude geht, lass sie gehen, ohne ihr etwas nachzurufen. Sie kommt zurück, und zwar zu denen, die nicht darauf warten.',
     steps: [
       'Lass die schönen Zustände kommen und gehen, ohne sie zu konservieren.',
       'Hilf im Stillen: Tu etwas, das niemand mitbekommt.',
@@ -781,18 +796,19 @@ const de = {
     worldview: 'vollständig',
     essence:
       'Die Grenze zwischen dir und dem, was du wahrnimmst, wird durchlässig. Alles bewegt sich, nichts drängt. Das ist sehr selten — Hawkins schätzt: ein Mensch unter zehn Millionen.',
-    advice: [
-      'Bleib im Alltag. Auf dieser Höhe ist es verlockend, sich zurückzuziehen, und meistens verlierst du dabei etwas. Ein Frieden, der niemandem mehr nützt, verliert seinen Boden. Und mach weiter mit der Übung, die dich hierher gebracht hat. Es gibt keinen Zustand, den du besitzt, und keinen, der ohne Übung bleibt.',
-      'Der Rückzug tarnt sich hier gut. Er sieht nach Reife aus und ist oft nur bequemer. Verlockend ist außerdem die Rolle des Lehrers: Wenn du hier stehst, fragen dich die Leute, und dann antwortest du leicht früher, als du verstehst. Halt deshalb an ganz gewöhnlichen Verpflichtungen fest: an Rechnungen, an Terminen, an Menschen, die nichts von Ebenen wissen. Ein Frieden, der einen Werktag nicht aushält, ist keiner.',
-      'Und behalt einen Menschen in deiner Nähe, der dir widersprechen darf, ohne dass es ihn etwas kostet. Hier oben fehlt dir am ehesten der Widerspruch. Die Fragen dazu sind unspektakulär: Kann man dich im Streit noch ansprechen? Hörst du Kritik, ohne sie sofort zu erklären? Setzt du dich morgens auch dann zur Übung hin, wenn es gar nicht nötig scheint?',
-    ],
+    strength:
+      'Du hast aufgehört, mit dem zu ringen, was ist. Was bleibt, ist eine Stille, die andere beruhigt, ohne dass du etwas dafür tust.',
+    advice:
+      'Bleib im Alltag. Auf dieser Höhe ist es verlockend, sich zurückzuziehen, und meistens verlierst du dabei etwas. Halt an ganz gewöhnlichen Verpflichtungen fest: an Rechnungen, an Terminen, an Menschen, die nichts von Ebenen wissen. Und mach weiter mit der Übung, die dich hierher gebracht hat. Es gibt keinen Zustand, den du besitzt, und keinen, der ohne Übung bleibt.',
     signs: [
       'Die Stille fühlt sich für dich voll an und nicht leer.',
       'Getrenntsein kommt dir weniger echt vor als Verbundensein.',
       'Du handelst wie von selbst, ohne inneren Antreiber.',
     ],
     trap:
-      'Auf dieser Höhe ist es verlockend, sich aus der Welt zurückzuziehen. Ein Frieden, der niemandem mehr nützt, verliert seinen Boden.',
+      'Der Rückzug tarnt sich hier gut. Er sieht nach Reife aus und ist oft nur bequemer. Ein Frieden, der niemandem mehr nützt, verliert seinen Boden. Verlockend ist außerdem, zu lehren: Wenn du hier stehst, fragen dich die Leute, und dann antwortest du leicht früher, als du verstehst.',
+    progress:
+      'Ein Frieden, der einen Werktag nicht aushält, ist keiner. Die Fragen dazu sind unspektakulär: Kann man dich im Streit noch ansprechen? Hörst du Kritik, ohne sie sofort zu erklären? Setzt du dich morgens auch dann zur Übung hin, wenn es gar nicht nötig scheint? Und behalt einen Menschen in deiner Nähe, der dir widersprechen darf, ohne dass es ihn etwas kostet. Hier oben fehlt dir am ehesten der Widerspruch.',
     steps: [
       'Bleib im Alltag: Der Frieden bewährt sich in der Küche und nicht auf dem Berg.',
       'Gib weiter, was du kannst — schlicht und ohne dich als Lehrer aufzuspielen.',
@@ -828,21 +844,22 @@ const de = {
   enlightenment: {
     name: 'Erleuchtung',
     emotion: 'Unaussprechlich',
-    worldview: 'ist',
+    worldview: 'so, wie sie ist',
     essence:
       'Hier endet die Skala (700 bis 1000). Es gibt kein Ich mehr, das etwas erlebt, sondern nur noch das Sein selbst. Hawkins ordnet dieser Ebene die großen Lehrer der Menschheitsgeschichte zu.',
-    advice: [
-      'Hier gibt es nichts zu raten. Wenn diese Ebene als dein Ergebnis erscheint, sagt das etwas über die Skala und die Rechnung dahinter aus, aber nichts über dich. Hawkins ordnet ihr die großen Lehrer der Menschheitsgeschichte zu, und über einen Fragebogen kommt dort niemand hin. Nimm sie als Richtung. Alles Praktische steht auf den sechzehn Ebenen darunter.',
-      'Wenn dieses Ergebnis trotzdem herauskommt, schau dir nüchtern an, wie es zustande gekommen ist. Der Fragebogen misst, was du über dich selbst sagst, und sonst nichts. Wenn du überall zustimmst, kommen überall hohe Werte heraus. Das kann heißen, dass es dir wirklich gut geht. Es kann auch heißen, dass du so geantwortet hast, wie du gern wärst. Beides ist menschlich und beides ist kein Vorwurf.',
-      'Praktisch wird es eine Ebene tiefer. Geh die Skala durch und such die Ebene, auf der du an einem schlechten Tag landest, und nicht die, auf der du an einem guten Tag stehst. Die erste sagt mehr über deinen Alltag. Und frag einen Menschen, der dich lange kennt, wo er dich sehen würde. Diese Antwort ist unbequemer als jedes Ergebnis, und nur mit ihr kannst du arbeiten.',
-    ],
+    strength:
+      'Diese Ebene ist eine Richtung, keine Position. Wenn sie dich anzieht, ist das schon etwas: Du weißt, wohin.',
+    advice:
+      'Hier gibt es nichts zu raten. Wenn diese Ebene als dein Ergebnis erscheint, sagt das etwas über die Skala und die Rechnung dahinter, aber nichts über dich. Hawkins ordnet ihr die großen Lehrer der Menschheitsgeschichte zu, und über einen Fragebogen kommt dort niemand hin. Nimm sie als Richtung. Alles Praktische steht auf den sechzehn Ebenen darunter.',
     signs: [
       'Von innen beschreibt sich diese Ebene nicht.',
       'Wenn jemand sie für sich beansprucht, spricht meistens der Stolz.',
       'Was von ihr bleibt, sind die Menschen, die davon berührt wurden.',
     ],
     trap:
-      'Das Wort selbst. Sobald du die Erleuchtung zum Ziel machst, ist sie das ehrgeizigste Verlangen von allen.',
+      'Das Wort selbst. Sobald du die Erleuchtung zum Ziel machst, ist sie das ehrgeizigste Verlangen von allen. Und der Fragebogen misst nur, was du über dich selbst sagst. Wenn du überall zustimmst, kommen überall hohe Werte heraus. Das kann heißen, dass es dir wirklich gut geht. Es kann auch heißen, dass du so geantwortet hast, wie du gern wärst. Beides ist menschlich, und beides ist kein Vorwurf.',
+    progress:
+      'Praktisch wird es eine Ebene tiefer. Geh die Skala durch und such die Ebene, auf der du an einem schlechten Tag landest, nicht die, auf der du an einem guten Tag stehst. Die erste sagt mehr über deinen Alltag. Und frag Menschen, die dich lange kennen, wo sie dich sehen würden. Diese Antwort ist unbequemer als jedes Ergebnis, und nur mit ihr kannst du arbeiten.',
     steps: [
       'Hier ist nichts zu tun. An dieser Stelle endet die Skala. Der Weg dorthin sind die 16 Ebenen darunter, gelebt.',
       'Wichtig ist die Richtung und nicht das Ende: Eine Ebene nach oben verändert ein Leben.',
@@ -885,18 +902,19 @@ const en: LevelCopy = {
     worldview: 'miserable',
     essence:
       'You are not ashamed of something you did, you are ashamed of yourself. “I made a mistake” has turned into “I am a mistake”. That costs so much strength that almost nothing is left for anything else.',
-    advice: [
-      'Do not try to understand the shame first. What keeps it alive is mostly that nobody knows about it. Tell someone you trust. If they stay, the shame loses its ground. You do not have to do more than that this week. Everything else gets easier afterwards.',
-      'Almost everyone makes the same mistake here: they try to prove that they are all right. One more achievement, one more favour, one more good reason. That works for a few days. Then the question comes back, and it is sharper than before, because anything you have to earn can also be lost again. No proof helps against shame. Only someone else knowing about it helps.',
-      'Do not expect it to feel better soon. The first sign is smaller than that: you stay in a room you would otherwise have left. That already counts, even if you are shaking. And if you start thinking that everything would be easier for everyone without you, call someone today — a person you trust, or a crisis line.',
-    ],
+    strength:
+      'Shame shows that how you come across to others matters to you. That sensitivity is not the problem. Right now it is only pointed at yourself.',
+    advice:
+      'Do not start by trying to understand the shame. It lives on nobody knowing about it. Find one person you trust and tell them one thing you have kept hidden until now. If they are still there afterwards, the shame has lost its ground. That is all you need to do this week. Everything else gets easier from there.',
     signs: [
       'You do not want to be seen, and you leave rooms where you might stand out.',
       'Old embarrassments come to mind unasked and hit you straight away.',
       'Praise makes you uncomfortable. It feels as though someone had misjudged you.',
     ],
     trap:
-      'Shame promises you protection: make yourself small and you cannot fall far. You pay for it by nobody getting to know you. Including yourself.',
+      'Shame promises protection: make yourself small and you cannot fall far. The price is that nobody gets to know you, including you. And almost everyone tries the same thing here: to prove that they are all right. One more achievement, one more favour. It works for a few days, then the question is back and sharper than before. Anything you have to earn can be lost again.',
+    progress:
+      'Do not expect it to feel good soon. The first sign is smaller than that: you stay in a room you would otherwise have left. That counts, even if you are shaking. If shame has been running your days for months, you do not have to carry that alone. Therapy exists for exactly this.',
     steps: [
       'Separate the deed from yourself. Write down what happened the way an outsider would write it — without any verdict on you.',
       'Tell someone you trust something you have kept hidden so far. Shame rarely survives someone else knowing about it.',
@@ -936,18 +954,19 @@ const en: LevelCopy = {
     worldview: 'punishing',
     essence:
       'There is a trial running inside you that never ends. You go through old stories again and again, and the verdict comes back against you every time.',
-    advice: [
-      'First check whether anyone is actually owed anything by you. The answer is usually shorter than the accusation. What is left after that is often not real remorse any more, just a habit that feels moral. Set yourself a date by which you will do your part. After that the matter is closed, even if the feeling hangs around for a while.',
-      'It gets most expensive when you pay with suffering. You cannot or will not make something good, so you punish yourself instead. Nobody gets anything out of that. The person you owe something to gets nothing from your bad nights. They would get something from a phone call, a sentence, or an amount of money.',
-      'So go by the account, not by your feeling. Once your part is done, the matter is settled, even if it feels different for weeks. And if there is nobody left who could receive anything — because the person has died, or because it was thirty years ago — then it is not guilt any more. Then it is grief. You cannot pay that off, you have to live through it.',
-    ],
+    strength:
+      'Guilt means you have a conscience and take responsibility seriously. That is exactly what you need in order to put something right.',
+    advice:
+      'Turn the feeling into a bill. Who do you owe what, in concrete terms? The answer is usually shorter than the accusation. Pay it, apologise, repair it, and set a date by which your part is done. After that the matter is closed, even if the feeling lingers for a while.',
     signs: [
       'You apologise for things you are not responsible for.',
       'When other people are struggling, you look for your part in it first.',
       'You find it hard to accept something good. It feels undeserved.',
     ],
     trap:
-      'Guilt feels moral but it is comfortable. As long as you accuse yourself, you do not have to make anything good. Punishing yourself takes the place of acting.',
+      'Guilt feels moral, but it is often comfortable. As long as you are accusing yourself, you do not have to make anything right. That is the mistake almost everyone makes here: they pay with suffering instead of with an action. The person you owe gets nothing from your bad nights. A call, a sentence or a sum would actually help them.',
+    progress:
+      'Go by the bill, not by the feeling. Once your part is done, it is done, even if it feels different for weeks. And if there is nobody left who could receive anything, because the person has died or it was thirty years ago, then it is no longer guilt. It is grief, and grief has to be lived through, not paid off.',
     steps: [
       'Turn the guilt into an account: who do you owe what, concretely? Pay it, apologise, repair it. After that it is done.',
       'Set an end. A date from which the matter is settled. If you keep repeating old accusations after that, it is not remorse any more, it is habit.',
@@ -986,18 +1005,19 @@ const en: LevelCopy = {
     worldview: 'hopeless',
     essence:
       'Nothing is worth it, everything is too hard. The world is not against you, you simply stopped caring. Help reaches you, but it changes nothing.',
-    advice: [
-      'Do not wait until you feel like it. On this level the motivation does not come first. Make the first step so small that it feels almost silly, and arrange it with someone. Other people’s energy carries you when your own is missing. And if this has been going on for weeks, it is not a question of character. Then take it to a doctor.',
-      'The most common mistake is starting too big. Because you feel nothing, you plan the big new beginning: new routine, everything different, from Monday. The plan is too big, you do not manage it, and now you have proof that nothing works. Take something you can manage on a bad day instead: once round the block, a window opened, a message to one person. Sentences like “it will not help anyway” belong to the state you are in. They say nothing about your future.',
-      'Do not measure the week by your mood, measure it by three questions: did you move? Were you outside in daylight? Did you have anything to do with another person? If anger or sadness come back, that is not a relapse. On this scale, grief and anger are above apathy. It feels worse and you are doing better.',
-    ],
+    strength:
+      'Apathy is often exhaustion disguised as indifference. Your system has shut down to protect you. That is a signal, not a verdict.',
+    advice:
+      'Do not wait for motivation. Here it does not come first, it comes afterwards. Pick the smallest step you can manage even on a bad day: open a window, walk once around the block, send one message to one person. And arrange it with somebody. Borrowed energy carries you while your own is missing.',
     signs: [
       'Tasks pile up because even small steps look enormous.',
       'You often say “never mind” and you mean it.',
       'Other people worry about you, and it leaves you fairly cold.',
     ],
     trap:
-      'Apathy saves energy and keeps itself going that way. If you try nothing, you fail at nothing. But nothing works out either that could prove it wrong.',
+      'Apathy saves energy, and that is how it keeps itself alive: if you try nothing, you fail at nothing, but nothing succeeds either that could contradict the emptiness. The most common mistake is starting too big. Because you feel nothing, you plan the great new beginning from Monday. It is too heavy, you do not manage it, and there is your proof that nothing works. Thoughts like “what is the point” are part of the state. They say nothing about your future.',
+    progress:
+      'Measure the week by three questions, not by your mood: Did you move? Were you outside in daylight? Did you deal with another person? If anger or sadness come back, that is not a relapse but a step up. And if this has been going on for weeks, it is not a question of character. It belongs in a doctor’s office.',
     steps: [
       'Make the first step so small that it looks ridiculous: a glass of water, one line, two minutes outside the door. Movement comes first, motivation second.',
       'Arrange to meet someone and use their energy. What you cannot manage alone often works with someone else.',
@@ -1037,18 +1057,19 @@ const en: LevelCopy = {
     worldview: 'tragic',
     essence:
       'The loss has a name, and that is already progress. There is strength in grief; there was none in apathy. You are only looking at what is missing, and no longer at what is there.',
-    advice: [
-      'Take your time. On this scale, grief is a step up, and you cannot cut it short. Give it a fixed place every day, then it will not need the whole day. And do something for another person once a day. Not to comfort yourself, but because that is the fastest way to look outward again.',
-      'The mistake on this level is called functioning. If the grief gets no room, it does not go away. It comes back later, and then you recognise it less easily: as exhaustion, as irritability, as a body that always has something wrong with it. It also comes in waves, not in a straight line. A smell, a date, a song, and you are back on day one. That is normal and not a step backwards.',
-      'So do not watch whether the waves get smaller, watch how quickly you come back up afterwards. If weeks pass and nothing moves at all, or if nothing reaches you any more, not even good things, then get support. And tell the people around you what you need. Otherwise they will guess, and they usually guess wrong.',
-    ],
+    strength:
+      'Grief is love that has lost its counterpart. Its size tells you how much something meant to you.',
+    advice:
+      'Give grief a fixed place every day: twenty minutes, one chair, one time. Then it does not need the whole day. And do one thing a day for another person. Not as comfort, but because it is the quickest way to look outward again. You cannot shortcut grief. On this scale it is already a step up.',
     signs: [
       'A lot reminds you of the past, and the past was better.',
       'Tears come easily, sometimes for no clear reason.',
       'When you start something new, it feels like a betrayal of what you lost.',
     ],
     trap:
-      'The grief can become your last connection. Then you get afraid of letting go, because otherwise you lose the other person a second time.',
+      'Grief can become the last connection. Then you are afraid to let go, because otherwise you lose a second time. The other way of holding on is called functioning: if grief gets no room, it does not disappear. It comes back later as exhaustion, as irritability, as a body that is always missing something.',
+    progress:
+      'Grief comes in waves, not in a straight line. A smell, a date, a song, and you are back on day one. So do not watch whether the waves get smaller, but how quickly you surface afterwards. If nothing moves for weeks, or nothing reaches you any more, not even good things, get support. And tell the people around you what you need. Otherwise they guess, and they usually guess wrong.',
     steps: [
       'Give the grief a fixed time and place: twenty minutes a day when it is allowed to be there. What has a place of its own floods everything else less often.',
       'Write down what is left: people, abilities, memories. Not as consolation, but as an inventory.',
@@ -1087,18 +1108,19 @@ const en: LevelCopy = {
     worldview: 'threatening',
     essence:
       'Something could go wrong everywhere, and your mind has already played it all through. Fear really does protect you — until it starts running your life.',
-    advice: [
-      'Do not argue with fear, it wins every argument. Start with your body: breathe out slowly, longer than you breathe in. Then write the worst case through to the end and answer the question of what you would do then. And walk into something unpleasant on purpose once this week. Fear only gets smaller around things you have actually done.',
-      'What keeps fear alive is not your thinking, it is your avoiding. And that looks completely harmless: a cancellation, a call you push to tomorrow, a question you ask three times to be safe. Every time you are relieved straight away, and every time the fear grows a little. So check what follows from each piece of caution. With real danger, you do something. With fear, you leave something undone.',
-      'Expect it to get worse first. When you approach something you have avoided for a long time, the fear rises at first. It only falls once you stay, and that usually takes twenty minutes, not two. So do not ask yourself how calm you are, ask how short the list of things gets that you walk around. And if you have panic attacks, or if fear runs your day, there are effective treatments for that.',
-    ],
+    strength:
+      'Fear is a protective system that works. It has saved you from plenty of mistakes. It is just switched on too often right now.',
+    advice:
+      'Start with the body, not with the argument: breathe out slowly, longer than you breathe in. The mind follows the breath. Then write the fear to its end. What exactly happens in the worst case, and what do you do then? With a plan, panic becomes a problem. And once this week, walk voluntarily into something that makes you uncomfortable. Fear only shrinks on things you have actually done.',
     signs: [
       'You play through disasters that almost never happen.',
       'You put decisions off because every option carries a risk.',
       'You say yes to avoid an argument, not because you want to.',
     ],
     trap:
-      'Avoiding helps immediately and makes the fear bigger over time. Every time you avoid something, your nervous system learns that the danger was real.',
+      'What keeps fear alive is not your thinking but your avoiding. It looks harmless: a cancellation, a call you push to tomorrow, a question you ask three times to be safe. Each time you feel relief at once, and each time your nervous system learns: the danger was real. So check every precaution for what follows from it. In real danger you do something. In fear you leave something undone.',
+    progress:
+      'Expect it to get worse first. When you approach something you have avoided for a long time, the fear rises before it falls, and it only falls if you stay. That takes twenty minutes rather than two. So do not ask how calm you are, but how short the list of things you walk around is getting. If you have panic attacks, or fear runs your day: there are treatments for that, and they work well.',
     steps: [
       'Write the fear through to the end: what exactly happens in the worst case, and what do you do then? With a plan, panic turns into a problem.',
       'Find one small thing every week that makes you uncomfortable, and do it voluntarily. Courage only grows around things you have actually done.',
@@ -1137,18 +1159,19 @@ const en: LevelCopy = {
     worldview: 'disappointing',
     essence:
       'Something is always missing, and the next thing is supposed to fix it. Desire moves a lot — it is behind most careers — and it never arrives.',
-    advice: [
-      'You do not have to stop wanting things. There is desire behind most of the good things in your life. What is missing is the pause in between. Wait twenty-four hours between the impulse and the purchase, and the same between the idea and the commitment. What still pulls at you afterwards was real. The rest was restlessness.',
-      'What matters is not the object, it is the feeling it promises you. So ask yourself about whatever is pulling at you: what would I be free of if I had it? The answer is rarely “shoes”. Usually it is calm, recognition or security, and you can get those three more cheaply and directly. If you buy it anyway afterwards, at least you are buying with your eyes open.',
-      'On this level it is not about going without, it is about finishing: start less, complete more. A second sign is silence. If you need nothing to get through the next ten minutes, you have come a good way. And if you regularly cannot manage those twenty-four hours, this is not about desire any more, it is about a dependency. Do not stay alone with that.',
-    ],
+    strength:
+      'Desire is drive. Without it you would have none of what you have built. It does not need to go away, it needs a direction.',
+    advice:
+      'You do not have to stop wanting. Most of the good things in your life came from desire. What you are missing is the pause in between. Put twenty-four hours between impulse and purchase, and the same between idea and commitment. Whatever still pulls after that was real. The rest was restlessness.',
     signs: [
       'Reaching a goal feels good briefly, and then the next one is already there.',
       'As soon as it goes quiet, you reach for a distraction: phone, shopping, food, another episode.',
       'When other people have something, you think first about what you are missing.',
     ],
     trap:
-      'Desire confuses wanting with needing. You are always one purchase away from fulfilment — and that is why you never arrive.',
+      'Desire mistakes wanting for needing. You are always one purchase away from fulfilment, and that is exactly why you never arrive. Because it is not the object that counts but the feeling it promises. Ask yourself about whatever is pulling at you right now: what would I be free of if I had it? The answer is rarely “shoes”. It is usually calm, recognition or safety, and those you can get more cheaply direct.',
+    progress:
+      'This is not about giving things up but about finishing: start less, complete more. The second sign is silence. When you need nothing to get through the next ten minutes, you have come a good way. And if you regularly cannot manage the twenty-four hours, this is no longer desire but a dependency. Do not stay alone with that.',
     steps: [
       'Let 24 hours pass between the impulse and the action. What still pulls at you afterwards was real.',
       'Ask yourself with every “I want”: which feeling am I expecting from it? Usually you can get that feeling another way too.',
@@ -1188,18 +1211,19 @@ const en: LevelCopy = {
     worldview: 'hostile',
     essence:
       'You finally have strength, and it burns. Anger comes up when what you want meets resistance. It can end bad situations, and it can end relationships. That depends on whether it gets a direction.',
-    advice: [
-      'Say nothing while it is burning. The anger tells you that someone crossed a line or damaged something that matters to you. It does not tell you what to do now. Get it out of your system physically first: stairs, running, weights. Then say what you need instead of making an accusation. If nothing comes of the anger, it turns into resentment, and that lasts for years.',
-      'There are two mistakes here, and they look like opposites: letting it out and swallowing it. Both leave out the same sentence, the one where you say what you want. Venting, by the way, discharges nothing; you are more or less practising being angry. And look at what is underneath the anger. It is usually the second feeling; the first was fear, hurt or helplessness. If you only show the second one, you never get what it was really about.',
-      'Do not ask yourself how rarely you get angry, ask how quickly you turn the heat into a sentence. Ideally the same day, addressed to a particular person and with a deadline. If your anger is aimed at something nobody can change, it really belongs to grief, further down. And if the people around you start being careful, or if things get broken, get help — before the next time, not after it.',
-    ],
+    strength:
+      'Anger is energy defending a line. It tells you more clearly than any other feeling what matters to you.',
+    advice:
+      'Say nothing while it burns. Anger tells you that a line has been crossed. It does not tell you what to do now. Move it through the body first: stairs, running, weights. Then say in one sentence what you need, instead of making an accusation. An accusation gets a defence. A request is something a person can respond to.',
     signs: [
       'You get irritated faster than you would like, especially about small things.',
       'You argue in your head with people you never actually argued with.',
       'You are right, and it helps nobody.',
     ],
     trap:
-      'Anger feels strong but it is only a reaction. As long as it burns, someone else decides what you feel.',
+      'Anger feels strong, but it is only a reaction. As long as it burns, the other person decides what you feel. Two mistakes look like opposites here: letting it out and swallowing it. Both skip the same sentence, the one where you say what you want. And anger is usually the second feeling. The first was fear, hurt or helplessness. If you only show the second, you never get what it was really about.',
+    progress:
+      'Do not ask how rarely you get angry, but how quickly the heat becomes a sentence: ideally the same day, addressed to a specific person, with a deadline. Anger that never becomes an action turns into resentment, and resentment lasts years. And if the people around you are becoming careful, or things get broken, get help. Before the next time, not after.',
     steps: [
       'Look underneath the anger: what was hurt — a boundary, a value, a need? The anger points in a direction, but it is not an answer.',
       'Get it out of your system physically before you speak: running, weights, stairs. Then say what you need instead of making accusations.',
@@ -1237,18 +1261,19 @@ const en: LevelCopy = {
     worldview: 'demanding',
     essence:
       'You are doing noticeably better here than further down. Pride gives you footing, you achieve something and you belong somewhere. The catch is that all of it depends on conditions: on your status, on your role, on being right. And those can break away.',
-    advice: [
-      'Do not read this level as a reproach. Pride has brought you here, and it carries further than anything below it. It only gets expensive at the moment when you would have to learn something. The simplest test for that is a daily one: admit out loud once a day that you do not know something. If that is hard for you, you know what is holding you here.',
-      'Pride gets expensive above all when you take your opinion to be a part of you. Then every correction feels like an attack, and you defend your position longer than you still believe it. You barely notice that, but the others do: at some point they stop telling you things, and you are the last to hear what people think about you. Then there is the constant comparing. Pride always needs someone who is worse than you, and that makes you dependent on other people.',
-      'So do not count your successes, count two sentences a week: “you were right” and “I do not know”. The first time it costs you something, after that it gets easy. And you get people back who tell you things again. Also go somewhere regularly where you are the worst in the room: a beginners’ course, a foreign language, a sport you are no good at. That is the way up, not the stage.',
-    ],
+    strength:
+      'Pride gives you footing and drive. You have achieved something, and that is allowed to feel good. The only question is what happens when it is challenged.',
+    advice:
+      'Do not read this level as an accusation. Pride carried you here, and it carries further than anything below it. It only gets expensive at the moment you would have to learn something. So here is a simple test, every day: admit out loud once that you do not know something. In front of others, where it costs you a little. How hard that is tells you exactly what keeps you here.',
     signs: [
       'Criticism hits you hard, even when it is factually correct.',
       'You would rather do it alone and take twice as long than ask for help.',
       'You compare yourself often, and quietly note where you are better.',
     ],
     trap:
-      'Pride has to be defended. Because your self-image hangs on your successes, every mistake becomes a threat. And learning gets expensive.',
+      'Pride has to be defended. Because your self-image hangs on your successes, every mistake becomes a threat. The mistake inside that: you treat your opinion as part of yourself. Then every correction feels like an attack, and you defend a position longer than you yourself still believe in it. You hardly notice, but the others do. At some point they stop telling you things, and you are the last to hear what people think of you.',
+    progress:
+      'Do not count your successes but two sentences a week: “You were right” and “I do not know”. The first time costs something, after that it gets easy. And you get people back who tell you things again. Also, go regularly to places where you are the beginner: a class, a foreign language, a sport you cannot do. The way up starts there, not on stage.',
     steps: [
       'Admit once a day that you do not know something. Out loud, in front of others.',
       'Separate your opinion from yourself. You can drop an opinion without losing yourself.',
@@ -1287,18 +1312,19 @@ const en: LevelCopy = {
     worldview: 'workable',
     essence:
       'This is the threshold. From here you give the world more strength than it costs you. Your problems have not gone away, but they have turned into tasks, and you trust yourself to take them on.',
-    advice: [
-      'You are above the threshold. What threatens you now is not falling back, it is overload. If you take on everything and let nothing go, you burn out. So take on two things at once: one unpleasant thing a week that you pick deliberately, and with every annoyance the question of whether you really have to fight here or whether it is enough to take the situation as it is.',
-      'The mistake on this level is quantity. Courage feels like a strength that never runs out, and because things really do move now, it is easy to take on everything at once. So sort it out: is this in your hands or not? The first is worth your effort. The second costs you strength and changes nothing. And count sleep and rest as work, not as a reward.',
-      'Do not ask yourself how much you take on, ask whether you also let something go this month. And do not expect the fear to disappear. On this level it stays, it just does not decide any more. If you wait until it feels safe, you wait in vain: the good feeling comes after the action, not before it.',
-    ],
+    strength:
+      'Courage does not mean having no fear. It means acting anyway. You can already do that, and everything further builds on it.',
+    advice:
+      'You are above the threshold. What threatens you now is not relapse but overload. So take on two things at once: one uncomfortable task a week that you choose deliberately, and with every irritation the question whether you really have to fight here or whether it is enough to take the situation as it is. On this level, letting go is the harder practice, not taking action.',
     signs: [
       'You say difficult things even though you feel uneasy doing it.',
       'A mistake no longer costs you your sense of self-worth.',
       'You take responsibility without looking for someone to blame.',
     ],
     trap:
-      'Courage can turn into constant strain: take on everything, let nothing go. If you have to push through all the time, you burn out.',
+      'Courage can turn into permanent stress: take on everything, let go of nothing. Courage feels like a strength that never runs out, and because things are actually moving now, you easily take on everything at once. If you constantly have to push yourself, you burn out. So sort: is this in your hands or not? The first is worth your effort. The second costs you strength and changes nothing.',
+    progress:
+      'At the end of the month, do not ask how much you took on, but whether you also let something go. Count sleep and rest as work, not as reward. And do not expect the fear to disappear. On this level it stays, it just no longer decides. The good feeling comes after the action, not before it.',
     steps: [
       'Keep moving: one unpleasant thing a week that you pick deliberately.',
       'Practise letting go with small things. You do not have to overcome every resistance. Some things get easier when you stop pulling.',
@@ -1337,18 +1363,19 @@ const en: LevelCopy = {
     worldview: 'satisfactory',
     essence:
       'It is fine as it is, and if it is not, you can live with that too. Neutrality is the first genuinely relaxed place on the scale: no having to, no being right, very little drama.',
-    advice: [
-      'Do not take this for the destination. Neutrality is the first genuinely relaxed place on the scale, and that is exactly why many people stop here. You only get further up if you commit to something. Find something that matters enough to you to be uncomfortable for, and say yes to it before you know whether it is worth it.',
-      'Watch the difference between calm and indifferent. From the inside both feel the same. Calm means: this matters to me, and I can bear it if it turns out differently. Indifferent means: I stopped caring so that it cannot hurt any more. The second one is comfortable, and it costs you exactly the involvement that the levels above are made of.',
-      'The test for it is a single question: what would you embarrass yourself for? If nothing comes to mind, that is the real result of this level. Then take on something you could fail at, and set a date for it. Not because failing is good, but because only what can go wrong still concerns you.',
-    ],
+    strength:
+      'You have learned that not everything depends on you. That calm is a real gain, and it is the ground on which commitment becomes possible at all.',
+    advice:
+      'Do not mistake this for the goal. Neutrality is the first truly relaxed place on the scale, and that is exactly why many people stop here. Find one thing that matters enough to you to get uncomfortable for it, and say yes to it before you know whether it will pay off. The way up is through commitment, not through even more calm.',
     signs: [
       'A no from outside no longer knocks you over.',
       'You can change your plans without feeling like a loser.',
       'People like coming to you because you do not blow things up.',
     ],
     trap:
-      'Calm can tip over into indifference. When you need nothing any more, you sometimes stop committing to anything.',
+      'Calm can tip into indifference, and from the inside both feel the same. Calm means: it matters to me, and I can bear it if things turn out differently. Indifferent means: I have stopped letting it matter so that it cannot hurt any more. The second is comfortable, and it costs you exactly the involvement the levels above are made of.',
+    progress:
+      'The test is a single question: what would you embarrass yourself for? If something comes to mind, you are on your way. If nothing does, you have the real result of this level. Then take on something you can fail at, and set a date for it. Only what can go wrong still concerns you.',
     steps: [
       'Say yes deliberately to something that costs you effort. Neutrality only turns into willingness when you commit.',
       'Find something that matters enough to you to be uncomfortable for.',
@@ -1387,18 +1414,19 @@ const en: LevelCopy = {
     worldview: 'hopeful',
     essence:
       '“It will do” has turned into “I am glad to do it”. Work no longer feels like resistance, you like learning, and other people notice that they can count on you.',
-    advice: [
-      'Your yes is your strength, and it is your bill. The question here is no longer whether you take something on, but what you are keeping your next yes for. Cancel one commitment this week that you only made out of habit, and put that strength into something that stretches you professionally. On this level, exhaustion looks like commitment for a long time.',
-      'The yes is not the problem, the problem is that it has become automatic. If you are the reliable one for everybody, you are asked first and relieved last. At some point the bill arrives, and it does not arrive as exhaustion but as quiet resentment towards people who never found out what it cost you. So sort it out: plenty of it can be done by other people too. What only you can do, nobody else will do.',
-      'Measure the week by a single no that held. Not explained away and not paid for with something else instead. And check whether you are still learning anything from your yes. If you only work through familiar things, that is diligence and not progress. You get further through the task where you do not know at the start how to do it.',
-    ],
+    strength:
+      'You are someone people can count on. That reliability is rare and valuable. It only needs a boundary so that it stays yours.',
+    advice:
+      'Your yes is your strength, and it is your bill. The question here is no longer whether you take something on, but what you are saving your next yes for. This week, cancel one commitment you only made out of habit, and put that energy into something that genuinely stretches you. On this level, exhaustion looks like commitment for a long time.',
     signs: [
       'You volunteer before anyone has to ask.',
       'A setback is information to you, not a verdict.',
       'You finish things, including the boring ones.',
     ],
     trap:
-      'You say yes quickly, including to too much. Without a boundary, being helpful turns into exhaustion.',
+      'The problem is not the yes but that it has come to be taken for granted. If you are the reliable one for everybody, you are asked first and relieved last. The bill does not arrive as tiredness but as quiet resentment against people who never learned what it cost you. Much of it others could do as well. What only you can do, nobody else will.',
+    progress:
+      'Measure the week by a single no that held. Not explained away, not bought off with a substitute favour. And check whether you still learn something from your yes. If you are only working through what you already know, that is diligence, not progress. The way forward is the task where, at the start, you do not know how it goes.',
     steps: [
       'Set priorities instead of just agreeing: what are you saying yes to so that a more important yes stays possible?',
       'Take on something that stretches you professionally. Willingness grows on demanding tasks.',
@@ -1437,18 +1465,19 @@ const en: LevelCopy = {
     worldview: 'harmonious',
     essence:
       'How you are doing is decided inside you and not by your circumstances. That is where you stop arguing with reality and start shaping it.',
-    advice: [
-      'Watch out for the sentence that comes most easily here: “that is just how I am”. If you accept something, that does not mean it cannot change. Acceptance is the ground on which shaping starts, not permission to leave everything alone. Take one thing you have been putting up with and look soberly at what about it is actually fixed. And forgive one particular person, in writing, even if you never send the letter.',
-      'One mix-up costs you the most here: accepting and approving are not the same thing. Accepting only means that you stop arguing with what is the case anyway. It says nothing about whether it is all right, and it commits you to nothing. You can accept an injustice and still do something about it. The other way round it is also true: what you do not accept, you cannot change. You are still busy with the fact that it should not be that way.',
-      'You recognise this level by your strength coming back. Arguing with the facts was expensive, and you only notice how expensive when it stops. Forgiving here is not a feeling, it is giving something up: you drop the demand that the past should have gone differently. You can tell it worked not from how you think about the person, but from the fact that you think about them less often.',
-    ],
+    strength:
+      'You can take reality as it is without submitting to it. That is the ability from which shaping things begins.',
+    advice:
+      'Watch out for the sentence that comes easiest here: “That is just how I am.” Accepting something does not mean it cannot change. Take one thing you have been putting up with and look soberly at what about it is actually fixed. And forgive one specific person, in writing, without sending the letter if need be.',
     signs: [
       'You ask first what you can contribute, and not whose fault it is.',
       'People are allowed to be different without it bothering you.',
       'You can forgive without playing the matter down.',
     ],
     trap:
-      'Acceptance can become an excuse: “that is just how I am”. But accepting something does not mean it cannot change.',
+      'The most expensive thing here is a mix-up: accepting and approving are not the same. Accepting only means you stop arguing with what is already the case. Whether it is all right, that does not say. You can accept an injustice and still do something about it. And the other way round: what you do not accept, you cannot change either, because you are still busy with the fact that it should not be so.',
+    progress:
+      'You notice it by your strength coming back. Arguing with the facts was expensive, and how expensive only shows once it stops. Forgiving here is not a feeling but a renunciation: you give up the demand that the past should have gone differently. Whether that has worked, you do not see in how you think about the person, but in how much less often you think of them.',
     steps: [
       'Check your assumptions against the facts: what of it is demonstrably true, and what is just familiar to you?',
       'Bring order into your thinking: read, calculate, argue. With clarity, acceptance turns into reason.',
@@ -1487,18 +1516,19 @@ const en: LevelCopy = {
     worldview: 'meaningful',
     essence:
       'Your mind is at its best: you see how things connect, your knowledge falls into order, and you can justify your decisions. This is the level of science, of medicine and of good craftsmanship.',
-    advice: [
-      'On this level your mind is an excellent tool. It just does not know when to stop. Take ten minutes every day to perceive something without interpreting it: music, a face, the weather. And in your next argument, do not ask who is right, ask what the other person needs. The next step is not a better analysis, it is a different way of looking.',
-      'The mistake on this level is that you use understanding to put things off. It feels like progress and costs nothing. You can go on analysing endlessly while nothing about the thing itself changes. The second mistake is subtler: a good mind also finds better reasons for why it is right. The cleverer you are, the more expensive your errors get, because you can defend them longer.',
-      'So make one decision a week before the situation is fully clear — with a date and without reservations. And at the end of the week, do not look at what you understood, look at whether something moved you: a person, a piece of music, a sentence you could not file away straight away. You do not get further through the next thought, you get further past it.',
-    ],
+    strength:
+      'You can think, order and give reasons. That is what carries medicine, science and good craft. It has just one limit, and that limit is not inside thinking.',
+    advice:
+      'Your mind is an excellent tool here. It just does not know when to stop. Take ten minutes every day to simply perceive something without interpreting it: music, a face, the weather. And in the next argument, do not ask who is right, but what the other person needs right now. The next step is not a better analysis but a different way of looking.',
     signs: [
       'You distinguish cleanly between facts, opinion and feeling.',
       'You put complicated things in order instead of letting them overwhelm you.',
       'You change your mind when the data call for it.',
     ],
     trap:
-      'The mind takes itself for the whole. It can explain everything and comfort nobody. And it easily mistakes its model for reality.',
+      'The mind takes itself for the whole. It can explain everything and comfort nobody, and it easily mistakes its model for reality. The mistake inside that: understanding feels like progress and costs nothing, so you keep analysing while nothing about the matter itself changes. And a good mind also finds the better reasons why it is right. The cleverer you are, the longer you can defend your errors.',
+    progress:
+      'Once a week, make a decision before the situation is fully clear, with a date and without reservation. And at the end of the week, do not look at what you have understood, but at whether something touched you: a person, a piece of music, a sentence you could not place straight away. The way forward is not through the next thought but past it.',
     steps: [
       'Practise perceiving something without analysing it: ten minutes of music, nature or a face, without interpreting it.',
       'In an argument, do not ask “who is right?”, ask “what does this person need?”.',
@@ -1537,18 +1567,19 @@ const en: LevelCopy = {
     worldview: 'benign',
     essence:
       'Not the feeling from the songs but an attitude: without conditions, lasting, and with nothing expected in return. You see what is essential about a person or a thing instead of looking past it.',
-    advice: [
-      'The blind spot on this level is you. Your goodwill flows outward in abundance and reaches you least of all. Check that honestly before you read on. And let people go their own way, including the uncomfortable one. If you want to rescue them, you are holding on to them, and that is wanting again.',
-      'The subtle mistake on this level: you turn helping into a currency. If you always give and never take, the others are quietly in your debt. And you stay outside the relationship yourself, because taking is the more vulnerable half. Check it on something small: when did you last accept something without balancing it out within a week?',
-      'On this level it is not about how much you feel, it is about how little you depend on other people behaving correctly. Take on something concrete for that: this week, let someone make a mistake without saving them from it. And stay reachable while they do. That is harder than any help.',
-    ],
+    strength:
+      'Your goodwill is real and does not depend on conditions. People feel it, and it changes the rooms you are in.',
+    advice:
+      'The blind spot on this level is you. Your goodwill flows generously outward and reaches you least of all. Check that honestly before you read on. Then take on something concrete: this week, let one person make a mistake without protecting them from it, and stay reachable while they do. That is harder than any help.',
     signs: [
       'You want other people to be well, even when there is nothing in it for you.',
       'You decide more from the gut than by calculation, and the decisions hold.',
       'It calms people down simply that you are there.',
     ],
     trap:
-      'You can hold on here too: to the role of the loving one, and to people you want to rescue. Love that holds on is wanting again.',
+      'Even here you can hold on: to the role of the one who loves, and to people you want to rescue. Love that holds on is wanting again. The subtle mistake inside that: you turn helping into a currency. If you always give and never take, the others end up quietly in your debt, and you stay outside the relationship. Receiving is the more vulnerable half.',
+    progress:
+      'It is not about how much you feel, but about how little you depend on the others behaving properly. Test it on something small: when did you last accept something without balancing it out within a week? If an example comes to mind, it is working.',
     steps: [
       'Let it happen: people are allowed to go their own way, including the uncomfortable one.',
       'Be grateful for something concrete every day, even without a particular occasion.',
@@ -1587,18 +1618,19 @@ const en: LevelCopy = {
     worldview: 'complete',
     essence:
       'A joy that does not depend on what is happening. It comes from inside, it is patient and it lasts. And it is catching, without being loud.',
-    advice: [
-      'Do not try to hold on to this. The moment you want this joy back, it has turned into desire, and you are twelve levels lower. Let the good states come and go like the weather. And if you want to do something: do it quietly, somewhere nobody notices.',
-      'You usually lose this level because you want to repeat it: the same seminar again, the same place, the same music, the same substance. A state turns into a possession you have to defend. Telling people about it belongs here too. If you turn the experience into information about yourself, you have already traded it for pride, and pride is twelve levels lower.',
-      'You recognise this level not by the high point but by the Tuesday: by how you are when nothing special is happening, how long you can stand in a queue, how you talk to a boring person. And when the joy goes, let it go without calling after it. It comes back like the weather, and it comes back to whoever is not waiting for it.',
-    ],
+    strength:
+      'You do not need a reason to be glad. That is rare, and it spreads without you having to do anything for it.',
+    advice:
+      'Do not try to hold on to this. The moment you want this joy back, it has become desire, and you are twelve levels down. Let the good states come and go like the weather. And if you want to do something, do it quietly, somewhere nobody notices.',
     signs: [
       'Entirely ordinary moments move you: light, voices, everyday things.',
       'Patience comes easily to you because you do not have to force anything.',
       'People feel better around you without anything having to happen.',
     ],
     trap:
-      'You can start wanting to hold on to the experience itself. Then the joy turns into a state you want to restore — and with that it is desire again.',
+      'You want to repeat the experience: the same seminar, the same place, the same music, the same substance. A state turns into a possession you have to defend, and with that it is desire again. Telling people about it is part of the same move. As soon as you turn the experience into a statement about yourself, you have traded it for pride.',
+    progress:
+      'You recognise this level not at the peak but on a Tuesday: by how you are when nothing special happens, how long you can stand in a queue, how you talk to a boring person. And when the joy leaves, let it go without calling after it. It comes back, and it comes back to those who are not waiting for it.',
     steps: [
       'Let the good states come and go without preserving them.',
       'Help quietly: do something nobody notices.',
@@ -1637,18 +1669,19 @@ const en: LevelCopy = {
     worldview: 'whole',
     essence:
       'The border between you and what you perceive becomes permeable. Everything moves, nothing presses. This is very rare — Hawkins estimates one person in ten million.',
-    advice: [
-      'Stay in everyday life. At this height it is tempting to withdraw, and you usually lose something by doing it. A peace that is no use to anyone loses its ground. And keep up the practice that brought you here. There is no state you own, and none that survives without practice.',
-      'Withdrawal disguises itself well here. It looks like maturity and is often just more comfortable. The role of the teacher is tempting too: if you are standing here, people ask you, and then it is easy to answer sooner than you understand. So hold on to completely ordinary obligations: bills, appointments, people who know nothing about levels. A peace that cannot survive a working day is not one.',
-      'And keep someone close to you who is free to contradict you at no cost. Up here it is contradiction that you are most likely to be missing. The questions for it are unspectacular: can people still reach you during an argument? Can you hear criticism without immediately explaining it away? Do you sit down to practise in the morning even when it does not seem necessary at all?',
-    ],
+    strength:
+      'You have stopped wrestling with what is. What remains is a stillness that calms others without you doing anything for it.',
+    advice:
+      'Stay in everyday life. At this height it is tempting to withdraw, and you usually lose something by it. Hold on to perfectly ordinary obligations: bills, appointments, people who know nothing about levels. And keep up the practice that brought you here. There is no state you own, and none that stays without practice.',
     signs: [
       'Silence feels full to you, not empty.',
       'Being separate seems less real to you than being connected.',
       'You act as if by itself, without an inner driver.',
     ],
     trap:
-      'At this height it is tempting to withdraw from the world. A peace that is no use to anyone loses its ground.',
+      'Withdrawal disguises itself well here. It looks like maturity and is often just more comfortable. A peace that no longer benefits anyone loses its ground. Teaching is tempting too: when you stand here, people ask you, and then you easily answer sooner than you understand.',
+    progress:
+      'A peace that cannot survive a working day is not one. The questions for it are unspectacular: can people still approach you in an argument? Do you hear criticism without explaining it away at once? Do you sit down to practise in the morning even when it does not seem necessary? And keep one person close who is allowed to contradict you at no cost to them. Up here, contradiction is what you are most likely to miss.',
     steps: [
       'Stay in everyday life: peace proves itself in the kitchen and not on the mountain.',
       'Pass on what you can — plainly, without playing the teacher.',
@@ -1684,21 +1717,22 @@ const en: LevelCopy = {
   enlightenment: {
     name: 'Enlightenment',
     emotion: 'Ineffable',
-    worldview: 'is',
+    worldview: 'as it is',
     essence:
       'This is where the scale ends (700 to 1000). There is no self left that experiences anything, only being itself. Hawkins assigns this level to the great teachers in human history.',
-    advice: [
-      'There is nothing to advise here. If this level comes up as your result, that says something about the scale and the arithmetic behind it, but nothing about you. Hawkins assigns it to the great teachers in human history, and nobody gets there through a questionnaire. Take it as a direction. Everything practical is on the sixteen levels below.',
-      'If this result does come up, look soberly at how it came about. The questionnaire measures what you say about yourself and nothing else. If you agree with everything, high values come out everywhere. That can mean you really are doing well. It can also mean you answered the way you would like to be. Both are human, and neither is a reproach.',
-      'It gets practical one level down. Go through the scale and look for the level you land on during a bad day, not the one you are on during a good day. The first says more about your everyday life. And ask someone who has known you a long time where they would place you. That answer is more uncomfortable than any result, and it is the only one you can work with.',
-    ],
+    strength:
+      'This level is a direction, not a position. If it draws you, that already counts for something: you know which way.',
+    advice:
+      'There is nothing to advise here. If this level appears as your result, that says something about the scale and the arithmetic behind it, but nothing about you. Hawkins assigns it to the great teachers of human history, and nobody gets there through a questionnaire. Take it as a direction. Everything practical is on the sixteen levels below.',
     signs: [
       'From the inside, this level does not describe itself.',
       'People who claim it are usually speaking out of pride.',
       'What remains of it are the people who were touched by it.',
     ],
     trap:
-      'The word itself. As soon as you make enlightenment your goal, it is the most ambitious desire of all.',
+      'The word itself. As soon as you make enlightenment a goal, it is the most ambitious desire of all. And the questionnaire only measures what you say about yourself. If you agree everywhere, high values come out everywhere. That can mean you are genuinely well. It can also mean you answered the way you would like to be. Both are human, and neither is an accusation.',
+    progress:
+      'It gets practical one level down. Go through the scale and look for the level you land on during a bad day, not the one you stand on during a good one. The first says more about your everyday life. And ask people who have known you for a long time where they would place you. That answer is less comfortable than any result, and it is the only one you can work with.',
     steps: [
       'There is nothing to do here. This is where the scale ends. The way there is the 16 levels below, lived.',
       'What matters is the direction and not the end: one level up changes a life.',

@@ -37,6 +37,15 @@ export const LEVELS: LevelShape[] = [
 export const THRESHOLD = 200
 
 /**
+ * Unter diesem Wert steht die Krisennummer bei der Ebene: Scham bis Angst.
+ * Darüber (Verlangen, Zorn, Stolz) wäre sie eine Unterstellung — wer bei Stolz
+ * herauskommt, braucht keine Telefonseelsorge angeboten. Der Moment-Bogen und
+ * das PDF lesen denselben Wert, damit die Nummer überall an derselben Stelle
+ * auftaucht und nirgends fehlt.
+ */
+export const CRISIS_BELOW = 125
+
+/**
  * Die Ebenen unter der Schwelle, aufsteigend — die Auswahl des Moment-Bogens.
  *
  * Aus `LEVELS` gerechnet und nicht abgeschrieben: Verschöbe jemand einen Wert,

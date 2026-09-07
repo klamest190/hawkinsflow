@@ -96,7 +96,7 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
 
         {/* Der Hinweis steht klein daneben und verschwindet auf schmalen
             Geräten — dort gibt es keine Pfeiltasten, dafür das Wischen. */}
-        <p aria-hidden className="hidden text-[12px] text-muted/70 sm:block">
+        <p aria-hidden className="hidden text-[12px] text-muted sm:block">
           {t.practiceHint}
         </p>
       </div>

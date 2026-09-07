@@ -3,7 +3,7 @@ import interItalic from '@fontsource/inter/files/inter-latin-400-italic.woff?url
 import interNormal from '@fontsource/inter/files/inter-latin-400-normal.woff?url'
 import interSemi from '@fontsource/inter/files/inter-latin-600-normal.woff?url'
 import interBold from '@fontsource/inter/files/inter-latin-700-normal.woff?url'
-import { nextLevelId, THRESHOLD } from '../data/levels.ts'
+import { CRISIS_BELOW, nextLevelId, THRESHOLD } from '../data/levels.ts'
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
   boxLevel: { fontSize: 13, fontWeight: 700, marginTop: 5, marginBottom: 5 },
   boxBody: { fontSize: 8.5, lineHeight: 1.5, color: INK_SOFT },
 
-  essence: { fontSize: 10.5, lineHeight: 1.5, marginBottom: 16 },
+  essence: { fontSize: 10.5, lineHeight: 1.5, marginBottom: 8 },
+  strength: { fontSize: 9.5, lineHeight: 1.5, marginBottom: 16, borderLeftWidth: 2, paddingLeft: 10 },
   subTitle: { fontSize: 7.5, fontWeight: 700, letterSpacing: 1.2, marginBottom: 7, marginTop: 14 },
 
   signRow: { flexDirection: 'row', marginBottom: 4 },
@@ -147,21 +148,10 @@ const styles = StyleSheet.create({
 
   trap: { borderLeftWidth: 2, paddingLeft: 10, fontSize: 9, lineHeight: 1.5, fontStyle: 'italic', color: INK_SOFT },
 
-  stepRow: { flexDirection: 'row', marginBottom: 6 },
-  // Der Kreis ist ein View und die Ziffer ein Text darin. Beides in einem
-  // einzigen Text mit fester Höhe und `paddingTop` gab leere Kreise: die Zeile
-  // wurde am unteren Rand abgeschnitten.
-  stepNumber: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    borderWidth: 0.8,
-    marginRight: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  stepNumberText: { fontSize: 7.5, fontWeight: 700, lineHeight: 1 },
-  stepText: { flexBasis: 0, flexGrow: 1, fontSize: 9, lineHeight: 1.5 },
+  progress: { fontSize: 9, lineHeight: 1.5, color: INK_SOFT },
+  // Die Krisennummer in voller Tinte und nicht gedämpft — der eine Satz auf
+  // dem Blatt, der nicht überlesen werden darf.
+  crisis: { fontSize: 9, lineHeight: 1.5, marginTop: 6 },
 
   // Der Rat. Rahmen statt Fläche: Der Übungskasten weiter unten ist gefüllt und
   // führt dieselbe Ebenenfarbe — zwei gefüllte Blöcke auf einer Seite ließen den
@@ -175,9 +165,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   adviceText: { fontSize: 9.5, lineHeight: 1.5 },
-  // Die Absätze des Rats trennt ein Abstand und keine Leerzeile: Ein leerer
-  // Absatz wäre auf dem Blatt eine Zeile, die beim Umbruch allein stehen kann.
-  adviceGap: { marginTop: 7 },
 
   practice: { borderRadius: 5, padding: 12, marginBottom: 6 },
   practiceHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline' },
@@ -407,7 +394,7 @@ export function ResultDocument({
                   {drag.name} · {drag.value}
                 </Text>
                 <Text style={styles.boxBody}>
-                  {t.dragBody(drag.trap.charAt(0).toLowerCase() + drag.trap.slice(1))}
+                  {t.dragBody}
                 </Text>
               </View>
             )}
@@ -431,6 +418,7 @@ export function ResultDocument({
           <View wrap={false}>
             <SectionTitle color={accent}>{t.levelHeading(dominant.value, dominant.name)}</SectionTitle>
             <Text style={styles.essence}>{dominant.essence}</Text>
+            <Text style={[styles.strength, { borderLeftColor: accent }]}>{dominant.strength}</Text>
           </View>
 
           {/* Der Rat steht auch hier vor allem anderen und in derselben
@@ -447,14 +435,7 @@ export function ResultDocument({
           <View minPresenceAhead={72}>
             <Text style={[styles.subTitle, { color: accent }]}>{t.adviceHeading.toUpperCase()}</Text>
             <View style={[styles.advice, { borderColor: accent }]}>
-              {dominant.advice.map((paragraph, index) => (
-                <Text
-                  key={paragraph}
-                  style={index === 0 ? styles.adviceText : [styles.adviceText, styles.adviceGap]}
-                >
-                  {paragraph}
-                </Text>
-              ))}
+              <Text style={styles.adviceText}>{dominant.advice}</Text>
             </View>
           </View>
 
@@ -469,17 +450,9 @@ export function ResultDocument({
           <Text style={[styles.subTitle, { color: accent }]}>{t.trapHeading.toUpperCase()}</Text>
           <Text style={[styles.trap, { borderLeftColor: accent }]}>{dominant.trap}</Text>
 
-          <Text style={[styles.subTitle, { color: accent }]}>
-            {(next ? t.wayTo(next.name) : t.wayEnds).toUpperCase()}
-          </Text>
-          {dominant.steps.map((step, position) => (
-            <View key={step} style={styles.stepRow} wrap={false}>
-              <View style={[styles.stepNumber, { borderColor: accent }]}>
-                <Text style={[styles.stepNumberText, { color: accent }]}>{position + 1}</Text>
-              </View>
-              <Text style={styles.stepText}>{step}</Text>
-            </View>
-          ))}
+          <Text style={[styles.subTitle, { color: accent }]}>{t.progressHeading.toUpperCase()}</Text>
+          <Text style={styles.progress}>{dominant.progress}</Text>
+          {dominant.value < CRISIS_BELOW && <Text style={styles.crisis}>{t.crisisNote}</Text>}
 
           <Text style={[styles.subTitle, { color: accent }]}>{t.practiceHeading.toUpperCase()}</Text>
           {/* Alle drei, untereinander. Auf dem Schirm liegen sie hinter

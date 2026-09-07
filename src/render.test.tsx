@@ -69,6 +69,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onBrowse={noop}
         resumeAt={null}
         onResume={noop}
+        complete={false}
+        onShowResult={noop}
         plans={[]}
         onDeletePlan={noop}
         history={[]}
@@ -149,6 +151,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onDeletePlan={noop}
         onRestart={noop}
         onBrowse={noop}
+        onInspect={noop}
       />,
     )
     expect(html).toContain(t.emptyTitle)
@@ -176,6 +179,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onDeletePlan={noop}
         onRestart={noop}
         onBrowse={noop}
+        onInspect={noop}
       />,
     )
     expect(html).toContain(t.uniformTitle)
@@ -205,6 +209,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onDeletePlan={noop}
         onRestart={noop}
         onBrowse={noop}
+        onInspect={noop}
       />,
     )
     expect(html).toContain(t.bothEndsTitle)
@@ -227,6 +232,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onDeletePlan={noop}
         onRestart={noop}
         onBrowse={noop}
+        onInspect={noop}
       />,
     )
     expect(html).toContain(t.profileTitle)
@@ -247,6 +253,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onDeletePlan={noop}
         onRestart={noop}
         onBrowse={noop}
+        onInspect={noop}
       />,
     )
     expect(html).toContain(plan.then)
@@ -265,6 +272,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onBrowse={noop}
         resumeAt={null}
         onResume={noop}
+        complete={false}
+        onShowResult={noop}
         plans={[plan]}
         onDeletePlan={noop}
         history={[]}
@@ -299,6 +308,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onBrowse={noop}
         resumeAt={null}
         onResume={noop}
+        complete={false}
+        onShowResult={noop}
         plans={[plan, older]}
         onDeletePlan={noop}
         history={[]}
@@ -329,6 +340,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onBrowse={noop}
         resumeAt={null}
         onResume={noop}
+        complete={false}
+        onShowResult={noop}
         plans={[]}
         onDeletePlan={noop}
         history={[]}
@@ -355,6 +368,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onDeletePlan={noop}
         onRestart={noop}
         onBrowse={noop}
+        onInspect={noop}
       />,
     )
     expect(html).toContain(t.thresholdMark(200))
@@ -370,6 +384,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onBrowse={noop}
         resumeAt={null}
         onResume={noop}
+        complete={false}
+        onShowResult={noop}
         plans={[]}
         onDeletePlan={noop}
         history={history}
@@ -400,6 +416,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onBrowse={noop}
         resumeAt={null}
         onResume={noop}
+        complete={false}
+        onShowResult={noop}
         plans={[]}
         onDeletePlan={noop}
         history={history.slice(0, 1)}
@@ -480,6 +498,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onMoment={noop}
         resumeAt={null}
         onResume={noop}
+        complete={false}
+        onShowResult={noop}
         plans={[]}
         onDeletePlan={noop}
         history={[]}
@@ -511,6 +531,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onMoment={noop}
         resumeAt={null}
         onResume={noop}
+        complete={false}
+        onShowResult={noop}
         plans={[]}
         onDeletePlan={noop}
         history={history}
@@ -686,43 +708,66 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     )
     const fear = levelIn(language, 'fear')
     expect(html).toContain(t.adviceHeading)
-    for (const paragraph of fear.advice) expect(html).toContain(paragraph.slice(0, 40))
+    expect(html).toContain(fear.advice.slice(0, 40))
+    expect(html).toContain(fear.progress.slice(0, 40))
     expect(html.indexOf(t.adviceHeading)).toBeLessThan(html.indexOf(t.signsHeading))
   })
 })
 
-/* Die Ratschläge selbst. Der Compiler erzwingt bereits, dass keiner fehlt und
-   dass jeder drei Absätze hat (die englische Fassung wird gegen die deutsche
-   geprüft, das Tupel gegen `Advice`) — was er nicht sieht, ist ein Absatz, der
-   aus Versehen leer, abgeschnitten oder in beiden Sprachen derselbe Text ist. */
-describe('Die Ratschläge', () => {
-  it.each(LANGUAGES)('trägt in jedem Absatz ganze Sätze (%s)', (language) => {
+/* Rat, Falle und Maß. Der Compiler erzwingt bereits, dass keins fehlt (die
+   englische Fassung wird gegen die deutsche geprüft) — was er nicht sieht, ist
+   ein Feld, das aus Versehen leer, abgeschnitten oder in beiden Sprachen
+   derselbe Text ist. */
+describe('Rat, Falle und Maß', () => {
+  const fields = ['advice', 'trap', 'progress'] as const
+
+  it.each(LANGUAGES)('trägt in jedem Feld ganze Sätze (%s)', (language) => {
     for (const level of levelsIn(language)) {
-      for (const paragraph of level.advice) {
-        expect(paragraph.length).toBeGreaterThan(80)
-        expect(paragraph.trim()).toBe(paragraph)
-        // Ein Satzzeichen am Ende und nicht zwingend ein Punkt: Der zweite
-        // Absatz der Liebe endet auf eine Frage, und die soll er dürfen.
-        expect(paragraph).toMatch(/[.?!]$/)
+      for (const field of fields) {
+        const text = level[field]
+        expect(text.length, `${level.id}.${field}`).toBeGreaterThan(80)
+        expect(text.trim()).toBe(text)
+        expect(text).toMatch(/[.?!]$/)
       }
     }
   })
 
-  /* Die drei Absätze haben verschiedene Aufgaben — Griff, Fehler, Maß. Dass sie
-     verschieden sind, prüft das hier; ein doppelt eingefügter Absatz wäre sonst
+  /* Die drei Felder haben verschiedene Aufgaben — Griff, Falle, Maß. Dass sie
+     verschieden sind, prüft das hier; ein doppelt eingefügter Text wäre sonst
      nirgends zu sehen außer im Ergebnis. */
-  it.each(LANGUAGES)('sagt in den drei Absätzen dreierlei (%s)', (language) => {
+  it.each(LANGUAGES)('sagt in den drei Feldern dreierlei (%s)', (language) => {
     for (const level of levelsIn(language)) {
-      expect(new Set(level.advice).size).toBe(level.advice.length)
+      expect(new Set(fields.map((field) => level[field])).size).toBe(fields.length)
     }
   })
 
   it('sagt es in beiden Sprachen mit eigenen Worten', () => {
     for (const de of levelsIn('de')) {
       const en = levelIn('en', de.id)
-      for (const [index, paragraph] of de.advice.entries()) {
-        expect(en.advice[index]).not.toBe(paragraph)
-      }
+      for (const field of fields) expect(en[field]).not.toBe(de[field])
+      expect(en.strength).not.toBe(de.strength)
+    }
+  })
+
+  /* Die Stärke: kürzer als die drei anderen, aber ganz — und in jeder Ebene
+     etwas anderes. Ein leeres Feld wäre eine Ebene, die als Erstes fordert. */
+  it.each(LANGUAGES)('würdigt jede Ebene, bevor sie fordert (%s)', (language) => {
+    const all = levelsIn(language).map((level) => level.strength)
+    for (const text of all) {
+      expect(text.length).toBeGreaterThan(60)
+      expect(text).toMatch(/[.?!]$/)
+    }
+    expect(new Set(all).size).toBe(all.length)
+  })
+
+  /* Der Rat war einmal drei Absätze, die sich mit Schritten und Übungen
+     dreifach lasen. Ein Absatz heißt: keine Leerzeile, kein zweiter Gedankengang
+     — die Grenze ist großzügig, aber sie fängt den Rückfall in den Aufsatz. */
+  it.each(LANGUAGES)('hält den Rat bei einem Absatz (%s)', (language) => {
+    for (const level of levelsIn(language)) {
+      expect(level.advice, level.id).not.toContain('\n')
+      const sentences = level.advice.match(/[.?!](\s|$)/g)?.length ?? 0
+      expect(sentences, level.id).toBeLessThanOrEqual(8)
     }
   })
 })

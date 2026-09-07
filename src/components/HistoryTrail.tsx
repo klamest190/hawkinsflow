@@ -137,13 +137,13 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
           weiterhin dazu — dass diese Linie keine Messreihe ist, muss dabeistehen
           —, aber er sagt es jetzt in einem halben Satz. */}
       <div className="mt-2.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="text-[12px] leading-relaxed text-muted/70">
+        <p className="text-[12px] leading-relaxed text-muted">
           <span className="tabular">{date}</span> · {t.historyLead(history.length)}
         </p>
         <button
           type="button"
           onClick={onClear}
-          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted/70 underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {t.historyClear}
         </button>

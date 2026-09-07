@@ -25,7 +25,7 @@ type PlanBuilderProps = {
 
 const field =
   'w-full resize-none rounded-xl border border-line bg-void/50 px-4 py-3 ' +
-  'text-[15px] leading-relaxed text-text placeholder:text-muted/45 ' +
+  'text-[15px] leading-relaxed text-text placeholder:text-muted/60 ' +
   'transition-colors focus:border-accent/60 focus:outline-none'
 
 const chip =
@@ -126,7 +126,7 @@ export function PlanBuilder({
           </p>
         </div>
 
-        <p className="text-[13px] leading-relaxed text-muted/70">{t.planStoredNote}</p>
+        <p className="text-[13px] leading-relaxed text-muted">{t.planStoredNote}</p>
 
         <div className="flex flex-wrap gap-2">
           <Button variant="ghost" onClick={() => setEditing(true)}>
@@ -158,7 +158,7 @@ export function PlanBuilder({
           placeholder={t.planWhenPlaceholder}
           className={field}
         />
-        <p className="mt-1 text-[11px] font-semibold tracking-[0.14em] text-muted/70 uppercase">
+        <p className="mt-1 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">
           {t.planCueHint}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -186,7 +186,7 @@ export function PlanBuilder({
         {/* Die Schritte der Ebene, auf ihren Kern gekürzt. Sie stehen wenige
             Zeilen weiter oben in voller Länge — hier zählt nur, dass man sie
             mit einem Griff übernehmen kann. */}
-        <p className="mt-1 text-[11px] font-semibold tracking-[0.14em] text-muted/70 uppercase">
+        <p className="mt-1 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">
           {t.planStepHint}
         </p>
         <div className="flex flex-wrap gap-2">

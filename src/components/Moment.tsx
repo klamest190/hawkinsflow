@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { BELOW_THRESHOLD } from '../data/levels.ts'
+import { BELOW_THRESHOLD, CRISIS_BELOW } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { MomentCopy } from '../i18n/moment.ts'
 import type { BelowLevelId, Level, LevelId, Plans } from '../types.ts'
@@ -173,7 +173,7 @@ export function Moment({
             </h1>
             <p className="mt-3 text-[16px] leading-relaxed text-text/90">{m.feelBody}</p>
             <Timer minutes={FEEL_MINUTES} t={t} />
-            <p className="mt-4 text-[13px] leading-relaxed text-muted/70">{m.feelNote}</p>
+            <p className="mt-4 text-[13px] leading-relaxed text-muted">{m.feelNote}</p>
           </section>
         )}
 
@@ -191,7 +191,7 @@ export function Moment({
             >
               {m.questions[level]}
             </p>
-            <p className="mx-auto mt-6 max-w-sm text-[13px] leading-relaxed text-balance text-muted/70">
+            <p className="mx-auto mt-6 max-w-sm text-[13px] leading-relaxed text-balance text-muted">
               {m.askNote}
             </p>
           </section>
@@ -267,7 +267,13 @@ export function Moment({
               </div>
             </section>
 
-            <p className="px-2 text-[12.5px] leading-relaxed text-muted/70">{m.sourceNote}</p>
+            {/* Die Nummer steht vor der Quellenangabe und in voller Farbe: Wer
+                bei Scham oder Apathie hier ankommt, soll sie sehen, ohne dass
+                die App sie jedem anderen unterschiebt. */}
+            {chosen.value < CRISIS_BELOW && (
+              <p className="px-2 text-[14px] leading-relaxed text-text/90">{t.crisisNote}</p>
+            )}
+            <p className="px-2 text-[12.5px] leading-relaxed text-muted">{m.sourceNote}</p>
           </div>
         )}
 

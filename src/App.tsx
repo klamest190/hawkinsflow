@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Aurora } from './components/Aurora.tsx'
 import { Intro } from './components/Intro.tsx'
 import { LanguageToggle } from './components/LanguageToggle.tsx'
@@ -21,6 +21,12 @@ import type { BelowLevelId, LevelId } from './types.ts'
 
 type Phase = 'intro' | 'quiz' | 'result' | 'scale' | 'moment'
 
+const PHASES: readonly Phase[] = ['intro', 'quiz', 'result', 'scale', 'moment']
+
+function isPhase(value: unknown): value is Phase {
+  return typeof value === 'string' && (PHASES as readonly string[]).includes(value)
+}
+
 export default function App() {
   const { language, setLanguage } = useLanguage()
   const { answers, answer, reset } = useAnswers()
@@ -40,6 +46,19 @@ export default function App() {
      zwei Größen in einer Spalte. */
   const { moments, recordMoment, clearMoments } = useMoments()
   const [phase, setPhase] = useState<Phase>('intro')
+
+  /* Jeder Wechsel der Ansicht legt einen Eintrag in die Browser-Historie.
+     Ohne das verließe „Zurück" auf dem Handy die App statt die Ansicht — als
+     installierte PWA ist die Wischgeste am Rand die einzige Zurück-Taste, die
+     es gibt, und mitten im Fragebogen aus der App zu fallen ist genau der
+     Moment, in dem man sie nicht wieder öffnet.
+
+     `go` ist die eine Stelle, an der Ansichten gewechselt werden; `setPhase`
+     ruft sonst nur noch der `popstate`-Lauscher, der den Eintrag zurückliest. */
+  const go = useCallback((next: Phase) => {
+    window.history.pushState({ phase: next }, '')
+    setPhase(next)
+  }, [])
   /* Die im Moment-Bogen gewählte Ebene. Sie liegt hier und nicht dort, weil die
      Farbe der ganzen Oberfläche an ihr hängt — siehe den Effekt weiter unten. */
   const [momentLevel, setMomentLevel] = useState<BelowLevelId | null>(null)
@@ -58,6 +77,31 @@ export default function App() {
   const m = momentCopy[language]
   const levels = levelsIn(language)
   const answered = answeredCount(answers)
+  const complete = answered === QUESTIONS.length
+
+  /* Für den `popstate`-Lauscher: Der hängt einmal am Fenster und sähe sonst
+     den Stand vom ersten Rendern. Wer nach einem Neustart zurück auf ein
+     Ergebnis blättert, das es nicht mehr gibt, landet auf der Startseite. */
+  const answeredRef = useRef(answered)
+  useEffect(() => {
+    answeredRef.current = answered
+  }, [answered])
+
+  useEffect(() => {
+    window.history.replaceState({ phase: 'intro' }, '')
+
+    function onPop(event: PopStateEvent) {
+      const state: unknown = event.state
+      const target =
+        state !== null && typeof state === 'object' && isPhase((state as { phase?: unknown }).phase)
+          ? (state as { phase: Phase }).phase
+          : 'intro'
+      setPhase(target === 'result' && answeredRef.current === 0 ? 'intro' : target)
+    }
+
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [])
   const result = useMemo(() => evaluate(levels, answers), [levels, answers])
 
   /* Ob aus diesem Bogen überhaupt etwas abzulesen ist. Zwei Fälle sagen nein:
@@ -137,7 +181,7 @@ export default function App() {
 
   function startFresh() {
     reset()
-    setPhase('quiz')
+    go('quiz')
   }
 
   /* Der Abschluss ist der einzige Ort, an dem ein Durchgang in den Verlauf
@@ -149,19 +193,19 @@ export default function App() {
      Linie behauptet, dass an diesem Tag etwas gemessen wurde. */
   function finish() {
     if (readable) record(result.dominant.id, result.calibration, answered)
-    setPhase('result')
+    go('result')
   }
 
   /* Jeder Besuch beginnt ohne Ebene: Der Bogen fragt nach dem, was gerade ist,
      und die Antwort von gestern wäre dabei nur im Weg. */
   function openMoment() {
     setMomentLevel(null)
-    setPhase('moment')
+    go('moment')
   }
 
   function browse(from: Phase) {
     setReturnTo(from)
-    setPhase('scale')
+    go('scale')
   }
 
   return (
@@ -199,8 +243,13 @@ export default function App() {
             t={t}
             m={m}
             onStart={startFresh}
-            onResume={() => setPhase('quiz')}
+            onResume={() => go('quiz')}
             resumeAt={resumeAt}
+            complete={complete}
+            /* Ohne `record`: Der Durchgang steht schon im Verlauf, seit er
+               abgeschlossen wurde. Jeder weitere Besuch wäre sonst ein neuer
+               Punkt auf der Linie. */
+            onShowResult={() => go('result')}
             onBrowse={() => browse('intro')}
             onMoment={openMoment}
             plans={sortedPlans(plans)}
@@ -220,7 +269,7 @@ export default function App() {
             startIndex={resumeAt ?? 0}
             onAnswer={answer}
             onDone={finish}
-            onLeave={() => setPhase('intro')}
+            onLeave={() => go('intro')}
           />
         )}
 
@@ -236,6 +285,10 @@ export default function App() {
             onDeletePlan={() => removePlan(result.dominant.id)}
             onRestart={startFresh}
             onBrowse={() => browse('result')}
+            onInspect={(id) => {
+              setOpenLevel(id)
+              browse('result')
+            }}
           />
         )}
 
@@ -249,7 +302,7 @@ export default function App() {
             plans={plans}
             onSavePlan={savePlan}
             onRecord={recordMoment}
-            onLeave={() => setPhase('intro')}
+            onLeave={() => go('intro')}
           />
         )}
 
@@ -264,7 +317,7 @@ export default function App() {
             plans={plans}
             onSavePlan={savePlan}
             onDeletePlan={removePlan}
-            onBack={() => setPhase(returnTo)}
+            onBack={() => go(returnTo)}
           />
         )}
       </main>

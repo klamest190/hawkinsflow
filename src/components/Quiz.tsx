@@ -172,11 +172,11 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
               Tastaturhinweis, und nur dort, wo es eine Tastatur gibt: auf dem
               Handy wäre der Satz ein Rätsel. */}
           {canAdvance ? (
-            <p aria-hidden className="mt-5 hidden text-[12px] text-muted/70 sm:block">
+            <p aria-hidden className="mt-5 hidden text-[12px] text-muted sm:block">
               {t.quizKeyHint}
             </p>
           ) : (
-            <p className="mt-5 text-[12px] text-muted/70">{t.quizNeedsAnswer}</p>
+            <p className="mt-5 text-[12px] text-muted">{t.quizNeedsAnswer}</p>
           )}
         </div>
       </div>

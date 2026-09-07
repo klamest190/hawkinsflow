@@ -5,7 +5,7 @@ import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
 import type { Result as Evaluation } from '../lib/scoring.ts'
 import { exportResult } from '../pdf/exportResult.ts'
-import type { Language, Level, Plan } from '../types.ts'
+import type { Language, Level, LevelId, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
 import { Spectrum } from './Spectrum.tsx'
@@ -23,6 +23,9 @@ type ResultProps = {
   onDeletePlan: () => void
   onRestart: () => void
   onBrowse: () => void
+  /** Öffnet die Skala mit genau dieser Ebene aufgeklappt — für Ballast und
+      nächste Ebene, die hier nur als Karte stehen. */
+  onInspect: (level: LevelId) => void
 }
 
 /**
@@ -72,6 +75,7 @@ export function Result({
   onDeletePlan,
   onRestart,
   onBrowse,
+  onInspect,
 }: ResultProps) {
   /* Der Export hat drei Zustände und keinen mehr: bereit, läuft, ging schief.
      Der mittlere ist wichtig — zwischen Klick und Datei liegt das Nachladen des
@@ -132,7 +136,7 @@ export function Result({
             {empty ? t.emptyLead : t.uniformLead}
           </p>
           {!empty && (
-            <p className="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-balance text-muted/70">
+            <p className="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-balance text-muted">
               {t.uniformHint}
             </p>
           )}
@@ -218,7 +222,7 @@ export function Result({
             </span>
           </div>
         </div>
-        <p className="mx-auto mt-4 max-w-md text-[13px] leading-relaxed text-balance text-muted/80">
+        <p className="mx-auto mt-4 max-w-md text-[13px] leading-relaxed text-balance text-muted">
           {t.bandNote(band[0].name, band[1].name, QUESTIONS.length)}
         </p>
 
@@ -236,8 +240,31 @@ export function Result({
         </p>
 
         {answered < QUESTIONS.length && (
-          <p className="mt-4 text-[13px] text-muted/70">{t.partial(answered, QUESTIONS.length)}</p>
+          <p className="mt-4 text-[13px] text-muted">{t.partial(answered, QUESTIONS.length)}</p>
         )}
+      </Card>
+
+      {/* ── Die Ebene im Detail ────────────────────────────────────────────
+          Direkt hinter dem Schwerpunkt und vor dem Profil: Wer sein Ergebnis
+          gelesen hat, will als Nächstes wissen, was zu tun ist — nicht erst
+          siebzehn Balken und zwei Karten Einordnung. Das Profil kommt danach,
+          für die, die verstehen wollen, wie es zustande kam. */}
+      <Card>
+        <h2 className="mb-6 font-display text-xl font-semibold">
+          {t.levelHeading(dominant.value, dominant.name)}
+        </h2>
+        {/* Der Wenn-Dann-Plan steht mit im Detailblock — hinter den Übungen,
+            vor dem Mantra. Früher war er eine eigene Karte darunter; seit er im
+            Detailblock sitzt, gibt es ihn zu jeder Ebene, die irgendwo
+            aufgeschlagen wird, und nicht nur zu dieser hier. */}
+        <LevelDetail
+          level={dominant}
+          t={t}
+          plan={plan}
+          onSavePlan={onSavePlan}
+          onDeletePlan={onDeletePlan}
+          collapsible
+        />
       </Card>
 
       {/* ── Das Profil ───────────────────────────────────────────────────── */}
@@ -258,11 +285,12 @@ export function Result({
               <p className="font-display text-xl font-semibold" style={{ color: drag.color }}>
                 {drag.name} · {drag.value}
               </p>
-              <p className="text-[14px] leading-relaxed text-muted">
-                {/* Die Falle wird hier in den Satz eingebettet und beginnt
-                    deshalb klein — im Deutschen wie im Englischen. */}
-                {t.dragBody(drag.trap.charAt(0).toLowerCase() + drag.trap.slice(1))}
-              </p>
+              <p className="text-[14px] leading-relaxed text-muted">{t.dragBody}</p>
+              <div className="mt-auto pt-2">
+                <Button variant="quiet" onClick={() => onInspect(drag.id)} className="-ml-4">
+                  {t.inspectLevel}
+                </Button>
+              </div>
             </Card>
           )}
           {reach.id !== dominant.id && (
@@ -279,25 +307,6 @@ export function Result({
         </div>
       )}
 
-      {/* ── Die Ebene im Detail ──────────────────────────────────────────── */}
-      <Card>
-        <h2 className="mb-6 font-display text-xl font-semibold">
-          {t.levelHeading(dominant.value, dominant.name)}
-        </h2>
-        {/* Der Wenn-Dann-Plan steht mit im Detailblock — hinter den Übungen,
-            vor dem Mantra. Früher war er eine eigene Karte darunter; seit er im
-            Detailblock sitzt, gibt es ihn zu jeder Ebene, die irgendwo
-            aufgeschlagen wird, und nicht nur zu dieser hier. */}
-        <LevelDetail
-          level={dominant}
-          next={next}
-          t={t}
-          plan={plan}
-          onSavePlan={onSavePlan}
-          onDeletePlan={onDeletePlan}
-        />
-      </Card>
-
       {/* ── Der nächste Schritt ──────────────────────────────────────────── */}
       {next && (
         <Card className="text-center">
@@ -313,6 +322,11 @@ export function Result({
           <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-balance text-muted">
             {next.essence}
           </p>
+          <div className="mt-4 flex justify-center">
+            <Button variant="quiet" onClick={() => onInspect(next.id)}>
+              {t.inspectLevel}
+            </Button>
+          </div>
         </Card>
       )}
 
@@ -351,7 +365,7 @@ export function Result({
 
       {/* Der Vorbehalt steht auch hier und nicht nur auf der Startseite: dort
           war noch nichts zu glauben. */}
-      <p className="mx-auto max-w-lg px-2 text-center text-[13px] leading-relaxed text-muted/70">
+      <p className="mx-auto max-w-lg px-2 text-center text-[13px] leading-relaxed text-muted">
         {t.resultDisclaimer}
       </p>
 

@@ -21,7 +21,18 @@ const de = {
   introLead: (questions: number): string =>
     `Die Skala des Bewusstseins nach David R. Hawkins reicht von Scham (20) bis Erleuchtung (700). ${questions} Aussagen zeigen dir, wo du gerade stehst, was dich dort hält und was ein sinnvoller nächster Schritt wäre.`,
   start: 'Fragebogen starten',
+  // Die zwei Türen auf der Startseite. Sie stehen als gleich große Karten
+  // nebeneinander und nicht als Knopf über Geisterknopf: Im Alltag ist der
+  // Moment-Bogen die häufigere Tür, der Fragebogen die seltene.
+  doorQuizLabel: 'Die letzten Wochen',
+  doorQuizLead:
+    '34 Aussagen, etwa fünf Minuten. Du siehst, wo dein Schwerpunkt liegt und was dort zuerst hilft.',
+  doorMomentLabel: 'Jetzt gerade',
+  doorMomentLead: 'Vier Schritte, anderthalb Minuten. Für den Moment, in dem dich etwas festhält.',
   resume: (question: number): string => `Weiter bei Frage ${question}`,
+  // Steht auf der Startseite, sobald alle Fragen beantwortet sind. Vorher gab
+  // es dort nur „Fragebogen starten“ — und der Knopf löschte die Antworten.
+  showResult: 'Ergebnis ansehen',
   restartFromScratch: 'Von vorn beginnen',
   browseFirst: 'Erst die Skala ansehen',
   // Steht klein unter den Knöpfen. Eine App, die einem Menschen eine Zahl
@@ -84,7 +95,9 @@ const de = {
   wholeScale: 'Ganze Skala',
   restart: 'Neu starten',
   emotionLabel: 'Gefühl',
-  worldviewLabel: 'Weltsicht',
+  // Als Satzanfang und nicht als Etikett: „Weltsicht: erbärmlich“ war ein
+  // Wort ohne Halt, „Die Welt wirkt: erbärmlich“ ist ein Satz.
+  worldviewLabel: 'Die Welt wirkt',
   aboveThreshold: (threshold: number): string =>
     `Du liegst über der Schwelle von ${threshold}. Ab hier gibst du mehr Kraft in die Welt, als sie dich kostet.`,
   belowThreshold: (threshold: number, courage: string): string =>
@@ -95,8 +108,12 @@ const de = {
   profileLead:
     'Niemand steht nur auf einer einzigen Ebene. Alles, was hier leuchtet, ist gerade in dir. Dein Schwerpunkt ist nur der Durchschnitt daraus.',
   dragTitle: 'Was dich nach unten zieht',
-  dragBody: (trap: string): string =>
-    `Diese Ebene ist bei dir deutlich vorhanden, obwohl dein Schwerpunkt darüber liegt. Hier liegt meistens die eigentliche Arbeit: ${trap}`,
+  // Früher hing hier die Falle der Ebene im Satz. Seit sie den Fehler mit
+  // erklärt, ist sie für eine halbe Karte zu lang — der Knopf darunter führt
+  // stattdessen zur Ebene selbst.
+  dragBody:
+    'Diese Ebene ist bei dir deutlich vorhanden, obwohl dein Schwerpunkt darüber liegt. Hier liegt meistens die eigentliche Arbeit.',
+  inspectLevel: 'Ebene ansehen',
   reachTitle: 'Wohin du schon reichst',
   reachBody:
     'So weit reichen deine guten Momente schon. Was es dort oben gibt, kennst du also. Es darf nur öfter vorkommen.',
@@ -107,10 +124,26 @@ const de = {
 
   // ── Die Ebene im Detail ──────────────────────────────────────────────────
   // Der Rat steht als erstes im Detailblock — vor „Woran du es erkennst“,
-  // weil er das einzige Feld ist, das gewichtet statt beschreibt.
-  adviceHeading: 'Der Rat',
+  // weil er das einzige Feld ist, das gewichtet statt beschreibt. Die
+  // Überschrift ist eine Aufforderung und kein Etikett: Wer hier ankommt, will
+  // wissen, was jetzt zu tun ist.
+  adviceHeading: 'Fang hier an',
+  // Steht zwischen Essenz und Rat. Ein Rat ohne Anerkennung wirkt wie eine
+  // Zurechtweisung; diese Zeile sagt erst, was da ist, bevor etwas gefordert wird.
+  strengthHeading: 'Was du hier schon hast',
+  // Der Aufklapper im Ergebnis: Zeichen, Falle und Maß stehen dahinter, damit
+  // der Handlungsteil (Rat, Übung, Plan) nicht unter drei Absätzen Erklärung
+  // liegt. In der Skala steht alles offen — dort liest man nach.
+  moreAboutLevel: 'Mehr zu dieser Ebene',
+  lessAboutLevel: 'Weniger anzeigen',
   signsHeading: 'Woran du es erkennst',
   trapHeading: 'Was dich hier hält',
+  progressHeading: 'Woran du merkst, dass es wirkt',
+  // Steht unter den unteren Ebenen und am Ende des Moment-Bogens. Eine App,
+  // die bei Scham und Apathie abholt, muss die Nummer nennen und nicht nur
+  // sagen, dass es eine gibt. Drei Länder, weil Deutsch keins verrät.
+  crisisNote:
+    'Wenn du denkst, dass es ohne dich leichter wäre, ruf noch heute an: Telefonseelsorge 0800 111 0 111 (Deutschland), 142 (Österreich), 143 (Schweiz). Rund um die Uhr, kostenlos, anonym.',
   practiceHeading: 'Die Übungen',
   // Die drei Sorten. Stehen als Marke auf der Karte — kurz genug, dass drei
   // davon nebeneinander passen, und ohne Fachwort: „Sitzen“ trifft es besser
@@ -139,8 +172,6 @@ const de = {
   // verlässt — zwei Knöpfe, ein Wort, zwei Folgen.
   timerStop: 'Zurücksetzen',
   timerDone: 'Die Zeit ist um.',
-  wayTo: (next: string): string => `Der Weg nach ${next}`,
-  wayEnds: 'Der Weg endet hier',
 
   // ── Skala ────────────────────────────────────────────────────────────────
   backArrow: '← Zurück',
@@ -160,7 +191,7 @@ const de = {
   planThenPlaceholder: 'was du in genau diesem Moment tust',
   planCueHint: 'Anfänge für den Auslöser',
   planCues: ['Sobald ich merke, dass …', 'Immer wenn ich …', 'Morgen früh, bevor ich …'],
-  planStepHint: 'Oder nimm einen Schritt von oben',
+  planStepHint: 'Oder nimm einen dieser Vorschläge',
   planSave: 'Plan merken',
   planEdit: 'Ändern',
   planDelete: 'Löschen',
@@ -225,7 +256,13 @@ const en: Copy = {
   introLead: (questions: number): string =>
     `David R. Hawkins’ Map of Consciousness runs from Shame (20) to Enlightenment (700). ${questions} statements show you where you stand right now, what keeps you there and what a sensible next step would be.`,
   start: 'Start the questionnaire',
+  doorQuizLabel: 'The past weeks',
+  doorQuizLead:
+    '34 statements, about five minutes. You see where your centre of gravity lies and what helps there first.',
+  doorMomentLabel: 'Right now',
+  doorMomentLead: 'Four steps, a minute and a half. For the moment something has hold of you.',
   resume: (question: number): string => `Continue at question ${question}`,
+  showResult: 'See your result',
   restartFromScratch: 'Start over',
   browseFirst: 'Look at the scale first',
   disclaimer:
@@ -263,7 +300,7 @@ const en: Copy = {
   wholeScale: 'Whole scale',
   restart: 'Start over',
   emotionLabel: 'Emotion',
-  worldviewLabel: 'View of the world',
+  worldviewLabel: 'The world seems',
   aboveThreshold: (threshold: number): string =>
     `You are above the threshold of ${threshold}. From here you put more strength into the world than it costs you.`,
   belowThreshold: (threshold: number, courage: string): string =>
@@ -274,8 +311,9 @@ const en: Copy = {
   profileLead:
     'Nobody stands on a single level. Everything lit up here is in you right now. Your centre of gravity is only the average of it.',
   dragTitle: 'What pulls you down',
-  dragBody: (trap: string): string =>
-    `This level is clearly present in you even though your centre of gravity sits above it. This is usually where the real work is: ${trap}`,
+  dragBody:
+    'This level is clearly present in you even though your centre of gravity sits above it. This is usually where the real work is.',
+  inspectLevel: 'Look at this level',
   reachTitle: 'How far you already reach',
   reachBody:
     'Your good moments already reach this far. So you know what it is like up there. It just needs to happen more often.',
@@ -284,9 +322,17 @@ const en: Copy = {
   seeAllLevels: (count: number): string => `See all ${count} levels`,
   repeatQuiz: 'Take the questionnaire again',
 
-  adviceHeading: 'The advice',
+  adviceHeading: 'Start here',
+  strengthHeading: 'What you already have here',
+  moreAboutLevel: 'More about this level',
+  lessAboutLevel: 'Show less',
   signsHeading: 'How you recognise it',
   trapHeading: 'What keeps you here',
+  progressHeading: 'How you can tell it is working',
+  // English does not tell us the country — a directory does the job a single
+  // number cannot.
+  crisisNote:
+    'If you are thinking that things would be easier without you, call someone today. findahelpline.com lists free, confidential helplines for your country, around the clock.',
   practiceHeading: 'The practices',
   practiceKinds: { writing: 'Writing', action: 'Doing', sitting: 'Sitting' },
   practiceDeckLabel: 'The three practices for this level',
@@ -299,8 +345,6 @@ const en: Copy = {
   timerResume: 'Resume',
   timerStop: 'Reset',
   timerDone: 'Time is up.',
-  wayTo: (next: string): string => `The way to ${next}`,
-  wayEnds: 'The way ends here',
 
   backArrow: '← Back',
   scaleTitle: 'The scale',
@@ -317,7 +361,7 @@ const en: Copy = {
   planThenPlaceholder: 'what you do in exactly that moment',
   planCueHint: 'Openings for the trigger',
   planCues: ['The moment I notice that …', 'Whenever I …', 'Tomorrow morning, before I …'],
-  planStepHint: 'Or take one of the steps above',
+  planStepHint: 'Or start from one of these',
   planSave: 'Keep this plan',
   planEdit: 'Change',
   planDelete: 'Delete',

@@ -21,6 +21,9 @@ type IntroProps = {
   /** Nur gesetzt, wenn ein angefangener Bogen im Speicher liegt. */
   resumeAt: number | null
   onResume: () => void
+  /** Alle Fragen beantwortet: Dann führt der Hauptknopf zum Ergebnis zurück. */
+  complete: boolean
+  onShowResult: () => void
   /** Alle Wenn-Dann-Pläne, der zuletzt angelegte zuerst; leer beim ersten Besuch. */
   plans: Plan[]
   onDeletePlan: (level: LevelId) => void
@@ -51,9 +54,52 @@ function DeleteLink({
       type="button"
       onClick={onClick}
       aria-label={title}
-      className="shrink-0 cursor-pointer text-[12px] font-medium text-muted/70 underline decoration-line underline-offset-4 transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       {label}
+    </button>
+  )
+}
+
+/**
+ * Eine der zwei Türen: die ganze Karte ist der Knopf. Das Etikett nennt den
+ * Zeitraum, der Titel die Handlung, die Zeile darunter den Preis. Die erste
+ * Tür trägt die Akzentfarbe, die zweite den Kartengrund — gleich groß, damit
+ * keine wie der Notausgang der anderen aussieht.
+ */
+function Door({
+  label,
+  title,
+  lead,
+  onClick,
+  primary = false,
+}: {
+  label: string
+  title: string
+  lead: string
+  onClick: () => void
+  primary?: boolean
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={
+        'group flex h-full w-full cursor-pointer flex-col gap-2 rounded-3xl border p-5 text-left ' +
+        'transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out ' +
+        'hover:-translate-y-px active:translate-y-0 active:scale-[0.99] ' +
+        'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ' +
+        (primary
+          ? 'border-accent/45 bg-accent/10 shadow-[0_18px_40px_-24px_var(--hf-accent)] hover:border-accent/70 hover:bg-accent/15'
+          : 'border-line bg-card/70 backdrop-blur-sm hover:border-accent/40 hover:bg-card')
+      }
+    >
+      <span className="text-[11px] font-semibold tracking-[0.16em] text-accent uppercase">{label}</span>
+      <span className="font-display text-[19px] leading-snug font-semibold text-text">{title}</span>
+      <span className="text-[13.5px] leading-relaxed text-muted">{lead}</span>
+      <span aria-hidden className="mt-auto pt-1 text-[15px] text-accent transition-transform duration-300 group-hover:translate-x-0.5">
+        →
+      </span>
     </button>
   )
 }
@@ -68,6 +114,8 @@ export function Intro({
   onMoment,
   resumeAt,
   onResume,
+  complete,
+  onShowResult,
   plans,
   onDeletePlan,
   history,
@@ -177,7 +225,7 @@ export function Intro({
               löschbar zu machen. */}
           {older.length > 0 && (
             <div className="mt-5 flex flex-col gap-2.5 border-t border-line pt-4">
-              <p className="text-[11px] font-semibold tracking-[0.16em] text-muted/70 uppercase">
+              <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
                 {t.introPlanOthers}
               </p>
               {older.map((plan) => {
@@ -251,28 +299,38 @@ export function Intro({
         </div>
       )}
 
-      <div className="mt-11 flex flex-col items-center gap-3">
-        {resumeAt === null ? (
-          <Button onClick={onStart}>{t.start}</Button>
-        ) : (
-          <>
-            <Button onClick={onResume}>{t.resume(resumeAt + 1)}</Button>
-            <Button variant="quiet" onClick={onStart}>
-              {t.restartFromScratch}
-            </Button>
-          </>
+      {/* Die zwei Türen, gleich groß und nebeneinander. Vorher stand der
+          Moment-Bogen als Geisterknopf unter dem Fragebogen — dabei ist er im
+          Alltag die häufigere Tür: Der Bogen wird alle paar Wochen ausgefüllt,
+          festgesteckt wird dienstags um drei. Jede Karte sagt in einem Wort,
+          welchen Zeitraum sie meint, und in einem Satz, was sie kostet.
+
+          Der Fragebogen-Knopf hat drei Zustände: fertig, angefangen, leer.
+          Der fertige kam zuletzt dazu — vorher stand hier nach 34 Antworten
+          „Fragebogen starten", und der Knopf löschte sie. */}
+      <div className="mt-11 grid w-full gap-3 sm:grid-cols-2">
+        <Door
+          label={t.doorQuizLabel}
+          title={complete ? t.showResult : resumeAt === null ? t.start : t.resume(resumeAt + 1)}
+          lead={t.doorQuizLead}
+          onClick={complete ? onShowResult : resumeAt === null ? onStart : onResume}
+          primary
+        />
+        <Door label={t.doorMomentLabel} title={m.enter} lead={t.doorMomentLead} onClick={onMoment} />
+      </div>
+
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+        {(complete || resumeAt !== null) && (
+          <Button variant="quiet" onClick={onStart}>
+            {t.restartFromScratch}
+          </Button>
         )}
-        {/* Die zweite Tür. Sie steht direkt unter dem Fragebogen und nicht am
-            Seitenende: Wer sie braucht, braucht sie jetzt und sucht nicht. */}
-        <Button variant="ghost" onClick={onMoment}>
-          {m.enter}
-        </Button>
         <Button variant="quiet" onClick={onBrowse}>
           {t.browseFirst}
         </Button>
       </div>
 
-      <p className="mt-12 max-w-md text-[13px] leading-relaxed text-muted/70">{t.disclaimer}</p>
+      <p className="mt-12 max-w-md text-[13px] leading-relaxed text-muted">{t.disclaimer}</p>
 
       {/* Steht wie in den Schwester-Apps klein am Fuß der Startseite: Es soll
           dastehen, nicht auffallen. Das Jahr kommt aus der Uhr, damit niemand

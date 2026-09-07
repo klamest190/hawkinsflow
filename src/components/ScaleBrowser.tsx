@@ -1,4 +1,4 @@
-import { nextLevelId, THRESHOLD } from '../data/levels.ts'
+import { THRESHOLD } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
 import type { Language, Level, LevelId, Plans } from '../types.ts'
@@ -57,7 +57,6 @@ export function ScaleBrowser({
         {[...levels].reverse().map((level) => {
           const isOpen = open === level.id
           const isMine = dominant === level.id
-          const nextId = nextLevelId(level.id)
 
           return (
             <li key={level.id}>
@@ -125,7 +124,6 @@ export function ScaleBrowser({
                   <div className="animate-rise border-t border-line/60 px-5 py-6 sm:px-7">
                     <LevelDetail
                       level={level}
-                      next={nextId === null ? null : levelIn(language, nextId)}
                       t={t}
                       plan={plans[level.id] ?? null}
                       onSavePlan={(when, then) => onSavePlan(level.id, when, then)}

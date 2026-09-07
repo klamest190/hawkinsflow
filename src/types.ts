@@ -22,37 +22,6 @@ export type LevelShape = {
   color: string
 }
 
-/**
- * Der Rat — was ein Mensch sagen würde, der schon einmal danebengesessen hat.
- *
- * Alle anderen Felder beschreiben: `essence` sagt, wie es hier ist, `signs`,
- * woran man es merkt, `steps` und `practices` zählen auf, was möglich wäre.
- * Keines davon gewichtet. Wer auf einer Ebene herauskommt, steht danach vor
- * drei Schritten und drei Übungen und weiß nicht, womit anzufangen ist.
- *
- * Dieses Feld nimmt Stellung: Es nennt das eine, was zuerst zählt, und meist
- * auch den Fehler, den auf dieser Ebene fast alle machen. Deshalb steht hier
- * öfter „nicht" als sonst irgendwo in den Texten — ein Rat, der nichts
- * ausschließt, ist keiner.
- *
- * Drei Absätze und nicht einer, weil ein Rat, der nur den ersten Griff nennt,
- * nach zwei Tagen aufgebraucht ist. Jeder hat seine Aufgabe, und die Reihenfolge
- * ist die eines Gesprächs:
- *
- * 1. **Der Griff** — was zuerst zu tun ist, in einem Satz, der keine Wahl lässt.
- * 2. **Der Fehler** — warum die Ebene hält: der Irrtum, den hier fast alle
- *    begehen, und was ihn so teuer macht. Ohne ihn liest sich Schritt eins wie
- *    ein guter Vorsatz unter vielen.
- * 3. **Das Maß** — woran zu erkennen ist, dass es wirkt, und wo die Grenze der
- *    Selbsthilfe liegt. Auf den unteren Ebenen steht hier der Satz, der zu
- *    ärztlicher oder therapeutischer Hilfe rät; eine App, die das verschweigt,
- *    lässt jemanden im Regen stehen, der schon zu lange allein probiert.
- *
- * Als Tupel und nicht als Liste, damit ein fehlender Absatz beim Bauen auffällt
- * und nicht erst als halbe Karte im Ergebnis.
- */
-export type Advice = [string, string, string]
-
 /** Was an einer Ebene übersetzt werden muss. Siehe `i18n/levels.ts`. */
 export type LevelText = {
   /** Der Name in der gelesenen Sprache, z. B. „Mut" / "Courage". */
@@ -63,13 +32,46 @@ export type LevelText = {
   worldview: string
   /** Zwei, drei Sätze: wie sich das Leben hier anfühlt. */
   essence: string
-  /** Der Rat — drei Absätze. Siehe `Advice`. */
-  advice: Advice
+  /**
+   * Was die Ebene dem Menschen schon gibt — die Funktion, die jedes Gefühl
+   * hat, bevor es zum Problem wird: Angst schützt, Zorn verteidigt eine Grenze,
+   * Stolz gibt Halt. Ein bis zwei Sätze, direkt nach der Essenz.
+   *
+   * Steht hier, weil ein Rat ohne Anerkennung wie eine Zurechtweisung wirkt.
+   * Wer bei Scham herauskommt und als Erstes liest, was zu tun ist, hört vor
+   * allem, dass etwas falsch ist. Erst benennen, was da ist, dann fordern.
+   */
+  strength: string
+  /**
+   * Der Rat — ein Absatz, der sagt, womit anzufangen ist.
+   *
+   * Alle anderen Felder beschreiben: `essence` sagt, wie es hier ist, `signs`,
+   * woran man es merkt. Dieses Feld nimmt Stellung und nennt das eine, was
+   * zuerst zählt, in Sätzen, die keine Wahl lassen. Früher waren es drei
+   * Absätze (Griff, Fehler, Maß); die drei lasen sich mit den Schritten und
+   * Übungen zusammen dreifach. Der Fehler wohnt jetzt in `trap`, das Maß in
+   * `progress`, und hier steht nur noch der Griff.
+   */
+  advice: string
   /** Woran man erkennt, dass man gerade hier steht. */
   signs: string[]
-  /** Was auf dieser Ebene festhält — der Preis, den sie heimlich zahlt. */
+  /**
+   * Was auf dieser Ebene festhält: der Mechanismus, mit dem sie sich selbst
+   * am Leben hält, und der Fehler, den hier fast alle machen.
+   */
   trap: string
-  /** Konkrete Schritte auf die nächste Ebene. */
+  /**
+   * Woran zu erkennen ist, dass es wirkt — und wo die Grenze der Selbsthilfe
+   * liegt. Auf den unteren Ebenen steht hier der Satz, der zu ärztlicher oder
+   * therapeutischer Hilfe rät; die Krisennummer selbst steht in `copy.ts`,
+   * damit sie in jeder Ebene dieselbe ist.
+   */
+  progress: string
+  /**
+   * Konkrete Vorhaben. Sie stehen nicht mehr als Liste in der Ansicht — dort
+   * sagten sie dasselbe wie Rat und Übungen —, sondern als Vorschläge im
+   * Wenn-Dann-Plan, wo man sie mit einem Griff übernimmt.
+   */
   steps: string[]
   /** Drei Übungen: eine zum Schreiben, eine zum Tun, eine zum Sitzen. */
   practices: Practices
