@@ -2,6 +2,7 @@ import { THRESHOLD } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelOf, rankAt } from '../lib/history.ts'
 import type { History, Language, Level } from '../types.ts'
+import { readableOnDark } from '../lib/oklch.ts'
 
 type HistoryTrailProps = {
   history: History
@@ -65,7 +66,7 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
           {t.historyTitle}
         </p>
         {latestLevel !== null && (
-          <p className="text-[12px] font-semibold" style={{ color: latestLevel.color }}>
+          <p className="text-[12px] font-semibold" style={{ color: readableOnDark(latestLevel.color) }}>
             {t.historyLatest}: {latestLevel.name}
           </p>
         )}
@@ -143,7 +144,7 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
         <button
           type="button"
           onClick={onClear}
-          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
         >
           {t.historyClear}
         </button>

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { LEVELS } from '../data/levels.ts'
-import { mix, oklchToHex } from './oklch.ts'
+import stylesheet from '../index.css?raw'
+import { mix, oklchToHex, readableOnDark } from './oklch.ts'
 
 /* Der Test, den es ohne das PDF nicht gäbe: `@react-pdf` liest kein OKLCH, und
    es sagt das erst beim Rendern. Hier fällt es beim Testlauf auf. */
@@ -63,6 +64,57 @@ describe('die Ebenenfarben auf weißem Papier', () => {
 
   it('lassen den Farbton stehen — der Regenbogen bleibt unterscheidbar', () => {
     expect(new Set(LEVELS.map((level) => oklchToHex(level.color, 0.5))).size).toBe(LEVELS.length)
+  })
+})
+
+/* The screen side, read from the stylesheet rather than copied: if someone
+   lightens the card or changes the button ink later, these tests notice. */
+function token(name: string): string {
+  const match = new RegExp(`--hf-${name}:\\s*(#[\\da-f]{6})`, 'i').exec(stylesheet)
+  if (match === null) throw new Error(`--hf-${name} is missing from index.css`)
+  return match[1]
+}
+
+const contrast = (a: string, b: string): number => {
+  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+  return (light + 0.05) / (dark + 0.05)
+}
+
+describe('level colors on the dark screen', () => {
+  const grounds = { card: token('card'), void: token('void') }
+  const onAccent = token('on-accent')
+
+  it('are partly unreadable without the floor', () => {
+    // Shame against the card: about 2.6:1. This is why the floor exists.
+    expect(contrast(oklchToHex(LEVELS[0].color), grounds.card)).toBeLessThan(3)
+  })
+
+  it('meet AA 4.5:1 against card and void once raised', () => {
+    for (const level of LEVELS) {
+      const ink = oklchToHex(readableOnDark(level.color))
+      for (const [ground, hex] of Object.entries(grounds)) {
+        expect(contrast(ink, hex), `${level.id} on ${ground}`).toBeGreaterThanOrEqual(4.5)
+      }
+    }
+  })
+
+  it('carry the dark button label at AA 4.5:1', () => {
+    for (const level of LEVELS) {
+      const surface = oklchToHex(readableOnDark(level.color))
+      expect(contrast(onAccent, surface), level.id).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+
+  it('keep their hue — all 17 stay distinguishable', () => {
+    expect(new Set(LEVELS.map((level) => oklchToHex(readableOnDark(level.color)))).size).toBe(
+      LEVELS.length,
+    )
+  })
+
+  it('leave colors above the floor untouched', () => {
+    const courage = 'oklch(0.85 0.17 102)'
+    expect(readableOnDark(courage)).toBe(courage)
+    expect(readableOnDark('var(--hf-muted)')).toBe('var(--hf-muted)')
   })
 })
 

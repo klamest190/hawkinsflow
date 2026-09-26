@@ -110,3 +110,44 @@ export function mix(from: string, to: string, amount: number): string {
 
   return `#${blend(r1, r2)}${blend(g1, g2)}${blend(b1, b2)}`
 }
+
+/* Colors for the screen — the mirror image of `maxLightness` above.
+ *
+ * On paper the level colors are too light for text and get capped; on the
+ * near-black screen the lowest ones are too dark and get raised. Shame, guilt,
+ * apathy and grief sit between 2.6:1 and 3.9:1 against the card, and the
+ * moment flow offers nothing but levels below the threshold — so without this
+ * floor the screen meant for the hardest moment is the hardest one to read.
+ */
+
+/**
+ * Below this lightness no level color carries text on the dark ground. Guilt
+ * alone would need 0.608 for 4.5:1 against `--hf-card`, but the cards are
+ * translucent over the aurora; 0.65 keeps every color at 5.3:1 or better
+ * against the card and 5.7:1 against the void. Verified in `oklch.test.ts`
+ * against the values read from `index.css`.
+ */
+export const MIN_SCREEN_LIGHTNESS = 0.65
+
+/**
+ * A level color raised to `minLightness`, for text, focus rings and the
+ * primary button. Hue and chroma stay as they are, so each level keeps its
+ * tint — at 0.65 none of the raised colors lies further outside sRGB than it
+ * did before, and the browser maps the rest.
+ *
+ * Returns an `oklch()` string rather than hex: the app stays in one color
+ * space, and the transition on `--hf-accent-ink` interpolates in OKLab, where
+ * every in-between frame of two raised colors is itself above the floor.
+ *
+ * Twelve of the 17 colors are light enough already and come back unchanged,
+ * as does anything that isn't OKLCH.
+ */
+export function readableOnDark(css: string, minLightness = MIN_SCREEN_LIGHTNESS): string {
+  const match = OKLCH.exec(css.trim())
+  if (match === null) return css
+
+  const given = Number(match[1]) / (match[2] === '%' ? 100 : 1)
+  if (given >= minLightness) return css
+
+  return `oklch(${minLightness} ${match[3]} ${match[4]})`
+}

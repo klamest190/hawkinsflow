@@ -146,9 +146,9 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
                   className={
                     'group flex cursor-pointer items-center gap-4 rounded-2xl border px-5 py-4 text-left ' +
                     'transition-[transform,border-color,background-color,color] duration-200 ' +
-                    'hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ' +
+                    'hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
                     (selected
-                      ? 'border-accent bg-accent/15 text-text'
+                      ? 'border-accent-ink bg-accent/15 text-text'
                       : 'border-line bg-card/50 text-muted hover:border-accent/40 hover:text-text')
                   }
                 >
@@ -157,7 +157,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
                   <span
                     className={
                       'shrink-0 rounded-full transition-all duration-200 ' +
-                      (selected ? 'bg-accent' : 'bg-muted/40 group-hover:bg-accent/60')
+                      (selected ? 'bg-accent-ink' : 'bg-muted/40 group-hover:bg-accent/60')
                     }
                     style={{ width: 8 + value * 3, height: 8 + value * 3 }}
                   />

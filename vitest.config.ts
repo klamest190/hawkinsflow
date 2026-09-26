@@ -27,6 +27,10 @@ export default defineConfig({
   test: {
     environment: 'node',
     include: ['src/**/*.test.{ts,tsx}'],
+    // Vitest hands every stylesheet to tests as an empty string by default.
+    // The screen contrast test reads its colors from `index.css?raw`, so that
+    // one file goes through Vite's regular pipeline, where `?raw` is its text.
+    css: { include: [/src\/index\.css/] },
     // Ein PDF zu setzen dauert; die Voreinstellung von 5 s reicht dafür nicht.
     testTimeout: 60000,
   },

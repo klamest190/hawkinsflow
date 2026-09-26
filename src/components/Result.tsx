@@ -9,6 +9,7 @@ import type { Language, Level, LevelId, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
 import { Spectrum } from './Spectrum.tsx'
+import { readableOnDark } from '../lib/oklch.ts'
 
 type ResultProps = {
   result: Evaluation
@@ -191,7 +192,7 @@ export function Result({
         <h1
           className="mt-3 font-display text-[52px] leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-[64px]"
           style={{
-            color: 'var(--hf-accent)',
+            color: 'var(--hf-accent-ink)',
             textShadow: '0 12px 60px color-mix(in oklab, var(--hf-accent) 45%, transparent)',
           }}
         >
@@ -214,10 +215,10 @@ export function Result({
             style={{ background: `linear-gradient(90deg, ${band[0].color}, ${band[1].color})` }}
           />
           <div className="tabular mt-2.5 flex justify-between gap-3 text-[12px] font-semibold">
-            <span style={{ color: band[0].color }}>
+            <span style={{ color: readableOnDark(band[0].color) }}>
               {band[0].name} · {band[0].value}
             </span>
-            <span style={{ color: band[1].color }}>
+            <span style={{ color: readableOnDark(band[1].color) }}>
               {band[1].name} · {band[1].value}
             </span>
           </div>
@@ -282,7 +283,7 @@ export function Result({
               <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
                 {t.dragTitle}
               </h2>
-              <p className="font-display text-xl font-semibold" style={{ color: drag.color }}>
+              <p className="font-display text-xl font-semibold" style={{ color: readableOnDark(drag.color) }}>
                 {drag.name} · {drag.value}
               </p>
               <p className="text-[14px] leading-relaxed text-muted">{t.dragBody}</p>
@@ -298,7 +299,7 @@ export function Result({
               <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
                 {t.reachTitle}
               </h2>
-              <p className="font-display text-xl font-semibold" style={{ color: reach.color }}>
+              <p className="font-display text-xl font-semibold" style={{ color: readableOnDark(reach.color) }}>
                 {reach.name} · {reach.value}
               </p>
               <p className="text-[14px] leading-relaxed text-muted">{t.reachBody}</p>
@@ -313,7 +314,7 @@ export function Result({
           <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
             {t.nextLabel}
           </p>
-          <p className="mt-3 font-display text-3xl font-bold" style={{ color: next.color }}>
+          <p className="mt-3 font-display text-3xl font-bold" style={{ color: readableOnDark(next.color) }}>
             {next.name}
           </p>
           <p className="tabular mt-1 text-[13px] text-muted">
@@ -341,7 +342,7 @@ export function Result({
         <Card className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
           <span
             aria-hidden
-            className="grid h-12 w-12 shrink-0 place-items-center self-center rounded-2xl border border-accent/40 bg-accent/10 text-accent sm:self-start"
+            className="grid h-12 w-12 shrink-0 place-items-center self-center rounded-2xl border border-accent/40 bg-accent/10 text-accent-ink sm:self-start"
           >
             <DownloadMark className="h-6 w-6" />
           </span>

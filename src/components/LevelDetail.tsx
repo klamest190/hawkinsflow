@@ -23,7 +23,7 @@ type LevelDetailProps = {
 /** Eine Überschrift im Detailblock — klein, gesperrt, in der Ebenenfarbe. */
 function Heading({ children }: { children: string }) {
   return (
-    <h3 className="text-[11px] font-semibold tracking-[0.16em] text-accent uppercase">{children}</h3>
+    <h3 className="text-[11px] font-semibold tracking-[0.16em] text-accent-ink uppercase">{children}</h3>
   )
 }
 
@@ -60,7 +60,7 @@ export function LevelDetail({
         <ul className="flex flex-col gap-2">
           {level.signs.map((sign) => (
             <li key={sign} className="flex gap-3 text-[15px] leading-relaxed text-muted">
-              <span aria-hidden className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent" />
+              <span aria-hidden className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent-ink" />
               {sign}
             </li>
           ))}
@@ -159,7 +159,7 @@ export function LevelDetail({
             type="button"
             aria-expanded={open}
             onClick={() => setOpen((previous) => !previous)}
-            className="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-line bg-void/30 px-5 py-3.5 text-left text-[14px] font-semibold text-text transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-line bg-void/30 px-5 py-3.5 text-left text-[14px] font-semibold text-text transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
           >
             {open ? t.lessAboutLevel : t.moreAboutLevel}
             <span

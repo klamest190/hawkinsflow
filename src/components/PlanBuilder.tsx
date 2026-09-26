@@ -26,18 +26,18 @@ type PlanBuilderProps = {
 const field =
   'w-full resize-none rounded-xl border border-line bg-void/50 px-4 py-3 ' +
   'text-[15px] leading-relaxed text-text placeholder:text-muted/60 ' +
-  'transition-colors focus:border-accent/60 focus:outline-none'
+  'transition-colors focus:border-accent-ink/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink'
 
 const chip =
   'cursor-pointer rounded-full border border-line bg-void/40 px-3 py-1.5 text-left ' +
   'text-[12.5px] leading-snug text-muted transition-colors ' +
   'hover:border-accent/50 hover:text-text ' +
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
+  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink'
 
 /** Das Schlüsselwort vor jedem Feld — „Wenn" und „dann", in der Ebenenfarbe. */
 function Keyword({ children }: { children: string }) {
   return (
-    <span className="font-display text-[17px] font-semibold text-accent">
+    <span className="font-display text-[17px] font-semibold text-accent-ink">
       {children}
     </span>
   )

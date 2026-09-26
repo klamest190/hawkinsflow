@@ -15,6 +15,7 @@ import { useHistory } from './hooks/useHistory.ts'
 import { useMoments } from './hooks/useMoments.ts'
 import { usePlans } from './hooks/usePlans.ts'
 import { useLanguage } from './hooks/useLanguage.ts'
+import { readableOnDark } from './lib/oklch.ts'
 import { sortedPlans } from './lib/plans.ts'
 import { answeredCount, evaluate } from './lib/scoring.ts'
 import type { BelowLevelId, LevelId } from './types.ts'
@@ -145,6 +146,7 @@ export default function App() {
               : defaultAccent
 
     document.body.style.setProperty('--hf-accent', accent)
+    document.body.style.setProperty('--hf-accent-ink', readableOnDark(accent))
   }, [
     phase,
     openLevel,

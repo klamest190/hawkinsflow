@@ -1,5 +1,6 @@
 import type { MomentCopy } from '../i18n/moment.ts'
 import type { Language, Level, Moments } from '../types.ts'
+import { readableOnDark } from '../lib/oklch.ts'
 
 type MomentTrailProps = {
   moments: Moments
@@ -45,7 +46,7 @@ export function MomentTrail({ moments, levels, language, m, onClear }: MomentTra
           {m.trailTitle}
         </p>
         {latestLevel !== null && (
-          <p className="text-[12px] font-semibold" style={{ color: latestLevel.color }}>
+          <p className="text-[12px] font-semibold" style={{ color: readableOnDark(latestLevel.color) }}>
             {m.trailLatest}: {latestLevel.name}
           </p>
         )}
@@ -94,7 +95,7 @@ export function MomentTrail({ moments, levels, language, m, onClear }: MomentTra
         <button
           type="button"
           onClick={onClear}
-          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
         >
           {m.trailClear}
         </button>

@@ -82,7 +82,7 @@ export function ScaleBrowser({
                   type="button"
                   onClick={() => onOpen(isOpen ? null : level.id)}
                   aria-expanded={isOpen}
-                  className="flex w-full cursor-pointer items-center gap-4 px-4 py-3.5 text-left transition-colors hover:bg-card focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent sm:px-5"
+                  className="flex w-full cursor-pointer items-center gap-4 px-4 py-3.5 text-left transition-colors hover:bg-card focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent-ink sm:px-5"
                 >
                   <span
                     aria-hidden
@@ -96,7 +96,7 @@ export function ScaleBrowser({
                     <span className="block truncate text-[16px] font-semibold">
                       {level.name}
                       {isMine && (
-                        <span className="ml-2 align-middle text-[11px] font-medium text-accent">
+                        <span className="ml-2 align-middle text-[11px] font-medium text-accent-ink">
                           {t.yourLevel}
                         </span>
                       )}

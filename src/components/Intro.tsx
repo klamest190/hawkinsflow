@@ -8,6 +8,7 @@ import { Button } from './Button.tsx'
 import { HistoryTrail } from './HistoryTrail.tsx'
 import { Logo } from './Logo.tsx'
 import { MomentTrail } from './MomentTrail.tsx'
+import { readableOnDark } from '../lib/oklch.ts'
 
 type IntroProps = {
   levels: Level[]
@@ -54,7 +55,7 @@ function DeleteLink({
       type="button"
       onClick={onClick}
       aria-label={title}
-      className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
     >
       {label}
     </button>
@@ -88,16 +89,16 @@ function Door({
         'group flex h-full w-full cursor-pointer flex-col gap-2 rounded-3xl border p-5 text-left ' +
         'transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out ' +
         'hover:-translate-y-px active:translate-y-0 active:scale-[0.99] ' +
-        'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent ' +
+        'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-ink ' +
         (primary
           ? 'border-accent/45 bg-accent/10 shadow-[0_18px_40px_-24px_var(--hf-accent)] hover:border-accent/70 hover:bg-accent/15'
           : 'border-line bg-card/70 backdrop-blur-sm hover:border-accent/40 hover:bg-card')
       }
     >
-      <span className="text-[11px] font-semibold tracking-[0.16em] text-accent uppercase">{label}</span>
+      <span className="text-[11px] font-semibold tracking-[0.16em] text-accent-ink uppercase">{label}</span>
       <span className="font-display text-[19px] leading-snug font-semibold text-text">{title}</span>
       <span className="text-[13.5px] leading-relaxed text-muted">{lead}</span>
-      <span aria-hidden className="mt-auto pt-1 text-[15px] text-accent transition-transform duration-300 group-hover:translate-x-0.5">
+      <span aria-hidden className="mt-auto pt-1 text-[15px] text-accent-ink transition-transform duration-300 group-hover:translate-x-0.5">
         →
       </span>
     </button>
@@ -197,17 +198,17 @@ export function Intro({
               {t.introPlanLabel}
             </p>
             {newestLevel !== null && (
-              <p className="text-[12px] font-semibold" style={{ color: newestLevel.color }}>
+              <p className="text-[12px] font-semibold" style={{ color: readableOnDark(newestLevel.color) }}>
                 {newestLevel.name}
               </p>
             )}
           </div>
           <p className="mt-3 text-[15px] leading-relaxed text-text/90">
-            <span className="font-display font-semibold text-accent">{t.planWhen}</span>{' '}
+            <span className="font-display font-semibold text-accent-ink">{t.planWhen}</span>{' '}
             {newest.when}
           </p>
           <p className="mt-1.5 text-[15px] leading-relaxed text-text/90">
-            <span className="font-display font-semibold text-accent">{t.planThen}</span>{' '}
+            <span className="font-display font-semibold text-accent-ink">{t.planThen}</span>{' '}
             {newest.then}
           </p>
           <div className="mt-3 flex justify-end">
@@ -235,7 +236,7 @@ export function Intro({
                     <p className="min-w-0 flex-1 truncate text-[13px] leading-relaxed text-muted">
                       <span
                         className="font-semibold"
-                        style={{ color: level?.color ?? 'var(--hf-muted)' }}
+                        style={{ color: readableOnDark(level?.color ?? 'var(--hf-muted)') }}
                       >
                         {level?.name ?? plan.level}
                       </span>{' '}

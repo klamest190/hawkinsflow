@@ -82,9 +82,9 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
                 className={
                   'cursor-pointer rounded-full border px-3.5 py-1.5 text-[12px] font-semibold ' +
                   'transition-[background-color,border-color,color] duration-200 ' +
-                  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ' +
+                  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
                   (selected
-                    ? 'border-accent/60 bg-accent/20 text-text'
+                    ? 'border-accent-ink/60 bg-accent/20 text-text'
                     : 'border-line bg-void/30 text-muted hover:border-accent/40 hover:text-text')
                 }
               >
@@ -125,7 +125,7 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
         <div key={practice.name} className="animate-rise">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <p className="font-display text-[17px] font-semibold">{practice.name}</p>
-            <p className="text-[12px] font-semibold tracking-[0.08em] text-accent uppercase">
+            <p className="text-[12px] font-semibold tracking-[0.08em] text-accent-ink uppercase">
               {practice.duration}
             </p>
           </div>

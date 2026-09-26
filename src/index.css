@@ -15,6 +15,16 @@
   initial-value: oklch(0.85 0.17 102);
 }
 
+/* The same color raised to a lightness floor, for everything that is text or
+   has to be seen against the dark ground: headings, focus rings, the primary
+   button. Registered for the same reason as --hf-accent, so both blend in step.
+   See `readableOnDark` in src/lib/oklch.ts. */
+@property --hf-accent-ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(0.85 0.17 102);
+}
+
 /* ── Grundtöne ───────────────────────────────────────────────────────────────
    Die Neutralen sind leicht ins Violette gezogen, damit der Regenbogen der
    Ebenen nicht auf einem fremden Grau sitzt. Die Ebenenfarben selbst stehen in
@@ -31,6 +41,13 @@
      Farbige in der App liest sie von hier, damit ein Ebenenwechsel eine einzige
      Zuweisung ist statt zwanzig Requisiten durch den Baum. */
   --hf-accent: oklch(0.85 0.17 102);
+
+  /* Its readable twin — App.tsx sets both in the same effect. Bars, glows and
+     tinted surfaces keep --hf-accent; text and focus rings read this one. */
+  --hf-accent-ink: oklch(0.85 0.17 102);
+
+  /* The label on the primary button. A token so the contrast test can read it. */
+  --hf-on-accent: #12080c;
 }
 
 @theme inline {
@@ -41,6 +58,7 @@
   --color-text: var(--hf-text);
   --color-muted: var(--hf-muted);
   --color-accent: var(--hf-accent);
+  --color-accent-ink: var(--hf-accent-ink);
 
   --font-sans: -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: "SF Pro Display", -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -89,7 +107,9 @@ body {
   -webkit-font-smoothing: antialiased;
   /* Der Farbwechsel beim Ebenenwechsel läuft weich durch — sonst springt die
      ganze Oberfläche beim Blättern durch die Skala. */
-  transition: --hf-accent 600ms ease;
+  transition:
+    --hf-accent 600ms ease,
+    --hf-accent-ink 600ms ease;
 }
 
 /* Feines Korn über der ganzen Fläche: ohne Textur wirken die großen Verläufe

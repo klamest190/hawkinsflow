@@ -26,9 +26,9 @@ export function Chip({
       className={
         'cursor-pointer rounded-full border px-4 py-2 text-[13px] font-semibold ' +
         'transition-[background-color,border-color,color] duration-200 ' +
-        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ' +
+        'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
         (strong
-          ? 'border-accent/60 bg-accent/20 text-text hover:bg-accent/30'
+          ? 'border-accent-ink/60 bg-accent/20 text-text hover:bg-accent/30'
           : 'border-line bg-void/40 text-muted hover:border-accent/40 hover:text-text')
       }
     >
@@ -77,7 +77,7 @@ export function Timer({ minutes, t }: { minutes: number; t: Copy }) {
               weiter unten nur, dass die Zeit um ist. */}
           <p
             aria-hidden
-            className="tabular font-display text-[26px] leading-none font-semibold text-accent"
+            className="tabular font-display text-[26px] leading-none font-semibold text-accent-ink"
           >
             {clockOf(remaining)}
           </p>

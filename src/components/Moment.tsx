@@ -6,6 +6,7 @@ import type { BelowLevelId, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
 import { PlanBuilder } from './PlanBuilder.tsx'
 import { Timer } from './Timer.tsx'
+import { readableOnDark } from '../lib/oklch.ts'
 
 type MomentProps = {
   /** Alle Ebenen in der gelesenen Sprache; gebraucht werden die unteren acht. */
@@ -112,7 +113,7 @@ export function Moment({
           Minute Stille nicht mehr sicher, was man angetippt hat. */}
       {chosen !== null && step > 0 && (
         <p className="text-[13px] font-semibold">
-          <span style={{ color: chosen.color }}>{chosen.name}</span>
+          <span style={{ color: readableOnDark(chosen.color) }}>{chosen.name}</span>
           <span className="text-muted"> · {chosen.emotion}</span>
         </p>
       )}
@@ -143,7 +144,7 @@ export function Moment({
                       'flex h-full w-full cursor-pointer items-center gap-3 rounded-2xl border ' +
                       'border-line bg-card/50 px-4 py-3.5 text-left transition-[transform,border-color,background-color] ' +
                       'duration-200 hover:-translate-y-px hover:border-accent/40 hover:bg-card ' +
-                      'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
+                      'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink'
                     }
                   >
                     <span
@@ -187,7 +188,7 @@ export function Moment({
             </p>
             <p
               className="mt-5 font-display text-[26px] leading-[1.25] font-semibold text-balance sm:text-[30px]"
-              style={{ color: 'var(--hf-accent)' }}
+              style={{ color: 'var(--hf-accent-ink)' }}
             >
               {m.questions[level]}
             </p>
@@ -212,7 +213,7 @@ export function Moment({
               </p>
 
               <div className="mt-6">
-                <p className="text-[11px] font-semibold tracking-[0.16em] text-accent uppercase">
+                <p className="text-[11px] font-semibold tracking-[0.16em] text-accent-ink uppercase">
                   {m.planLabel}
                 </p>
                 {/* Steht noch keiner, wird er hier geschrieben und nicht auf
@@ -244,11 +245,11 @@ export function Moment({
                 ) : (
                   <div className="mt-2.5 flex flex-col gap-1.5">
                     <p className="text-[16px] leading-relaxed text-text/90">
-                      <span className="font-display font-semibold text-accent">{t.planWhen}</span>{' '}
+                      <span className="font-display font-semibold text-accent-ink">{t.planWhen}</span>{' '}
                       {plans[chosen.id]?.when}
                     </p>
                     <p className="text-[16px] leading-relaxed text-text/90">
-                      <span className="font-display font-semibold text-accent">{t.planThen}</span>{' '}
+                      <span className="font-display font-semibold text-accent-ink">{t.planThen}</span>{' '}
                       {plans[chosen.id]?.then}
                     </p>
                   </div>
