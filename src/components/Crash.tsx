@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { LANGUAGE_KEY, detectLanguage } from '../hooks/useLanguage.ts'
 import { crashCopy } from '../i18n/crash.ts'
+import { backupBlob, backupFileName, hasData, readStoredData, toBackup } from '../lib/backup.ts'
+import { deliver } from '../lib/download.ts'
 import { clearAppData } from '../lib/storage.ts'
 import { Button } from './Button.tsx'
 import { Logo } from './Logo.tsx'
@@ -12,11 +14,15 @@ import { Logo } from './Logo.tsx'
  * alive while nothing responds.
  *
  * It depends on as little as possible: its own copy file, the language guess
- * and the button. No level data, no hooks with stored state.
+ * and the button. No level data, no hooks with stored state — the backup reads
+ * storage directly, so the data can still be saved before it is deleted.
  */
 export function Crash() {
   const [language] = useState(detectLanguage)
   const [confirming, setConfirming] = useState(false)
+  const [backupFailed, setBackupFailed] = useState(false)
+  // Read once: nothing writes to storage while this screen stands.
+  const [stored] = useState(readStoredData)
   const heading = useRef<HTMLHeadingElement>(null)
   const t = crashCopy[language]
 
@@ -25,6 +31,16 @@ export function Crash() {
   useEffect(() => {
     heading.current?.focus()
   }, [])
+
+  async function backup() {
+    setBackupFailed(false)
+    const now = new Date()
+    try {
+      await deliver(backupBlob(toBackup(stored, now)), backupFileName(now))
+    } catch {
+      setBackupFailed(true)
+    }
+  }
 
   function resetAndReload() {
     // The language is a choice, not data — it can't be what breaks the app.
@@ -57,6 +73,11 @@ export function Crash() {
             <div className="flex flex-col items-center gap-4">
               <p className="text-[14px] leading-relaxed text-text/90">{t.resetWarning}</p>
               <div className="flex flex-wrap justify-center gap-2">
+                {hasData(stored) && (
+                  <Button variant="ghost" onClick={backup}>
+                    {t.backupFirst}
+                  </Button>
+                )}
                 <Button variant="ghost" onClick={resetAndReload}>
                   {t.resetConfirm}
                 </Button>
@@ -64,6 +85,9 @@ export function Crash() {
                   {t.resetCancel}
                 </Button>
               </div>
+              <p role="alert" className="empty:hidden text-[13px] text-text/90">
+                {backupFailed ? t.backupFailed : ''}
+              </p>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-1">

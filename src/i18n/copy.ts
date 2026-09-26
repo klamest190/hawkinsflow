@@ -1,5 +1,12 @@
 import type { Language } from '../types.ts'
 
+/* Lists read differently in each language — "a, b und c" against "a, b and c" —
+   so each one joins its own. */
+function joinList(parts: string[], and: string): string {
+  if (parts.length <= 1) return parts.join('')
+  return `${parts.slice(0, -1).join(', ')} ${and} ${parts.at(-1)}`
+}
+
 /**
  * Alle Beschriftungen der Oberfläche. Das deutsche Objekt ist die Vorlage, `Copy`
  * leitet sich daraus ab — fehlt im Englischen ein Schlüssel, scheitert der Build
@@ -220,6 +227,37 @@ const de = {
   historyClear: 'Verlauf löschen',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
 
+  // ── Your data ────────────────────────────────────────────────────────────
+  // Sits at the foot of the start page, as quiet as the delete links: saving
+  // is something to do now and then, not an invitation on every visit.
+  dataTitle: 'Deine Daten',
+  dataLead:
+    'Pläne, Verlauf und Momente liegen nur in diesem Browser auf diesem Gerät. Sichere sie als Datei, bevor du das Handy wechselst oder den Browser leerst.',
+  // Before anything exists, the only thing to do here is bring it in.
+  dataLeadEmpty:
+    'Du hast Hawkins Flow schon auf einem anderen Gerät benutzt? Dann lade hier die Sicherung von dort.',
+  dataExport: 'Als Datei sichern',
+  dataImport: 'Sicherung laden',
+  dataExportFailed: 'Das Sichern hat nicht geklappt. Versuch es bitte noch einmal.',
+  dataInvalid: 'Diese Datei ist keine Sicherung von Hawkins Flow.',
+  dataNewer:
+    'Diese Sicherung stammt aus einer neueren Fassung der App. Lade die Seite neu und versuch es dann noch einmal.',
+  // Says what will be replaced before anything is — restoring overwrites.
+  dataConfirm: (date: string, contents: string): string =>
+    `Die Sicherung vom ${date} enthält ${contents}. Sie ersetzt alles, was jetzt auf diesem Gerät liegt.`,
+  dataContents: (runs: number, plans: number, moments: number, answers: number): string => {
+    const parts = [
+      runs === 1 ? 'einen Durchgang' : runs > 1 ? `${runs} Durchgänge` : '',
+      plans === 1 ? 'einen Plan' : plans > 1 ? `${plans} Pläne` : '',
+      moments === 1 ? 'einen Moment' : moments > 1 ? `${moments} Momente` : '',
+      answers === 1 ? 'die Antwort auf eine Aussage' : answers > 1 ? `Antworten auf ${answers} Aussagen` : '',
+    ].filter((part) => part !== '')
+    return parts.length === 0 ? 'keine Einträge' : joinList(parts, 'und')
+  },
+  dataReplace: 'Ersetzen',
+  dataCancel: 'Abbrechen',
+  dataRestored: 'Die Sicherung ist geladen.',
+
   // ── Das PDF ──────────────────────────────────────────────────────────────
   // Der Ergebnisschirm ist weg, sobald jemand den Bogen wiederholt. Das PDF ist
   // das Einzige, was ihn überdauert — deshalb steht der Tag darauf, im
@@ -379,6 +417,30 @@ const en: Copy = {
   historyLatest: 'latest',
   historyClear: 'Clear the history',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
+
+  dataTitle: 'Your data',
+  dataLead:
+    'Your plans, history and moments live only in this browser on this device. Save them to a file before you switch phones or clear the browser.',
+  dataLeadEmpty: 'Used Hawkins Flow on another device before? Load the backup from there.',
+  dataExport: 'Save to a file',
+  dataImport: 'Load a backup',
+  dataExportFailed: 'Saving did not work. Please try again.',
+  dataInvalid: 'This file is not a Hawkins Flow backup.',
+  dataNewer: 'This backup comes from a newer version of the app. Reload the page, then try again.',
+  dataConfirm: (date: string, contents: string): string =>
+    `The backup from ${date} holds ${contents}. It replaces everything on this device right now.`,
+  dataContents: (runs: number, plans: number, moments: number, answers: number): string => {
+    const parts = [
+      runs === 1 ? 'one run' : runs > 1 ? `${runs} runs` : '',
+      plans === 1 ? 'one plan' : plans > 1 ? `${plans} plans` : '',
+      moments === 1 ? 'one moment' : moments > 1 ? `${moments} moments` : '',
+      answers === 1 ? 'the answer to one statement' : answers > 1 ? `answers to ${answers} statements` : '',
+    ].filter((part) => part !== '')
+    return parts.length === 0 ? 'nothing at all' : joinList(parts, 'and')
+  },
+  dataReplace: 'Replace',
+  dataCancel: 'Cancel',
+  dataRestored: 'The backup is loaded.',
 
   pdfCardTitle: 'Take it with you',
   pdfCardLead:

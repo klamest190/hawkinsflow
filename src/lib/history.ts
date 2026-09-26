@@ -7,7 +7,7 @@ import type { History, HistoryEntry, Level, LevelId } from '../types.ts'
  * weil die Linie sonst irgendwann aus Strichen besteht. Wer den Bogen monatlich
  * ausfüllt, sieht damit zwei Jahre.
  */
-const KEEP = 24
+export const KEEP = 24
 
 /**
  * Zwei Durchgänge innerhalb dieser Spanne gelten als einer.

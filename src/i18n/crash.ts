@@ -20,6 +20,9 @@ const de = {
     'Das löscht deine Pläne, deinen Verlauf, deine Momente und angefangene Antworten auf diesem Gerät. Rückgängig machen lässt sich das nicht.',
   resetConfirm: 'Ja, alles löschen',
   resetCancel: 'Doch nicht',
+  // Offered next to the delete, so nothing has to be lost to get the app back.
+  backupFirst: 'Vorher als Datei sichern',
+  backupFailed: 'Das Sichern hat nicht geklappt.',
 }
 
 export type CrashCopy = typeof de
@@ -34,6 +37,8 @@ const en: CrashCopy = {
     'This deletes your plans, your history, your moments and any unfinished answers on this device. It can’t be undone.',
   resetConfirm: 'Yes, delete everything',
   resetCancel: 'Keep it',
+  backupFirst: 'Save to a file first',
+  backupFailed: 'Saving did not work.',
 }
 
 export const crashCopy: Record<Language, CrashCopy> = { de, en }

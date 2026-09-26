@@ -30,8 +30,20 @@ export function clear(key: string): void {
   }
 }
 
-/** Every key this app writes starts with this — see the hooks in `src/hooks/`. */
+/** Every key this app writes starts with this. */
 export const KEY_PREFIX = 'hawkinsflow.'
+
+/**
+ * All keys in one place: each hook owns one of them, and the backup and the
+ * crash screen need to reach all of them without going through the hooks.
+ */
+export const KEYS = {
+  answers: `${KEY_PREFIX}answers.v1`,
+  plans: `${KEY_PREFIX}plans.v1`,
+  history: `${KEY_PREFIX}history.v1`,
+  moments: `${KEY_PREFIX}moments.v1`,
+  language: `${KEY_PREFIX}language.v1`,
+} as const
 
 /**
  * Removes every key of this app except those listed in `keep`. The last resort

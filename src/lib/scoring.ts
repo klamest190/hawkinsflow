@@ -243,3 +243,13 @@ export function evaluate(levels: Level[], answers: Answers): Result {
 export function answeredCount(answers: Answers): number {
   return QUESTIONS.filter((question) => answers[question.id] !== undefined).length
 }
+
+/* What comes out of storage — or out of a backup file — is `unknown` until
+   checked here: question ID → 0…4. Without this guard, a stale or
+   hand-edited entry would skew the evaluation without a sound. */
+export function isAnswers(value: unknown): value is Answers {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) return false
+  return Object.values(value).every(
+    (entry) => typeof entry === 'number' && Number.isInteger(entry) && entry >= 0 && entry <= 4,
+  )
+}

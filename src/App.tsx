@@ -15,6 +15,7 @@ import { useHistory } from './hooks/useHistory.ts'
 import { useMoments } from './hooks/useMoments.ts'
 import { usePlans } from './hooks/usePlans.ts'
 import { useLanguage } from './hooks/useLanguage.ts'
+import type { BackupData } from './lib/backup.ts'
 import { readableOnDark } from './lib/oklch.ts'
 import { sortedPlans } from './lib/plans.ts'
 import { answeredCount, evaluate } from './lib/scoring.ts'
@@ -30,7 +31,7 @@ function isPhase(value: unknown): value is Phase {
 
 export default function App() {
   const { language, setLanguage } = useLanguage()
-  const { answers, answer, reset } = useAnswers()
+  const { answers, answer, reset, replaceAnswers } = useAnswers()
   /* Die Pläne liegen neben den Antworten und nicht in ihnen: Sie sind das
      Einzige, was der Mensch hier selbst geschrieben hat, und überleben deshalb
      jedes Neustarten des Bogens.
@@ -38,14 +39,14 @@ export default function App() {
      Sie gehen an alle drei Ansichten, die eine Ebene zeigen — Ergebnis, Skala
      und Moment-Bogen. Früher gab es sie nur zu der einen Ebene, auf der man
      gerade herauskam; zu jeder anderen ließ sich nichts vornehmen. */
-  const { plans, savePlan, removePlan } = usePlans()
+  const { plans, savePlan, removePlan, replacePlans } = usePlans()
   /* Und daneben der Verlauf, aus demselben Grund: Er entsteht überhaupt erst
      dadurch, dass jemand den Bogen ein zweites Mal ausfüllt. */
-  const { history, record, clearHistory } = useHistory()
+  const { history, record, clearHistory, replaceHistory } = useHistory()
   /* Und die Momente daneben, aus demselben Grund und noch einem: Der Fragebogen
      misst Wochen, ein Moment misst einen Nachmittag. In einer Reihe wären das
      zwei Größen in einer Spalte. */
-  const { moments, recordMoment, clearMoments } = useMoments()
+  const { moments, recordMoment, clearMoments, replaceMoments } = useMoments()
   const [phase, setPhase] = useState<Phase>('intro')
 
   /* Jeder Wechsel der Ansicht legt einen Eintrag in die Browser-Historie.
@@ -181,6 +182,15 @@ export default function App() {
     view.current?.focus()
   }, [phase])
 
+  /* Restoring a backup replaces all four stores at once — see `lib/backup.ts`
+     for why it replaces instead of merging. */
+  function restore(data: BackupData) {
+    replaceAnswers(data.answers)
+    replacePlans(data.plans)
+    replaceHistory(data.history)
+    replaceMoments(data.moments)
+  }
+
   function startFresh() {
     reset()
     go('quiz')
@@ -260,6 +270,8 @@ export default function App() {
             onClearHistory={clearHistory}
             moments={moments}
             onClearMoments={clearMoments}
+            data={{ answers, plans, history, moments }}
+            onRestore={restore}
           />
         )}
 

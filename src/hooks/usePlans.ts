@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react'
 import { isPlans } from '../lib/plans.ts'
-import { clear, load, save } from '../lib/storage.ts'
+import { KEYS, clear, load, save } from '../lib/storage.ts'
 import type { LevelId, Plans } from '../types.ts'
 
-const KEY = 'hawkinsflow.plans.v1'
+const KEY = KEYS.plans
 
 /**
  * Die Wenn-Dann-Pläne, dauerhaft gesichert.
@@ -20,7 +20,9 @@ export function usePlans() {
     setPlans((previous) => {
       const next: Plans = {
         ...previous,
-        [level]: { level, when, then, created: new Date().toISOString() },
+        // An edit keeps the date the plan was first made — `created` orders
+        // the plans on the start page, and rewording one must not move it up.
+        [level]: { level, when, then, created: previous[level]?.created ?? new Date().toISOString() },
       }
       save(KEY, next)
       return next
@@ -41,5 +43,13 @@ export function usePlans() {
     })
   }, [])
 
-  return { plans, savePlan, removePlan }
+  /* For restoring a backup: the whole value at once. Empty removes the key,
+     as clearing does, instead of leaving an empty entry behind. */
+  const replacePlans = useCallback((next: Plans) => {
+    if (Object.keys(next).length === 0) clear(KEY)
+    else save(KEY, next)
+    setPlans(next)
+  }, [])
+
+  return { plans, savePlan, removePlan, replacePlans }
 }

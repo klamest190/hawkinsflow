@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react'
 import { appendMoment, isMoments } from '../lib/moments.ts'
-import { clear, load, save } from '../lib/storage.ts'
+import { KEYS, clear, load, save } from '../lib/storage.ts'
 import type { BelowLevelId, Moments } from '../types.ts'
 
-const KEY = 'hawkinsflow.moments.v1'
+const KEY = KEYS.moments
 
 /**
  * Die abgeschlossenen Durchgänge durch den Moment-Bogen.
@@ -29,5 +29,13 @@ export function useMoments() {
     setMoments([])
   }, [])
 
-  return { moments, recordMoment, clearMoments }
+  /* For restoring a backup: the whole value at once. Empty removes the key,
+     as clearing does, instead of leaving an empty entry behind. */
+  const replaceMoments = useCallback((next: Moments) => {
+    if (next.length === 0) clear(KEY)
+    else save(KEY, next)
+    setMoments(next)
+  }, [])
+
+  return { moments, recordMoment, clearMoments, replaceMoments }
 }

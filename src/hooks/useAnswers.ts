@@ -1,19 +1,9 @@
 import { useCallback, useState } from 'react'
-import { clear, load, save } from '../lib/storage.ts'
+import { isAnswers } from '../lib/scoring.ts'
+import { KEYS, clear, load, save } from '../lib/storage.ts'
 import type { Answers, AnswerValue } from '../types.ts'
 
-const KEY = 'hawkinsflow.answers.v1'
-
-/* Was aus dem Speicher kommt, ist erst einmal `unknown` — hier wird geprüft,
-   dass es wirklich Frage-ID → 0…4 ist. Ohne diese Wache würde eine veraltete
-   oder von Hand veränderte Zeile im localStorage die Auswertung stillschweigend
-   verfälschen. */
-function isAnswers(value: unknown): value is Answers {
-  if (typeof value !== 'object' || value === null || Array.isArray(value)) return false
-  return Object.values(value).every(
-    (entry) => typeof entry === 'number' && Number.isInteger(entry) && entry >= 0 && entry <= 4,
-  )
-}
+const KEY = KEYS.answers
 
 /**
  * Die Antworten des Bogens, dauerhaft gesichert. Ein versehentlich geschlossener
@@ -35,5 +25,13 @@ export function useAnswers() {
     setAnswers({})
   }, [])
 
-  return { answers, answer, reset }
+  /* For restoring a backup: the whole value at once. Empty removes the key,
+     as clearing does, instead of leaving an empty entry behind. */
+  const replaceAnswers = useCallback((next: Answers) => {
+    if (Object.keys(next).length === 0) clear(KEY)
+    else save(KEY, next)
+    setAnswers(next)
+  }, [])
+
+  return { answers, answer, reset, replaceAnswers }
 }

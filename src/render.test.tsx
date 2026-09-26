@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { renderToString } from 'react-dom/server'
+import { DataCard } from './components/DataCard.tsx'
 import { Intro } from './components/Intro.tsx'
 import { Moment } from './components/Moment.tsx'
 import { Quiz } from './components/Quiz.tsx'
@@ -11,6 +12,7 @@ import { copy } from './i18n/copy.ts'
 import { momentCopy } from './i18n/moment.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
 import { questionText } from './i18n/questions.ts'
+import type { BackupData } from './lib/backup.ts'
 import { evaluate } from './lib/scoring.ts'
 import type { Answers, AnswerValue, History, Language, Moments, Plan, Plans } from './types.ts'
 
@@ -34,6 +36,9 @@ QUESTIONS.forEach((question, position) => {
 })
 
 const noop = () => {}
+
+// Nothing saved yet — what the backup card sees on a first visit.
+const nothingStored: BackupData = { answers: {}, plans: {}, history: [], moments: [] }
 
 /* Ein fertiger Plan — er nimmt in beiden Ansichten den zweiten Zweig: auf der
    Startseite die Erinnerungskarte, im Ergebnis den gespeicherten Satz statt des
@@ -79,6 +84,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onMoment={noop}
         moments={[]}
         onClearMoments={noop}
+        data={nothingStored}
+        onRestore={noop}
       />,
     )
     expect(html).toContain(t.start)
@@ -262,6 +269,30 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).not.toContain('undefined')
   })
 
+  it('offers only loading a backup while nothing is stored', () => {
+    const html = renderToString(
+      <DataCard data={nothingStored} language={language} t={t} onRestore={noop} />,
+    )
+    expect(html).toContain(t.dataLeadEmpty)
+    expect(html).toContain(t.dataImport)
+    expect(html).not.toContain(t.dataExport)
+  })
+
+  it('offers saving once something is stored', () => {
+    const html = renderToString(
+      <DataCard
+        data={{ ...nothingStored, plans: { courage: plan }, history }}
+        language={language}
+        t={t}
+        onRestore={noop}
+      />,
+    )
+    expect(html).toContain(t.dataLead)
+    expect(html).toContain(t.dataExport)
+    expect(html).toContain(t.dataImport)
+    expect(html).not.toContain('undefined')
+  })
+
   it('Start mit erinnertem Plan', () => {
     const html = renderToString(
       <Intro
@@ -282,6 +313,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onMoment={noop}
         moments={[]}
         onClearMoments={noop}
+        data={nothingStored}
+        onRestore={noop}
       />,
     )
     expect(html).toContain(t.introPlanLabel)
@@ -318,6 +351,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onMoment={noop}
         moments={[]}
         onClearMoments={noop}
+        data={nothingStored}
+        onRestore={noop}
       />,
     )
     // Der jüngste ausgeschrieben, der ältere als Zeile mit seinem „dann".
@@ -350,6 +385,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onMoment={noop}
         moments={[]}
         onClearMoments={noop}
+        data={nothingStored}
+        onRestore={noop}
       />,
     )
     expect(html).toContain(t.thresholdMark(200))
@@ -394,6 +431,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onMoment={noop}
         moments={[]}
         onClearMoments={noop}
+        data={nothingStored}
+        onRestore={noop}
       />,
     )
     expect(html).toContain(t.historyTitle)
@@ -426,6 +465,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onMoment={noop}
         moments={[]}
         onClearMoments={noop}
+        data={nothingStored}
+        onRestore={noop}
       />,
     )
     expect(html.match(/<circle/g)).toHaveLength(1)
@@ -506,6 +547,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onClearHistory={noop}
         moments={moments}
         onClearMoments={noop}
+        data={nothingStored}
+        onRestore={noop}
       />,
     )
     expect(html).toContain(m.trailTitle)
@@ -539,6 +582,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onClearHistory={noop}
         moments={[{ taken: '2026-08-27T07:15:00.000Z', level: 'anger' }]}
         onClearMoments={noop}
+        data={nothingStored}
+        onRestore={noop}
       />,
     )
     expect(html).toContain(t.historyTitle)

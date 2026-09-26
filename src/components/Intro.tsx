@@ -3,8 +3,10 @@ import { THRESHOLD } from '../data/levels.ts'
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { MomentCopy } from '../i18n/moment.ts'
+import type { BackupData } from '../lib/backup.ts'
 import type { History, Language, Level, LevelId, Moments, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
+import { DataCard } from './DataCard.tsx'
 import { HistoryTrail } from './HistoryTrail.tsx'
 import { Logo } from './Logo.tsx'
 import { MomentTrail } from './MomentTrail.tsx'
@@ -34,6 +36,9 @@ type IntroProps = {
   /** Die abgeschlossenen Momente, ältester zuerst. */
   moments: Moments
   onClearMoments: () => void
+  /** Everything stored, for the backup at the foot of the page. */
+  data: BackupData
+  onRestore: (data: BackupData) => void
 }
 
 /**
@@ -123,6 +128,8 @@ export function Intro({
   onClearHistory,
   moments,
   onClearMoments,
+  data,
+  onRestore,
 }: IntroProps) {
   /* Der jüngste Plan steht ausgeschrieben, die übrigen als Zeile darunter. Nur
      einen zu zeigen wäre ehrlicher zur ursprünglichen Absicht — ein Vorsatz, an
@@ -330,6 +337,10 @@ export function Intro({
           {t.browseFirst}
         </Button>
       </div>
+
+      {/* Below the doors, not above them: saving is housekeeping, and the
+          start page exists to open one of the two doors. */}
+      <DataCard data={data} language={language} t={t} onRestore={onRestore} />
 
       <p className="mt-12 max-w-md text-[13px] leading-relaxed text-muted">{t.disclaimer}</p>
 

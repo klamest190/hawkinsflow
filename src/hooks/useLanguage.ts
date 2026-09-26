@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
-import { load, save } from '../lib/storage.ts'
+import { KEYS, load, save } from '../lib/storage.ts'
 import type { Language } from '../types.ts'
 
-export const LANGUAGE_KEY = 'hawkinsflow.language.v1'
+export const LANGUAGE_KEY = KEYS.language
 
 function isLanguage(value: unknown): value is Language {
   return value === 'de' || value === 'en'
