@@ -1,6 +1,7 @@
 import { THRESHOLD } from '../data/levels.ts'
 import { QUESTIONS } from '../data/questions.ts'
 import type { Answers, Level } from '../types.ts'
+import { itemAt } from './array.ts'
 
 /* Die Ebenenliste kommt von außen herein, statt hier importiert zu werden — sie
    ist inzwischen übersetzt (siehe `i18n/levels.ts`), und die Auswertung soll
@@ -151,8 +152,8 @@ export function focusRank(scores: LevelScore[]): number {
  */
 export function calibrate(levels: Level[], scores: LevelScore[]): number {
   const rank = focusRank(scores)
-  const lower = levels[Math.floor(rank)]
-  const upper = levels[Math.min(Math.ceil(rank), levels.length - 1)]
+  const lower = itemAt(levels, Math.floor(rank))
+  const upper = itemAt(levels, Math.min(Math.ceil(rank), levels.length - 1))
   const fraction = rank - Math.floor(rank)
 
   return Math.round(lower.value + (upper.value - lower.value) * fraction)
@@ -160,7 +161,7 @@ export function calibrate(levels: Level[], scores: LevelScore[]): number {
 
 /** Die Ebene, auf der ein Kalibrierungswert liegt: die höchste, die er erreicht. */
 export function levelAt(levels: Level[], calibration: number): Level {
-  let found = levels[0]
+  let found = itemAt(levels, 0)
   for (const level of levels) {
     if (calibration >= level.value) found = level
   }
@@ -210,7 +211,7 @@ export function evaluate(levels: Level[], answers: Answers): Result {
     Math.max(leansDown ? dominantRank - 1 : dominantRank, 0),
     levels.length - 2,
   )
-  const band: [Level, Level] = [levels[bandStart], levels[bandStart + 1]]
+  const band: [Level, Level] = [itemAt(levels, bandStart), itemAt(levels, bandStart + 1)]
 
   // Die höchste Ebene, die überhaupt erreichbar scheint — mindestens die
   // dominante, denn unter ihr kann der Spielraum nicht liegen.

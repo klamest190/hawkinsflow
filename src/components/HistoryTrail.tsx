@@ -51,7 +51,10 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
   if (latest === undefined) return null
 
   const latestLevel = levelOf(levels, latest.level)
-  const points = history.map((run, index) => pointAt(levels, run.calibration, index, history.length))
+  const points = history.map((run, index) => ({
+    run,
+    ...pointAt(levels, run.calibration, index, history.length),
+  }))
   const thresholdY = pointAt(levels, THRESHOLD, 0, 1).y
 
   // Einmal gebaut statt je Punkt: `Intl.DateTimeFormat` ist der teuerste Teil
@@ -111,8 +114,7 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
           />
         )}
 
-        {points.map((point, index) => {
-          const run = history[index]
+        {points.map(({ run, ...point }, index) => {
           const color = levelOf(levels, run.level)?.color ?? 'var(--hf-muted)'
           const isLatest = index === history.length - 1
 

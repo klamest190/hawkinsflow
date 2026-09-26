@@ -1,7 +1,8 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
-import { QUESTIONS } from '../data/questions.ts'
+import { ANSWER_VALUES, QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { questionText } from '../i18n/questions.ts'
+import { itemAt } from '../lib/array.ts'
 import type { Answers, AnswerValue, Language } from '../types.ts'
 import { Button } from './Button.tsx'
 
@@ -58,7 +59,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
     if (lost) heading.current?.focus()
   }, [index])
 
-  const question = QUESTIONS[index]
+  const question = itemAt(QUESTIONS, index)
   const current = answers[question.id]
   const isLast = index === QUESTIONS.length - 1
   const progress = (index + (current === undefined ? 0 : 1)) / QUESTIONS.length
@@ -90,7 +91,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
     if (focused === -1) return
     event.preventDefault()
     const step = event.key === 'ArrowDown' ? 1 : -1
-    const next = (focused + step + t.answers.length) % t.answers.length
+    const next = (focused + step + ANSWER_VALUES.length) % ANSWER_VALUES.length
     options.current[next]?.focus()
   }
 
@@ -105,10 +106,10 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
     function onKeyDown(event: KeyboardEvent) {
       if (event.metaKey || event.ctrlKey || event.altKey) return
 
-      const value = t.answers.findIndex((_, position) => event.key === String(position + 1))
-      if (value !== -1) {
+      const value = ANSWER_VALUES.find((candidate) => event.key === String(candidate + 1))
+      if (value !== undefined) {
         event.preventDefault()
-        choose(value as AnswerValue)
+        choose(value)
         return
       }
 
@@ -199,7 +200,8 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
             onKeyDown={moveBetweenOptions}
             className="mt-9 flex flex-col gap-2.5"
           >
-            {t.answers.map((label, value) => {
+            {ANSWER_VALUES.map((value) => {
+              const label = itemAt(t.answers, value)
               const selected = current === value
               const tabStop = current === undefined ? value === 0 : selected
               return (
@@ -212,7 +214,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
                   role="radio"
                   aria-checked={selected}
                   tabIndex={tabStop ? 0 : -1}
-                  onClick={() => choose(value as AnswerValue)}
+                  onClick={() => choose(value)}
                   className={
                     'group flex cursor-pointer items-center gap-4 rounded-2xl border px-5 py-4 text-left ' +
                     'transition-[transform,border-color,background-color,color] duration-200 ' +

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { LEVELS } from '../data/levels.ts'
 import stylesheet from '../index.css?raw'
+import { itemAt } from './array.ts'
 import { mix, oklchToHex, readableOnDark } from './oklch.ts'
 
 /* Der Test, den es ohne das PDF nicht gäbe: `@react-pdf` liest kein OKLCH, und
@@ -17,10 +18,12 @@ describe('oklchToHex', () => {
   it('rechnet ein bekanntes Rot', () => {
     // sRGB-Rot ist oklch(62.8% 0.2577 29.23) — auf ein, zwei Stufen genau.
     const hex = oklchToHex('oklch(0.628 0.2577 29.23)')
-    const [, r, g, b] = /^#(..)(..)(..)$/.exec(hex) as RegExpExecArray
-    expect(parseInt(r, 16)).toBeGreaterThan(250)
-    expect(parseInt(g, 16)).toBeLessThan(6)
-    expect(parseInt(b, 16)).toBeLessThan(6)
+    const match = /^#(..)(..)(..)$/.exec(hex)
+    if (match === null) throw new Error(`not a hex color: ${hex}`)
+    const [r, g, b] = [1, 2, 3].map((group) => parseInt(itemAt(match, group), 16))
+    expect(r).toBeGreaterThan(250)
+    expect(g).toBeLessThan(6)
+    expect(b).toBeLessThan(6)
   })
 
   it('gibt zurück, was es nicht kennt', () => {
@@ -45,7 +48,7 @@ function luminance(hex: string): number {
     const share = byte / 255
     return share <= 0.03928 ? share / 12.92 : ((share + 0.055) / 1.055) ** 2.4
   })
-  return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]
+  return 0.2126 * itemAt(channels, 0) + 0.7152 * itemAt(channels, 1) + 0.0722 * itemAt(channels, 2)
 }
 
 const contrastOnWhite = (hex: string): number => 1.05 / (luminance(hex) + 0.05)
@@ -72,12 +75,12 @@ describe('die Ebenenfarben auf weißem Papier', () => {
 function token(name: string): string {
   const match = new RegExp(`--hf-${name}:\\s*(#[\\da-f]{6})`, 'i').exec(stylesheet)
   if (match === null) throw new Error(`--hf-${name} is missing from index.css`)
-  return match[1]
+  return itemAt(match, 1)
 }
 
 const contrast = (a: string, b: string): number => {
-  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x)
-  return (light + 0.05) / (dark + 0.05)
+  const [first, second] = [luminance(a), luminance(b)]
+  return (Math.max(first, second) + 0.05) / (Math.min(first, second) + 0.05)
 }
 
 describe('level colors on the dark screen', () => {
@@ -86,7 +89,7 @@ describe('level colors on the dark screen', () => {
 
   it('are partly unreadable without the floor', () => {
     // Shame against the card: about 2.6:1. This is why the floor exists.
-    expect(contrast(oklchToHex(LEVELS[0].color), grounds.card)).toBeLessThan(3)
+    expect(contrast(oklchToHex(itemAt(LEVELS, 0).color), grounds.card)).toBeLessThan(3)
   })
 
   it('meet AA 4.5:1 against card and void once raised', () => {

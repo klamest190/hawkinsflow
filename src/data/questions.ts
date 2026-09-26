@@ -1,4 +1,12 @@
-import type { Question } from '../types.ts'
+import type { AnswerValue, Question } from '../types.ts'
+
+/**
+ * The five answers, "never" to "almost always". The labels are in `copy.ts`
+ * (`answers`), one per value in this order — checked in `render.test.tsx`.
+ * A list of values instead of the labels' indices: an index is a `number`,
+ * and turning it into an `AnswerValue` took a cast at every use.
+ */
+export const ANSWER_VALUES: readonly AnswerValue[] = [0, 1, 2, 3, 4]
 
 /* Zwei Fragen pro Ebene, 34 insgesamt. Bewusst gemischt sortiert: stünden sie in
    der Reihenfolge der Skala, würde man das Muster nach fünf Fragen erkennen und

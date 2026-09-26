@@ -98,7 +98,6 @@ const en: QuestionCopy = {
   q34: 'For a while I watch myself instead of feeling like someone things are happening to.',
 }
 
-const QUESTION_TEXT: Record<Language, QuestionCopy> = { de, en }
 
 /* Die Vorlage deckt genau die Fragen aus `data/questions.ts` ab — hier einmal
    nachgerechnet, weil der Compiler das nicht kann: die IDs stehen dort in einem
@@ -108,7 +107,18 @@ if (QUESTIONS.some((question) => !(question.id in de))) {
   throw new Error('Zu mindestens einer Frage aus data/questions.ts fehlt der Text.')
 }
 
+/* A Map rather than the objects themselves: looked up by a plain string, an
+   object gives back `undefined` typed as `string`. */
+const TEXT_BY_ID: Record<Language, Map<string, string>> = {
+  de: new Map(Object.entries(de)),
+  en: new Map(Object.entries(en)),
+}
+
 /** Der Text einer Frage in der gelesenen Sprache. */
 export function questionText(language: Language, id: QuestionId): string {
-  return QUESTION_TEXT[language][id as keyof QuestionCopy]
+  // `QuestionId` is any string; a question without text is broken data, and
+  // saying so beats an empty heading in the questionnaire.
+  const text = TEXT_BY_ID[language].get(id)
+  if (text === undefined) throw new Error(`No ${language} text for question ${id}`)
+  return text
 }

@@ -1,5 +1,6 @@
 import { useRef, useState, type KeyboardEvent } from 'react'
 import type { Copy } from '../i18n/copy.ts'
+import { itemAt } from '../lib/array.ts'
 import type { Practice, Practices } from '../types.ts'
 import { Timer } from './Timer.tsx'
 
@@ -50,7 +51,7 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
     show(target, true)
   }
 
-  const practice: Practice = practices[active]
+  const practice: Practice = itemAt(practices, active)
 
   return (
     <div className="flex flex-col gap-3">
@@ -110,14 +111,16 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
         aria-labelledby={`practice-tab-${active}`}
         tabIndex={-1}
         onTouchStart={(event) => {
-          touchStart.current = event.touches[0].clientX
+          // A touchstart always carries a touch; the type can't know that.
+          touchStart.current = event.touches[0]?.clientX ?? null
         }}
         onTouchEnd={(event) => {
           const from = touchStart.current
           touchStart.current = null
-          if (from === null) return
+          const to = event.changedTouches[0]?.clientX
+          if (from === null || to === undefined) return
 
-          const moved = event.changedTouches[0].clientX - from
+          const moved = to - from
           if (Math.abs(moved) >= SWIPE) show(moved < 0 ? active + 1 : active - 1, false)
         }}
         className="rounded-2xl border border-accent/30 bg-accent/8 p-5"

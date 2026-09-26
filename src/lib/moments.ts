@@ -12,7 +12,7 @@ export const KEEP = 40
 
 /** Ob eine Zeichenkette eine der acht Ebenen unter der Schwelle benennt. */
 export function isBelowLevelId(value: unknown): value is BelowLevelId {
-  return typeof value === 'string' && (BELOW_THRESHOLD as string[]).includes(value)
+  return typeof value === 'string' && BELOW_THRESHOLD.some((id) => id === value)
 }
 
 /**

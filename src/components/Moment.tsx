@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { BELOW_THRESHOLD, CRISIS_BELOW } from '../data/levels.ts'
+import { CRISIS_BELOW } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { MomentCopy } from '../i18n/moment.ts'
+import { isBelowLevelId } from '../lib/moments.ts'
 import { readableOnDark } from '../lib/oklch.ts'
 import type { BelowLevelId, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
@@ -81,7 +82,9 @@ export function Moment({
   const chosen: Level | null =
     level === null ? null : (levels.find((entry) => entry.id === level) ?? null)
 
-  const below = levels.filter((entry) => (BELOW_THRESHOLD as string[]).includes(entry.id))
+  const below = levels.filter(
+    (entry): entry is Level & { id: BelowLevelId } => isBelowLevelId(entry.id),
+  )
 
   function go(next: number) {
     if (next >= STEPS - 1 && level !== null && !recorded.current) {
@@ -139,7 +142,7 @@ export function Moment({
                 <li key={entry.id}>
                   <button
                     type="button"
-                    onClick={() => pick(entry.id as BelowLevelId)}
+                    onClick={() => pick(entry.id)}
                     className={
                       'flex h-full w-full cursor-pointer items-center gap-3 rounded-2xl border ' +
                       'border-line bg-card/50 px-4 py-3.5 text-left transition-[transform,border-color,background-color] ' +

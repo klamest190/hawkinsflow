@@ -7,11 +7,12 @@ import { Quiz } from './components/Quiz.tsx'
 import { Result } from './components/Result.tsx'
 import { ScaleBrowser } from './components/ScaleBrowser.tsx'
 import { BELOW_THRESHOLD } from './data/levels.ts'
-import { QUESTIONS } from './data/questions.ts'
+import { ANSWER_VALUES, QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
 import { momentCopy } from './i18n/moment.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
 import { questionText } from './i18n/questions.ts'
+import { itemAt } from './lib/array.ts'
 import type { BackupData } from './lib/backup.ts'
 import { evaluate } from './lib/scoring.ts'
 import type { Answers, AnswerValue, History, Language, Moments, Plan, Plans } from './types.ts'
@@ -112,7 +113,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onLeave={noop}
       />,
     )
-    expect(html).toContain(questionText(language, QUESTIONS[0].id))
+    expect(html).toContain(questionText(language, itemAt(QUESTIONS, 0).id))
     /* Ohne Antwort geht es nicht weiter: Der Weiter-Knopf ist stumpf, und
        darunter steht, woran es liegt. Stumpf sind hier zwei — „Zurück" hat auf
        der ersten Frage ohnehin kein Ziel. */
@@ -163,7 +164,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     )
     expect(html).toContain(t.emptyTitle)
     expect(html).not.toContain(t.focusLabel)
-    expect(html).not.toContain(levels[0].name)
+    expect(html).not.toContain(itemAt(levels, 0).name)
     expect(html).not.toContain('undefined')
   })
 
@@ -856,6 +857,10 @@ describe.each(LANGUAGES)('accessible structure (%s)', (language) => {
     onDeletePlan: noop, onRestart: noop, onBrowse: noop, onInspect: noop,
   }
 
+  it('has one answer label per answer value', () => {
+    expect(t.answers).toHaveLength(ANSWER_VALUES.length)
+  })
+
   it('gives the questionnaire a page heading and one radio group with one tab stop', () => {
     const quiz = (answers: Answers) =>
       renderToString(
@@ -870,7 +875,7 @@ describe.each(LANGUAGES)('accessible structure (%s)', (language) => {
     // Nothing chosen yet: the first answer is the way in.
     expect(fresh.match(/tabindex="0"/g)).toHaveLength(1)
 
-    const answered = quiz({ [QUESTIONS[0].id]: 3 })
+    const answered = quiz({ [itemAt(QUESTIONS, 0).id]: 3 })
     expect(answered.match(/aria-checked="true"/g)).toHaveLength(1)
     expect(answered.match(/tabindex="0"/g)).toHaveLength(1)
     // The tab stop follows the chosen answer.

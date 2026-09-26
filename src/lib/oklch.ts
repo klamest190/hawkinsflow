@@ -1,3 +1,5 @@
+import { itemAt } from './array.ts'
+
 /* Farben für das PDF.
  *
  * Die 17 Ebenenfarben stehen in `data/levels.ts` als OKLCH — aus gutem Grund:
@@ -82,7 +84,7 @@ function channels(hex: string): [number, number, number] {
   const match = /^#([\da-f]{6})$/i.exec(hex.trim())
   if (match === null) return [0, 0, 0]
 
-  const value = parseInt(match[1], 16)
+  const value = parseInt(itemAt(match, 1), 16)
   return [(value >> 16) & 255, (value >> 8) & 255, value & 255]
 }
 

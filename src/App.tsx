@@ -15,6 +15,7 @@ import { useHistory } from './hooks/useHistory.ts'
 import { useMoments } from './hooks/useMoments.ts'
 import { usePlans } from './hooks/usePlans.ts'
 import { useLanguage } from './hooks/useLanguage.ts'
+import { itemAt } from './lib/array.ts'
 import type { BackupData } from './lib/backup.ts'
 import { readableOnDark } from './lib/oklch.ts'
 import { sortedPlans } from './lib/plans.ts'
@@ -26,7 +27,13 @@ type Phase = 'intro' | 'quiz' | 'result' | 'scale' | 'moment'
 const PHASES: readonly Phase[] = ['intro', 'quiz', 'result', 'scale', 'moment']
 
 function isPhase(value: unknown): value is Phase {
-  return typeof value === 'string' && (PHASES as readonly string[]).includes(value)
+  return typeof value === 'string' && PHASES.some((phase) => phase === value)
+}
+
+/** The view a history entry points to; null for an entry this app didn't write. */
+function phaseOf(state: unknown): Phase | null {
+  if (typeof state !== 'object' || state === null || !('phase' in state)) return null
+  return isPhase(state.phase) ? state.phase : null
 }
 
 export default function App() {
@@ -93,11 +100,7 @@ export default function App() {
     window.history.replaceState({ phase: 'intro' }, '')
 
     function onPop(event: PopStateEvent) {
-      const state: unknown = event.state
-      const target =
-        state !== null && typeof state === 'object' && isPhase((state as { phase?: unknown }).phase)
-          ? (state as { phase: Phase }).phase
-          : 'intro'
+      const target = phaseOf(event.state) ?? 'intro'
       setPhase(target === 'result' && answeredRef.current === 0 ? 'intro' : target)
     }
 
@@ -143,7 +146,7 @@ export default function App() {
             phase === 'moment' && momentLevel !== null
             ? levelIn(language, momentLevel).color
             : phase === 'quiz'
-              ? levels[Math.min(Math.floor((answered / QUESTIONS.length) * levels.length), levels.length - 1)].color
+              ? itemAt(levels, Math.min(Math.floor((answered / QUESTIONS.length) * levels.length), levels.length - 1)).color
               : defaultAccent
 
     document.body.style.setProperty('--hf-accent', accent)

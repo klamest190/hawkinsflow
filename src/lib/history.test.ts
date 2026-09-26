@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { levelsIn } from '../i18n/levels.ts'
 import type { History, HistoryEntry } from '../types.ts'
+import { itemAt } from './array.ts'
 import { clockOf } from './clock.ts'
 import { RETURN_AFTER_DAYS, appendRun, dueRun, isHistory, rankAt } from './history.ts'
 
@@ -27,7 +28,7 @@ describe('appendRun', () => {
     )
 
     expect(history).toHaveLength(1)
-    expect(history[0].calibration).toBe(210)
+    expect(itemAt(history, 0).calibration).toBe(210)
   })
 
   it('behält höchstens vierundzwanzig Durchgänge', () => {

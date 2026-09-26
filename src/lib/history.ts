@@ -1,4 +1,5 @@
 import type { History, HistoryEntry, Level, LevelId } from '../types.ts'
+import { itemAt } from './array.ts'
 
 /**
  * So viele Durchgänge bleiben stehen. Was älter ist, fällt hinten heraus.
@@ -66,8 +67,8 @@ export function appendRun(history: History, entry: HistoryEntry): History {
  */
 export function rankAt(levels: Level[], calibration: number): number {
   for (let rank = 0; rank < levels.length - 1; rank++) {
-    const lower = levels[rank]
-    const upper = levels[rank + 1]
+    const lower = itemAt(levels, rank)
+    const upper = itemAt(levels, rank + 1)
     if (calibration < upper.value) {
       const span = upper.value - lower.value
       return rank + Math.max(0, Math.min(1, (calibration - lower.value) / span))

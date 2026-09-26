@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { BELOW_THRESHOLD, LEVELS, THRESHOLD } from '../data/levels.ts'
 import { momentCopy } from '../i18n/moment.ts'
 import type { Language, Moments } from '../types.ts'
+import { itemAt } from './array.ts'
 import { appendMoment, isBelowLevelId, isMoments } from './moments.ts'
 
 const LANGUAGES: Language[] = ['de', 'en']
@@ -78,7 +79,7 @@ describe('appendMoment', () => {
     }))
     const next = appendMoment(many, { taken: '2026-09-01T00:00:00.000Z', level: 'anger' })
     expect(next).toHaveLength(40)
-    expect(next[0].taken).toBe(many[1].taken)
+    expect(itemAt(next, 0).taken).toBe(itemAt(many, 1).taken)
     expect(next.at(-1)?.level).toBe('anger')
   })
 })

@@ -1773,9 +1773,9 @@ const LOCALIZED: Record<Language, Level[]> = {
   en: LEVELS.map((shape) => ({ ...shape, ...en[shape.id] })),
 }
 
-const LOCALIZED_BY_ID: Record<Language, Record<LevelId, Level>> = {
-  de: Object.fromEntries(LOCALIZED.de.map((level) => [level.id, level])) as Record<LevelId, Level>,
-  en: Object.fromEntries(LOCALIZED.en.map((level) => [level.id, level])) as Record<LevelId, Level>,
+const LOCALIZED_BY_ID: Record<Language, Map<LevelId, Level>> = {
+  de: new Map(LOCALIZED.de.map((level) => [level.id, level])),
+  en: new Map(LOCALIZED.en.map((level) => [level.id, level])),
 }
 
 /** Die 17 Ebenen in einer Sprache, aufsteigend — Index ist der Rang. */
@@ -1785,5 +1785,8 @@ export function levelsIn(language: Language): Level[] {
 
 /** Eine einzelne Ebene in einer Sprache. */
 export function levelIn(language: Language, id: LevelId): Level {
-  return LOCALIZED_BY_ID[language][id]
+  const level = LOCALIZED_BY_ID[language].get(id)
+  // Every id is in LEVELS, and both languages are built from it above.
+  if (level === undefined) throw new Error(`No ${language} level ${id}`)
+  return level
 }
