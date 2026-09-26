@@ -1,8 +1,8 @@
 {
   "name": "Hawkins Flow",
   "short_name": "Hawkins Flow",
-  "description": "Die Skala des Bewusstseins nach David R. Hawkins als Fragebogen: 34 Aussagen, dein Schwerpunkt, und konkrete Schritte auf die nächste Ebene.",
-  "lang": "de",
+  "description": "David R. Hawkins’ Map of Consciousness: 34 statements about the last few weeks, a short flow for the moment something holds you, and concrete steps towards the next level.",
+  "lang": "en",
   "dir": "ltr",
   "id": "/",
   "start_url": "/",
@@ -10,7 +10,10 @@
   "display": "standalone",
   "background_color": "#0b0713",
   "theme_color": "#0b0713",
-  "categories": ["health", "lifestyle"],
+  "categories": [
+    "health",
+    "lifestyle"
+  ],
   "icons": [
     {
       "src": "/icon-192.png",

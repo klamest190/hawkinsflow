@@ -27,8 +27,8 @@ export default defineConfig({
          PDF renderer (about 440 kB gzipped) and its fonts are cached on first
          use instead: the moment flow, the reason for going offline, needs no
          PDF, and preloading 1.7 MB on a first visit is the wrong price.
-       - `manifest: false`: the hand-written `public/manifest.webmanifest` stays
-         the one source. */
+       - `manifest: false`: the hand-written `public/manifest.{de,en}.webmanifest` stay
+         the only source. */
     VitePWA({
       registerType: 'prompt',
       injectRegister: 'script-defer',

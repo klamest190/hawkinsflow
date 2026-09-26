@@ -1,0 +1,37 @@
+{
+  "name": "Hawkins Flow",
+  "short_name": "Hawkins Flow",
+  "description": "Die Skala des Bewusstseins nach David R. Hawkins: 34 Aussagen zu den letzten Wochen, ein Bogen für den Moment, in dem dich etwas festhält, und konkrete Schritte auf die nächste Ebene.",
+  "lang": "de",
+  "dir": "ltr",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0713",
+  "theme_color": "#0b0713",
+  "categories": [
+    "health",
+    "lifestyle"
+  ],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

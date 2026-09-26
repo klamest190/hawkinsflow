@@ -1,6 +1,9 @@
 <!doctype html>
 <!-- Die Schale ist deutsch ausgezeichnet; die tatsächliche Sprache setzt
-     `useLanguage` beim Start auf das <html>-Element, sobald sie feststeht. -->
+     `useLanguage` beim Start auf das <html>-Element, sobald sie feststeht.
+     The shell stays German on purpose: until the app runs, <body> holds only an
+     empty #root, so nothing is read aloud in the wrong language. The static
+     lang and description reach only crawlers and link previews. -->
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
@@ -10,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta
       name="description"
-      content="Die Hawkins-Skala als Fragebogen: 34 Aussagen, deine Kalibrierung, und konkrete Schritte auf die nächste Ebene."
+      content="Die Skala des Bewusstseins nach David R. Hawkins: 34 Aussagen zu den letzten Wochen, ein Bogen für den Moment, in dem dich etwas festhält, und konkrete Schritte auf die nächste Ebene."
     />
     <title>Hawkins Flow</title>
 
@@ -22,7 +25,10 @@
          Start vom Homescreen die Browserleiste weg. Die Icons liegen als PNG
          daneben — die Quellen und der Befehl zum Neubauen stehen in
          `assets/README.md`. -->
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- One manifest per language; `useLanguage` swaps the href so the install
+         card speaks the language of the app. Both carry the same `id`, so
+         they describe one app. -->
+    <link rel="manifest" href="/manifest.de.webmanifest" />
 
     <!-- iOS liest das Manifest bis heute nicht für das Symbol auf dem
          Startbildschirm; ohne diese Zeile nimmt es einen Bildschirmausschnitt.

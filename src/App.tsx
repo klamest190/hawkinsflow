@@ -235,7 +235,7 @@ export default function App() {
           view.current?.focus()
         }}
         className="sr-only z-30 rounded-full bg-card px-5 py-2.5 text-[14px] font-semibold text-text focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
-        style={{ marginTop: 'env(safe-area-inset-top)' }}
+        style={{ marginTop: 'env(safe-area-inset-top)', marginLeft: 'env(safe-area-inset-left)' }}
       >
         {t.skipToContent}
       </a>
@@ -246,7 +246,10 @@ export default function App() {
           davon. Alle vier Ansichten halten diese Ecke deshalb frei. */}
       <div
         className="fixed top-0 right-0 z-20 p-4"
-        style={{ paddingTop: 'calc(env(safe-area-inset-top) + 1rem)' }}
+        style={{
+          paddingTop: 'calc(env(safe-area-inset-top) + 1rem)',
+          paddingRight: 'calc(env(safe-area-inset-right) + 1rem)',
+        }}
       >
         <LanguageToggle language={language} onChange={setLanguage} t={t} />
       </div>
@@ -263,6 +266,10 @@ export default function App() {
         style={{
           paddingTop: 'env(safe-area-inset-top)',
           paddingBottom: 'env(safe-area-inset-bottom)',
+          // In landscape the notch sits at the side, and the views' own 20–24px
+          // of padding is less than its 44px.
+          paddingLeft: 'env(safe-area-inset-left)',
+          paddingRight: 'env(safe-area-inset-right)',
         }}
       >
         {phase === 'intro' && (

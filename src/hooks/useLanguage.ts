@@ -37,6 +37,8 @@ export function useLanguage() {
   useEffect(() => {
     // Wichtig für Screenreader und die Silbentrennung des Browsers.
     document.documentElement.lang = language
+    // The install card: Chrome reads the manifest again when the link changes.
+    document.querySelector('link[rel="manifest"]')?.setAttribute('href', `/manifest.${language}.webmanifest`)
     save(LANGUAGE_KEY, language)
   }, [language])
 

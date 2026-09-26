@@ -41,7 +41,7 @@ src/
   data/            language-neutral level and question data
   i18n/            all text; German is the template, English must match it
   pdf/             the result as PDF (lazy-loaded @react-pdf)
-public/            manifest and icons (see assets/README.md for the icons)
+public/            one manifest per language, and the icons (see assets/README.md)
 ```
 
 ## Your data
