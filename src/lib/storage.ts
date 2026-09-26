@@ -29,3 +29,26 @@ export function clear(key: string): void {
     /* siehe oben */
   }
 }
+
+/** Every key this app writes starts with this — see the hooks in `src/hooks/`. */
+export const KEY_PREFIX = 'hawkinsflow.'
+
+/**
+ * Removes every key of this app except those listed in `keep`. The last resort
+ * of the crash screen, for a failure that comes back after every reload.
+ *
+ * The keys are collected first and removed afterwards: removing while walking
+ * `localStorage.key(i)` shifts the indices and skips every other entry.
+ */
+export function clearAppData(keep: readonly string[] = []): void {
+  try {
+    const keys: string[] = []
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key !== null && key.startsWith(KEY_PREFIX) && !keep.includes(key)) keys.push(key)
+    }
+    for (const key of keys) localStorage.removeItem(key)
+  } catch {
+    /* see above */
+  }
+}
