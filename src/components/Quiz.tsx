@@ -189,6 +189,10 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
               pattern selection follows focus — here choosing moves on to the
               next question, so arrowing through the options would answer and
               leave. Space or Enter chooses, as on any button. */}
+          {/* The group itself takes no focus: its options carry the roving tab
+              stop. A tabIndex here would let a click between two answers
+              focus the group, where the arrow keys have nothing to move. */}
+          {/* oxlint-disable-next-line jsx-a11y/interactive-supports-focus */}
           <div
             role="radiogroup"
             aria-labelledby={headingId}

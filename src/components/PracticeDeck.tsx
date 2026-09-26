@@ -55,6 +55,9 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
   return (
     <div className="flex flex-col gap-3">
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        {/* As in the tabs pattern, the tabs carry the roving tab stop and the
+            list takes no focus of its own. */}
+        {/* oxlint-disable-next-line jsx-a11y/interactive-supports-focus */}
         <div
           role="tablist"
           aria-label={t.practiceDeckLabel}
