@@ -42,6 +42,15 @@ conventions that are not obvious from a single file.
   `BACKUP_VERSION` in `src/lib/backup.ts`. There is no migration step yet; a
   value that fails its guard is treated as absent.
 
+## Types
+
+- `noUncheckedIndexedAccess` is on. Where an index is in range by
+  construction, read it with `itemAt` (`src/lib/array.ts`): it throws, and
+  the throw lands on the crash screen. Where "missing" is a real case, handle
+  it instead. No `!` assertions.
+- Answer values come from `ANSWER_VALUES` (`src/data/questions.ts`), not from
+  the indices of the answer labels.
+
 ## Accessibility
 
 - Each view has exactly one `<h1>`, and heading levels don't skip.
