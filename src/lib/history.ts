@@ -81,3 +81,25 @@ export function rankAt(levels: Level[], calibration: number): number {
 export function levelOf(levels: Level[], id: LevelId): Level | null {
   return levels.find((level) => level.id === id) ?? null
 }
+
+/**
+ * From this many days after the last run on, the start page suggests the next
+ * one. The questionnaire asks about "the last few weeks": three weeks is the
+ * shortest gap after which it no longer measures the same weeks twice.
+ */
+export const RETURN_AFTER_DAYS = 21
+
+/**
+ * The last run, if it is old enough to suggest a new one — with the whole days
+ * since. `null` while there is no run yet, or the last one is recent.
+ *
+ * The history only turns into a line through repetition, and nothing else in
+ * this app reminds anyone: no notifications, only the start page.
+ */
+export function dueRun(history: History, now: Date): { run: HistoryEntry; days: number } | null {
+  const run = history.at(-1)
+  if (run === undefined) return null
+
+  const days = Math.floor((now.getTime() - Date.parse(run.taken)) / 86_400_000)
+  return days >= RETURN_AFTER_DAYS ? { run, days } : null
+}

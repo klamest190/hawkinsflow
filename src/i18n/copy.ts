@@ -226,6 +226,17 @@ const de = {
   historyLatest: 'zuletzt',
   historyClear: 'Verlauf löschen',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
+  // Above the two doors once the last run is three weeks old. One sentence,
+  // no box and no exclamation mark: an offer, not a reminder that nags.
+  // Weeks up to two months, months after that — "11 Wochen" is a count, not
+  // a feeling for how long it has been.
+  returnNudge: (days: number): string => {
+    const span = days < 56 ? `${Math.floor(days / 7)} Wochen` : `${Math.floor(days / 30.4)} Monate`
+    return `Dein letzter Durchgang ist ${span} her.`
+  },
+  // The level name follows in its color, then the full stop.
+  returnNudgeLevel: 'Damals lag dein Schwerpunkt bei',
+  returnNudgeInvite: 'Seitdem sind es andere Wochen — ein guter Zeitpunkt für den nächsten.',
 
   // ── Your data ────────────────────────────────────────────────────────────
   // Sits at the foot of the start page, as quiet as the delete links: saving
@@ -417,6 +428,12 @@ const en: Copy = {
   historyLatest: 'latest',
   historyClear: 'Clear the history',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
+  returnNudge: (days: number): string => {
+    const span = days < 56 ? `${Math.floor(days / 7)} weeks` : `${Math.floor(days / 30.4)} months`
+    return `Your last run was ${span} ago.`
+  },
+  returnNudgeLevel: 'Back then your centre of gravity was',
+  returnNudgeInvite: 'The weeks since are different ones — a good time for the next.',
 
   dataTitle: 'Your data',
   dataLead:

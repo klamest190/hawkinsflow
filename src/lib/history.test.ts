@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { levelsIn } from '../i18n/levels.ts'
 import type { History, HistoryEntry } from '../types.ts'
 import { clockOf } from './clock.ts'
-import { appendRun, isHistory, rankAt } from './history.ts'
+import { RETURN_AFTER_DAYS, appendRun, dueRun, isHistory, rankAt } from './history.ts'
 
 const levels = levelsIn('de')
 
@@ -88,5 +88,27 @@ describe('clockOf', () => {
   it('bleibt bei null stehen', () => {
     expect(clockOf(0)).toBe('0:00')
     expect(clockOf(-3)).toBe('0:00')
+  })
+})
+
+describe('dueRun', () => {
+  const run: HistoryEntry = { taken: '2026-09-01T09:00:00.000Z', level: 'courage', calibration: 214, answered: 34 }
+  const daysLater = (days: number): Date => new Date(Date.parse(run.taken) + days * 86_400_000)
+
+  it('stays quiet without a run', () => {
+    expect(dueRun([], daysLater(400))).toBeNull()
+  })
+
+  it('stays quiet while the last run is recent', () => {
+    expect(dueRun([run], daysLater(RETURN_AFTER_DAYS - 1))).toBeNull()
+  })
+
+  it('speaks up from three weeks on, with the whole days since', () => {
+    expect(dueRun([run], daysLater(RETURN_AFTER_DAYS))).toEqual({ run, days: RETURN_AFTER_DAYS })
+  })
+
+  it('looks only at the last run', () => {
+    const older: HistoryEntry = { ...run, taken: '2026-01-01T09:00:00.000Z' }
+    expect(dueRun([older, run], daysLater(5))).toBeNull()
   })
 })

@@ -4,13 +4,14 @@ import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { MomentCopy } from '../i18n/moment.ts'
 import type { BackupData } from '../lib/backup.ts'
+import { dueRun, levelOf as levelById } from '../lib/history.ts'
+import { readableOnDark } from '../lib/oklch.ts'
 import type { History, Language, Level, LevelId, Moments, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { DataCard } from './DataCard.tsx'
 import { HistoryTrail } from './HistoryTrail.tsx'
 import { Logo } from './Logo.tsx'
 import { MomentTrail } from './MomentTrail.tsx'
-import { readableOnDark } from '../lib/oklch.ts'
 
 type IntroProps = {
   levels: Level[]
@@ -143,6 +144,11 @@ export function Intro({
     levels.find((level) => level.id === plan.level) ?? null
 
   const newestLevel = newest === undefined ? null : levelOf(newest)
+
+  /* Only while no questionnaire is half done: then the door already says
+     "continue at question N", and a second invitation would be noise. */
+  const due = resumeAt === null ? dueRun(history, new Date()) : null
+  const dueLevel = due === null ? null : levelById(levels, due.run.level)
 
   return (
     <div className="animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-16 text-center">
@@ -316,6 +322,23 @@ export function Intro({
           Der Fragebogen-Knopf hat drei Zustände: fertig, angefangen, leer.
           Der fertige kam zuletzt dazu — vorher stand hier nach 34 Antworten
           „Fragebogen starten", und der Knopf löschte sie. */}
+      {due !== null && (
+        <p className="mt-11 -mb-5 max-w-md text-balance text-[14px] leading-relaxed text-muted">
+          {t.returnNudge(due.days)}
+          {dueLevel !== null && (
+            <>
+              {' '}
+              {t.returnNudgeLevel}{' '}
+              <span className="font-semibold" style={{ color: readableOnDark(dueLevel.color) }}>
+                {dueLevel.name}
+              </span>
+              .
+            </>
+          )}{' '}
+          {t.returnNudgeInvite}
+        </p>
+      )}
+
       <div className="mt-11 grid w-full gap-3 sm:grid-cols-2">
         <Door
           label={t.doorQuizLabel}

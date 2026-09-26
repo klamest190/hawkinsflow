@@ -293,6 +293,28 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).not.toContain('undefined')
   })
 
+  it('suggests the next run once the last one is weeks old', () => {
+    // The fixture history ends in March 2026 — always long enough ago.
+    const props = {
+      levels, language, t, m, plans: [], history, moments: [], data: nothingStored,
+      onStart: noop, onBrowse: noop, onResume: noop, onShowResult: noop, onDeletePlan: noop,
+      onClearHistory: noop, onMoment: noop, onClearMoments: noop, onRestore: noop, complete: false,
+    }
+    const html = renderToString(<Intro {...props} resumeAt={null} />)
+    expect(html).toContain(t.returnNudgeInvite)
+    expect(html).toContain(t.returnNudgeLevel)
+    expect(html).toContain(levelIn(language, 'willingness').name)
+
+    // A questionnaire half done: the door already says where to go on.
+    expect(renderToString(<Intro {...props} resumeAt={4} />)).not.toContain(t.returnNudgeInvite)
+  })
+
+  it('counts the gap in weeks, then in months', () => {
+    expect(t.returnNudge(21)).toContain(language === 'de' ? '3 Wochen' : '3 weeks')
+    expect(t.returnNudge(55)).toContain(language === 'de' ? '7 Wochen' : '7 weeks')
+    expect(t.returnNudge(70)).toContain(language === 'de' ? '2 Monate' : '2 months')
+  })
+
   it('Start mit erinnertem Plan', () => {
     const html = renderToString(
       <Intro
