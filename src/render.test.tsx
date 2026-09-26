@@ -838,3 +838,85 @@ describe('Rat, Falle und Maß', () => {
     }
   })
 })
+
+/* The order of headings in a view, as a screen reader's heading list shows it. */
+const headings = (html: string): number[] =>
+  [...html.matchAll(/<h([1-6])[\s>]/g)].map((match) => Number(match[1]))
+
+describe.each(LANGUAGES)('accessible structure (%s)', (language) => {
+  const t = copy[language]
+  const levels = levelsIn(language)
+  const both: Answers = {}
+  for (const question of QUESTIONS) {
+    const ends = ['shame', 'guilt', 'apathy', 'grief', 'fear', 'love', 'joy', 'peace', 'enlightenment']
+    both[question.id] = (ends.includes(question.level) ? 4 : 0) satisfies AnswerValue
+  }
+  const resultProps = {
+    levels, language, t, answered: QUESTIONS.length, plan: null, onSavePlan: noop,
+    onDeletePlan: noop, onRestart: noop, onBrowse: noop, onInspect: noop,
+  }
+
+  it('gives the questionnaire a page heading and one radio group with one tab stop', () => {
+    const quiz = (answers: Answers) =>
+      renderToString(
+        <Quiz answers={answers} language={language} t={t} startIndex={0} onAnswer={noop} onDone={noop} onLeave={noop} />,
+      )
+
+    const fresh = quiz({})
+    expect(headings(fresh)).toEqual([1])
+    expect(fresh.match(/role="radiogroup"/g)).toHaveLength(1)
+    expect(fresh.match(/role="radio"/g)).toHaveLength(t.answers.length)
+    expect(fresh.match(/aria-checked="true"/g)).toBeNull()
+    // Nothing chosen yet: the first answer is the way in.
+    expect(fresh.match(/tabindex="0"/g)).toHaveLength(1)
+
+    const answered = quiz({ [QUESTIONS[0].id]: 3 })
+    expect(answered.match(/aria-checked="true"/g)).toHaveLength(1)
+    expect(answered.match(/tabindex="0"/g)).toHaveLength(1)
+    // The tab stop follows the chosen answer.
+    expect(answered).toMatch(/aria-checked="true" tabindex="0"/)
+  })
+
+  it('puts the result heading before any other, even with the reservation in front', () => {
+    const html = renderToString(<Result result={evaluate(levels, both)} {...resultProps} />)
+    expect(headings(html)[0]).toBe(1)
+    expect(html).toContain('role="note"')
+  })
+
+  it('says how strong each level of the profile is', () => {
+    const result = evaluate(levels, mixed)
+    const html = renderToString(<Result result={result} {...resultProps} />)
+    for (const { level, strength } of result.scores) {
+      const answer = t.answers[Math.round(strength * (t.answers.length - 1))] ?? ''
+      const mark = level.id === result.dominant.id ? 'focus' : level.id === result.drag?.id ? 'drag' : null
+      expect(html, level.id).toContain(t.profileRow(level.name, level.value, answer, mark))
+    }
+  })
+
+  it('makes every level of the scale a heading under the page heading', () => {
+    const html = renderToString(
+      <ScaleBrowser
+        levels={levels}
+        language={language}
+        t={t}
+        open="fear"
+        onOpen={noop}
+        dominant={null}
+        plans={{}}
+        onSavePlan={noop}
+        onDeletePlan={noop}
+        onBack={noop}
+      />,
+    )
+    const levelsOfHeadings = headings(html)
+    expect(levelsOfHeadings[0]).toBe(1)
+    expect(levelsOfHeadings.filter((level) => level === 2)).toHaveLength(levels.length)
+    // No level skipped on the way down: an h3 only ever follows an h2 or h3.
+    levelsOfHeadings.forEach((level, index) => {
+      if (index > 0) expect(level - (levelsOfHeadings[index - 1] ?? 0), `heading ${index}`).toBeLessThanOrEqual(1)
+    })
+    // The open level's button names the panel it controls.
+    expect(html).toContain('aria-controls="level-fear"')
+    expect(html).toContain('id="level-fear"')
+  })
+})

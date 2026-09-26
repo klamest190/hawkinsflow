@@ -1,6 +1,6 @@
 import type { MomentCopy } from '../i18n/moment.ts'
-import type { Language, Level, Moments } from '../types.ts'
 import { readableOnDark } from '../lib/oklch.ts'
+import type { Language, Level, Moments } from '../types.ts'
 
 type MomentTrailProps = {
   moments: Moments
@@ -42,9 +42,9 @@ export function MomentTrail({ moments, levels, language, m, onClear }: MomentTra
   return (
     <section className="p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+        <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
           {m.trailTitle}
-        </p>
+        </h2>
         {latestLevel !== null && (
           <p className="text-[12px] font-semibold" style={{ color: readableOnDark(latestLevel.color) }}>
             {m.trailLatest}: {latestLevel.name}

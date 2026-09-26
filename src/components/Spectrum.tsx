@@ -28,7 +28,20 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
         return (
           <Fragment key={level.id}>
             <li className="flex items-center gap-3">
+              {/* The row as one sentence for screen readers; the name, bar,
+                  number and marker beside it are its picture. Before this, the
+                  profile read as seventeen names and numbers with nothing about
+                  how strong each level was — the whole content of the card. */}
+              <span className="sr-only">
+                {t.profileRow(
+                  level.name,
+                  level.value,
+                  t.answers[Math.round(strength * (t.answers.length - 1))] ?? '',
+                  isDominant ? 'focus' : isDrag ? 'drag' : null,
+                )}
+              </span>
               <span
+                aria-hidden
                 className={
                   'w-[104px] shrink-0 text-right text-[13px] transition-colors ' +
                   (isDominant ? 'font-semibold text-text' : 'text-muted')
@@ -37,7 +50,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
                 {level.name}
               </span>
 
-              <div className="relative h-2.5 flex-1 overflow-hidden rounded-full bg-line/60">
+              <div aria-hidden className="relative h-2.5 flex-1 overflow-hidden rounded-full bg-line/60">
                 <div
                   className="h-full rounded-full transition-[width] duration-700 ease-out"
                   style={{
@@ -52,6 +65,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
               </div>
 
               <span
+                aria-hidden
                 className={
                   'tabular w-[42px] shrink-0 text-[12px] ' +
                   (isDominant ? 'font-semibold text-text' : 'text-muted')
@@ -62,7 +76,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
 
               {/* Zwei Marker, die ohne Farbe auskommen — die Balken sind bunt
                   genug, und Farbe allein trägt keine Bedeutung. */}
-              <span className="w-4 shrink-0 text-[12px] text-muted">
+              <span aria-hidden className="w-4 shrink-0 text-[12px] text-muted">
                 {isDominant ? '◆' : isDrag ? '↓' : ''}
               </span>
             </li>

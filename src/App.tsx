@@ -224,6 +224,22 @@ export default function App() {
     <div className="grain relative min-h-dvh">
       <Aurora />
 
+      {/* Without this, the first tab stop on every screen was the language
+          switch. Focus moves by click and not through the address: a `#main`
+          would push a history entry, and every step back here is read as a
+          change of view (see `popstate` above). */}
+      <a
+        href="#main"
+        onClick={(event) => {
+          event.preventDefault()
+          view.current?.focus()
+        }}
+        className="sr-only z-30 rounded-full bg-card px-5 py-2.5 text-[14px] font-semibold text-text focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+        style={{ marginTop: 'env(safe-area-inset-top)' }}
+      >
+        {t.skipToContent}
+      </a>
+
       {/* Die Sprachwahl steht fest oben rechts und gehört keiner Ansicht: sie
           muss auch mitten im Bogen erreichbar sein. Die Antworten hängen an
           Frage-IDs und nicht an Texten, ein Wechsel kostet also keine einzige
@@ -239,6 +255,7 @@ export default function App() {
           von Notch und Home-Indikator frei. */}
       <main
         ref={view}
+        id="main"
         tabIndex={-1}
         /* Kein Rahmen um die halbe Seite: Der Fokus landet hier nur
            programmatisch, nie durch die Tabulatortaste. */

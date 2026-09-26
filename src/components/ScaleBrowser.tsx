@@ -78,50 +78,56 @@ export function ScaleBrowser({
                   (isOpen ? 'border-line/80 bg-card/80' : 'border-line/50 bg-card/40')
                 }
               >
-                <button
-                  type="button"
-                  onClick={() => onOpen(isOpen ? null : level.id)}
-                  aria-expanded={isOpen}
-                  className="flex w-full cursor-pointer items-center gap-4 px-4 py-3.5 text-left transition-colors hover:bg-card focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent-ink sm:px-5"
-                >
-                  <span
-                    aria-hidden
-                    className="h-9 w-1.5 shrink-0 rounded-full"
-                    style={{ background: level.color, boxShadow: `0 0 14px -2px ${level.color}` }}
-                  />
-                  <span className="tabular w-[46px] shrink-0 font-display text-[19px] font-bold">
-                    {level.value}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[16px] font-semibold">
-                      {level.name}
-                      {isMine && (
-                        <span className="ml-2 align-middle text-[11px] font-medium text-accent-ink">
-                          {t.yourLevel}
-                        </span>
-                      )}
-                    </span>
-                    {/* Im Englischen wäre „Courage · Courage" doppelt gemoppelt —
-                        dort steht deshalb nur das Gefühl. */}
-                    <span className="block truncate text-[13px] text-muted">
-                      {level.name === level.original
-                        ? level.emotion
-                        : `${level.original} · ${level.emotion}`}
-                    </span>
-                  </span>
-                  <span
-                    aria-hidden
-                    className={
-                      'shrink-0 text-[13px] text-muted transition-transform duration-300 ' +
-                      (isOpen ? 'rotate-180' : '')
-                    }
+                {/* The button sits inside a heading, as in the accordion
+                    pattern: with the names only as button text, the 17 levels
+                    could not be reached by heading navigation at all. */}
+                <h2>
+                  <button
+                    type="button"
+                    onClick={() => onOpen(isOpen ? null : level.id)}
+                    aria-expanded={isOpen}
+                    aria-controls={isOpen ? `level-${level.id}` : undefined}
+                    className="flex w-full cursor-pointer items-center gap-4 px-4 py-3.5 text-left transition-colors hover:bg-card focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent-ink sm:px-5"
                   >
-                    ▾
-                  </span>
-                </button>
+                    <span
+                      aria-hidden
+                      className="h-9 w-1.5 shrink-0 rounded-full"
+                      style={{ background: level.color, boxShadow: `0 0 14px -2px ${level.color}` }}
+                    />
+                    <span className="tabular w-[46px] shrink-0 font-display text-[19px] font-bold">
+                      {level.value}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[16px] font-semibold">
+                        {level.name}
+                        {isMine && (
+                          <span className="ml-2 align-middle text-[11px] font-medium text-accent-ink">
+                            {t.yourLevel}
+                          </span>
+                        )}
+                      </span>
+                      {/* Im Englischen wäre „Courage · Courage" doppelt gemoppelt —
+                          dort steht deshalb nur das Gefühl. */}
+                      <span className="block truncate text-[13px] text-muted">
+                        {level.name === level.original
+                          ? level.emotion
+                          : `${level.original} · ${level.emotion}`}
+                      </span>
+                    </span>
+                    <span
+                      aria-hidden
+                      className={
+                        'shrink-0 text-[13px] text-muted transition-transform duration-300 ' +
+                        (isOpen ? 'rotate-180' : '')
+                      }
+                    >
+                      ▾
+                    </span>
+                  </button>
+                </h2>
 
                 {isOpen && (
-                  <div className="animate-rise border-t border-line/60 px-5 py-6 sm:px-7">
+                  <div id={`level-${level.id}`} className="animate-rise border-t border-line/60 px-5 py-6 sm:px-7">
                     <LevelDetail
                       level={level}
                       t={t}

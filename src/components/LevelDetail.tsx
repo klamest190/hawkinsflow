@@ -158,6 +158,7 @@ export function LevelDetail({
           <button
             type="button"
             aria-expanded={open}
+            aria-controls={open ? `${level.id}-more` : undefined}
             onClick={() => setOpen((previous) => !previous)}
             className="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-line bg-void/30 px-5 py-3.5 text-left text-[14px] font-semibold text-text transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
           >
@@ -172,7 +173,11 @@ export function LevelDetail({
               ▾
             </span>
           </button>
-          {open && <div className="animate-rise flex flex-col gap-7">{explanation}</div>}
+          {open && (
+            <div id={`${level.id}-more`} className="animate-rise flex flex-col gap-7">
+              {explanation}
+            </div>
+          )}
         </div>
       )}
 

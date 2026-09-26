@@ -1,8 +1,8 @@
 import { THRESHOLD } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelOf, rankAt } from '../lib/history.ts'
-import type { History, Language, Level } from '../types.ts'
 import { readableOnDark } from '../lib/oklch.ts'
+import type { History, Language, Level } from '../types.ts'
 
 type HistoryTrailProps = {
   history: History
@@ -62,9 +62,9 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
   return (
     <section className="p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+        <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
           {t.historyTitle}
-        </p>
+        </h2>
         {latestLevel !== null && (
           <p className="text-[12px] font-semibold" style={{ color: readableOnDark(latestLevel.color) }}>
             {t.historyLatest}: {latestLevel.name}

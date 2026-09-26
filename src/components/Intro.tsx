@@ -207,9 +207,9 @@ export function Intro({
       {newest !== undefined && (
         <div className="mt-10 w-full rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+            <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
               {t.introPlanLabel}
-            </p>
+            </h2>
             {newestLevel !== null && (
               <p className="text-[12px] font-semibold" style={{ color: readableOnDark(newestLevel.color) }}>
                 {newestLevel.name}
@@ -239,9 +239,9 @@ export function Intro({
               löschbar zu machen. */}
           {older.length > 0 && (
             <div className="mt-5 flex flex-col gap-2.5 border-t border-line pt-4">
-              <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+              <h3 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
                 {t.introPlanOthers}
-              </p>
+              </h3>
               {older.map((plan) => {
                 const level = levelOf(plan)
                 return (

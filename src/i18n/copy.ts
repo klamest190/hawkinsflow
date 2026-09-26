@@ -21,6 +21,8 @@ const de = {
   documentTitle: 'Hawkins Flow — die Skala des Bewusstseins',
 
   languageLabel: 'Sprache',
+  // The first tab stop on every screen, visible only while it has focus.
+  skipToContent: 'Zum Inhalt springen',
   toGerman: 'Auf Deutsch umschalten',
   toEnglish: 'Auf Englisch umschalten',
 
@@ -112,6 +114,13 @@ const de = {
   partial: (answered: number, total: number): string =>
     `${answered} von ${total} Fragen beantwortet — das Bild ist noch vorläufig.`,
   profileTitle: 'Dein Profil',
+  // What a screen reader hears for each bar. The strength is said in the words
+  // of the answer scale rather than as a percentage: the app shows no number
+  // that looks more precise than 34 statements can be, and this is the same
+  // thing the bar shows — the average answer of that level.
+  profileRow: (name: string, value: number, answer: string, mark: 'focus' | 'drag' | null): string =>
+    `${name} (${value}): im Schnitt „${answer}“` +
+    (mark === 'focus' ? ', dein Schwerpunkt' : mark === 'drag' ? ', zieht dich nach unten' : ''),
   profileLead:
     'Niemand steht nur auf einer einzigen Ebene. Alles, was hier leuchtet, ist gerade in dir. Dein Schwerpunkt ist nur der Durchschnitt daraus.',
   dragTitle: 'Was dich nach unten zieht',
@@ -299,6 +308,7 @@ const en: Copy = {
   documentTitle: 'Hawkins Flow — the Map of Consciousness',
 
   languageLabel: 'Language',
+  skipToContent: 'Skip to content',
   toGerman: 'Switch to German',
   toEnglish: 'Switch to English',
 
@@ -357,6 +367,9 @@ const en: Copy = {
   partial: (answered: number, total: number): string =>
     `${answered} of ${total} questions answered — the picture is still provisional.`,
   profileTitle: 'Your profile',
+  profileRow: (name: string, value: number, answer: string, mark: 'focus' | 'drag' | null): string =>
+    `${name} (${value}): on average “${answer}”` +
+    (mark === 'focus' ? ', your centre of gravity' : mark === 'drag' ? ', pulls you down' : ''),
   profileLead:
     'Nobody stands on a single level. Everything lit up here is in you right now. Your centre of gravity is only the average of it.',
   dragTitle: 'What pulls you down',

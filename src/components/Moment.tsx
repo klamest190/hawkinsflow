@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { BELOW_THRESHOLD, CRISIS_BELOW } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { MomentCopy } from '../i18n/moment.ts'
+import { readableOnDark } from '../lib/oklch.ts'
 import type { BelowLevelId, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
 import { PlanBuilder } from './PlanBuilder.tsx'
 import { Timer } from './Timer.tsx'
-import { readableOnDark } from '../lib/oklch.ts'
 
 type MomentProps = {
   /** Alle Ebenen in der gelesenen Sprache; gebraucht werden die unteren acht. */

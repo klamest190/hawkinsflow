@@ -1,15 +1,15 @@
-import { useState, type ReactNode } from 'react'
+import { useState, type ComponentPropsWithoutRef } from 'react'
 import { nextLevelId, THRESHOLD } from '../data/levels.ts'
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
+import { readableOnDark } from '../lib/oklch.ts'
 import type { Result as Evaluation } from '../lib/scoring.ts'
 import { exportResult } from '../pdf/exportResult.ts'
 import type { Language, Level, LevelId, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
 import { Spectrum } from './Spectrum.tsx'
-import { readableOnDark } from '../lib/oklch.ts'
 
 type ResultProps = {
   result: Evaluation
@@ -53,9 +53,10 @@ function DownloadMark({ className = '' }: { className?: string }) {
   )
 }
 
-function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
+function Card({ children, className = '', ...rest }: ComponentPropsWithoutRef<'section'>) {
   return (
     <section
+      {...rest}
       className={
         'rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8 ' + className
       }
@@ -169,10 +170,15 @@ export function Result({
           danach nicht mehr. Bewusst ohne Akzentfarbe — er ist kein Teil des
           Befundes, sondern etwas, das davorsteht. */}
       {result.reservation === 'bothEnds' && (
-        <Card className="animate-pop border-line/80">
-          <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+        /* A note, not a heading: as an <h2> it stood before the page's <h1>.
+           It is still read first — that is the point of putting it here. */
+        <Card className="animate-pop border-line/80" role="note" aria-labelledby="reservation-title">
+          <p
+            id="reservation-title"
+            className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase"
+          >
             {t.bothEndsTitle}
-          </h2>
+          </p>
           <p className="mt-3 text-[15px] leading-relaxed text-text/90">{t.bothEndsBody}</p>
         </Card>
       )}

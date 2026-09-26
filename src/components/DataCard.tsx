@@ -29,8 +29,6 @@ type Status =
   | { kind: 'confirm'; backup: Backup }
   | { kind: 'restored' }
 
-const small = 'px-4 py-2 text-[13.5px]'
-
 /**
  * Saving everything to a file and bringing it back — see `lib/backup.ts` for
  * why this exists. A quiet card at the foot of the start page: saving is
@@ -95,11 +93,11 @@ export function DataCard({ data, language, t, onRestore }: DataCardProps) {
 
       <div className="mt-4 flex flex-wrap gap-2">
         {filled && (
-          <Button variant="ghost" className={small} onClick={save} disabled={status.kind === 'saving'}>
+          <Button variant="ghost" size="sm" onClick={save} disabled={status.kind === 'saving'}>
             {t.dataExport}
           </Button>
         )}
-        <Button variant="ghost" className={small} onClick={() => picker.current?.click()}>
+        <Button variant="ghost" size="sm" onClick={() => picker.current?.click()}>
           {t.dataImport}
         </Button>
         {/* The real picker, out of sight: a file input can't be styled into
@@ -129,10 +127,10 @@ export function DataCard({ data, language, t, onRestore }: DataCardProps) {
             )}
           </p>
           <div className="flex flex-wrap gap-2">
-            <Button variant="ghost" className={small} onClick={() => restore(status.backup)}>
+            <Button variant="ghost" size="sm" onClick={() => restore(status.backup)}>
               {t.dataReplace}
             </Button>
-            <Button variant="quiet" className={small} onClick={() => setStatus({ kind: 'idle' })}>
+            <Button variant="quiet" onClick={() => setStatus({ kind: 'idle' })}>
               {t.dataCancel}
             </Button>
           </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { questionText } from '../i18n/questions.ts'
@@ -23,10 +23,40 @@ const ADVANCE_DELAY = 260
 export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLeave }: QuizProps) {
   const [index, setIndex] = useState(startIndex)
   const timer = useRef<number | undefined>(undefined)
+  const heading = useRef<HTMLHeadingElement>(null)
+  const options = useRef<(HTMLButtonElement | null)[]>([])
+  const headingId = useId()
+  const firstQuestion = useRef(true)
 
   // Ein hängengebliebener Timer würde nach dem Verlassen der Ansicht auf einem
   // nicht mehr vorhandenen Zustand landen — deshalb beim Aufräumen abbrechen.
   useEffect(() => () => window.clearTimeout(timer.current), [])
+
+  /* Each question is a new node (see `key` below), so the answer that had
+     focus is gone after the advance and focus falls to <body>: the next Tab
+     would start at the top of the page again, 34 times in a row, and a screen
+     reader would not hear the new question at all.
+
+     Focus goes to the new question — but only when it was lost. Someone
+     paging with the footer's back button keeps focus on that button, unless
+     the button has just been disabled on the first question: the browser drops
+     focus from it a moment after this effect, so it counts as lost already.
+
+     Not on the first render either: App.tsx has just put the reading point on
+     the view, and a child effect runs before the parent's. */
+  useEffect(() => {
+    if (firstQuestion.current) {
+      firstQuestion.current = false
+      return
+    }
+    const active = document.activeElement
+    const lost =
+      active === null ||
+      active === document.body ||
+      !active.isConnected ||
+      (active instanceof HTMLButtonElement && active.disabled)
+    if (lost) heading.current?.focus()
+  }, [index])
 
   const question = QUESTIONS[index]
   const current = answers[question.id]
@@ -52,6 +82,16 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
       if (isLast) onDone()
       else setIndex((previous) => Math.min(previous + 1, QUESTIONS.length - 1))
     }, ADVANCE_DELAY)
+  }
+
+  function moveBetweenOptions(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return
+    const focused = options.current.findIndex((node) => node === document.activeElement)
+    if (focused === -1) return
+    event.preventDefault()
+    const step = event.key === 'ArrowDown' ? 1 : -1
+    const next = (focused + step + t.answers.length) % t.answers.length
+    options.current[next]?.focus()
   }
 
   /* Der Bogen am Rechner: 1 bis 5 antwortet, die Pfeile blättern. Vierunddreißig
@@ -130,19 +170,45 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
           <p className="text-[11px] font-semibold tracking-[0.18em] text-muted uppercase">
             {t.quizPrompt}
           </p>
-          <h2 className="mt-4 text-balance font-display text-[26px] leading-[1.25] font-semibold sm:text-[30px]">
+          {/* The question is the page heading of this view: without it, the
+              questionnaire was the one screen with no <h1>. */}
+          <h1
+            ref={heading}
+            id={headingId}
+            tabIndex={-1}
+            className="mt-4 text-balance font-display text-[26px] leading-[1.25] font-semibold focus:outline-none sm:text-[30px]"
+          >
             {questionText(language, question.id)}
-          </h2>
+          </h1>
 
-          <div className="mt-9 flex flex-col gap-2.5">
+          {/* A radio group: one choice out of five, announced as "Rarely, 2 of
+              5" instead of five unrelated toggles. One tab stop for the group,
+              the chosen answer or else the first.
+
+              Up and down move focus only, they do not choose. In the standard
+              pattern selection follows focus — here choosing moves on to the
+              next question, so arrowing through the options would answer and
+              leave. Space or Enter chooses, as on any button. */}
+          <div
+            role="radiogroup"
+            aria-labelledby={headingId}
+            onKeyDown={moveBetweenOptions}
+            className="mt-9 flex flex-col gap-2.5"
+          >
             {t.answers.map((label, value) => {
               const selected = current === value
+              const tabStop = current === undefined ? value === 0 : selected
               return (
                 <button
                   key={label}
+                  ref={(node) => {
+                    options.current[value] = node
+                  }}
                   type="button"
+                  role="radio"
+                  aria-checked={selected}
+                  tabIndex={tabStop ? 0 : -1}
                   onClick={() => choose(value as AnswerValue)}
-                  aria-pressed={selected}
                   className={
                     'group flex cursor-pointer items-center gap-4 rounded-2xl border px-5 py-4 text-left ' +
                     'transition-[transform,border-color,background-color,color] duration-200 ' +
@@ -155,6 +221,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
                   {/* Fünf Punkte, die mit der Zustimmung wachsen: die Skala ist
                       auch ohne Lesen erfassbar. */}
                   <span
+                    aria-hidden
                     className={
                       'shrink-0 rounded-full transition-all duration-200 ' +
                       (selected ? 'bg-accent-ink' : 'bg-muted/40 group-hover:bg-accent/60')
@@ -172,7 +239,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
               Tastaturhinweis, und nur dort, wo es eine Tastatur gibt: auf dem
               Handy wäre der Satz ein Rätsel. */}
           {canAdvance ? (
-            <p aria-hidden className="mt-5 hidden text-[12px] text-muted sm:block">
+            <p className="mt-5 hidden text-[12px] text-muted sm:block">
               {t.quizKeyHint}
             </p>
           ) : (
