@@ -1,6 +1,6 @@
-import { useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import type { Copy } from '../i18n/copy.ts'
-import { actionCore } from '../lib/plans.ts'
+import { actionCore, withoutKeyword } from '../lib/plans.ts'
 import type { Level, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 
@@ -19,6 +19,14 @@ type PlanBuilderProps = {
    * mehr, sondern die Aufforderung, es jetzt festzuhalten.
    */
   lead?: string
+  /**
+   * Without a plan, show only the lead and a button that opens the form.
+   *
+   * For the level detail, where the open form was the tallest block of the
+   * result page — two fields and six suggestions before the reader reached
+   * anything below. The moment flow leaves it open: its last step is the plan.
+   */
+  compact?: boolean
   onSave: (when: string, then: string) => void
   onDelete: () => void
 }
@@ -63,18 +71,32 @@ export function PlanBuilder({
   plan,
   t,
   lead = t.planLead,
+  compact = false,
   onSave,
   onDelete,
 }: PlanBuilderProps) {
   const [when, setWhen] = useState(plan?.when ?? '')
   const [then, setThen] = useState(plan?.then ?? '')
-  const [editing, setEditing] = useState(plan === null)
+  const [editing, setEditing] = useState(plan === null && !compact)
+  /* Set when the form opens from the compact button, so focus can follow into
+     the first field once it exists — not on first render, where taking focus
+     unasked would pull the page down to the form. */
+  const focusOnOpen = useRef(false)
 
   const whenField = useRef<HTMLTextAreaElement>(null)
   const thenField = useRef<HTMLTextAreaElement>(null)
   const id = useId()
 
-  const complete = when.trim().length > 0 && then.trim().length > 0
+  useEffect(() => {
+    if (!editing || !focusOnOpen.current) return
+    focusOnOpen.current = false
+    whenField.current?.focus()
+  }, [editing])
+
+  // What is kept: the text without an "If"/"then" the person typed in front.
+  const whenText = withoutKeyword(when, t.planWhen)
+  const thenText = withoutKeyword(then, t.planThen)
+  const complete = whenText.length > 0 && thenText.length > 0
 
   /* Ein Vorschlag setzt den Anfang und gibt den Cursor zurück ins Feld: Die
      Auslöser enden auf „…", und dort soll direkt weitergeschrieben werden. */
@@ -91,7 +113,9 @@ export function PlanBuilder({
 
   function save() {
     if (!complete) return
-    onSave(when.trim(), then.trim())
+    onSave(whenText, thenText)
+    setWhen(whenText)
+    setThen(thenText)
     setEditing(false)
   }
 
@@ -101,14 +125,31 @@ export function PlanBuilder({
   function cancel() {
     setWhen(plan?.when ?? '')
     setThen(plan?.then ?? '')
-    setEditing(plan === null)
+    setEditing(plan === null && !compact)
   }
 
   function remove() {
     onDelete()
     setWhen('')
     setThen('')
+    setEditing(!compact)
+  }
+
+  function open() {
+    focusOnOpen.current = true
     setEditing(true)
+  }
+
+  // ── Closed, no plan yet ──────────────────────────────────────────────────
+  if (!editing && plan === null) {
+    return (
+      <div className="flex flex-col items-start gap-4">
+        <p className="text-[14px] leading-relaxed text-muted">{lead}</p>
+        <Button variant="ghost" onClick={open}>
+          {t.planStart}
+        </Button>
+      </div>
+    )
   }
 
   // ── Der fertige Plan ──────────────────────────────────────────────────────
@@ -210,7 +251,7 @@ export function PlanBuilder({
         <Button onClick={save} disabled={!complete}>
           {t.planSave}
         </Button>
-        {plan !== null && (
+        {(plan !== null || compact) && (
           <Button variant="quiet" onClick={cancel}>
             {t.back}
           </Button>

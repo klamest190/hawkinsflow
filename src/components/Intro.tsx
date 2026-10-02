@@ -6,12 +6,13 @@ import type { MomentCopy } from '../i18n/moment.ts'
 import type { BackupData } from '../lib/backup.ts'
 import { dueRun, levelOf as levelById } from '../lib/history.ts'
 import { readableOnDark } from '../lib/oklch.ts'
-import type { History, Language, Level, LevelId, Moments, Plan } from '../types.ts'
+import type { History, Language, Level, LevelId, Moments, Plan, PlanVerdict } from '../types.ts'
 import { Button } from './Button.tsx'
 import { DataCard } from './DataCard.tsx'
 import { HistoryTrail } from './HistoryTrail.tsx'
 import { Logo } from './Logo.tsx'
 import { MomentTrail } from './MomentTrail.tsx'
+import { PlanCheckIn } from './PlanCheckIn.tsx'
 
 type IntroProps = {
   levels: Level[]
@@ -31,6 +32,10 @@ type IntroProps = {
   /** Alle Wenn-Dann-Pläne, der zuletzt angelegte zuerst; leer beim ersten Besuch. */
   plans: Plan[]
   onDeletePlan: (level: LevelId) => void
+  /** The answer to "has this plan been working?" for the newest plan. */
+  onCheckPlan: (level: LevelId, verdict: PlanVerdict) => void
+  /** Opens a plan's level in the scale, to reword it. */
+  onEditPlan: (level: LevelId) => void
   /** Die abgeschlossenen Durchgänge, ältester zuerst; leer beim ersten Besuch. */
   history: History
   onClearHistory: () => void
@@ -125,6 +130,8 @@ export function Intro({
   onShowResult,
   plans,
   onDeletePlan,
+  onCheckPlan,
+  onEditPlan,
   history,
   onClearHistory,
   moments,
@@ -147,7 +154,8 @@ export function Intro({
 
   /* Only while no questionnaire is half done: then the door already says
      "continue at question N", and a second invitation would be noise. */
-  const due = resumeAt === null ? dueRun(history, new Date()) : null
+  const now = new Date()
+  const due = resumeAt === null ? dueRun(history, now) : null
   const dueLevel = due === null ? null : levelById(levels, due.run.level)
 
   return (
@@ -224,6 +232,19 @@ export function Intro({
             <span className="font-display font-semibold text-accent-ink">{t.planThen}</span>{' '}
             {newest.then}
           </p>
+
+          {/* Only the newest plan is asked about: one question on the start
+              page is an offer, one per plan would be a form. `key` starts the
+              reply afresh when a different plan moves to the top. */}
+          <PlanCheckIn
+            key={newest.level}
+            plan={newest}
+            t={t}
+            now={now}
+            onCheck={(verdict) => onCheckPlan(newest.level, verdict)}
+            onEdit={() => onEditPlan(newest.level)}
+          />
+
           <div className="mt-3 flex justify-end">
             <DeleteLink
               label={t.planDelete}

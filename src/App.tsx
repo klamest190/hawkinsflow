@@ -46,7 +46,7 @@ export default function App() {
      Sie gehen an alle drei Ansichten, die eine Ebene zeigen — Ergebnis, Skala
      und Moment-Bogen. Früher gab es sie nur zu der einen Ebene, auf der man
      gerade herauskam; zu jeder anderen ließ sich nichts vornehmen. */
-  const { plans, savePlan, removePlan, replacePlans } = usePlans()
+  const { plans, savePlan, checkPlan, removePlan, replacePlans } = usePlans()
   /* Und daneben der Verlauf, aus demselben Grund: Er entsteht überhaupt erst
      dadurch, dass jemand den Bogen ein zweites Mal ausfüllt. */
   const { history, record, clearHistory, replaceHistory } = useHistory()
@@ -293,6 +293,13 @@ export default function App() {
             onMoment={openMoment}
             plans={sortedPlans(plans)}
             onDeletePlan={removePlan}
+            onCheckPlan={checkPlan}
+            /* After a "partly" or "no": straight to the level that holds the
+               plan, opened, where it can be reworded. */
+            onEditPlan={(id) => {
+              setOpenLevel(id)
+              browse('intro')
+            }}
             history={history}
             onClearHistory={clearHistory}
             moments={moments}
@@ -321,6 +328,7 @@ export default function App() {
             language={language}
             t={t}
             answered={answered}
+            answers={answers}
             plan={plans[result.dominant.id] ?? null}
             onSavePlan={(when, then) => savePlan(result.dominant.id, when, then)}
             onDeletePlan={() => removePlan(result.dominant.id)}

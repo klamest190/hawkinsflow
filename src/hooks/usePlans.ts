@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
-import { isPlans } from '../lib/plans.ts'
+import { isPlans, revisedPlan, withCheck } from '../lib/plans.ts'
 import { KEYS, clear, load, save } from '../lib/storage.ts'
-import type { LevelId, Plans } from '../types.ts'
+import type { LevelId, PlanVerdict, Plans } from '../types.ts'
 
 const KEY = KEYS.plans
 
@@ -20,10 +20,20 @@ export function usePlans() {
     setPlans((previous) => {
       const next: Plans = {
         ...previous,
-        // An edit keeps the date the plan was first made — `created` orders
-        // the plans on the start page, and rewording one must not move it up.
-        [level]: { level, when, then, created: previous[level]?.created ?? new Date().toISOString() },
+        [level]: revisedPlan(previous[level], { level, when, then }, new Date()),
       }
+      save(KEY, next)
+      return next
+    })
+  }, [])
+
+  /* The answer to the start page's "has it been working?". A plan that was
+     deleted in another tab meanwhile is left alone rather than brought back. */
+  const checkPlan = useCallback((level: LevelId, verdict: PlanVerdict) => {
+    setPlans((previous) => {
+      const plan = previous[level]
+      if (plan === undefined) return previous
+      const next: Plans = { ...previous, [level]: withCheck(plan, verdict, new Date()) }
       save(KEY, next)
       return next
     })
@@ -51,5 +61,5 @@ export function usePlans() {
     setPlans(next)
   }, [])
 
-  return { plans, savePlan, removePlan, replacePlans }
+  return { plans, savePlan, checkPlan, removePlan, replacePlans }
 }

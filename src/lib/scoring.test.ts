@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { QUESTIONS } from '../data/questions.ts'
 import { levelsIn } from '../i18n/levels.ts'
-import { calibrate, evaluate, levelAt, reservationOf, scoreLevels } from './scoring.ts'
+import { calibrate, evaluate, levelAt, reservationOf, scoreLevels, weightiest } from './scoring.ts'
 import type { Answers, AnswerValue, LevelId } from '../types.ts'
 
 /* Die Auswertung bekommt die Ebenen von außen und rechnet mit Rang und Wert,
@@ -186,5 +186,28 @@ describe('Band', () => {
     const de = evaluate(levelsIn('de'), answers).band
     const en = evaluate(levelsIn('en'), answers).band
     expect(en.map((level) => level.id)).toEqual(de.map((level) => level.id))
+  })
+})
+
+describe('weightiest', () => {
+  const levels = levelsIn('de')
+
+  it('names the levels that pull hardest, heaviest first, and skips those without weight', () => {
+    const answers: Answers = {}
+    for (const question of QUESTIONS) {
+      answers[question.id] = question.level === 'courage' ? 4 : question.level === 'fear' ? 2 : 0
+    }
+    const scores = scoreLevels(levels, answers)
+    expect(weightiest(scores).map((score) => score.level.id)).toEqual(['courage', 'fear'])
+  })
+
+  it('puts a level answered "almost always" ahead of everything weaker', () => {
+    const answers: Answers = {}
+    QUESTIONS.forEach((question, position) => {
+      answers[question.id] = (question.level === 'reason' ? 4 : position % 3) as AnswerValue
+    })
+    const heaviest = weightiest(scoreLevels(levels, answers))
+    expect(heaviest[0]?.level.id).toBe('reason')
+    expect(heaviest).toHaveLength(3)
   })
 })

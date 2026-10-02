@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { CRISIS_BELOW } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { Level, Plan } from '../types.ts'
+import { Disclosure } from './Disclosure.tsx'
 import { PlanBuilder } from './PlanBuilder.tsx'
 import { PracticeDeck } from './PracticeDeck.tsx'
 
@@ -144,6 +145,7 @@ export function LevelDetail({
           level={level}
           plan={plan}
           t={t}
+          compact
           onSave={onSavePlan}
           onDelete={onDeletePlan}
         />
@@ -151,28 +153,16 @@ export function LevelDetail({
 
       {/* Der Aufklapper. Zeichen, Falle und Maß sind das, was man liest, wenn
           der erste Griff getan ist — nicht das, was zwischen Rat und Übung
-          stehen muss. Ein Knopf und kein <details>: So bekommt er dieselbe
-          Fokusführung und dieselbe Einblendung wie der Rest der App. */}
+          stehen muss. */}
       {collapsible && (
         <div className="flex flex-col gap-7">
-          <button
-            type="button"
-            aria-expanded={open}
-            aria-controls={open ? `${level.id}-more` : undefined}
-            onClick={() => setOpen((previous) => !previous)}
-            className="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-line bg-void/30 px-5 py-3.5 text-left text-[14px] font-semibold text-text transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+          <Disclosure
+            open={open}
+            onToggle={() => setOpen((previous) => !previous)}
+            controls={`${level.id}-more`}
           >
             {open ? t.lessAboutLevel : t.moreAboutLevel}
-            <span
-              aria-hidden
-              className={
-                'text-[13px] text-muted transition-transform duration-300 ' +
-                (open ? 'rotate-180' : '')
-              }
-            >
-              ▾
-            </span>
-          </button>
+          </Disclosure>
           {open && (
             <div id={`${level.id}-more`} className="animate-rise flex flex-col gap-7">
               {explanation}

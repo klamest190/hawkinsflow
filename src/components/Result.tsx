@@ -1,4 +1,4 @@
-import { useState, type ComponentPropsWithoutRef } from 'react'
+import { useId, useState, type ComponentPropsWithoutRef } from 'react'
 import { nextLevelId, THRESHOLD } from '../data/levels.ts'
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
@@ -6,10 +6,12 @@ import { levelIn } from '../i18n/levels.ts'
 import { readableOnDark } from '../lib/oklch.ts'
 import type { Result as Evaluation } from '../lib/scoring.ts'
 import { exportResult } from '../pdf/exportResult.ts'
-import type { Language, Level, LevelId, Plan } from '../types.ts'
+import type { Answers, Language, Level, LevelId, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
+import { Disclosure } from './Disclosure.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
 import { Spectrum } from './Spectrum.tsx'
+import { Why } from './Why.tsx'
 
 type ResultProps = {
   result: Evaluation
@@ -18,6 +20,8 @@ type ResultProps = {
   t: Copy
   /** Wie viele der Fragen beantwortet wurden — unter allen gilt ein Vorbehalt. */
   answered: number
+  /** The answers themselves, for "what tipped the balance". */
+  answers: Answers
   /** Der Wenn-Dann-Plan zur dominanten Ebene; null, solange keiner steht. */
   plan: Plan | null
   onSavePlan: (when: string, then: string) => void
@@ -72,6 +76,7 @@ export function Result({
   language,
   t,
   answered,
+  answers,
   plan,
   onSavePlan,
   onDeletePlan,
@@ -84,6 +89,8 @@ export function Result({
      Renderers, und ohne Rückmeldung sieht das aus wie ein toter Knopf. */
   const [exporting, setExporting] = useState(false)
   const [exportFailed, setExportFailed] = useState(false)
+  const [originOpen, setOriginOpen] = useState(false)
+  const originId = useId()
 
   const { band, calibration, dominant, drag, reach, scores } = result
   const nextId = nextLevelId(dominant.id)
@@ -274,14 +281,9 @@ export function Result({
         />
       </Card>
 
-      {/* ── Das Profil ───────────────────────────────────────────────────── */}
-      <Card>
-        <h2 className="font-display text-xl font-semibold">{t.profileTitle}</h2>
-        <p className="mt-1.5 mb-6 text-[14px] leading-relaxed text-muted">{t.profileLead}</p>
-        <Spectrum scores={scores} dominant={dominant.id} drag={drag?.id ?? null} t={t} />
-      </Card>
-
-      {/* ── Was zieht und was trägt ──────────────────────────────────────── */}
+      {/* ── Was zieht und was trägt ────────────────────────────────────────
+          Stays in view: both name a level to work on or to trust, and the
+          button under the drag leads to it. */}
       {(drag !== null || reach.id !== dominant.id) && (
         <div className="grid gap-4 sm:grid-cols-2">
           {drag !== null && (
@@ -311,6 +313,30 @@ export function Result({
               <p className="text-[14px] leading-relaxed text-muted">{t.reachBody}</p>
             </Card>
           )}
+        </div>
+      )}
+
+      {/* ── How this came about ────────────────────────────────────────────
+          Folded: the profile and the statements behind the result explain,
+          they don't help, and open they made the page twice as long before
+          the next step. Whoever wants to check the result opens them. */}
+      <Disclosure open={originOpen} onToggle={() => setOriginOpen((previous) => !previous)} controls={originId}>
+        {t.originToggle}
+      </Disclosure>
+
+      {originOpen && (
+        <div id={originId} className="animate-rise flex flex-col gap-6">
+          <Card>
+            <h2 className="font-display text-xl font-semibold">{t.whyTitle}</h2>
+            <p className="mt-1.5 mb-6 text-[14px] leading-relaxed text-muted">{t.whyLead(levels.length)}</p>
+            <Why scores={scores} answers={answers} language={language} t={t} />
+          </Card>
+
+          <Card>
+            <h2 className="font-display text-xl font-semibold">{t.profileTitle}</h2>
+            <p className="mt-1.5 mb-6 text-[14px] leading-relaxed text-muted">{t.profileLead}</p>
+            <Spectrum scores={scores} dominant={dominant.id} drag={drag?.id ?? null} t={t} />
+          </Card>
         </div>
       )}
 

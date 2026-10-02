@@ -113,6 +113,14 @@ const de = {
     `Die Schwelle liegt bei ${threshold} (${courage}). Darunter kostet der Alltag mehr Kraft, als er zurückgibt. Genau deshalb merkt man dort jeden Schritt nach oben besonders deutlich.`,
   partial: (answered: number, total: number): string =>
     `${answered} von ${total} Fragen beantwortet — das Bild ist noch vorläufig.`,
+  // The folded part of the result: how the centre of gravity came about.
+  // Folded because it explains rather than helps — and it was half the page.
+  originToggle: 'Wie das zustande kam',
+  whyTitle: 'Was den Ausschlag gab',
+  whyLead: (levels: number): string =>
+    `Dein Schwerpunkt ist ein gewichtetes Mittel über alle ${levels} Ebenen. Kräftige Antworten zählen dabei weit mehr als schwache, deshalb ziehen wenige Ebenen fast allein. Bei dir hatten diese das meiste Gewicht:`,
+  // Read out before the answer next to each statement; hidden on screen.
+  whyAnswerPrefix: 'Deine Antwort:',
   profileTitle: 'Dein Profil',
   // What a screen reader hears for each bar. The strength is said in the words
   // of the answer scale rather than as a percentage: the app shows no number
@@ -220,6 +228,33 @@ const de = {
   // insgesamt vorgenommen hat, soll dafür nicht siebzehn Ebenen aufklappen.
   introPlanOthers: 'Früher angelegt',
   planDeleteLabel: (level: string): string => `Plan zu ${level} löschen`,
+  // Where a level is looked up (result, scale), the form waits behind this
+  // button; the moment flow, which ends in the plan, shows it open.
+  planStart: 'Plan anlegen',
+  // Asked on the start page once a plan has stood for a week. The labels are
+  // the answers to the question and nothing more.
+  planCheckQuestion: 'Hat dieser Plan zuletzt gegriffen?',
+  planVerdicts: { held: 'Ja', partly: 'Teilweise', missed: 'Nein' },
+  // What follows each answer. "Partly" and "no" point at the trigger: an
+  // if–then plan rarely fails at the "then".
+  planCheckReply: {
+    held: 'Gut. Dann bleibt er stehen — in einer Woche fragen wir wieder.',
+    partly:
+      'Dann liegt es oft am „Wenn“: Kam die Situation vor, und hast du sie im Moment bemerkt? Ein genauerer Auslöser hilft meist mehr als ein neuer Vorsatz.',
+    missed:
+      'Das liegt selten am Willen und meistens am „Wenn“. Entweder war der Auslöser zu vage, oder die Situation kam gar nicht vor. Schreib ihn so, dass du ihn im Moment wiedererkennst.',
+  },
+  planRework: 'Plan ändern',
+  // The tally under a plan, in the words of the three answers.
+  planTally: (held: number, partly: number, missed: number): string =>
+    'Bisher: ' +
+    [
+      held > 0 ? `${held} × ja` : '',
+      partly > 0 ? `${partly} × teilweise` : '',
+      missed > 0 ? `${missed} × nein` : '',
+    ]
+      .filter((part) => part !== '')
+      .join(' · '),
 
   // ── Der Verlauf ──────────────────────────────────────────────────────────
   // Steht auf der Startseite unter dem Plan. Der Ton bleibt vorsichtig: Aus
@@ -231,7 +266,7 @@ const de = {
   // halben Satz passt. Weglassen lässt er sich nicht: Eine Linie sieht aus wie
   // eine Messreihe, und eine ist sie nicht.
   historyLead: (runs: number): string =>
-    runs < 2 ? 'Ab dem zweiten Durchgang wird daraus eine Linie.' : `${runs} Tage, keine Messreihe.`,
+    runs < 2 ? 'Ab dem zweiten Durchgang wird daraus eine Linie.' : `${runs} Durchgänge, keine Messreihe.`,
   historyLatest: 'zuletzt',
   historyClear: 'Verlauf löschen',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
@@ -366,6 +401,11 @@ const en: Copy = {
     `The threshold sits at ${threshold} (${courage}). Below it, daily life costs more strength than it gives back. That is exactly why every step upward is so noticeable down there.`,
   partial: (answered: number, total: number): string =>
     `${answered} of ${total} questions answered — the picture is still provisional.`,
+  originToggle: 'How this came about',
+  whyTitle: 'What tipped the balance',
+  whyLead: (levels: number): string =>
+    `Your centre of gravity is a weighted average across all ${levels} levels. Strong answers count far more than weak ones, so a few levels do nearly all the pulling. For you, these carried the most weight:`,
+  whyAnswerPrefix: 'Your answer:',
   profileTitle: 'Your profile',
   profileRow: (name: string, value: number, answer: string, mark: 'focus' | 'drag' | null): string =>
     `${name} (${value}): on average “${answer}”` +
@@ -432,12 +472,32 @@ const en: Copy = {
   introPlanLabel: 'Your plan',
   introPlanOthers: 'Made earlier',
   planDeleteLabel: (level: string): string => `Delete the plan for ${level}`,
+  planStart: 'Make a plan',
+  planCheckQuestion: 'Has this plan been working lately?',
+  planVerdicts: { held: 'Yes', partly: 'Partly', missed: 'No' },
+  planCheckReply: {
+    held: 'Good. Then it stays as it is — we will ask again in a week.',
+    partly:
+      'Then it is often the “if”: did the situation come up, and did you notice it when it did? A sharper trigger usually helps more than a new intention.',
+    missed:
+      'That is rarely about willpower and usually about the “if”. Either the trigger was too vague or the situation never came up. Word it so that you would recognise it in the moment.',
+  },
+  planRework: 'Change the plan',
+  planTally: (held: number, partly: number, missed: number): string =>
+    'So far: ' +
+    [
+      held > 0 ? `${held} × yes` : '',
+      partly > 0 ? `${partly} × partly` : '',
+      missed > 0 ? `${missed} × no` : '',
+    ]
+      .filter((part) => part !== '')
+      .join(' · '),
 
   historyTitle: 'Your runs',
   historyLead: (runs: number): string =>
     runs < 2
       ? 'From the second run on, this becomes a line.'
-      : `${runs} days, not a measurement series.`,
+      : `${runs} runs, not a measurement series.`,
   historyLatest: 'latest',
   historyClear: 'Clear the history',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,

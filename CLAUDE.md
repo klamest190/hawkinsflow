@@ -41,6 +41,11 @@ conventions that are not obvious from a single file.
 - Changing a stored shape means bumping the key's version and
   `BACKUP_VERSION` in `src/lib/backup.ts`. There is no migration step yet; a
   value that fails its guard is treated as absent.
+- An added *optional* field is not a shape change: old values still pass the
+  guard, and older code ignores the field. That is how `Plan.revised` and
+  `Plan.checks` came in. The guard still checks the field whenever it is
+  there. Bumping `BACKUP_VERSION` would make every earlier backup file
+  unloadable, so don't do it for an additive change.
 
 ## Types
 
@@ -55,7 +60,8 @@ conventions that are not obvious from a single file.
 
 - Each view has exactly one `<h1>`, and heading levels don't skip.
 - `App.tsx` moves focus to `<main>` on every view change; the questionnaire
-  moves it to the new question when the answer that had it unmounts.
+  moves it to the new question when the answer that had it unmounts; the
+  compact plan form moves it into the "if" field when it opens.
 - The questionnaire's answers are a radio group whose options carry the tab
   stop; the practice deck is a tab list. Both disable
   `jsx-a11y/interactive-supports-focus` on the container on purpose.
@@ -66,8 +72,14 @@ conventions that are not obvious from a single file.
 
 - Vitest runs in Node. `src/render.test.tsx` renders every view in both
   languages with `renderToString`; it sees markup, not effects or clicks.
-- Behaviour that needs a browser (focus, offline, file download) has been
-  checked by hand in headless Chrome; there is no browser test suite.
+- Behaviour that needs a browser (focus, clicks through a flow, file
+  download and upload, offline) is in `e2e/` and runs with Playwright against
+  the production build under `vite preview` — the service worker only exists
+  there. Phone viewport, German locale. Each test gets an empty profile; seed
+  storage with `page.evaluate` and reload.
+- A view folded behind a `Disclosure` doesn't appear in `renderToString`.
+  Test the folded component on its own (`Spectrum`, `Why`), not through the
+  view.
 - Vitest normally replaces CSS with an empty string. `vitest.config.ts` lets
   `src/index.css` through so the contrast test can read it via `?raw`.
 

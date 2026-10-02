@@ -146,6 +146,24 @@ export function focusRank(scores: LevelScore[]): number {
 }
 
 /**
+ * The levels that pulled the centre of gravity hardest, heaviest first — the
+ * answer to "why this result?".
+ *
+ * Weighed exactly as `focusRank` weighs them (strength to the power of
+ * `SHARPEN`), so the list names what the calculation actually followed. Levels
+ * with no weight at all are left out; with fewer than `count` answered levels
+ * the list is shorter.
+ */
+export function weightiest(scores: LevelScore[], count = 3): LevelScore[] {
+  return scores
+    .filter((score) => score.strength > 0)
+    .map((score) => ({ score, weight: Math.pow(score.strength, SHARPEN) }))
+    .sort((a, b) => b.weight - a.weight)
+    .slice(0, count)
+    .map(({ score }) => score)
+}
+
+/**
  * Der Rang, umgerechnet in Hawkins' Zahlen — zwischen den beiden Nachbarebenen
  * interpoliert. Diese Zahl bestimmt, welche Ebene die dominante ist, und sie
  * wird bewusst nicht angezeigt: siehe die Anmerkung an `Result.calibration`.

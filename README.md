@@ -2,12 +2,14 @@
 
 David R. Hawkins' Map of Consciousness as a self-reflection app: 17 levels from
 Shame (20) to Enlightenment (700), a 34-statement questionnaire, a
-four-step "moment" flow for when a feeling takes over, if-then plans, and a
-history of runs. German and English.
+four-step "moment" flow for when a feeling takes over, if-then plans that
+ask after a week whether they held, and a history of runs. German and English.
 
 The app says plainly that Hawkins' method is not scientifically supported; the
 result is meant as a prompt for reflection, not a measurement. It shows a level
 and a band between two neighbouring levels, never the interpolated number.
+Folded under the result, "how this came about" names the levels that carried
+the most weight and the person's own answers to their statements.
 
 ## Stack
 
@@ -25,8 +27,11 @@ tracking: everything is stored in `localStorage` on the device.
 | `npm run typecheck` | `tsc -b` only                                  |
 | `npm run lint`      | oxlint, including jsx-a11y                     |
 | `npm run test`      | Vitest                                         |
+| `npm run test:e2e`  | Playwright: builds, serves the preview, runs the flows in Chromium |
 
-CI runs typecheck, lint, test and build on every push to `main`.
+CI runs typecheck, lint, test and build on every push to `main`, and the
+Playwright flows as a second job. Locally, Playwright needs its Chromium once:
+`npx playwright install chromium`.
 
 ## Layout
 
@@ -41,6 +46,8 @@ src/
   data/            language-neutral level and question data
   i18n/            all text; German is the template, English must match it
   pdf/             the result as PDF (lazy-loaded @react-pdf)
+e2e/               Playwright flows: questionnaire, moment, plan, check-in,
+                   backup, offline
 public/            one manifest per language, and the icons (see assets/README.md)
 ```
 

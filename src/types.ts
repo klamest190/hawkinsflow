@@ -225,6 +225,30 @@ export type Plan = {
   then: string
   /** ISO-Datum der Anlage — die Startseite zeigt, seit wann der Plan steht. */
   created: string
+  /**
+   * ISO time `when` or `then` was last reworded; absent until the first edit.
+   * A reworded plan is a new attempt: its check-ins start over from here.
+   */
+  revised?: string
+  /**
+   * Whether the plan held, each time the start page asked — oldest first, and
+   * only since the last rewording. Optional, so plans saved before check-ins
+   * existed still pass `isPlans` without a migration.
+   */
+  checks?: PlanCheck[]
+}
+
+/**
+ * The answer to "has the plan been working?". Three and not two: "partly" is
+ * the common case, and it asks for a sharper trigger, not a new plan.
+ */
+export type PlanVerdict = 'held' | 'partly' | 'missed'
+
+/** One check-in on a plan. */
+export type PlanCheck = {
+  /** ISO time of the answer. */
+  at: string
+  verdict: PlanVerdict
 }
 
 /** Höchstens ein Plan je Ebene; mehr wären eine Liste und kein Vorsatz. */

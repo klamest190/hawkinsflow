@@ -5,7 +5,11 @@ import { Intro } from './components/Intro.tsx'
 import { Moment } from './components/Moment.tsx'
 import { Quiz } from './components/Quiz.tsx'
 import { Result } from './components/Result.tsx'
+import { PlanBuilder } from './components/PlanBuilder.tsx'
+import { PlanCheckIn } from './components/PlanCheckIn.tsx'
 import { ScaleBrowser } from './components/ScaleBrowser.tsx'
+import { Spectrum } from './components/Spectrum.tsx'
+import { Why } from './components/Why.tsx'
 import { BELOW_THRESHOLD } from './data/levels.ts'
 import { ANSWER_VALUES, QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
@@ -14,7 +18,7 @@ import { levelIn, levelsIn } from './i18n/levels.ts'
 import { questionText } from './i18n/questions.ts'
 import { itemAt } from './lib/array.ts'
 import type { BackupData } from './lib/backup.ts'
-import { evaluate } from './lib/scoring.ts'
+import { evaluate, weightiest } from './lib/scoring.ts'
 import type { Answers, AnswerValue, History, Language, Moments, Plan, Plans } from './types.ts'
 
 /* Ein Rauchtest: jede Ansicht einmal rendern, und zwar in jeder Sprache. Er
@@ -77,6 +81,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onResume={noop}
         complete={false}
         onShowResult={noop}
+        onCheckPlan={noop}
+        onEditPlan={noop}
         plans={[]}
         onDeletePlan={noop}
         history={[]}
@@ -154,6 +160,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         language={language}
         t={t}
         answered={0}
+        answers={{}}
         plan={null}
         onSavePlan={noop}
         onDeletePlan={noop}
@@ -182,6 +189,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         language={language}
         t={t}
         answered={QUESTIONS.length}
+        answers={same}
         plan={null}
         onSavePlan={noop}
         onDeletePlan={noop}
@@ -212,6 +220,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         language={language}
         t={t}
         answered={QUESTIONS.length}
+        answers={both}
         plan={null}
         onSavePlan={noop}
         onDeletePlan={noop}
@@ -235,6 +244,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         language={language}
         t={t}
         answered={QUESTIONS.length}
+        answers={mixed}
         plan={null}
         onSavePlan={noop}
         onDeletePlan={noop}
@@ -243,8 +253,31 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onInspect={noop}
       />,
     )
-    expect(html).toContain(t.profileTitle)
     expect(html).toContain(t.planTitle)
+    /* How the result came about is folded away: the toggle is there, the
+       profile and the statements behind it are not — until it is opened. */
+    expect(html).toContain(t.originToggle)
+    expect(html).toContain('aria-expanded="false"')
+    expect(html).not.toContain(t.profileTitle)
+    expect(html).not.toContain(t.whyTitle)
+    // Without a plan, the level offers one behind a button, not an open form.
+    expect(html).toContain(t.planStart)
+    expect(html).not.toContain(t.planSave)
+    expect(html).not.toContain('undefined')
+  })
+
+  it('names the heaviest levels with the statements and answers behind them', () => {
+    const result = evaluate(levels, mixed)
+    const html = renderToString(<Why scores={result.scores} answers={mixed} language={language} t={t} />)
+    const heaviest = weightiest(result.scores)
+    expect(heaviest).toHaveLength(3)
+    for (const { level } of heaviest) {
+      expect(html).toContain(level.name)
+      for (const question of QUESTIONS.filter((entry) => entry.level === level.id)) {
+        expect(html).toContain(questionText(language, question.id))
+      }
+    }
+    expect(html).toContain(t.whyAnswerPrefix)
     expect(html).not.toContain('undefined')
   })
 
@@ -256,6 +289,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         language={language}
         t={t}
         answered={QUESTIONS.length}
+        answers={mixed}
         plan={plan}
         onSavePlan={noop}
         onDeletePlan={noop}
@@ -298,7 +332,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     // The fixture history ends in March 2026 — always long enough ago.
     const props = {
       levels, language, t, m, plans: [], history, moments: [], data: nothingStored,
-      onStart: noop, onBrowse: noop, onResume: noop, onShowResult: noop, onDeletePlan: noop,
+      onStart: noop, onBrowse: noop, onResume: noop, onShowResult: noop, onDeletePlan: noop, onCheckPlan: noop, onEditPlan: noop,
       onClearHistory: noop, onMoment: noop, onClearMoments: noop, onRestore: noop, complete: false,
     }
     const html = renderToString(<Intro {...props} resumeAt={null} />)
@@ -328,6 +362,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onResume={noop}
         complete={false}
         onShowResult={noop}
+        onCheckPlan={noop}
+        onEditPlan={noop}
         plans={[plan]}
         onDeletePlan={noop}
         history={[]}
@@ -343,6 +379,36 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).toContain(t.introPlanLabel)
     expect(html).toContain(plan.when)
     expect(html).not.toContain('undefined')
+  })
+
+  it('asks whether a plan held once it has stood for a week', () => {
+    const checkIn = (stood: Plan, now: Date) =>
+      renderToString(<PlanCheckIn plan={stood} t={t} now={now} onCheck={noop} onEdit={noop} />)
+    const made = new Date('2026-05-01T09:00:00.000Z')
+    const fresh: Plan = { ...plan, created: made.toISOString() }
+    const sixDays = new Date(made.getTime() + 6 * 86_400_000)
+    const sevenDays = new Date(made.getTime() + 7 * 86_400_000)
+
+    expect(checkIn(fresh, sixDays)).not.toContain(t.planCheckQuestion)
+    const asked = checkIn(fresh, sevenDays)
+    expect(asked).toContain(t.planCheckQuestion)
+    for (const label of Object.values(t.planVerdicts)) expect(asked).toContain(label)
+
+    // Answered three days ago: no question, but the tally.
+    const checked: Plan = {
+      ...fresh,
+      checks: [
+        { at: '2026-05-08T09:00:00.000Z', verdict: 'held' },
+        { at: '2026-05-15T09:00:00.000Z', verdict: 'partly' },
+      ],
+    }
+    const after = checkIn(checked, new Date('2026-05-18T09:00:00.000Z'))
+    expect(after).not.toContain(t.planCheckQuestion)
+    expect(after).toContain(t.planTally(1, 1, 0))
+  })
+
+  it('writes the tally in the words of the answers', () => {
+    expect(t.planTally(2, 0, 1)).toBe(language === 'de' ? 'Bisher: 2 × ja · 1 × nein' : 'So far: 2 × yes · 1 × no')
   })
 
   /* Ein Plan zu einer Ebene, auf der man nicht mehr herauskommt, war früher
@@ -366,6 +432,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onResume={noop}
         complete={false}
         onShowResult={noop}
+        onCheckPlan={noop}
+        onEditPlan={noop}
         plans={[plan, older]}
         onDeletePlan={noop}
         history={[]}
@@ -400,6 +468,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onResume={noop}
         complete={false}
         onShowResult={noop}
+        onCheckPlan={noop}
+        onEditPlan={noop}
         plans={[]}
         onDeletePlan={noop}
         history={[]}
@@ -416,21 +486,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
   })
 
   it('zeichnet die Schwelle ins Profil', () => {
-    const html = renderToString(
-      <Result
-        result={evaluate(levels, mixed)}
-        levels={levels}
-        language={language}
-        t={t}
-        answered={QUESTIONS.length}
-        plan={null}
-        onSavePlan={noop}
-        onDeletePlan={noop}
-        onRestart={noop}
-        onBrowse={noop}
-        onInspect={noop}
-      />,
-    )
+    const result = evaluate(levels, mixed)
+    const html = renderToString(<Spectrum scores={result.scores} dominant={result.dominant.id} t={t} />)
     expect(html).toContain(t.thresholdMark(200))
   })
 
@@ -446,6 +503,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onResume={noop}
         complete={false}
         onShowResult={noop}
+        onCheckPlan={noop}
+        onEditPlan={noop}
         plans={[]}
         onDeletePlan={noop}
         history={history}
@@ -480,6 +539,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onResume={noop}
         complete={false}
         onShowResult={noop}
+        onCheckPlan={noop}
+        onEditPlan={noop}
         plans={[]}
         onDeletePlan={noop}
         history={history.slice(0, 1)}
@@ -564,6 +625,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onResume={noop}
         complete={false}
         onShowResult={noop}
+        onCheckPlan={noop}
+        onEditPlan={noop}
         plans={[]}
         onDeletePlan={noop}
         history={[]}
@@ -599,6 +662,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onResume={noop}
         complete={false}
         onShowResult={noop}
+        onCheckPlan={noop}
+        onEditPlan={noop}
         plans={[]}
         onDeletePlan={noop}
         history={history}
@@ -700,10 +765,19 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
       />,
     )
     expect(html).toContain(t.planTitle)
-    expect(html).toContain(t.planWhenPlaceholder)
-    // Die Schritte der Ebene stehen als Vorschläge unter dem „dann“.
-    expect(html).toContain(t.planStepHint)
+    // In the level detail the form waits behind a button.
+    expect(html).toContain(t.planStart)
+    expect(html).not.toContain(t.planWhenPlaceholder)
     expect(html).not.toContain('undefined')
+
+    // Open — as the moment flow shows it — with the level's steps as
+    // suggestions under the "then".
+    const form = renderToString(
+      <PlanBuilder level={levelIn(language, 'fear')} plan={null} t={t} onSave={noop} onDelete={noop} />,
+    )
+    expect(form).toContain(t.planWhenPlaceholder)
+    expect(form).toContain(t.planStepHint)
+    expect(form).not.toContain(t.planStart)
   })
 
   it('zeigt den gespeicherten Plan der aufgeklappten Ebene', () => {
@@ -853,7 +927,7 @@ describe.each(LANGUAGES)('accessible structure (%s)', (language) => {
     both[question.id] = (ends.includes(question.level) ? 4 : 0) satisfies AnswerValue
   }
   const resultProps = {
-    levels, language, t, answered: QUESTIONS.length, plan: null, onSavePlan: noop,
+    levels, language, t, answered: QUESTIONS.length, answers: both, plan: null, onSavePlan: noop,
     onDeletePlan: noop, onRestart: noop, onBrowse: noop, onInspect: noop,
   }
 
@@ -890,7 +964,9 @@ describe.each(LANGUAGES)('accessible structure (%s)', (language) => {
 
   it('says how strong each level of the profile is', () => {
     const result = evaluate(levels, mixed)
-    const html = renderToString(<Result result={result} {...resultProps} />)
+    const html = renderToString(
+      <Spectrum scores={result.scores} dominant={result.dominant.id} drag={result.drag?.id ?? null} t={t} />,
+    )
     for (const { level, strength } of result.scores) {
       const answer = t.answers[Math.round(strength * (t.answers.length - 1))] ?? ''
       const mark = level.id === result.dominant.id ? 'focus' : level.id === result.drag?.id ? 'drag' : null

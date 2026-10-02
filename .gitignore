@@ -22,3 +22,7 @@ dist-ssr
 # TypeScript incremental build cache — machine-specific, regenerated on every
 # build, and therefore a guaranteed conflict on every merge or rebase.
 *.tsbuildinfo
+
+# Playwright output
+test-results
+playwright-report
