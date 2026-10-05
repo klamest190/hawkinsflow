@@ -8,6 +8,17 @@ import type { AnswerValue, Question } from '../types.ts'
  */
 export const ANSWER_VALUES: readonly AnswerValue[] = [0, 1, 2, 3, 4]
 
+/**
+ * Which wording of the questionnaire a run answered. Every history entry
+ * carries it, so the trail can show where runs stop being comparable.
+ *
+ * Bump it whenever a statement changes meaning — not for a typo. Edition 2
+ * rewrote eight statements (q03, q07, q09, q18, q21, q22, q24, q31) and
+ * pinned the period to three weeks. Runs from before have no edition stored
+ * and count as edition 1.
+ */
+export const QUESTION_EDITION = 2
+
 /* Zwei Fragen pro Ebene, 34 insgesamt. Bewusst gemischt sortiert: stünden sie in
    der Reihenfolge der Skala, würde man das Muster nach fünf Fragen erkennen und
    ab da das Ergebnis mitgestalten statt zu antworten.

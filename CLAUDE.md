@@ -56,6 +56,14 @@ conventions that are not obvious from a single file.
 - Answer values come from `ANSWER_VALUES` (`src/data/questions.ts`), not from
   the indices of the answer labels.
 
+## Questionnaire
+
+- The construction rules for statements are at the top of
+  `src/i18n/questions.ts`; `questions.test.ts` checks the mechanical ones.
+- Rewording a statement so that it means something else bumps
+  `QUESTION_EDITION` (`src/data/questions.ts`). Every run records its
+  edition, and the history trail breaks the line where the edition changes.
+
 ## Accessibility
 
 - Each view has exactly one `<h1>`, and heading levels don't skip.

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import { DataCard } from './components/DataCard.tsx'
+import { HistoryTrail } from './components/HistoryTrail.tsx'
 import { Intro } from './components/Intro.tsx'
 import { Moment } from './components/Moment.tsx'
 import { Quiz } from './components/Quiz.tsx'
@@ -523,6 +524,36 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).toContain('<polyline')
     expect(html).not.toContain('undefined')
     expect(html).not.toContain('NaN')
+  })
+
+  it('trail without a change of questions: one line, no note', () => {
+    const html = renderToString(
+      <HistoryTrail history={history} levels={levels} language={language} t={t} onClear={noop} />,
+    )
+    expect(html.match(/<polyline/g)).toHaveLength(1)
+    expect(html).not.toContain('stroke-dasharray="2 3"')
+    // The sentence minus its date, which is the only part that varies.
+    const [, tail = ''] = t.historyEditionBreak('§').split('§')
+    expect(tail.length).toBeGreaterThan(10)
+    expect(html).not.toContain(tail)
+  })
+
+  /* Two runs on the old questions, two on the new: two stretches of line, a
+     mark between them, and the sentence that says why. */
+  it('trail across a change of questions', () => {
+    const revised: History = [
+      ...history.slice(0, 2),
+      { taken: '2026-04-20T09:00:00.000Z', level: 'courage', calibration: 230, answered: 34, edition: 2 },
+      { taken: '2026-05-20T09:00:00.000Z', level: 'neutrality', calibration: 260, answered: 34, edition: 2 },
+    ]
+    const html = renderToString(
+      <HistoryTrail history={revised} levels={levels} language={language} t={t} onClear={noop} />,
+    )
+    const day = new Intl.DateTimeFormat(language, { day: 'numeric', month: 'short' })
+    expect(html.match(/<circle/g)).toHaveLength(4)
+    expect(html.match(/<polyline/g)).toHaveLength(2)
+    expect(html.match(/stroke-dasharray="2 3"/g)).toHaveLength(1)
+    expect(html).toContain(t.historyEditionBreak(day.format(new Date('2026-04-20T09:00:00.000Z'))))
   })
 
   /* Ein einzelner Durchgang ist der Sonderfall der Linie: Ohne zweiten Punkt

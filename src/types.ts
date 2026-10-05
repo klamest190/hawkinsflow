@@ -271,6 +271,11 @@ export type HistoryEntry = {
   calibration: number
   /** Wie viele Fragen beantwortet waren; unter allen gilt ein Vorbehalt. */
   answered: number
+  /**
+   * The questionnaire edition this run answered (`QUESTION_EDITION`).
+   * Optional, so runs and backups from before it still load: absent means 1.
+   */
+  edition?: number
 }
 
 /** Die Durchgänge, ältester zuerst. */

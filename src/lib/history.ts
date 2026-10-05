@@ -35,7 +35,8 @@ export function isHistory(value: unknown): value is History {
       typeof run.level === 'string' &&
       typeof run.calibration === 'number' &&
       Number.isFinite(run.calibration) &&
-      typeof run.answered === 'number'
+      typeof run.answered === 'number' &&
+      (run.edition === undefined || (Number.isInteger(run.edition) && run.edition >= 1))
     )
   })
 }
@@ -83,10 +84,29 @@ export function levelOf(levels: Level[], id: LevelId): Level | null {
   return levels.find((level) => level.id === id) ?? null
 }
 
+/** The edition a run answered; runs from before editions were stored are 1. */
+export function editionOf(run: HistoryEntry): number {
+  return run.edition ?? 1
+}
+
+/**
+ * The first run that answered a different edition than the one before it — the
+ * point from which the trail is no longer one series. `null` while every run
+ * answered the same questions. With several changes, the latest one: that is
+ * where the comparable stretch the person is looking at begins.
+ */
+export function editionBreak(history: History): HistoryEntry | null {
+  for (let index = history.length - 1; index > 0; index--) {
+    const run = itemAt(history, index)
+    if (editionOf(run) !== editionOf(itemAt(history, index - 1))) return run
+  }
+  return null
+}
+
 /**
  * From this many days after the last run on, the start page suggests the next
- * one. The questionnaire asks about "the last few weeks": three weeks is the
- * shortest gap after which it no longer measures the same weeks twice.
+ * one. The questionnaire asks about "the past three weeks": from here on, it
+ * no longer measures the same weeks twice.
  */
 export const RETURN_AFTER_DAYS = 21
 

@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { QUESTION_EDITION } from '../data/questions.ts'
 import { appendRun, isHistory } from '../lib/history.ts'
 import { KEYS, clear, load, save } from '../lib/storage.ts'
 import type { History, LevelId } from '../types.ts'
@@ -23,6 +24,7 @@ export function useHistory() {
         level,
         calibration,
         answered,
+        edition: QUESTION_EDITION,
       })
       save(KEY, next)
       return next

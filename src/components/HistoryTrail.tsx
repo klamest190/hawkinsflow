@@ -1,6 +1,7 @@
 import { THRESHOLD } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
-import { levelOf, rankAt } from '../lib/history.ts'
+import { editionBreak, editionOf, levelOf, rankAt } from '../lib/history.ts'
+import { itemAt } from '../lib/array.ts'
 import { readableOnDark } from '../lib/oklch.ts'
 import type { History, Language, Level } from '../types.ts'
 
@@ -57,6 +58,27 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
   }))
   const thresholdY = pointAt(levels, THRESHOLD, 0, 1).y
 
+  /* Runs on different editions of the questionnaire answered different
+     statements, so the line doesn't join them: one stretch per edition, and a
+     mark between them. The points stay where they are — they are still where
+     those runs came out. */
+  const stretches: (typeof points)[] = []
+  for (const point of points) {
+    const current = stretches.at(-1)
+    const previous = current?.at(-1)
+    if (current !== undefined && previous !== undefined && editionOf(previous.run) === editionOf(point.run)) {
+      current.push(point)
+    } else {
+      stretches.push([point])
+    }
+  }
+  const breakRun = editionBreak(history)
+  const breaks = stretches.slice(1).map((stretch, index) => {
+    const before = itemAt(stretches, index).at(-1)
+    const after = stretch[0]
+    return before === undefined || after === undefined ? null : (before.x + after.x) / 2
+  })
+
   // Einmal gebaut statt je Punkt: `Intl.DateTimeFormat` ist der teuerste Teil
   // dieser Komponente, und die Grafik braucht ihn für jeden Durchgang.
   const day = new Intl.DateTimeFormat(language, { day: 'numeric', month: 'short' })
@@ -102,16 +124,37 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
           strokeDasharray="3 4"
         />
 
-        {points.length > 1 && (
-          <polyline
-            points={points.map((point) => `${point.x},${point.y}`).join(' ')}
-            fill="none"
-            stroke="var(--hf-muted)"
-            strokeOpacity={0.5}
-            strokeWidth={1.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+        {breaks.map(
+          (x) =>
+            x !== null && (
+              <line
+                key={x}
+                x1={x}
+                x2={x}
+                y1={0}
+                y2={BOX.height}
+                stroke="var(--hf-muted)"
+                strokeOpacity={0.5}
+                strokeWidth={1}
+                strokeDasharray="2 3"
+              />
+            ),
+        )}
+
+        {stretches.map(
+          (stretch) =>
+            stretch.length > 1 && (
+              <polyline
+                key={stretch[0]?.run.taken}
+                points={stretch.map((point) => `${point.x},${point.y}`).join(' ')}
+                fill="none"
+                stroke="var(--hf-muted)"
+                strokeOpacity={0.5}
+                strokeWidth={1.5}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            ),
         )}
 
         {points.map(({ run, ...point }, index) => {
@@ -151,6 +194,12 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
           {t.historyClear}
         </button>
       </div>
+
+      {breakRun !== null && (
+        <p className="mt-1.5 text-[12px] leading-relaxed text-muted">
+          {t.historyEditionBreak(day.format(new Date(breakRun.taken)))}
+        </p>
+      )}
     </section>
   )
 }

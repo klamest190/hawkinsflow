@@ -23,7 +23,7 @@ async function stored(page: Page, key: string): Promise<unknown> {
 }
 
 /** The start page's door to the questionnaire; its title changes with the state. */
-const quizDoor = (page: Page) => page.getByRole('button', { name: /Die letzten Wochen/ })
+const quizDoor = (page: Page) => page.getByRole('button', { name: /Die letzten drei Wochen/ })
 
 test('the questionnaire leads to a result and into the history', async ({ page }) => {
   await page.goto('/')
@@ -65,7 +65,7 @@ test('switching the language mid-questionnaire keeps the answers', async ({ page
   await expect(page.getByText('2 / 34')).toBeVisible()
 
   await page.getByRole('button', { name: 'Auf Englisch umschalten' }).click()
-  await expect(page.getByText('How often has this been true in recent weeks?')).toBeVisible()
+  await expect(page.getByText('How often has this been true over the past three weeks?')).toBeVisible()
   await expect(page.getByText('2 / 34')).toBeVisible()
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   expect(await stored(page, 'hawkinsflow.answers.v1')).toEqual({ q01: 3 })

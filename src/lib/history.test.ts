@@ -3,7 +3,7 @@ import { levelsIn } from '../i18n/levels.ts'
 import type { History, HistoryEntry } from '../types.ts'
 import { itemAt } from './array.ts'
 import { clockOf } from './clock.ts'
-import { RETURN_AFTER_DAYS, appendRun, dueRun, isHistory, rankAt } from './history.ts'
+import { RETURN_AFTER_DAYS, appendRun, dueRun, editionBreak, isHistory, rankAt } from './history.ts'
 
 const levels = levelsIn('de')
 
@@ -76,6 +76,42 @@ describe('isHistory', () => {
     expect(isHistory([{ taken: '2026-01-01', level: 'courage' }])).toBe(false)
     // Eine Zahl, die keine ist, würde die Linie ins Nichts zeichnen.
     expect(isHistory([{ ...run('2026-01-01T09:00:00.000Z', 200), calibration: NaN }])).toBe(false)
+  })
+
+  it('accepts runs with and without an edition', () => {
+    expect(isHistory([run('2026-01-01T09:00:00.000Z', 200), { ...run('2026-02-01T09:00:00.000Z', 210), edition: 2 }])).toBe(true)
+  })
+
+  it('rejects an edition that is not a whole number from 1 up', () => {
+    for (const edition of [0, 1.5, '2', null]) {
+      expect(isHistory([{ ...run('2026-01-01T09:00:00.000Z', 200), edition }]), String(edition)).toBe(false)
+    }
+  })
+})
+
+describe('editionBreak', () => {
+  it('finds nothing while every run answered the same questions', () => {
+    expect(editionBreak([])).toBeNull()
+    expect(editionBreak([run('2026-01-01T09:00:00.000Z', 200), run('2026-02-01T09:00:00.000Z', 210)])).toBeNull()
+  })
+
+  it('counts a run without an edition as edition 1', () => {
+    const history = [
+      run('2026-01-01T09:00:00.000Z', 200),
+      { ...run('2026-02-01T09:00:00.000Z', 210), edition: 1 },
+    ]
+    expect(editionBreak(history)).toBeNull()
+  })
+
+  it('names the first run on the new questions', () => {
+    const first = { ...run('2026-03-01T09:00:00.000Z', 220), edition: 2 }
+    const history = [
+      run('2026-01-01T09:00:00.000Z', 200),
+      run('2026-02-01T09:00:00.000Z', 210),
+      first,
+      { ...run('2026-04-01T09:00:00.000Z', 230), edition: 2 },
+    ]
+    expect(editionBreak(history)).toBe(first)
   })
 })
 

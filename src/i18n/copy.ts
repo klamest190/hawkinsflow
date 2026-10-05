@@ -33,7 +33,7 @@ const de = {
   // Die zwei Türen auf der Startseite. Sie stehen als gleich große Karten
   // nebeneinander und nicht als Knopf über Geisterknopf: Im Alltag ist der
   // Moment-Bogen die häufigere Tür, der Fragebogen die seltene.
-  doorQuizLabel: 'Die letzten Wochen',
+  doorQuizLabel: 'Die letzten drei Wochen',
   doorQuizLead:
     '34 Aussagen, etwa fünf Minuten. Du siehst, wo dein Schwerpunkt liegt und was dort zuerst hilft.',
   doorMomentLabel: 'Jetzt gerade',
@@ -50,7 +50,7 @@ const de = {
     'Hawkins hat seine Werte mit dem kinesiologischen Muskeltest ermittelt. Wissenschaftlich belegt ist das nicht. Nimm das Ergebnis als Anstoß zum Nachdenken, nicht als Diagnose. Wenn dich etwas länger belastet, hilft dir eine Fachperson mehr als eine App.',
 
   // ── Fragebogen ───────────────────────────────────────────────────────────
-  quizPrompt: 'Wie oft trifft das in den letzten Wochen zu?',
+  quizPrompt: 'Wie oft traf das in den letzten drei Wochen zu?',
   quizProgress: (current: number, total: number): string => `${current} / ${total}`,
   quizAbort: '← Abbrechen',
   back: 'Zurück',
@@ -270,6 +270,11 @@ const de = {
   historyLatest: 'zuletzt',
   historyClear: 'Verlauf löschen',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
+  // Under the trail once it spans two editions of the questionnaire. The line
+  // is broken at that point; this says why, with the date of the first run on
+  // the new questions.
+  historyEditionBreak: (date: string): string =>
+    `Seit dem ${date} mit überarbeiteten Fragen — die Punkte davor sind nur bedingt vergleichbar.`,
   // Above the two doors once the last run is three weeks old. One sentence,
   // no box and no exclamation mark: an offer, not a reminder that nags.
   // Weeks up to two months, months after that — "11 Wochen" is a count, not
@@ -350,7 +355,7 @@ const en: Copy = {
   introLead: (questions: number): string =>
     `David R. Hawkins’ Map of Consciousness runs from Shame (20) to Enlightenment (700). ${questions} statements show you where you stand right now, what keeps you there and what a sensible next step would be.`,
   start: 'Start the questionnaire',
-  doorQuizLabel: 'The past weeks',
+  doorQuizLabel: 'The past three weeks',
   doorQuizLead:
     '34 statements, about five minutes. You see where your centre of gravity lies and what helps there first.',
   doorMomentLabel: 'Right now',
@@ -362,7 +367,7 @@ const en: Copy = {
   disclaimer:
     'Hawkins arrived at his values through applied kinesiology (muscle testing). That is not scientifically established. Take the result as something to think about, not as a diagnosis. If something weighs on you for longer, a professional will help you more than an app.',
 
-  quizPrompt: 'How often has this been true in recent weeks?',
+  quizPrompt: 'How often has this been true over the past three weeks?',
   quizProgress: (current: number, total: number): string => `${current} / ${total}`,
   quizAbort: '← Cancel',
   back: 'Back',
@@ -501,6 +506,8 @@ const en: Copy = {
   historyLatest: 'latest',
   historyClear: 'Clear the history',
   historyEntryLabel: (date: string, level: string): string => `${date}: ${level}`,
+  historyEditionBreak: (date: string): string =>
+    `Revised questions since ${date} — the points before compare only loosely.`,
   returnNudge: (days: number): string => {
     const span = days < 56 ? `${Math.floor(days / 7)} weeks` : `${Math.floor(days / 30.4)} months`
     return `Your last run was ${span} ago.`
