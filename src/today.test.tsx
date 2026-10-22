@@ -34,12 +34,10 @@ describe.each(LANGUAGES)('today (%s)', (language) => {
         m={m}
         onStart={noop}
         onBrowse={noop}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         plans={[]}
         onDeletePlan={noop}
         onCheckPlan={noop}
@@ -64,7 +62,7 @@ describe.each(LANGUAGES)('today (%s)', (language) => {
 
   it('keeps offering it once someone has checked in, even without a run', () => {
     const html = intro({ checkIns: [{ at: on(3), level: 'fear' }] })
-    expect(html).toContain(t.checkInToday)
+    expect(html).toContain(t.checkInTitle)
     // The trail card stands for the check-ins alone, too.
     expect(html).toContain(t.checkInTrailTitle)
   })

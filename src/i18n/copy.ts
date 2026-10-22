@@ -36,26 +36,41 @@ const de = {
   toGerman: 'Auf Deutsch umschalten',
   toEnglish: 'Auf Englisch umschalten',
 
+  // ── Navigation ───────────────────────────────────────────────────────────
+  // Short enough that five fit side by side on a phone. "Jetzt" for the
+  // moment flow: the word its door used to carry, and the one that says
+  // what it is for.
+  navLabel: 'Hauptnavigation',
+  navToday: 'Heute',
+  navQuiz: 'Fragebogen',
+  navMoment: 'Jetzt',
+  navScale: 'Skala',
+  navThinking: 'Denken',
+  // Under the moment flow's card in the sidebar, where there is room for it.
+  navMomentLead: 'Vier Schritte, anderthalb Minuten. Für den Moment, in dem dich etwas festhält.',
+
+  // ── Heute ────────────────────────────────────────────────────────────────
+  todayTitle: 'Heute',
+  resumeLead: 'Du hast den Fragebogen angefangen.',
+  // Under the "it has been weeks" note: to the questionnaire's page, not
+  // straight into a new run.
+  nudgeOpen: 'Zum Fragebogen',
+
   // ── Start ────────────────────────────────────────────────────────────────
   introLead: (questions: number): string =>
     `Die Skala des Bewusstseins nach David R. Hawkins reicht von Scham (20) bis Erleuchtung (700). ${questions} Aussagen zeigen dir, wo du gerade stehst, was dich dort hält und was ein sinnvoller nächster Schritt wäre.`,
   start: 'Fragebogen starten',
-  // Die zwei Türen auf der Startseite. Sie stehen als gleich große Karten
-  // nebeneinander und nicht als Knopf über Geisterknopf: Im Alltag ist der
-  // Moment-Bogen die häufigere Tür, der Fragebogen die seltene.
-  doorQuizLabel: 'Die letzten drei Wochen',
-  doorQuizLead:
-    '34 Aussagen, etwa fünf Minuten. Du siehst, wo dein Schwerpunkt liegt und was dort zuerst hilft.',
-  doorMomentLabel: 'Jetzt gerade',
-  doorMomentLead: 'Vier Schritte, anderthalb Minuten. Für den Moment, in dem dich etwas festhält.',
+  // The questionnaire's own page: its title, and what it costs.
+  quizHomeTitle: 'Fragebogen',
+  quizHomeLead:
+    '34 Aussagen über die letzten drei Wochen, etwa fünf Minuten. Du siehst, wo dein Schwerpunkt liegt und was dort zuerst hilft.',
   resume: (question: number): string => `Weiter bei Frage ${question}`,
-  // Steht auf der Startseite, sobald alle Fragen beantwortet sind. Vorher gab
-  // es dort nur „Fragebogen starten“ — und der Knopf löschte die Antworten.
+  // Steht auf der Fragebogen-Seite, sobald alle Fragen beantwortet sind.
+  // Früher gab es dort nur „Fragebogen starten“ — und der Knopf löschte die
+  // Antworten.
   showResult: 'Ergebnis ansehen',
   restartFromScratch: 'Von vorn beginnen',
   browseFirst: 'Erst die Skala ansehen',
-  // Next to it: the two models of thinking, see `i18n/thinking.ts`.
-  thinkingOpen: 'Zwei Arten zu denken',
   // Steht klein unter den Knöpfen. Eine App, die einem Menschen eine Zahl
   // aufschreibt, muss sagen, woher die Zahl kommt.
   disclaimer:
@@ -371,7 +386,8 @@ const de = {
   // ── Heute ────────────────────────────────────────────────────────────────
   // The daily check-in on the start page. It asks for today and not for
   // "your level": that is what the questionnaire answers, over weeks.
-  checkInToday: 'Heute',
+  // Under the page's "Heute", so the card names the day and not the date.
+  checkInTitle: 'Dein Tag',
   checkInQuestion: 'Wo stehst du heute?',
   checkInLead: 'Ein Tipp am Tag. Der Fragebogen misst Wochen, das hier einen Tag.',
   checkInPick: 'Ebene wählen',
@@ -461,19 +477,28 @@ const en: Copy = {
   toGerman: 'Switch to German',
   toEnglish: 'Switch to English',
 
+  navLabel: 'Main navigation',
+  navToday: 'Today',
+  navQuiz: 'Questions',
+  navMoment: 'Now',
+  navScale: 'Scale',
+  navThinking: 'Thinking',
+  navMomentLead: 'Four steps, a minute and a half. For the moment something has hold of you.',
+
+  todayTitle: 'Today',
+  resumeLead: 'You have started the questionnaire.',
+  nudgeOpen: 'Go to the questionnaire',
+
   introLead: (questions: number): string =>
     `David R. Hawkins’ Map of Consciousness runs from Shame (20) to Enlightenment (700). ${questions} statements show you where you stand right now, what keeps you there and what a sensible next step would be.`,
   start: 'Start the questionnaire',
-  doorQuizLabel: 'The past three weeks',
-  doorQuizLead:
-    '34 statements, about five minutes. You see where your centre of gravity lies and what helps there first.',
-  doorMomentLabel: 'Right now',
-  doorMomentLead: 'Four steps, a minute and a half. For the moment something has hold of you.',
+  quizHomeTitle: 'The questionnaire',
+  quizHomeLead:
+    '34 statements about the past three weeks, about five minutes. You see where your centre of gravity lies and what helps there first.',
   resume: (question: number): string => `Continue at question ${question}`,
   showResult: 'See your result',
   restartFromScratch: 'Start over',
   browseFirst: 'Look at the scale first',
-  thinkingOpen: 'Two ways of thinking',
   disclaimer:
     'Hawkins arrived at his values through applied kinesiology (muscle testing). That is not scientifically established. Take the result as something to think about, not as a diagnosis. If something weighs on you for longer, a professional will help you more than an app.',
 
@@ -676,7 +701,7 @@ const en: Copy = {
   returnNudgeLevel: 'Back then your centre of gravity was',
   returnNudgeInvite: 'The weeks since are different ones — a good time for the next.',
 
-  checkInToday: 'Today',
+  checkInTitle: 'Your day',
   checkInQuestion: 'Where are you today?',
   checkInLead: 'One tap a day. The questionnaire measures weeks; this measures a day.',
   checkInPick: 'Choose a level',

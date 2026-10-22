@@ -3,7 +3,9 @@ import { Aurora } from './components/Aurora.tsx'
 import { Intro } from './components/Intro.tsx'
 import { LanguageToggle } from './components/LanguageToggle.tsx'
 import { Moment } from './components/Moment.tsx'
+import { AppBar, Sidebar, TabBar, type Tab } from './components/Navigation.tsx'
 import { Quiz } from './components/Quiz.tsx'
+import { QuizHome } from './components/QuizHome.tsx'
 import { Result } from './components/Result.tsx'
 import { ScaleBrowser } from './components/ScaleBrowser.tsx'
 import { Thinking } from './components/Thinking.tsx'
@@ -28,9 +30,35 @@ import { answeredCount, evaluate } from './lib/scoring.ts'
 import type { BelowLevelId, LevelId } from './types.ts'
 import type { Journal } from './components/Writing.tsx'
 
-type Phase = 'intro' | 'quiz' | 'result' | 'scale' | 'moment' | 'thinking'
+type Phase = 'intro' | 'survey' | 'quiz' | 'result' | 'scale' | 'moment' | 'thinking'
 
-const PHASES: readonly Phase[] = ['intro', 'quiz', 'result', 'scale', 'moment', 'thinking']
+const PHASES: readonly Phase[] = ['intro', 'survey', 'quiz', 'result', 'scale', 'moment', 'thinking']
+
+/**
+ * The two views that run as a flow: the questionnaire and the moment flow.
+ * They hide the navigation and keep their own "cancel". In the middle of 34
+ * statements or of a minute of silence, five other places one tap away are
+ * a distraction, and a stray tap throws someone out of the flow.
+ */
+const FOCUS: readonly Phase[] = ['quiz', 'moment']
+
+/** Which tab a view belongs to — the one the navigation marks. */
+function tabOf(phase: Phase): Tab {
+  switch (phase) {
+    case 'intro':
+      return 'today'
+    case 'survey':
+    case 'quiz':
+    case 'result':
+      return 'quiz'
+    case 'moment':
+      return 'moment'
+    case 'scale':
+      return 'scale'
+    case 'thinking':
+      return 'thinking'
+  }
+}
 
 function isPhase(value: unknown): value is Phase {
   return typeof value === 'string' && PHASES.some((phase) => phase === value)
@@ -90,10 +118,10 @@ export default function App() {
      Farbe der ganzen Oberfläche an ihr hängt — siehe den Effekt weiter unten. */
   const [momentLevel, setMomentLevel] = useState<BelowLevelId | null>(null)
   const [openLevel, setOpenLevel] = useState<LevelId | null>(null)
-  /* Wohin „Zurück" aus der Skalenansicht führt — sie ist von zwei Seiten aus
-     erreichbar, und es wäre unangenehm, aus dem Ergebnis auf der Startseite zu
-     landen. */
-  const [returnTo, setReturnTo] = useState<Phase>('intro')
+  /* Wohin „Zurück" aus der Skalenansicht führt, wenn sie aus dem Ergebnis
+     heraus geöffnet wurde. Null, wenn sie über die Navigation kam: Dann ist sie
+     ein Ort für sich, und ein Zurück darüber wäre doppelt. */
+  const [returnTo, setReturnTo] = useState<Phase | null>(null)
 
   /* Die Fläche, in der die Ansichten liegen — sie fängt beim Wechsel den Fokus.
      Siehe den Effekt weiter unten. */
@@ -238,10 +266,35 @@ export default function App() {
     go('moment')
   }
 
-  function browse(from: Phase) {
+  function browse(from: Phase | null) {
     setReturnTo(from)
     go('scale')
   }
+
+  /* The navigation's one entrance. The questionnaire's tab shows the result
+     once every statement is answered, and the questionnaire's page before:
+     start, or go on where it stopped. */
+  function select(tab: Tab) {
+    switch (tab) {
+      case 'today':
+        go('intro')
+        return
+      case 'quiz':
+        go(complete ? 'result' : 'survey')
+        return
+      case 'moment':
+        openMoment()
+        return
+      case 'scale':
+        browse(null)
+        return
+      case 'thinking':
+        go('thinking')
+        return
+    }
+  }
+
+  const focusMode = FOCUS.includes(phase)
 
   return (
     <div className="grain relative min-h-dvh">
@@ -263,22 +316,39 @@ export default function App() {
         {t.skipToContent}
       </a>
 
-      {/* Die Sprachwahl steht fest oben rechts und gehört keiner Ansicht: sie
-          muss auch mitten im Bogen erreichbar sein. Die Antworten hängen an
-          Frage-IDs und nicht an Texten, ein Wechsel kostet also keine einzige
-          davon. Alle vier Ansichten halten diese Ecke deshalb frei. */}
-      <div
-        className="fixed top-0 right-0 z-20 p-4"
-        style={{
-          paddingTop: 'calc(env(safe-area-inset-top) + 1rem)',
-          paddingRight: 'calc(env(safe-area-inset-right) + 1rem)',
-        }}
-      >
-        <LanguageToggle language={language} onChange={setLanguage} t={t} />
-      </div>
+      {/* Die Sprachwahl muss auch mitten im Bogen erreichbar sein. Die Antworten
+          hängen an Frage-IDs und nicht an Texten, ein Wechsel kostet also keine
+          einzige davon. Im Fokusmodus steht sie deshalb fest oben rechts, und
+          beide Abläufe halten diese Ecke frei; sonst sitzt sie in der
+          Kopfzeile des Telefons und am Fuß der Sidebar. */}
+      {focusMode ? (
+        <div
+          className="fixed top-0 right-0 z-20 p-4"
+          style={{
+            paddingTop: 'calc(env(safe-area-inset-top) + 1rem)',
+            paddingRight: 'calc(env(safe-area-inset-right) + 1rem)',
+          }}
+        >
+          <LanguageToggle language={language} onChange={setLanguage} t={t} />
+        </div>
+      ) : (
+        <>
+          <AppBar t={t} language={language} onLanguage={setLanguage} />
+          <Sidebar
+            active={tabOf(phase)}
+            onSelect={select}
+            t={t}
+            m={m}
+            language={language}
+            onLanguage={setLanguage}
+          />
+        </>
+      )}
 
       {/* Über den Wolken, aber unter dem Korn. Der Padding-Wert hält den Inhalt
-          von Notch und Home-Indikator frei. */}
+          von Notch und Home-Indikator frei; neben der Sidebar rückt alles um
+          ihre Breite ein. */}
+      <div className={focusMode ? '' : 'lg:pl-64'}>
       <main
         ref={view}
         id="main"
@@ -287,7 +357,8 @@ export default function App() {
            programmatisch, nie durch die Tabulatortaste. */
         className="relative z-10 focus:outline-none"
         style={{
-          paddingTop: 'env(safe-area-inset-top)',
+          // The phone's top bar keeps the notch free outside the flows.
+          paddingTop: focusMode ? 'env(safe-area-inset-top)' : undefined,
           paddingBottom: 'env(safe-area-inset-bottom)',
           // In landscape the notch sits at the side, and the views' own 20–24px
           // of padding is less than its 44px.
@@ -305,13 +376,8 @@ export default function App() {
             onResume={() => go('quiz')}
             resumeAt={resumeAt}
             complete={complete}
-            /* Ohne `record`: Der Durchgang steht schon im Verlauf, seit er
-               abgeschlossen wurde. Jeder weitere Besuch wäre sonst ein neuer
-               Punkt auf der Linie. */
-            onShowResult={() => go('result')}
-            onBrowse={() => browse('intro')}
-            onThinking={() => go('thinking')}
-            onMoment={openMoment}
+            onBrowse={() => browse(null)}
+            onOpenQuiz={() => select('quiz')}
             plans={sortedPlans(plans)}
             onDeletePlan={removePlan}
             onCheckPlan={checkPlan}
@@ -319,7 +385,7 @@ export default function App() {
                plan, opened, where it can be reworded. */
             onEditPlan={(id) => {
               setOpenLevel(id)
-              browse('intro')
+              browse(null)
             }}
             history={history}
             onClearHistory={clearHistory}
@@ -334,6 +400,20 @@ export default function App() {
           />
         )}
 
+        {phase === 'survey' && (
+          <QuizHome
+            t={t}
+            resumeAt={resumeAt}
+            complete={complete}
+            onStart={startFresh}
+            onResume={() => go('quiz')}
+            /* Ohne `record`: Der Durchgang steht schon im Verlauf, seit er
+               abgeschlossen wurde. Jeder weitere Besuch wäre sonst ein neuer
+               Punkt auf der Linie. */
+            onShowResult={() => go('result')}
+          />
+        )}
+
         {phase === 'quiz' && (
           <Quiz
             answers={answers}
@@ -342,7 +422,7 @@ export default function App() {
             startIndex={resumeAt ?? 0}
             onAnswer={answer}
             onDone={finish}
-            onLeave={() => go('intro')}
+            onLeave={() => go('survey')}
           />
         )}
 
@@ -382,7 +462,7 @@ export default function App() {
         )}
 
         {phase === 'thinking' && (
-          <Thinking levels={levels} t={t} th={thinkingCopy[language]} onBack={() => go('intro')} />
+          <Thinking levels={levels} th={thinkingCopy[language]} />
         )}
 
         {phase === 'scale' && (
@@ -397,10 +477,15 @@ export default function App() {
             onSavePlan={savePlan}
             onDeletePlan={removePlan}
             journalFor={journalFor}
-            onBack={() => go(returnTo)}
+            onBack={returnTo === null ? undefined : () => go(returnTo)}
           />
         )}
+        {/* Room for the tab bar, so the last card doesn't end up beneath it. */}
+        {!focusMode && <div aria-hidden className="h-24 lg:hidden" />}
       </main>
+      </div>
+
+      {!focusMode && <TabBar active={tabOf(phase)} onSelect={select} t={t} />}
     </div>
   )
 }

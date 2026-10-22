@@ -21,7 +21,8 @@ type ScaleBrowserProps = {
   onDeletePlan: (level: LevelId) => void
   /** The kept writing of a level, for the one that is open. */
   journalFor?: (level: LevelId) => Journal
-  onBack: () => void
+  /** Only when opened from the result: the way back there. */
+  onBack?: () => void
 }
 
 /**
@@ -46,13 +47,15 @@ export function ScaleBrowser({
 
   return (
     <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col px-5 py-8 sm:px-6">
-      <header className="flex items-center justify-between">
-        <Button variant="quiet" onClick={onBack} className="-ml-4">
-          {t.backArrow}
-        </Button>
-      </header>
+      {onBack !== undefined && (
+        <header className="mb-4 flex items-center justify-between">
+          <Button variant="quiet" onClick={onBack} className="-ml-4">
+            {t.backArrow}
+          </Button>
+        </header>
+      )}
 
-      <h1 className="mt-4 font-display text-4xl font-bold tracking-[-0.02em]">{t.scaleTitle}</h1>
+      <h1 className=" font-display text-4xl font-bold tracking-[-0.02em]">{t.scaleTitle}</h1>
       <p className="mt-2.5 text-[15px] leading-relaxed text-muted">
         {t.scaleLead(levels.length, THRESHOLD, courage)}
       </p>

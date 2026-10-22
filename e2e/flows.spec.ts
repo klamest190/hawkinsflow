@@ -22,12 +22,18 @@ async function stored(page: Page, key: string): Promise<unknown> {
   return page.evaluate((name) => JSON.parse(localStorage.getItem(name) ?? 'null'), key)
 }
 
-/** The start page's door to the questionnaire; its title changes with the state. */
-const quizDoor = (page: Page) => page.getByRole('button', { name: /Die letzten drei Wochen/ })
+/** The navigation — on the phone viewport, the tab bar along the bottom. */
+const nav = (page: Page) => page.getByRole('navigation', { name: 'Hauptnavigation' })
+
+/** One place in the navigation, by its exact label. */
+const tab = (page: Page, name: string) => nav(page).getByRole('button', { name, exact: true })
+
+/** The first visit's one button to begin. */
+const startButton = (page: Page) => page.getByRole('button', { name: 'Fragebogen starten' })
 
 test('the questionnaire leads to a result and into the history', async ({ page }) => {
   await page.goto('/')
-  await quizDoor(page).click()
+  await startButton(page).click()
 
   // 1–5 answers and moves on by itself. A varied pattern, since the same
   // answer everywhere is refused as unreadable.
@@ -55,12 +61,14 @@ test('the questionnaire leads to a result and into the history', async ({ page }
   await page.goBack()
   await page.goBack()
   await expect(page.getByRole('heading', { name: 'Deine Durchgänge' })).toBeVisible()
-  await expect(quizDoor(page)).toContainText('Ergebnis ansehen')
+  // Once everything is answered, the questionnaire's tab leads to the result.
+  await tab(page, 'Fragebogen').click()
+  await expect(page.getByText('Dein Schwerpunkt', { exact: true })).toBeVisible()
 })
 
 test('switching the language mid-questionnaire keeps the answers', async ({ page }) => {
   await page.goto('/')
-  await quizDoor(page).click()
+  await startButton(page).click()
   await page.keyboard.press('4')
   await expect(page.getByText('2 / 34')).toBeVisible()
 
@@ -73,7 +81,7 @@ test('switching the language mid-questionnaire keeps the answers', async ({ page
 
 test('the moment flow is recorded on the start page', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: /Ich stecke gerade fest/ }).click()
+  await tab(page, 'Jetzt').click()
   await page.getByRole('button', { name: /Angst/ }).click()
   await page.getByRole('button', { name: 'Weiter' }).click()
   await page.getByRole('button', { name: 'Weiter' }).click()
@@ -86,7 +94,7 @@ test('the moment flow is recorded on the start page', async ({ page }) => {
 
 test('for fear the moment flow breathes first, by the clock', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: /Ich stecke gerade fest/ }).click()
+  await tab(page, 'Jetzt').click()
   await page.getByRole('button', { name: /Angst/ }).click()
   await expect(page.getByRole('heading', { name: 'Erst der Atem' })).toBeVisible()
 
@@ -108,7 +116,7 @@ test('for fear the moment flow breathes first, by the clock', async ({ page }) =
 test('with reduced motion the box breathes without moving', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  await page.getByRole('button', { name: /Ich stecke gerade fest/ }).click()
+  await tab(page, 'Jetzt').click()
   await page.getByRole('button', { name: /Zorn/ }).click()
   await page.getByRole('button', { name: 'Eine Minute atmen' }).click()
 
@@ -121,7 +129,7 @@ test('with reduced motion the box breathes without moving', async ({ page }) => 
 
 test('for apathy the moment flow counts the five senses', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: /Ich stecke gerade fest/ }).click()
+  await tab(page, 'Jetzt').click()
   await page.getByRole('button', { name: /Apathie/ }).click()
   await expect(page.getByRole('heading', { name: 'Erst die Welt' })).toBeVisible()
 
@@ -165,7 +173,7 @@ test('the daily check-in keeps one level per day', async ({ page }) => {
 
 test('writing is kept only on a tap, and can be deleted again', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()
+  await tab(page, 'Skala').click()
   await page.getByRole('button', { name: /Mut/ }).click()
 
   // The writing practice is the first tab; its first question has a field.
@@ -193,30 +201,75 @@ test('writing is kept only on a tap, and can be deleted again', async ({ page })
   // What is not kept is gone after a reload.
   await field.fill('Nur ein Entwurf.')
   await page.reload()
-  await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()
+  await tab(page, 'Skala').click()
   await page.getByRole('button', { name: /Mut/ }).click()
   await expect(page.getByRole('textbox', { name: /am meisten Kraft kosten/ })).toHaveValue('')
 })
 
-test('the two ways of thinking open from the start page and lead back', async ({ page }) => {
+test('the navigation reaches every place and marks where you are', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Zwei Arten zu denken' }).click()
+  await expect(tab(page, 'Heute')).toHaveAttribute('aria-current', 'page')
+
+  await tab(page, 'Denken').click()
   await expect(page.getByRole('heading', { level: 1, name: 'Zwei Arten zu denken' })).toBeVisible()
   await expect(page.locator('main')).toBeFocused()
-  await expect(page.getByRole('heading', { name: 'Die Mind-Hack-Methode' })).toBeVisible()
+  await expect(tab(page, 'Denken')).toHaveAttribute('aria-current', 'page')
+  await expect(tab(page, 'Heute')).not.toHaveAttribute('aria-current', 'page')
   await expect(page.getByRole('heading', { level: 3, name: 'Ermächtigende Entscheidungen' })).toBeVisible()
 
-  // The browser's back button returns to the start page, as the button does.
+  await tab(page, 'Skala').click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Die Skala' })).toBeVisible()
+  // Reached through the navigation, the scale is a place of its own: no back button.
+  await expect(page.getByRole('button', { name: '← Zurück' })).toHaveCount(0)
+
+  await tab(page, 'Fragebogen').click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Fragebogen' })).toBeVisible()
+
+  // The browser's back button steps back through the places.
   await page.goBack()
-  await expect(page.getByRole('button', { name: 'Zwei Arten zu denken' })).toBeVisible()
-  await page.getByRole('button', { name: 'Zwei Arten zu denken' }).click()
-  await page.getByRole('button', { name: '← Zurück' }).click()
-  await expect(page.getByRole('button', { name: 'Erst die Skala ansehen' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Die Skala' })).toBeVisible()
+  await expect(tab(page, 'Skala')).toHaveAttribute('aria-current', 'page')
+})
+
+test('the questionnaire and the moment flow hide the navigation', async ({ page }) => {
+  await page.goto('/')
+  await tab(page, 'Fragebogen').click()
+  await page.getByRole('button', { name: 'Fragebogen starten' }).click()
+  await expect(page.getByText('1 / 34')).toBeVisible()
+  await expect(nav(page)).toHaveCount(0)
+  // The language stays in reach in the middle of the questions.
+  await expect(page.getByRole('button', { name: 'Auf Englisch umschalten' })).toBeVisible()
+
+  // Cancelling leads back to the questionnaire's page, navigation and all.
+  await page.getByRole('button', { name: '← Abbrechen' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Fragebogen' })).toBeVisible()
+  await expect(tab(page, 'Fragebogen')).toHaveAttribute('aria-current', 'page')
+
+  await tab(page, 'Jetzt').click()
+  await expect(page.getByRole('heading', { name: 'Was ist es gerade?' })).toBeVisible()
+  await expect(nav(page)).toHaveCount(0)
+  await page.getByRole('button', { name: '← Abbrechen' }).click()
+  await expect(tab(page, 'Heute')).toHaveAttribute('aria-current', 'page')
+})
+
+test('on a wide screen the navigation is a sidebar', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 })
+  await page.goto('/')
+  const sidebar = page.locator('aside')
+  await expect(sidebar).toBeVisible()
+  await expect(sidebar.getByRole('button', { name: 'Ich stecke gerade fest' })).toBeVisible()
+  await expect(sidebar.getByRole('button', { name: 'Auf Englisch umschalten' })).toBeVisible()
+  // The phone's bar is gone; only the sidebar's list is a navigation now.
+  await expect(page.getByRole('navigation')).toHaveCount(1)
+
+  await sidebar.getByRole('button', { name: 'Skala', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Die Skala' })).toBeVisible()
+  await expect(sidebar.getByRole('button', { name: 'Skala', exact: true })).toHaveAttribute('aria-current', 'page')
 })
 
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()
+  await tab(page, 'Skala').click()
   await page.getByRole('button', { name: /^200\s*Mut/ }).click()
 
   // In the level detail the form waits behind a button that hands focus on.
@@ -298,6 +351,6 @@ test('the installed app opens without a network', async ({ page, context }) => {
   await context.setOffline(true)
   await page.reload()
   await expect(page.getByRole('heading', { name: 'Hawkins Flow', level: 1 })).toBeVisible()
-  await quizDoor(page).click()
+  await startButton(page).click()
   await expect(page.getByText('1 / 34')).toBeVisible()
 })

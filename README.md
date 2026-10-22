@@ -42,7 +42,9 @@ Playwright flows as a second job. Locally, Playwright needs its Chromium once:
 
 ```
 src/
-  App.tsx          views, navigation (History API, no router), accent color
+  App.tsx          views, navigation (History API, no router), accent color;
+                   a tab bar on phones, a sidebar from 1024 px, both hidden
+                   in the questionnaire and the moment flow
   main.tsx         root; renders the crash screen on an uncaught error
   components/      one file per view or building block
   hooks/           one hook per storage key

@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import { Thinking } from './components/Thinking.tsx'
-import { copy } from './i18n/copy.ts'
 import { levelsIn } from './i18n/levels.ts'
 import { thinkingCopy } from './i18n/thinking.ts'
 import type { Language } from './types.ts'
@@ -9,15 +8,13 @@ import type { Language } from './types.ts'
 /* The two models of thinking: their stations and the view that pairs them. */
 
 const LANGUAGES: Language[] = ['de', 'en']
-const noop = () => {}
 
 /** A station name as a literal piece of a pattern — "(Re)Aktionen" has brackets. */
 const escaped = (text: string): string => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 describe.each(LANGUAGES)('two ways of thinking (%s)', (language) => {
-  const t = copy[language]
   const th = thinkingCopy[language]
-  const html = renderToString(<Thinking levels={levelsIn(language)} t={t} th={th} onBack={noop} />)
+  const html = renderToString(<Thinking levels={levelsIn(language)} th={th} />)
 
   /* The view pairs station n of the one model with station n of the other.
      A seventh on one side would stand without its answer. */

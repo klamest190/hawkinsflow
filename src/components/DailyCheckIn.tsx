@@ -44,7 +44,7 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
         className
       }
     >
-      <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">{t.checkInToday}</h2>
+      <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">{t.checkInTitle}</h2>
 
       <div className="mt-2 flex items-center justify-between gap-4">
         {/* One live region for both states, so the change from the question

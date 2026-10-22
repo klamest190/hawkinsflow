@@ -1,16 +1,12 @@
-import type { Copy } from '../i18n/copy.ts'
 import type { Station, ThinkingCopy } from '../i18n/thinking.ts'
 import { itemAt } from '../lib/array.ts'
 import { readableOnDark } from '../lib/oklch.ts'
 import type { Level } from '../types.ts'
-import { Button } from './Button.tsx'
 
 type ThinkingProps = {
   /** All levels in the language read; their colors tint the stations. */
   levels: Level[]
-  t: Copy
   th: ThinkingCopy
-  onBack: () => void
 }
 
 /* Where each model takes its colors on the scale: the ordinary one from shame
@@ -114,20 +110,13 @@ function Side({ tag, station, color, inAppLabel }: { tag: string; station: Stati
  * have to be held against a first one already out of view. Side by side, the
  * contrast is the explanation.
  */
-export function Thinking({ levels, t, th, onBack }: ThinkingProps) {
+export function Thinking({ levels, th }: ThinkingProps) {
   const ordinaryColors = th.ordinary.map((_, index) => itemAt(levels, ORDINARY_FROM + index).color)
   const mindHackColors = th.mindHack.map((_, index) => itemAt(levels, MIND_HACK_FROM + index).color)
 
   return (
     <div className="animate-rise mx-auto flex w-full max-w-3xl flex-col px-5 py-8 sm:px-6">
-      {/* The right padding keeps the corner free for the language switch. */}
-      <header className="flex items-center justify-between pr-24">
-        <Button variant="quiet" onClick={onBack} className="-ml-4">
-          {t.backArrow}
-        </Button>
-      </header>
-
-      <h1 className="mt-4 font-display text-4xl font-bold tracking-[-0.02em] text-balance">{th.title}</h1>
+      <h1 className="font-display text-4xl font-bold tracking-[-0.02em] text-balance">{th.title}</h1>
       <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{th.lead}</p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">

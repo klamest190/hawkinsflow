@@ -24,16 +24,13 @@ type IntroProps = {
   m: MomentCopy
   onStart: () => void
   onBrowse: () => void
-  /** Opens the two models of thinking. */
-  onThinking: () => void
-  /** Die zweite Tür: der Moment-Bogen für das, was gerade ist. */
-  onMoment: () => void
+  /** The questionnaire's own place — where the "it has been weeks" note leads. */
+  onOpenQuiz: () => void
   /** Nur gesetzt, wenn ein angefangener Bogen im Speicher liegt. */
   resumeAt: number | null
   onResume: () => void
   /** Alle Fragen beantwortet: Dann führt der Hauptknopf zum Ergebnis zurück. */
   complete: boolean
-  onShowResult: () => void
   /** Alle Wenn-Dann-Pläne, der zuletzt angelegte zuerst; leer beim ersten Besuch. */
   plans: Plan[]
   onDeletePlan: (level: LevelId) => void
@@ -84,49 +81,6 @@ function DeleteLink({
   )
 }
 
-/**
- * Eine der zwei Türen: die ganze Karte ist der Knopf. Das Etikett nennt den
- * Zeitraum, der Titel die Handlung, die Zeile darunter den Preis. Die erste
- * Tür trägt die Akzentfarbe, die zweite den Kartengrund — gleich groß, damit
- * keine wie der Notausgang der anderen aussieht.
- */
-function Door({
-  label,
-  title,
-  lead,
-  onClick,
-  primary = false,
-}: {
-  label: string
-  title: string
-  lead: string
-  onClick: () => void
-  primary?: boolean
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={
-        'group flex h-full w-full cursor-pointer flex-col gap-2 rounded-3xl border p-5 text-left ' +
-        'transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out ' +
-        'hover:-translate-y-px active:translate-y-0 active:scale-[0.99] ' +
-        'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-ink ' +
-        (primary
-          ? 'border-accent/45 bg-accent/10 shadow-[0_18px_40px_-24px_var(--hf-accent)] hover:border-accent/70 hover:bg-accent/15'
-          : 'border-line bg-card/70 backdrop-blur-sm hover:border-accent/40 hover:bg-card')
-      }
-    >
-      <span className="text-[11px] font-semibold tracking-[0.16em] text-accent-ink uppercase">{label}</span>
-      <span className="font-display text-[19px] leading-snug font-semibold text-text">{title}</span>
-      <span className="text-[13.5px] leading-relaxed text-muted">{lead}</span>
-      <span aria-hidden className="mt-auto pt-1 text-[15px] text-accent-ink transition-transform duration-300 group-hover:translate-x-0.5">
-        →
-      </span>
-    </button>
-  )
-}
-
 export function Intro({
   levels,
   language,
@@ -134,12 +88,10 @@ export function Intro({
   m,
   onStart,
   onBrowse,
-  onThinking,
-  onMoment,
+  onOpenQuiz,
   resumeAt,
   onResume,
   complete,
-  onShowResult,
   plans,
   onDeletePlan,
   onCheckPlan,
@@ -168,8 +120,8 @@ export function Intro({
 
   const newestLevel = newest === undefined ? null : levelOf(newest)
 
-  /* Only while no questionnaire is half done: then the door already says
-     "continue at question N", and a second invitation would be noise. */
+  /* Only while no questionnaire is half done: then the card above already
+     says "continue at question N", and a second invitation would be noise. */
   const now = new Date()
   const due = resumeAt === null ? dueRun(history, now) : null
   const dueLevel = due === null ? null : levelById(levels, due.run.level)
@@ -179,55 +131,124 @@ export function Intro({
      has checked in before, on this device or in a restored backup. */
   const offerCheckIn = history.length > 0 || checkIns.length > 0
 
+  /* Nothing here yet: no run, no plan, no moment, no day, no half-done
+     questionnaire. Then this page is a welcome — what the app is, the scale
+     at a glance, and the one button to begin with. From the first thing
+     stored on, it is the day's page. */
+  const welcome =
+    plans.length === 0 &&
+    history.length === 0 &&
+    moments.length === 0 &&
+    checkIns.length === 0 &&
+    resumeAt === null &&
+    !complete
+
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-16 text-center">
-      <Logo className="h-16 w-16 drop-shadow-[0_8px_28px_rgba(0,0,0,0.5)]" />
+    <div className="animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-12 text-center lg:py-16">
+      {welcome ? (
+        <>
+          <Logo className="h-16 w-16 drop-shadow-[0_8px_28px_rgba(0,0,0,0.5)]" />
 
-      <h1 className="mt-7 font-display text-5xl font-bold tracking-[-0.03em] sm:text-6xl">
-        Hawkins&nbsp;Flow
-      </h1>
-      <p className="mt-4 text-balance text-[17px] leading-relaxed text-muted">
-        {t.introLead(QUESTIONS.length)}
-      </p>
+          <h1 className="mt-7 font-display text-5xl font-bold tracking-[-0.03em] sm:text-6xl">
+            Hawkins&nbsp;Flow
+          </h1>
+          <p className="mt-4 text-balance text-[17px] leading-relaxed text-muted">
+            {t.introLead(QUESTIONS.length)}
+          </p>
 
-      {/* Die Leiter: siebzehn Sprossen, unten breit und dunkel, oben schmal und
-          licht. Sie erklärt die Skala schneller als ein Absatz Text — und in
-          jeder Sprache gleich, weil sie fast ohne Worte auskommt.
+          {/* Die Leiter: siebzehn Sprossen, unten breit und dunkel, oben schmal und
+              licht. Sie erklärt die Skala schneller als ein Absatz Text — und in
+              jeder Sprache gleich, weil sie fast ohne Worte auskommt.
 
-          Das eine Wort ist die Schwelle. Sie steht hier, im Profil und in der
-          Skalenansicht an derselben Stelle und in derselben Form, weil sie
-          überall dasselbe meint: die einzige Höhe dieser Skala, an der sich das
-          Vorzeichen ändert.
+              Das eine Wort ist die Schwelle. Sie steht hier, im Profil und in der
+              Skalenansicht an derselben Stelle und in derselben Form, weil sie
+              überall dasselbe meint: die einzige Höhe dieser Skala, an der sich das
+              Vorzeichen ändert.
 
-          `aria-hidden` sitzt an den Sprossen und nicht am Kasten — sonst wäre
-          die Beschriftung mit versteckt, und sie ist der einzige Teil dieser
-          Grafik, der etwas sagt. In `flex-col-reverse` steht das erste Kind
-          unten: Die Linie wird vor Mut ausgegeben und landet damit genau
-          zwischen Stolz und Mut. */}
-      <div className="mt-10 flex w-full flex-col-reverse items-center gap-[3px]">
-        {levels.map((level, rank) => (
-          <Fragment key={level.id}>
-            {level.value === THRESHOLD && (
-              <div className="flex w-full items-center gap-3 py-1.5">
-                <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-                <span className="text-[10px] font-semibold tracking-[0.18em] text-muted uppercase">
-                  {t.thresholdMark(THRESHOLD)}
+              `aria-hidden` sitzt an den Sprossen und nicht am Kasten — sonst wäre
+              die Beschriftung mit versteckt, und sie ist der einzige Teil dieser
+              Grafik, der etwas sagt. In `flex-col-reverse` steht das erste Kind
+              unten: Die Linie wird vor Mut ausgegeben und landet damit genau
+              zwischen Stolz und Mut. */}
+          <div className="mt-10 flex w-full flex-col-reverse items-center gap-[3px]">
+            {levels.map((level, rank) => (
+              <Fragment key={level.id}>
+                {level.value === THRESHOLD && (
+                  <div className="flex w-full items-center gap-3 py-1.5">
+                    <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
+                    <span className="text-[10px] font-semibold tracking-[0.18em] text-muted uppercase">
+                      {t.thresholdMark(THRESHOLD)}
+                    </span>
+                    <span aria-hidden className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
+                  </div>
+                )}
+                <div
+                  aria-hidden
+                  className="h-[7px] rounded-full transition-[width] duration-500"
+                  style={{
+                    background: level.color,
+                    width: `${96 - rank * 4}%`,
+                    opacity: 0.45 + rank * 0.032,
+                  }}
+                />
+              </Fragment>
+            ))}
+          </div>
+
+          {/* The one button to begin with, and the quiet way to look first.
+              Everything else is in the navigation. */}
+          <div className="mt-10 flex flex-col items-center gap-2">
+            <Button onClick={onStart}>{t.start}</Button>
+            <Button variant="quiet" onClick={onBrowse}>
+              {t.browseFirst}
+            </Button>
+          </div>
+        </>
+      ) : (
+        <header>
+          <h1 className="font-display text-4xl font-bold tracking-[-0.02em]">{t.todayTitle}</h1>
+          <p className="mt-2 text-[14px] text-muted">
+            {new Intl.DateTimeFormat(language, { weekday: 'long', day: 'numeric', month: 'long' }).format(now)}
+          </p>
+        </header>
+      )}
+
+      {/* A questionnaire half done: one line and the button that goes on.
+          The navigation leads there too, but this says that it is waiting. */}
+      {resumeAt !== null && (
+        <div className="mt-8 flex w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
+          <p className="text-[14.5px] leading-relaxed text-text/90">{t.resumeLead}</p>
+          <Button size="sm" onClick={onResume}>
+            {t.resume(resumeAt + 1)}
+          </Button>
+        </div>
+      )}
+
+      {/* The last run is weeks old. One sentence, no exclamation mark: an
+          offer, not a reminder that nags. The button leads to the
+          questionnaire's page, not straight into a new run — starting over
+          replaces the answers, and that is a choice to make there. */}
+      {due !== null && (
+        <div className="mt-8 flex w-full flex-col items-start gap-3 rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
+          <p className="text-[14.5px] leading-relaxed text-muted">
+            {t.returnNudge(due.days)}
+            {dueLevel !== null && (
+              <>
+                {' '}
+                {t.returnNudgeLevel}{' '}
+                <span className="font-semibold" style={{ color: readableOnDark(dueLevel.color) }}>
+                  {dueLevel.name}
                 </span>
-                <span aria-hidden className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
-              </div>
-            )}
-            <div
-              aria-hidden
-              className="h-[7px] rounded-full transition-[width] duration-500"
-              style={{
-                background: level.color,
-                width: `${96 - rank * 4}%`,
-                opacity: 0.45 + rank * 0.032,
-              }}
-            />
-          </Fragment>
-        ))}
-      </div>
+                .
+              </>
+            )}{' '}
+            {t.returnNudgeInvite}
+          </p>
+          <Button variant="ghost" size="sm" onClick={onOpenQuiz}>
+            {t.nudgeOpen}
+          </Button>
+        </div>
+      )}
 
       {/* Der Plan steht vor den Knöpfen und nicht am Seitenende: Ein
           Wenn-Dann-Satz wirkt nur, wenn er einem wieder einfällt, und die
@@ -378,59 +399,8 @@ export function Intro({
         </div>
       )}
 
-      {/* Die zwei Türen, gleich groß und nebeneinander. Vorher stand der
-          Moment-Bogen als Geisterknopf unter dem Fragebogen — dabei ist er im
-          Alltag die häufigere Tür: Der Bogen wird alle paar Wochen ausgefüllt,
-          festgesteckt wird dienstags um drei. Jede Karte sagt in einem Wort,
-          welchen Zeitraum sie meint, und in einem Satz, was sie kostet.
-
-          Der Fragebogen-Knopf hat drei Zustände: fertig, angefangen, leer.
-          Der fertige kam zuletzt dazu — vorher stand hier nach 34 Antworten
-          „Fragebogen starten", und der Knopf löschte sie. */}
-      {due !== null && (
-        <p className="mt-11 -mb-5 max-w-md text-balance text-[14px] leading-relaxed text-muted">
-          {t.returnNudge(due.days)}
-          {dueLevel !== null && (
-            <>
-              {' '}
-              {t.returnNudgeLevel}{' '}
-              <span className="font-semibold" style={{ color: readableOnDark(dueLevel.color) }}>
-                {dueLevel.name}
-              </span>
-              .
-            </>
-          )}{' '}
-          {t.returnNudgeInvite}
-        </p>
-      )}
-
-      <div className="mt-11 grid w-full gap-3 sm:grid-cols-2">
-        <Door
-          label={t.doorQuizLabel}
-          title={complete ? t.showResult : resumeAt === null ? t.start : t.resume(resumeAt + 1)}
-          lead={t.doorQuizLead}
-          onClick={complete ? onShowResult : resumeAt === null ? onStart : onResume}
-          primary
-        />
-        <Door label={t.doorMomentLabel} title={m.enter} lead={t.doorMomentLead} onClick={onMoment} />
-      </div>
-
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-        {(complete || resumeAt !== null) && (
-          <Button variant="quiet" onClick={onStart}>
-            {t.restartFromScratch}
-          </Button>
-        )}
-        <Button variant="quiet" onClick={onBrowse}>
-          {t.browseFirst}
-        </Button>
-        <Button variant="quiet" onClick={onThinking}>
-          {t.thinkingOpen}
-        </Button>
-      </div>
-
-      {/* Below the doors, not above them: saving is housekeeping, and the
-          start page exists to open one of the two doors. */}
+      {/* At the foot: saving is housekeeping, and this page exists for the
+          day, not for the file. */}
       <DataCard data={data} language={language} t={t} onRestore={onRestore} onClearNotes={onClearNotes} />
 
       <p className="mt-12 max-w-md text-[13px] leading-relaxed text-muted">{t.disclaimer}</p>

@@ -81,7 +81,6 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         onCheckPlan={noop}
         onEditPlan={noop}
         plans={[]}
@@ -89,8 +88,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         history={[]}
         onClearHistory={noop}
         m={m}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -338,8 +336,8 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     // The fixture history ends in March 2026 — always long enough ago.
     const props = {
       levels, language, t, m, plans: [], history, moments: [], data: nothingStored,
-      onStart: noop, onBrowse: noop, onResume: noop, onShowResult: noop, onDeletePlan: noop, onCheckPlan: noop, onEditPlan: noop,
-      onClearHistory: noop, onMoment: noop, onThinking: noop, onClearMoments: noop, onRestore: noop, complete: false,
+      onStart: noop, onBrowse: noop, onResume: noop, onDeletePlan: noop, onCheckPlan: noop, onEditPlan: noop,
+      onClearHistory: noop, onOpenQuiz: noop, onClearMoments: noop, onRestore: noop, complete: false,
       checkIns: [], onCheckIn: noop, onClearCheckIns: noop, onClearNotes: noop,
     }
     const html = renderToString(<Intro {...props} resumeAt={null} />)
@@ -368,7 +366,6 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         onCheckPlan={noop}
         onEditPlan={noop}
         plans={[plan]}
@@ -376,8 +373,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         history={[]}
         onClearHistory={noop}
         m={m}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -443,7 +439,6 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         onCheckPlan={noop}
         onEditPlan={noop}
         plans={[plan, older]}
@@ -451,8 +446,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         history={[]}
         onClearHistory={noop}
         m={m}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -484,7 +478,6 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         onCheckPlan={noop}
         onEditPlan={noop}
         plans={[]}
@@ -492,8 +485,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         history={[]}
         onClearHistory={noop}
         m={m}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -524,7 +516,6 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         onCheckPlan={noop}
         onEditPlan={noop}
         plans={[]}
@@ -532,8 +523,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         history={history}
         onClearHistory={noop}
         m={m}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -595,7 +585,6 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         onCheckPlan={noop}
         onEditPlan={noop}
         plans={[]}
@@ -603,8 +592,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         history={history.slice(0, 1)}
         onClearHistory={noop}
         m={m}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -682,12 +670,10 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         m={m}
         onStart={noop}
         onBrowse={noop}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         onCheckPlan={noop}
         onEditPlan={noop}
         plans={[]}
@@ -711,10 +697,11 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).not.toContain('NaN')
   })
 
-  /* Verlauf und Momente stehen in einer Karte mit zwei Zeilen. Gezählt wird der
-     Rahmen: Zwei davon wären der Zustand von vorher, und der war der Grund für
-     den Umbau. Der Plan darüber bringt seinen eigenen mit, deshalb bleibt er
-     hier weg. */
+  /* Verlauf und Momente stehen in einer Karte mit zwei Zeilen. Gezählt wird die
+     geteilte Karte, und beide Spuren müssen in ihr stehen: Zwei Rahmen wären
+     der Zustand von vorher, und der war der Grund für den Umbau. Andere Karten
+     der Seite — der Hinweis auf den nächsten Durchgang, der Plan — bringen
+     ihren eigenen Rahmen mit und zählen hier nicht. */
   it('Start stellt Verlauf und Momente in einen Kasten', () => {
     const html = renderToString(
       <Intro
@@ -724,12 +711,10 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         m={m}
         onStart={noop}
         onBrowse={noop}
-        onMoment={noop}
-        onThinking={noop}
+        onOpenQuiz={noop}
         resumeAt={null}
         onResume={noop}
         complete={false}
-        onShowResult={noop}
         onCheckPlan={noop}
         onEditPlan={noop}
         plans={[]}
@@ -748,7 +733,10 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     )
     expect(html).toContain(t.historyTitle)
     expect(html).toContain(m.trailTitle)
-    expect(html.match(/rounded-2xl border border-line bg-card\/60/g)).toHaveLength(1)
+    expect(html.match(/divide-y divide-line\/60/g)).toHaveLength(1)
+    const shared = html.slice(html.indexOf('divide-y divide-line/60'), html.indexOf(t.dataTitle))
+    expect(shared).toContain(t.historyTitle)
+    expect(shared).toContain(m.trailTitle)
   })
 
   /* Die Übungen sind der einzige Inhalt, der pro Ebene aus mehreren Teilen

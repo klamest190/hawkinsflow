@@ -84,7 +84,16 @@ conventions that are not obvious from a single file.
 
 ## Accessibility
 
-- Each view has exactly one `<h1>`, and heading levels don't skip.
+- Each view has exactly one `<h1>`, and heading levels don't skip. The app's
+  name in the phone's top bar and the sidebar is not a heading, and the logo
+  next to it is `decorative`.
+- Five places in the navigation (`Tab` in `Navigation.tsx`): a tab bar on
+  phones, a sidebar from `lg` on. `tabOf` in `App.tsx` says which view
+  belongs to which tab. The questionnaire and the moment flow are `FOCUS`
+  views: no navigation, their own "cancel", the language switch fixed top
+  right — keep that corner free there.
+- An SVG id must be unique per instance (`useId`): the same component can be
+  on the page twice, once inside a `display: none` branch.
 - `App.tsx` moves focus to `<main>` on every view change; the questionnaire
   moves it to the new question when the answer that had it unmounts; the
   compact plan form moves it into the "if" field when it opens.
