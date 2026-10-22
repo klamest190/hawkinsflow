@@ -228,7 +228,11 @@ export default function App() {
       return
     }
 
-    view.current?.focus()
+    /* Without `preventScroll`, focusing a <main> taller than the screen
+       scrolls its top edge to the top of the window — under the phone's
+       sticky top bar, which then covered the view's heading. The scroll to
+       the top above already put it where it belongs. */
+    view.current?.focus({ preventScroll: true })
   }, [phase])
 
   /* Restoring a backup replaces every store at once — see `lib/backup.ts`
@@ -308,7 +312,9 @@ export default function App() {
         href="#main"
         onClick={(event) => {
           event.preventDefault()
-          view.current?.focus()
+          // As on a change of view: the focus moves, the page doesn't slide
+          // under the top bar.
+          view.current?.focus({ preventScroll: true })
         }}
         className="sr-only z-30 rounded-full bg-card px-5 py-2.5 text-[14px] font-semibold text-text focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
         style={{ marginTop: 'env(safe-area-inset-top)', marginLeft: 'env(safe-area-inset-left)' }}

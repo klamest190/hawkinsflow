@@ -219,6 +219,12 @@ test('the navigation reaches every place and marks where you are', async ({ page
 
   await tab(page, 'Skala').click()
   await expect(page.getByRole('heading', { level: 1, name: 'Die Skala' })).toBeVisible()
+  // Every place starts at the top, its heading clear of the top bar — moving
+  // the focus to the view must not scroll it under the bar.
+  expect(await page.evaluate(() => window.scrollY)).toBe(0)
+  const bar = await page.locator('header').first().boundingBox()
+  const heading = await page.getByRole('heading', { level: 1, name: 'Die Skala' }).boundingBox()
+  expect(heading?.y ?? 0).toBeGreaterThanOrEqual((bar?.y ?? 0) + (bar?.height ?? 0))
   // Reached through the navigation, the scale is a place of its own: no back button.
   await expect(page.getByRole('button', { name: '← Zurück' })).toHaveCount(0)
 
