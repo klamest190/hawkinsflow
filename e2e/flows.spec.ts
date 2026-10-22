@@ -334,6 +334,61 @@ test('on a wide screen the navigation is a sidebar', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'Ebb Flow' })).toBeVisible()
 })
 
+test('a guided session leads step by step, hides the navigation and ends', async ({ page }) => {
+  // The session runs on the clock; the test moves it on instead of waiting.
+  await page.clock.install()
+  await page.goto('/')
+  await tab(page, 'Wissen').click()
+  await page.getByRole('navigation', { name: 'Wissen' }).getByRole('button', { name: 'Meditation' }).click()
+
+  // The best supported form comes first, and so does its button.
+  await page.getByRole('button', { name: 'Jetzt üben' }).first().click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Body Scan' })).toBeVisible()
+  await expect(nav(page)).toHaveCount(0)
+  await page.getByText('5 min', { exact: true }).click()
+  await page.getByRole('button', { name: 'Beginnen' }).click()
+
+  await expect(page.getByText('Schritt 1 von 12')).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Ankommen' })).toBeVisible()
+  // At five minutes the first step is twenty seconds.
+  await page.clock.runFor(21_000)
+  await expect(page.getByText('Schritt 2 von 12')).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Die Füße' })).toBeVisible()
+
+  await page.getByRole('button', { name: 'Nächster Schritt' }).click()
+  await expect(page.getByText('Schritt 3 von 12')).toBeVisible()
+
+  await page.clock.runFor(300_000)
+  await expect(page.getByRole('heading', { level: 2, name: 'Geschafft' })).toBeVisible()
+  expect(await stored(page, 'hawkinsflow.session.v1')).toEqual({ minutes: 5, voice: false })
+
+  await page.getByRole('button', { name: 'Zurück zur Meditation' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Meditation' })).toBeVisible()
+  await expect(nav(page)).toHaveCount(1)
+
+  // Slow breathing has no session of its own: its card leads to Ebb Flow.
+  await page.getByRole('button', { name: 'In Ebb Flow üben' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Ebb Flow' })).toBeVisible()
+})
+
+test('a guided session can be cancelled and stepped back out of', async ({ page }) => {
+  await page.goto('/')
+  await tab(page, 'Wissen').click()
+  await page.getByRole('navigation', { name: 'Wissen' }).getByRole('button', { name: 'Meditation' }).click()
+  await page.getByRole('button', { name: 'Jetzt üben' }).nth(1).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Atemmeditation' })).toBeVisible()
+  await page.getByRole('button', { name: 'Beginnen' }).click()
+  await expect(page.getByRole('button', { name: 'Anhalten' })).toBeVisible()
+
+  await page.getByRole('button', { name: '← Abbrechen' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Meditation' })).toBeVisible()
+  // Cancelling is a step of its own: the browser's back button returns to
+  // the session, opened again before the start rather than mid-way.
+  await page.goBack()
+  await expect(page.getByRole('heading', { level: 1, name: 'Atemmeditation' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Beginnen' })).toBeVisible()
+})
+
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
   await tab(page, 'Wissen').click()

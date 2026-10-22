@@ -4,6 +4,7 @@ import { Intro } from './components/Intro.tsx'
 import { LanguageToggle } from './components/LanguageToggle.tsx'
 import { Moment } from './components/Moment.tsx'
 import { Ebbflow } from './components/Ebbflow.tsx'
+import { GuidedSession } from './components/GuidedSession.tsx'
 import { Meditation } from './components/Meditation.tsx'
 import { AppBar, KnowledgeNav, Sidebar, TabBar } from './components/Navigation.tsx'
 import { Quiz } from './components/Quiz.tsx'
@@ -15,6 +16,8 @@ import { QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
 import { ebbCopy } from './i18n/ebbflow.ts'
 import { meditationCopy } from './i18n/meditation.ts'
+import { sessionCopy } from './i18n/sessions.ts'
+import type { GuidedId } from './data/sessions.ts'
 import { momentCopy } from './i18n/moment.ts'
 import { thinkingCopy } from './i18n/thinking.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
@@ -35,7 +38,17 @@ import { answeredCount, evaluate } from './lib/scoring.ts'
 import type { BelowLevelId, LevelId } from './types.ts'
 import type { Journal } from './components/Writing.tsx'
 
-type Phase = 'intro' | 'survey' | 'quiz' | 'result' | 'scale' | 'moment' | 'thinking' | 'breathe' | 'meditation'
+type Phase =
+  | 'intro'
+  | 'survey'
+  | 'quiz'
+  | 'result'
+  | 'scale'
+  | 'moment'
+  | 'thinking'
+  | 'breathe'
+  | 'meditation'
+  | 'session'
 
 const PHASES: readonly Phase[] = [
   'intro',
@@ -47,6 +60,7 @@ const PHASES: readonly Phase[] = [
   'thinking',
   'breathe',
   'meditation',
+  'session',
 ]
 
 /**
@@ -55,7 +69,7 @@ const PHASES: readonly Phase[] = [
  * statements or of a minute of silence, five other places one tap away are
  * a distraction, and a stray tap throws someone out of the flow.
  */
-const FOCUS: readonly Phase[] = ['quiz', 'moment']
+const FOCUS: readonly Phase[] = ['quiz', 'moment', 'session']
 
 /** Which place a view belongs to — the one the navigation marks. */
 function placeOf(phase: Phase): Place {
@@ -75,6 +89,7 @@ function placeOf(phase: Phase): Place {
     case 'breathe':
       return 'breathe'
     case 'meditation':
+    case 'session':
       return 'meditation'
   }
 }
@@ -137,6 +152,13 @@ export default function App() {
      Farbe der ganzen Oberfläche an ihr hängt — siehe den Effekt weiter unten. */
   const [momentLevel, setMomentLevel] = useState<BelowLevelId | null>(null)
   const [openLevel, setOpenLevel] = useState<LevelId | null>(null)
+  /* The guided session that is open — like `momentLevel`, held here because
+     the view can be stepped back into through the browser's history. */
+  const [sessionId, setSessionId] = useState<GuidedId | null>(null)
+  const sessionRef = useRef<GuidedId | null>(null)
+  useEffect(() => {
+    sessionRef.current = sessionId
+  }, [sessionId])
   /* Wohin „Zurück" aus der Skalenansicht führt, wenn sie aus dem Ergebnis
      heraus geöffnet wurde. Null, wenn sie über die Navigation kam: Dann ist sie
      ein Ort für sich, und ein Zurück darüber wäre doppelt. */
@@ -166,7 +188,14 @@ export default function App() {
 
     function onPop(event: PopStateEvent) {
       const target = phaseOf(event.state) ?? 'intro'
-      setPhase(target === 'result' && answeredRef.current === 0 ? 'intro' : target)
+      setPhase(
+        target === 'result' && answeredRef.current === 0
+          ? 'intro'
+          : // A session needs to know which one; without, its form's page.
+            target === 'session' && sessionRef.current === null
+            ? 'meditation'
+            : target,
+      )
     }
 
     window.addEventListener('popstate', onPop)
@@ -518,7 +547,29 @@ export default function App() {
 
         {phase === 'breathe' && <Ebbflow t={t} e={ebbCopy[language]} />}
 
-        {phase === 'meditation' && <Meditation d={meditationCopy[language]} />}
+        {phase === 'meditation' && (
+          <Meditation
+            d={meditationCopy[language]}
+            onPractice={(id) => {
+              setSessionId(id)
+              go('session')
+            }}
+            onEbbFlow={() => go('breathe')}
+          />
+        )}
+
+        {phase === 'session' && sessionId !== null && (
+          <GuidedSession
+            /* A new form starts a new session, not the last one's stage. */
+            key={sessionId}
+            id={sessionId}
+            form={meditationCopy[language].forms[sessionId]}
+            language={language}
+            t={t}
+            s={sessionCopy[language]}
+            onLeave={() => go('meditation')}
+          />
+        )}
 
         {phase === 'scale' && (
           <ScaleBrowser

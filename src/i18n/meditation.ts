@@ -46,6 +46,9 @@ const de = {
   effectLabel: 'Was sie bewirken kann',
   evidenceLabel: 'Was die Forschung sagt',
   inAppLabel: 'Hier in der App',
+  // On each card: a guided session, or Ebb Flow for slow breathing.
+  practiceNow: 'Jetzt üben',
+  practiceInEbbFlow: 'In Ebb Flow üben',
   evidenceLevels: { solid: 'gut belegt', moderate: 'mäßig belegt', thin: 'wenig untersucht' } satisfies Record<
     Evidence,
     string
@@ -158,6 +161,8 @@ const en: MeditationCopy = {
   effectLabel: 'What it can do',
   evidenceLabel: 'What the research says',
   inAppLabel: 'In this app',
+  practiceNow: 'Practise now',
+  practiceInEbbFlow: 'Practise in Ebb Flow',
   evidenceLevels: { solid: 'well supported', moderate: 'moderately supported', thin: 'hardly studied' },
 
   forms: forms({

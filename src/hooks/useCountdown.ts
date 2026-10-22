@@ -56,6 +56,17 @@ export function useCountdown(seconds: number) {
     setRemaining(seconds)
   }, [seconds])
 
+  /* For a guided session's "next step": the clock goes on from a new point,
+     running or not. */
+  const jump = useCallback(
+    (to: number) => {
+      const left = Math.max(0, Math.min(seconds, to))
+      if (deadline.current !== null) deadline.current = Date.now() + left * 1000
+      setRemaining(left)
+    },
+    [seconds],
+  )
+
   return {
     /** Restzeit in Sekunden. */
     remaining,
@@ -65,5 +76,6 @@ export function useCountdown(seconds: number) {
     start,
     pause,
     stop,
+    jump,
   }
 }

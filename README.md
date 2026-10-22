@@ -11,7 +11,9 @@ thinking side by side — the "ordinary" one and the Mind Hack Method — statio
 by station. Ebb Flow, from the sister app, is a pause between impulse and
 reaction: six slow breaths a minute in three rhythms. A meditation page
 explains the six main forms with what the research does and does not show,
-and its sources. German and English.
+and its sources; five of them can be practised as guided sessions of 5, 10
+or 20 minutes, led step by step with a soft tone and, if wanted, the device's
+own voice. German and English.
 
 The app says plainly that Hawkins' method is not scientifically supported; the
 result is meant as a prompt for reflection, not a measurement. It shows a level

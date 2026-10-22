@@ -15,6 +15,19 @@
  * die Anzeige im Kasten sagt es weiterhin.
  */
 export function chime(): void {
+  play([528, 792], 0.12, 2.2)
+}
+
+/**
+ * One soft tone where a guided session moves on to its next step: quieter
+ * and shorter than the end, so nobody hears "done" where it says "next".
+ */
+export function softChime(): void {
+  play([660], 0.06, 1.6)
+}
+
+/** The tones, a second apart, each faded in and left to ring out. */
+function play(frequencies: number[], peak: number, ring: number): void {
   try {
     const audio = new AudioContext()
 
@@ -23,7 +36,7 @@ export function chime(): void {
     // Kontext angehalten und es passiert schlicht nichts.
     void audio.resume()
 
-    for (const [index, frequency] of [528, 792].entries()) {
+    for (const [index, frequency] of frequencies.entries()) {
       const at = audio.currentTime + index * 0.9
       const tone = audio.createOscillator()
       const level = audio.createGain()
@@ -34,12 +47,12 @@ export function chime(): void {
       // Weich einblenden und lang ausklingen: ein hart gesetzter Ton klickt am
       // Anfang und schneidet am Ende ab.
       level.gain.setValueAtTime(0.0001, at)
-      level.gain.exponentialRampToValueAtTime(0.12, at + 0.04)
-      level.gain.exponentialRampToValueAtTime(0.0001, at + 2.2)
+      level.gain.exponentialRampToValueAtTime(peak, at + 0.04)
+      level.gain.exponentialRampToValueAtTime(0.0001, at + ring)
 
       tone.connect(level).connect(audio.destination)
       tone.start(at)
-      tone.stop(at + 2.4)
+      tone.stop(at + ring + 0.2)
     }
 
     // Der Kontext hält sonst ein Audiogerät offen, bis die Seite geht.

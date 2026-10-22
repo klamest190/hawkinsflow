@@ -1,5 +1,7 @@
 import { EVIDENCE, MEDITATIONS, SOURCES, type Evidence } from '../data/meditations.ts'
+import { GUIDED, type GuidedId } from '../data/sessions.ts'
 import type { MeditationCopy } from '../i18n/meditation.ts'
+import { Button } from './Button.tsx'
 import { PAGE_WIDTH } from './page.ts'
 
 /** Three dots, filled as far as the evidence goes — next to its words, never instead of them. */
@@ -21,6 +23,10 @@ function EvidenceMark({ level, label }: { level: Evidence; label: string }) {
   )
 }
 
+function isGuided(id: string): id is GuidedId {
+  return GUIDED.some((guided) => guided === id)
+}
+
 /** A labelled paragraph inside a form's card. */
 function Part({ label, children }: { label: string; children: string }) {
   return (
@@ -39,7 +45,17 @@ function Part({ label, children }: { label: string; children: string }) {
  * The limits stand on the page and not behind a fold: a page that lists
  * benefits and hides the side effects would be the hype the sources warn of.
  */
-export function Meditation({ d }: { d: MeditationCopy }) {
+export function Meditation({
+  d,
+  onPractice,
+  onEbbFlow,
+}: {
+  d: MeditationCopy
+  /** Opens the guided session of a form. */
+  onPractice: (id: GuidedId) => void
+  /** Slow breathing is practised in Ebb Flow. */
+  onEbbFlow: () => void
+}) {
   return (
     <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col px-5 py-8 sm:px-6 ${PAGE_WIDTH}`}>
       <h1 className="font-display text-4xl font-bold tracking-[-0.02em]">{d.title}</h1>
@@ -63,11 +79,25 @@ export function Meditation({ d }: { d: MeditationCopy }) {
               <Part label={d.howLabel}>{form.how}</Part>
               <Part label={d.effectLabel}>{form.effect}</Part>
               <Part label={d.evidenceLabel}>{form.evidence}</Part>
-              {form.inApp !== undefined && (
-                <p className="mt-auto border-t border-line/60 pt-3 text-[13px] leading-relaxed text-muted">
-                  <span className="font-semibold text-text/80">{d.inAppLabel}:</span> {form.inApp}
-                </p>
-              )}
+              {/* At the foot of every card, the way from reading to doing. */}
+              <div className="mt-auto flex flex-col gap-3 border-t border-line/60 pt-3">
+                {form.inApp !== undefined && (
+                  <p className="text-[13px] leading-relaxed text-muted">
+                    <span className="font-semibold text-text/80">{d.inAppLabel}:</span> {form.inApp}
+                  </p>
+                )}
+                <div>
+                  {isGuided(id) ? (
+                    <Button variant="ghost" size="sm" onClick={() => onPractice(id)}>
+                      {d.practiceNow}
+                    </Button>
+                  ) : (
+                    <Button variant="ghost" size="sm" onClick={onEbbFlow}>
+                      {d.practiceInEbbFlow}
+                    </Button>
+                  )}
+                </div>
+              </div>
             </li>
           )
         })}

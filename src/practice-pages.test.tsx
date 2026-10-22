@@ -13,6 +13,7 @@ import type { Language } from './types.ts'
    at rest, and the breathing itself is clicked through in `e2e/`. */
 
 const LANGUAGES: Language[] = ['de', 'en']
+const noop = () => {}
 
 /** Heading levels in document order — none may skip a level. */
 function skips(html: string): string[] {
@@ -25,7 +26,7 @@ function skips(html: string): string[] {
 
 describe.each(LANGUAGES)('meditation (%s)', (language) => {
   const d = meditationCopy[language]
-  const html = renderToString(<Meditation d={d} />)
+  const html = renderToString(<Meditation d={d} onPractice={noop} onEbbFlow={noop} />)
 
   it('explains every form in full', () => {
     for (const id of MEDITATIONS) {
@@ -63,7 +64,7 @@ describe('the order of the forms', () => {
   })
 
   it('shows them on the page in that order', () => {
-    const html = renderToString(<Meditation d={meditationCopy.de} />)
+    const html = renderToString(<Meditation d={meditationCopy.de} onPractice={noop} onEbbFlow={noop} />)
     const positions = MEDITATIONS.map((id) => html.indexOf(`>${meditationCopy.de.forms[id].name}</h3>`))
     expect(positions.every((position) => position >= 0)).toBe(true)
     expect(positions).toEqual([...positions].sort((a, b) => a - b))

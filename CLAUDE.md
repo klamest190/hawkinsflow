@@ -100,7 +100,12 @@ conventions that are not obvious from a single file.
   (`KNOWLEDGE`, `KnowledgeNav`); the bar has five tabs and should stay at
   five. `placeOf` in `App.tsx` says which view belongs to which place. The questionnaire and the moment flow are `FOCUS`
   views: no navigation, their own "cancel", the language switch fixed top
-  right — keep that corner free there.
+  right — keep that corner free there. A guided session (`'session'`) is one
+  as well.
+- A guided session's timings are in `src/data/sessions.ts` (ten minutes, the
+  other lengths scaled), its texts in `src/i18n/sessions.ts`, one per step —
+  a test checks both have the same count. Its clock is `useCountdown`, which
+  goes on in a hidden tab, unlike `useBreath`.
 - An SVG id must be unique per instance (`useId`): the same component can be
   on the page twice, once inside a `display: none` branch.
 - `App.tsx` moves focus to `<main>` on every view change; the questionnaire
