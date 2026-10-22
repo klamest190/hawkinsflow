@@ -16,6 +16,7 @@ import { HistoryTrail } from './HistoryTrail.tsx'
 import { Logo } from './Logo.tsx'
 import { MomentTrail } from './MomentTrail.tsx'
 import { PlanCheckIn } from './PlanCheckIn.tsx'
+import { PAGE_WIDTH } from './page.ts'
 
 type IntroProps = {
   levels: Level[]
@@ -144,7 +145,7 @@ export function Intro({
     !complete
 
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-12 text-center lg:max-w-4xl lg:py-16">
+    <div className={`animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-12 text-center lg:py-16 ${PAGE_WIDTH}`}>
       {welcome ? (
         <>
           <Logo className="h-16 w-16 drop-shadow-[0_8px_28px_rgba(0,0,0,0.5)]" />

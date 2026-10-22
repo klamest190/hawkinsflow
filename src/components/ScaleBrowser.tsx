@@ -5,6 +5,7 @@ import type { Language, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
 import type { Journal } from './Writing.tsx'
+import { PAGE_WIDTH } from './page.ts'
 
 type ScaleBrowserProps = {
   levels: Level[]
@@ -46,7 +47,7 @@ export function ScaleBrowser({
   const courage = levelIn(language, 'courage').name
 
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col px-5 py-8 sm:px-6 lg:max-w-3xl">
+    <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col px-5 py-8 sm:px-6 ${PAGE_WIDTH}`}>
       {onBack !== undefined && (
         <header className="mb-4 flex items-center justify-between">
           <Button variant="quiet" onClick={onBack} className="-ml-4">

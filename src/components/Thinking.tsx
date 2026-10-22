@@ -2,6 +2,7 @@ import type { Station, ThinkingCopy } from '../i18n/thinking.ts'
 import { itemAt } from '../lib/array.ts'
 import { readableOnDark } from '../lib/oklch.ts'
 import type { Level } from '../types.ts'
+import { PAGE_WIDTH } from './page.ts'
 
 type ThinkingProps = {
   /** All levels in the language read; their colors tint the stations. */
@@ -115,7 +116,7 @@ export function Thinking({ levels, th }: ThinkingProps) {
   const mindHackColors = th.mindHack.map((_, index) => itemAt(levels, MIND_HACK_FROM + index).color)
 
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-3xl flex-col px-5 py-8 sm:px-6 lg:max-w-5xl">
+    <div className={`animate-rise mx-auto flex w-full max-w-3xl flex-col px-5 py-8 sm:px-6 ${PAGE_WIDTH}`}>
       <h1 className="font-display text-4xl font-bold tracking-[-0.02em] text-balance">{th.title}</h1>
       <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{th.lead}</p>
 

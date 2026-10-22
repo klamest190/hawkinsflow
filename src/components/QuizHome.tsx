@@ -1,6 +1,7 @@
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { Button } from './Button.tsx'
+import { PAGE_WIDTH } from './page.ts'
 
 type QuizHomeProps = {
   t: Copy
@@ -24,7 +25,7 @@ type QuizHomeProps = {
  */
 export function QuizHome({ t, resumeAt, complete, onStart, onResume, onShowResult }: QuizHomeProps) {
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-xl flex-col px-6 py-10 lg:max-w-2xl">
+    <div className={`animate-rise mx-auto flex w-full max-w-xl flex-col px-6 py-10 ${PAGE_WIDTH}`}>
       <h1 className="font-display text-4xl font-bold tracking-[-0.02em]">{t.quizHomeTitle}</h1>
       <p className="mt-4 text-[17px] leading-relaxed text-text/90">{t.introLead(QUESTIONS.length)}</p>
       <p className="mt-3 text-[14.5px] leading-relaxed text-muted">{t.quizHomeLead}</p>

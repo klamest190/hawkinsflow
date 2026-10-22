@@ -13,6 +13,7 @@ import { LevelDetail } from './LevelDetail.tsx'
 import type { Journal } from './Writing.tsx'
 import { Spectrum } from './Spectrum.tsx'
 import { Why } from './Why.tsx'
+import { PAGE_WIDTH } from './page.ts'
 
 type ResultProps = {
   result: Evaluation
@@ -140,7 +141,7 @@ export function Result({
   if (unreadable) {
     const empty = answered === 0
     return (
-      <div className="animate-rise mx-auto flex w-full max-w-xl flex-col gap-6 px-5 py-16 sm:px-6">
+      <div className={`animate-rise mx-auto flex w-full max-w-xl flex-col gap-6 px-5 py-16 sm:px-6 ${PAGE_WIDTH}`}>
         <Card className="animate-pop text-center">
           <h1 className="font-display text-[30px] leading-[1.15] font-bold tracking-[-0.02em] text-balance sm:text-[36px]">
             {empty ? t.emptyTitle : t.uniformTitle}
@@ -165,7 +166,7 @@ export function Result({
   }
 
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-10 sm:px-6 lg:max-w-3xl">
+    <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-10 sm:px-6 ${PAGE_WIDTH}`}>
       {/* Der rechte Abstand hält die Ecke frei, in der die Sprachwahl steht. */}
       <header className="flex items-center justify-between pr-24">
         <Button variant="quiet" onClick={onBrowse} className="-ml-4">
