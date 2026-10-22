@@ -2,7 +2,7 @@ import { useRef, useState, type KeyboardEvent } from 'react'
 import type { Copy } from '../i18n/copy.ts'
 import { itemAt } from '../lib/array.ts'
 import type { Practice, Practices } from '../types.ts'
-import { Timer } from './Timer.tsx'
+import { PracticeTool } from './PracticeTool.tsx'
 
 type PracticeDeckProps = {
   practices: Practices
@@ -137,10 +137,11 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
           </div>
           <p className="mt-3 text-[15px] leading-relaxed text-muted">{practice.body}</p>
 
-          {/* Das `key` bindet die Uhr an ihre Übung: Beim Blättern beginnt sie
-              als neue, statt mit der Restzeit der vorigen weiterzulaufen. */}
-          {practice.minutes !== undefined && (
-            <Timer key={practice.name} minutes={practice.minutes} t={t} />
+          {/* Das `key` bindet das Werkzeug an seine Übung: Beim Blättern
+              beginnt die Uhr als neue, statt mit der Restzeit der vorigen
+              weiterzulaufen. */}
+          {practice.tool !== undefined && (
+            <PracticeTool key={practice.name} tool={practice.tool} t={t} />
           )}
         </div>
       </div>

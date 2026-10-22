@@ -104,18 +104,26 @@ export type Practice = {
   /** Wie lange und wie oft: „10 Minuten, einmal", „täglich". */
   duration: string
   /**
-   * Die Länge in Minuten — der Wert, mit dem die Uhr im Übungskasten läuft.
-   *
-   * Fehlt dort, wo die Übung keine feste Länge hat („einmal pro Fall", „bei
-   * jedem Impuls"); dann steht auch keine Uhr dabei. Bewusst als eigenes Feld
-   * und nicht aus `duration` gelesen: Die Zeile ist Fließtext und in zwei
-   * Sprachen verschieden gebaut — „20 Minuten täglich" und „20 minutes daily"
-   * ließen sich noch fangen, „so lange es dauert" nicht mehr.
+   * What runs on screen next to the instructions — see `PracticeTool`.
+   * Absent where the practice needs nothing there ("einmal pro Fall", "bei
+   * jedem Impuls").
    */
-  minutes?: number
+  tool?: PracticeTool
   /** Die Anleitung — zwei bis vier Sätze, konkret genug zum Loslegen. */
   body: string
 }
+
+/**
+ * What runs on screen next to a practice's instructions. At most one per
+ * practice: a practice that needs a clock, a breathing guide and a form is
+ * three practices.
+ *
+ * - `timer` — the countdown. `minutes` is its own field and not read from
+ *   `duration`: that line is prose, built differently in each language —
+ *   "20 Minuten täglich" and "20 minutes daily" could still be parsed, "so
+ *   lange es dauert" no longer.
+ */
+export type PracticeTool = { kind: 'timer'; minutes: number }
 
 /**
  * Genau drei, immer in derselben Reihenfolge: schreiben, tun, sitzen.

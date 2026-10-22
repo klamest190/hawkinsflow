@@ -743,11 +743,11 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
      und zehn zählt, ist schlimmer als eine ohne Uhr. */
   it('lässt Uhr und Dauer dasselbe sagen', () => {
     for (const level of levels) {
-      for (const { minutes, duration, name } of level.practices) {
-        if (minutes === undefined) continue
+      for (const { tool, duration, name } of level.practices) {
+        if (tool?.kind !== 'timer') continue
 
-        expect(minutes, name).toBeGreaterThan(0)
-        expect(duration, name).toContain(String(minutes))
+        expect(tool.minutes, name).toBeGreaterThan(0)
+        expect(duration, name).toContain(String(tool.minutes))
       }
     }
   })

@@ -52,7 +52,7 @@ const de = {
         kind: 'writing',
         name: 'Die zwei Fassungen',
         duration: '10 Minuten, einmal',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Schreib den Vorfall zweimal auf, für den du dich schämst. Einmal so, wie du ihn dir selbst erzählst. Und einmal so, wie ihn jemand aufschreiben würde, der nur gesehen hat, was passiert ist. Lies beide Fassungen laut vor. Der Unterschied dazwischen ist die Scham. Jetzt steht sie auf dem Papier und wirkt nicht mehr unsichtbar in dir.',
       },
@@ -60,7 +60,7 @@ const de = {
         kind: 'action',
         name: 'Einmal gesehen werden',
         duration: '5 Minuten, einmal täglich',
-        minutes: 5,
+        tool: { kind: 'timer', minutes: 5 },
         body:
           'Geh an einen Ort, an dem Menschen sind: Bäckerei, Bahnsteig, Park. Bleib fünf Minuten dort, ohne aufs Handy zu schauen. Sag einem Menschen einen belanglosen Satz — einen Gruß, ein Danke, eine Frage nach der Uhrzeit. Die Scham behauptet, alle würden dir etwas ansehen. Die fünf Minuten zeigen dir jedes Mal, dass niemand hinschaut.',
       },
@@ -68,7 +68,7 @@ const de = {
         kind: 'sitting',
         name: 'Die Hand auf dem Brustbein',
         duration: '6 Minuten täglich',
-        minutes: 6,
+        tool: { kind: 'timer', minutes: 6 },
         body:
           'Setz dich hin, leg eine Hand flach auf dein Brustbein und lass sie liegen. Sag dir innerlich drei Sätze: Das ist gerade schwer. So etwas kennt jeder. Ich möchte freundlich mit mir umgehen. Wenn du dabei denkst „das ist albern“, gehört das dazu. Sag die Sätze trotzdem.',
       },
@@ -104,7 +104,7 @@ const de = {
         kind: 'writing',
         name: 'Die Rechnung',
         duration: '15 Minuten, einmal pro Fall',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Mach drei Spalten auf ein Blatt: Was ist passiert? Was war wirklich mein Anteil? Was würde es wiedergutmachen? In die dritte Spalte gehört eine konkrete Handlung mit Datum — oder das Wort „nichts“. Danach führst du die Handlung aus oder wirfst das Blatt weg. Liegen lassen solltest du es nicht.',
       },
@@ -119,7 +119,7 @@ const de = {
         kind: 'sitting',
         name: 'Gehört, vertagt',
         duration: '8 Minuten täglich',
-        minutes: 8,
+        tool: { kind: 'timer', minutes: 8 },
         body:
           'Setz dich hin und warte auf den ersten Vorwurf. Er kommt. Hör ihn einmal ganz an, ohne dich zu verteidigen. Sag dir dann innerlich drei Worte: gehört, geprüft, vertagt. Danach zurück zum Atem, und beim nächsten Vorwurf dieselben drei Worte. Der Ankläger in dir wird nicht leiser, wenn du mit ihm streitest. Er wird leiser, wenn ihm niemand mehr zuhört.',
       },
@@ -155,7 +155,7 @@ const de = {
         kind: 'writing',
         name: 'Was mir früher etwas bedeutet hat',
         duration: '10 Minuten, einmal',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Schreib zehn Dinge auf, die dir früher etwas bedeutet haben: Musik, ein Mensch, ein Ort, eine Arbeit. Du musst nichts davon wieder anfangen. Es geht nur darum, sie aufzuschreiben. Die Apathie behauptet, es habe nie etwas gegeben. Die Liste beweist dir das Gegenteil, und mehr musst du dafür nicht tun.',
       },
@@ -163,7 +163,7 @@ const de = {
         kind: 'action',
         name: 'Zwei Minuten, dann Schluss',
         duration: '2 Minuten, zweimal täglich',
-        minutes: 2,
+        tool: { kind: 'timer', minutes: 2 },
         body:
           'Such dir die kleinste sichtbare Sache im Raum: einen Teller, drei Schritte vor die Tür, eine Zeile. Stell zwei Minuten, fang an und hör auf, wenn es klingelt — auch wenn du weitermachen könntest. Das Aufhören gehört dazu. So bleibt die Übung klein genug, dass du sie morgen wiederholst.',
       },
@@ -171,7 +171,7 @@ const de = {
         kind: 'sitting',
         name: 'Fünf Dinge im Raum',
         duration: '3 Minuten, zweimal täglich',
-        minutes: 3,
+        tool: { kind: 'timer', minutes: 3 },
         body:
           'Du sollst nicht meditieren, nur zählen: fünf Dinge, die du siehst, vier, die du hörst, drei, die du spürst, zwei, die du riechst, eins, das du schmeckst. Wenn du nicht weiterkommst, fang von vorn an. Das ist der kleinste mögliche Kontakt mit der Welt, und du brauchst dafür keine Motivation.',
       },
@@ -207,7 +207,7 @@ const de = {
         kind: 'writing',
         name: 'Der ungesendete Brief',
         duration: '30 Minuten, einmal',
-        minutes: 30,
+        tool: { kind: 'timer', minutes: 30 },
         body:
           'Schreib einen Brief an das, was fehlt: an einen Menschen oder an ein Leben, das es nie gegeben hat. Alles darf hinein — der Dank, der Vorwurf, das Unerledigte. Zum Schluss schreibst du einen Satz darüber, was du behalten wirst. Den Brief schickst du nicht ab und wirfst ihn auch nicht weg. Du legst ihn weg.',
       },
@@ -222,7 +222,7 @@ const de = {
         kind: 'sitting',
         name: 'Die verabredete Zeit',
         duration: '20 Minuten täglich, feste Zeit',
-        minutes: 20,
+        tool: { kind: 'timer', minutes: 20 },
         body:
           'Gib der Trauer einen Termin: jeden Tag zur selben Zeit, auf demselben Stuhl. Dort ist alles erlaubt — Fotos, Tränen, Briefe. Wenn sie außerhalb dieser Zeit kommt, schreib den Gedanken auf einen Zettel und leg ihn auf den Stuhl für morgen. Du machst sie damit nicht kleiner. Sie bekommt nur ein Zimmer statt der ganzen Wohnung.',
       },
@@ -258,7 +258,7 @@ const de = {
         kind: 'writing',
         name: 'Und dann?',
         duration: '10 Minuten, wenn eine Angst kreist',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Schreib die Angst als einen Satz auf. Dann frag „und dann?“ und beantworte es. Dann wieder „und dann?“. Mach so lange weiter, bis du an einen Punkt kommst, an dem du wieder handelst. Die Angst hört meistens beim Schreckensbild auf. Auf dem Papier kommst du darüber hinaus.',
       },
@@ -273,7 +273,7 @@ const de = {
         kind: 'sitting',
         name: 'Länger aus als ein',
         duration: '6 Minuten, wenn es eng wird',
-        minutes: 6,
+        tool: { kind: 'timer', minutes: 6 },
         body:
           'Atme vier Zählzeiten ein und sechs aus, ohne Pause dazwischen. Mehr nicht. Du musst dich nicht beruhigen und dir nicht gut zureden. Das lange Ausatmen ist der einzige Schalter an der Angst, den du bewusst bedienen kannst. Der Kopf folgt dem Atem, und die Argumente kommen zuletzt.',
       },
@@ -309,7 +309,7 @@ const de = {
         kind: 'writing',
         name: 'Welches Gefühl kaufe ich?',
         duration: '15 Minuten, einmal',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Schreib die letzten fünf Dinge auf, die du gekauft, gegessen oder angefangen hast, als es dir schlecht ging. Mach zwei Spalten daneben: Welches Gefühl hast du dir davon versprochen, und welches kam wirklich? Die zweite Spalte bleibt meistens leer, und genau das ist das Ergebnis.',
       },
@@ -317,7 +317,7 @@ const de = {
         kind: 'action',
         name: 'Die Zehn-Minuten-Kurve',
         duration: '10 Minuten, bei jedem Impuls',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Wenn der Impuls kommt — Handy, Kaufen, Essen —, stell zehn Minuten und tu nichts dagegen. Nicht „nie“, nur „nicht jetzt“. Schreib auf einer Skala von 0 bis 10 auf, wie stark er am Anfang war und wie stark am Ende. Nach einer Woche hast du deine eigene Kurve und siehst, was das Verlangen von allein macht.',
       },
@@ -325,7 +325,7 @@ const de = {
         kind: 'sitting',
         name: 'Die Welle',
         duration: '8 Minuten, wenn es zieht',
-        minutes: 8,
+        tool: { kind: 'timer', minutes: 8 },
         body:
           'Setz dich hin, wenn der Impuls kommt, und tu nichts. Such das Verlangen im Körper: Brust, Magen, Hände. Benenne, was du findest — Enge, Kribbeln, Druck — und bleib dabei. Es steigt, es hält, es fällt. Du musst nichts dagegen tun. Schau nur lange genug zu, um zu merken, dass es von allein vergeht.',
       },
@@ -375,7 +375,7 @@ const de = {
         kind: 'sitting',
         name: 'Die Hitze aufsuchen',
         duration: '7 Minuten, nach dem Aufflammen',
-        minutes: 7,
+        tool: { kind: 'timer', minutes: 7 },
         body:
           'Setz dich hin und such die Wut im Körper, statt sie wegzuatmen: Kiefer, Nacken, Brust, Hände. Geh mit der Aufmerksamkeit dorthin, wo es am heißesten ist, und bleib dort. Drück sie nicht aus und schluck sie nicht runter, beides macht sie größer. Wenn du ihr einfach zusiehst, lässt sie nach ein paar Minuten von allein nach.',
       },
@@ -411,7 +411,7 @@ const de = {
         kind: 'writing',
         name: 'Was bliebe',
         duration: '20 Minuten, einmal',
-        minutes: 20,
+        tool: { kind: 'timer', minutes: 20 },
         body:
           'Beschreib dich auf einer halben Seite, ohne ein Wort über Beruf, Können, Besitz, Rolle oder Erfolge zu schreiben. Was übrig bleibt, kann dir kein Rückschlag nehmen. Wenn die Seite fast leer bleibt, hast du das Ergebnis der Übung schwarz auf weiß.',
       },
@@ -426,7 +426,7 @@ const de = {
         kind: 'sitting',
         name: 'Nichts erreichen',
         duration: '10 Minuten täglich',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Sitz zehn Minuten und erreiche dabei nichts: Du sollst nicht ruhiger werden, nicht besser und nicht weiter kommen. Jedes Mal, wenn du denkst „das bringt nichts“ oder „andere können das besser“, hast du den Stolz bei der Arbeit erwischt. Dieses Bemerken ist die Übung, nicht die Stille.',
       },
@@ -462,7 +462,7 @@ const de = {
         kind: 'writing',
         name: 'Kämpfen oder lassen',
         duration: '15 Minuten, wöchentlich',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Schreib die drei Dinge auf, die dich gerade am meisten Kraft kosten. Frag dich bei jedem: Muss ich hier kämpfen, oder reicht es, die Lage zu nehmen, wie sie ist? Streich eines davon. Auf dieser Ebene ist das Streichen die schwierigere Übung, nicht das Anpacken.',
       },
@@ -477,7 +477,7 @@ const de = {
         kind: 'sitting',
         name: 'Zwei Minuten vor der Schwelle',
         duration: '2 Minuten, vor der unangenehmen Sache',
-        minutes: 2,
+        tool: { kind: 'timer', minutes: 2 },
         body:
           'Setz dich zwei Minuten hin, bevor du das Unangenehme tust, und tu nichts dagegen. Du musst dir nicht Mut machen und dir keine Sätze zurechtlegen. Spür nur, wie sich das Kurz-davor anfühlt. Dann steh auf und mach es. Mut heißt nicht, dieses Gefühl nicht zu haben. Mut heißt, danach aufzustehen.',
       },
@@ -513,7 +513,7 @@ const de = {
         kind: 'writing',
         name: 'Drei Dinge, für die ich unbequem werde',
         duration: '15 Minuten, dann wöchentlich prüfen',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Schreib drei Dinge auf, für die du dich einsetzen würdest, auch wenn es dich etwas kostet. Nimm dir diese Woche das kleinste davon vor. Neutralität ist ein guter Boden, aber eine schlechte Wohnung. Diese Übung zeigt dir, ob dir noch etwas wichtig genug ist.',
       },
@@ -528,7 +528,7 @@ const de = {
         kind: 'sitting',
         name: 'Kommen und gehen lassen',
         duration: '12 Minuten täglich',
-        minutes: 12,
+        tool: { kind: 'timer', minutes: 12 },
         body:
           'Setz dich hin und lass alles vorbeiziehen: Gedanken, Geräusche, ein Jucken, Pläne. Halt nichts fest, schieb nichts weg, kommentier nichts. Diese Übung fällt dir auf dieser Ebene leicht, und sie ist gleichzeitig die Probe: Wo du doch festhältst oder wegschiebst, steckt noch etwas anderes als Gelassenheit.',
       },
@@ -564,7 +564,7 @@ const de = {
         kind: 'writing',
         name: 'Wozu ich Ja gesagt habe',
         duration: '15 Minuten, sonntags',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Schreib auf, wozu du in dieser Woche Ja gesagt hast. Alles, auch die Kleinigkeiten. Markier dann, was du aus Überzeugung übernommen hast und was aus Gewohnheit. Die zweite Liste ist die Stelle, an der aus Hilfsbereitschaft Erschöpfung wird.',
       },
@@ -579,7 +579,7 @@ const de = {
         kind: 'sitting',
         name: 'Der ehrliche Zustand',
         duration: '6 Minuten, abends',
-        minutes: 6,
+        tool: { kind: 'timer', minutes: 6 },
         body:
           'Setz dich hin und geh deinen Körper durch, von den Füßen bis zum Kopf. Du sollst dich nicht entspannen, sondern herausfinden, wie viel Kraft heute noch da ist. Wenn du gern Ja sagst, merkst du zuletzt, dass du leer wirst. Diese sechs Minuten sind die einzige Stelle am Tag, an der die Antwort nicht von deiner Stimmung abhängt.',
       },
@@ -615,7 +615,7 @@ const de = {
         kind: 'writing',
         name: 'So bin ich eben — stimmt das?',
         duration: '15 Minuten, einmal',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Schreib drei Sätze auf, die mit „Ich bin nun mal …“ anfangen. Frag dich bei jedem: War das vor fünf Jahren auch schon so? Würde jemand, der mich gut kennt, das unterschreiben? Was würde es kosten, das zu ändern? Etwas anzunehmen heißt nicht, dass es sich nicht ändern lässt.',
       },
@@ -630,7 +630,7 @@ const de = {
         kind: 'sitting',
         name: 'Das ist gerade so',
         duration: '10 Minuten täglich',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Nimm eine Sache, die dir gerade nicht passt, und setz dich damit hin. Sag dir bei jedem Ausatmen innerlich: Das ist gerade so. Das ist weder Einverständnis noch Aufgeben. Du hörst nur auf, mit einer Wirklichkeit zu streiten, die sich davon ohnehin nicht beeindrucken lässt. Was danach zu tun ist, siehst du klarer.',
       },
@@ -666,7 +666,7 @@ const de = {
         kind: 'writing',
         name: 'Das stärkste Gegenargument',
         duration: '25 Minuten, einmal',
-        minutes: 25,
+        tool: { kind: 'timer', minutes: 25 },
         body:
           'Nimm eine Überzeugung, die dir wirklich wichtig ist, und schreib die beste Fassung des Gegenteils auf. So gut, dass jemand, der das glaubt, sie unterschreiben würde. Keine Karikatur und kein Halbsatz zur Widerlegung am Ende. Wo es dir beim Schreiben eng wird, hört das Denken auf und fängt dein Selbstbild an.',
       },
@@ -681,7 +681,7 @@ const de = {
         kind: 'sitting',
         name: 'Zehn Minuten ohne Deutung',
         duration: '10 Minuten täglich',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Verbring zehn Minuten mit etwas, das nichts von dir will: mit Musik, einem Baum, einem Gesicht. Sobald du anfängst zu erklären, einzuordnen oder zu bewerten, merk es und geh zurück zum bloßen Anschauen. Es geht nicht um die Ruhe. Es geht darum, zu bemerken, wie schnell dein Kopf anspringt.',
       },
@@ -717,7 +717,7 @@ const de = {
         kind: 'writing',
         name: 'Der Dank, der ankommt',
         duration: '20 Minuten, einmal',
-        minutes: 20,
+        tool: { kind: 'timer', minutes: 20 },
         body:
           'Schreib einem Menschen auf, was er für dich getan hat. Konkret, mit Datum, ohne allgemeine Sätze darüber, wie gut er ist. Dann schick es ab. Der stille Teil dieser Ebene fällt dir leicht. Unbequem wird es erst, wenn jemand erfährt, was er dir bedeutet.',
       },
@@ -732,7 +732,7 @@ const de = {
         kind: 'sitting',
         name: 'Der stille gute Wunsch',
         duration: '2 Minuten täglich',
-        minutes: 2,
+        tool: { kind: 'timer', minutes: 2 },
         body:
           'Denk an einen Menschen und wünsch ihm etwas Konkretes und Gutes. Er soll es nicht erfahren, und du sollst nichts dafür tun. Am ersten Tag jemand, der dir nahesteht, am zweiten ein Fremder, am dritten jemand, den du schwierig findest. Am siebten Tag du selbst. Den siebten Tag lassen die meisten aus.',
       },
@@ -768,7 +768,7 @@ const de = {
         kind: 'writing',
         name: 'Das Unbemerkte',
         duration: 'abends, 5 Minuten',
-        minutes: 5,
+        tool: { kind: 'timer', minutes: 5 },
         body:
           'Schreib einen Moment des Tages auf, der gut war und den sonst niemand bemerkt hätte: Licht an einer Wand, ein Satz, das Geräusch der Tür. Am Ende der Woche wirfst du die Zettel weg. Du übst das Bemerken und nicht das Sammeln. Festgehaltene Freude wird wieder zum Verlangen.',
       },
@@ -783,7 +783,7 @@ const de = {
         kind: 'sitting',
         name: 'Eine Sache lange ansehen',
         duration: '8 Minuten täglich',
-        minutes: 8,
+        tool: { kind: 'timer', minutes: 8 },
         body:
           'Nimm einen gewöhnlichen Gegenstand: eine Tasse, deine Hand, ein Blatt. Sieh ihn so lange an, bis er aufhört, das zu sein, wofür du ihn hältst. Du sollst ihn nicht deuten, nicht bewundern und nicht fotografieren. Die Freude auf dieser Ebene kommt nicht von besonderen Dingen, sondern davon, wie lange du hinschaust.',
       },
@@ -819,7 +819,7 @@ const de = {
         kind: 'writing',
         name: 'Wem hat das genützt?',
         duration: '10 Minuten, wöchentlich',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Schreib auf, wem deine Ruhe in der vergangenen Woche konkret genützt hat: Wer hat sich beruhigt? Wem war geholfen? Wer ist geblieben? Wenn die Liste leer bleibt, sagt dir das mehr als jede weitere Übung. Dann hat sich dieser Frieden aus der Welt zurückgezogen.',
       },
@@ -834,7 +834,7 @@ const de = {
         kind: 'sitting',
         name: 'Der Atem, der sich selbst atmet',
         duration: '20 Minuten täglich',
-        minutes: 20,
+        tool: { kind: 'timer', minutes: 20 },
         body:
           'Setz dich hin und mach nichts mit dem Atem: nicht verlängern, nicht zählen, nicht vertiefen. Bemerk nur, dass geatmet wird, ohne dass jemand es tut. Das ist die schlichteste Übung dieser Liste und die einzige, die nicht besser wird, wenn du dir mehr Mühe gibst.',
       },
@@ -869,7 +869,7 @@ const de = {
         kind: 'writing',
         name: 'Der Satz, der übrig bleibt',
         duration: '10 Minuten, einmal',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Schreib in einem Satz auf, was du suchst. Dann streich jedes Wort, das ein Ziel, einen Zustand oder einen Zeitpunkt benennt. Lies, was übrig bleibt. Meistens ist es nichts. Das ist keine Niederlage, sondern das ehrlichste Ergebnis auf dieser Höhe.',
       },
@@ -925,7 +925,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'The two versions',
         duration: '10 minutes, once',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Write down the incident you are ashamed of twice. Once the way you tell it to yourself. And once the way someone would write it who only saw what happened. Read both versions out loud. The difference between them is the shame. Now it is on paper instead of working invisibly inside you.',
       },
@@ -933,7 +933,7 @@ const en: LevelCopy = {
         kind: 'action',
         name: 'Seen once',
         duration: '5 minutes, once a day',
-        minutes: 5,
+        tool: { kind: 'timer', minutes: 5 },
         body:
           'Go somewhere there are people: a bakery, a platform, a park. Stay there for five minutes without looking at your phone. Say something unremarkable to one person — a greeting, a thank you, a question about the time. Shame claims that everyone can see something in you. Those five minutes show you every time that nobody is looking.',
       },
@@ -941,7 +941,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'A hand on the breastbone',
         duration: '6 minutes daily',
-        minutes: 6,
+        tool: { kind: 'timer', minutes: 6 },
         body:
           'Sit down, lay one hand flat on your breastbone and leave it there. Say three sentences to yourself: this is hard right now. Everyone knows something like it. I would like to be kind to myself. If you think “this is ridiculous” while you do it, that belongs to the exercise. Say the sentences anyway.',
       },
@@ -977,7 +977,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'The account',
         duration: '15 minutes, once per case',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Make three columns on a sheet of paper: what happened? What was really my part in it? What would make it good? The third column needs a concrete action with a date — or the word “nothing”. Then carry the action out or throw the sheet away. Do not leave it lying around.',
       },
@@ -992,7 +992,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Heard, adjourned',
         duration: '8 minutes daily',
-        minutes: 8,
+        tool: { kind: 'timer', minutes: 8 },
         body:
           'Sit down and wait for the first accusation. It will come. Listen to it once, all the way, without defending yourself. Then say three words to yourself: heard, checked, adjourned. Then go back to your breath, and use the same three words for the next accusation. The prosecutor inside you does not get quieter when you argue with him. He gets quieter when nobody listens any more.',
       },
@@ -1028,7 +1028,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'What used to matter to me',
         duration: '10 minutes, once',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Write down ten things that used to matter to you: music, a person, a place, a piece of work. You do not have to take any of them up again. It is only about writing them down. Apathy claims there was never anything. The list proves the opposite, and you do not have to do more than that.',
       },
@@ -1036,7 +1036,7 @@ const en: LevelCopy = {
         kind: 'action',
         name: 'Two minutes, then stop',
         duration: '2 minutes, twice a day',
-        minutes: 2,
+        tool: { kind: 'timer', minutes: 2 },
         body:
           'Find the smallest visible thing in the room: a plate, three steps outside the door, one line. Set two minutes, start, and stop when it rings — even if you could carry on. Stopping is part of it. That keeps the exercise small enough for you to repeat it tomorrow.',
       },
@@ -1044,7 +1044,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Five things in the room',
         duration: '3 minutes, twice a day',
-        minutes: 3,
+        tool: { kind: 'timer', minutes: 3 },
         body:
           'You are not supposed to meditate, only to count: five things you can see, four you can hear, three you can feel, two you can smell, one you can taste. If you get stuck, start again. This is the smallest possible contact with the world, and you need no motivation for it.',
       },
@@ -1080,7 +1080,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'The unsent letter',
         duration: '30 minutes, once',
-        minutes: 30,
+        tool: { kind: 'timer', minutes: 30 },
         body:
           'Write a letter to what is missing: to a person, or to a life that never happened. Everything is allowed in it — the thanks, the reproach, the unfinished business. At the end, write one sentence about what you will keep. You do not send the letter and you do not throw it away. You put it aside.',
       },
@@ -1095,7 +1095,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'The appointment',
         duration: '20 minutes daily, at a fixed time',
-        minutes: 20,
+        tool: { kind: 'timer', minutes: 20 },
         body:
           'Give the grief an appointment: every day at the same time, in the same chair. Everything is allowed there — photographs, tears, letters. If it comes outside that time, write the thought on a slip of paper and put it on the chair for tomorrow. You are not making it smaller. It simply gets one room instead of the whole flat.',
       },
@@ -1131,7 +1131,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'And then?',
         duration: '10 minutes, whenever a fear circles',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Write the fear down as one sentence. Then ask “and then?” and answer it. Then ask “and then?” again. Keep going until you reach a point where you are acting again. Fear usually stops at the frightening image. On paper you get past it.',
       },
@@ -1146,7 +1146,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Out longer than in',
         duration: '6 minutes, when it closes in',
-        minutes: 6,
+        tool: { kind: 'timer', minutes: 6 },
         body:
           'Breathe in for four counts and out for six, with no pause in between. Nothing else. You do not have to calm down and you do not have to talk yourself round. The long out-breath is the only switch on fear that you can operate deliberately. Your mind follows the breath, and the arguments come last.',
       },
@@ -1182,7 +1182,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'Which feeling am I buying?',
         duration: '15 minutes, once',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Write down the last five things you bought, ate or started when you were feeling bad. Make two columns next to them: which feeling did you promise yourself, and which one actually came? The second column usually stays empty, and that is the result.',
       },
@@ -1190,7 +1190,7 @@ const en: LevelCopy = {
         kind: 'action',
         name: 'The ten-minute curve',
         duration: '10 minutes, at every impulse',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'When the impulse comes — phone, shopping, food — set ten minutes and do nothing about it. Not “never”, just “not now”. Write down on a scale of 0 to 10 how strong it was at the start and how strong at the end. After a week you have your own curve and you can see what desire does on its own.',
       },
@@ -1198,7 +1198,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'The wave',
         duration: '8 minutes, when it pulls',
-        minutes: 8,
+        tool: { kind: 'timer', minutes: 8 },
         body:
           'Sit down when the impulse comes, and do nothing. Look for the desire in your body: chest, stomach, hands. Name what you find — tightness, tingling, pressure — and stay with it. It rises, it holds, it falls. You do not have to do anything about it. Just watch long enough to notice that it passes by itself.',
       },
@@ -1248,7 +1248,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Going to the heat',
         duration: '7 minutes, after a flare-up',
-        minutes: 7,
+        tool: { kind: 'timer', minutes: 7 },
         body:
           'Sit down and look for the anger in your body instead of breathing it away: jaw, neck, chest, hands. Take your attention to the hottest place and stay there. Do not express it and do not swallow it, both make it bigger. If you simply watch it, it lets go by itself after a few minutes.',
       },
@@ -1284,7 +1284,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'What would be left',
         duration: '20 minutes, once',
-        minutes: 20,
+        tool: { kind: 'timer', minutes: 20 },
         body:
           'Describe yourself on half a page without writing a single word about your job, your abilities, your possessions, your role or your achievements. What is left is what no setback can take from you. If the page stays almost empty, you have the result of the exercise in black and white.',
       },
@@ -1299,7 +1299,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Achieving nothing',
         duration: '10 minutes daily',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Sit for ten minutes and achieve nothing while you do: you are not supposed to get calmer, or better, or further on. Every time you think “this is pointless” or “other people are better at this”, you have caught pride at work. That noticing is the exercise, not the silence.',
       },
@@ -1335,7 +1335,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'Fight it or leave it',
         duration: '15 minutes, weekly',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Write down the three things that are costing you the most strength right now. Ask yourself about each one: do I have to fight here, or is it enough to take the situation as it is? Cross one of them out. On this level, crossing out is the harder exercise, not taking things on.',
       },
@@ -1350,7 +1350,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Two minutes at the threshold',
         duration: '2 minutes, before the uncomfortable thing',
-        minutes: 2,
+        tool: { kind: 'timer', minutes: 2 },
         body:
           'Sit down for two minutes before you do the uncomfortable thing, and do nothing about it. You do not have to give yourself a pep talk or prepare any sentences. Just feel what the moment just before feels like. Then stand up and do it. Courage does not mean not having that feeling. Courage means standing up afterwards.',
       },
@@ -1386,7 +1386,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'Three things worth the discomfort',
         duration: '15 minutes, then a weekly check',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Write down three things you would stand up for even if it cost you something. Take on the smallest of them this week. Neutrality is good ground but a poor place to live. This exercise shows you whether anything still matters enough to you.',
       },
@@ -1401,7 +1401,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Letting it come and go',
         duration: '12 minutes daily',
-        minutes: 12,
+        tool: { kind: 'timer', minutes: 12 },
         body:
           'Sit down and let everything pass by: thoughts, sounds, an itch, plans. Hold on to nothing, push nothing away, comment on nothing. This exercise comes easily to you on this level, and at the same time it is the test: wherever you do hold on or push away, there is still something other than calm.',
       },
@@ -1437,7 +1437,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'What I said yes to',
         duration: '15 minutes, on Sundays',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Write down what you said yes to this week. Everything, including the small things. Then mark what you took on out of conviction and what you took on out of habit. The second list is where being helpful turns into exhaustion.',
       },
@@ -1452,7 +1452,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'The honest reading',
         duration: '6 minutes, in the evening',
-        minutes: 6,
+        tool: { kind: 'timer', minutes: 6 },
         body:
           'Sit down and go through your body, from your feet to your head. You are not supposed to relax, you are supposed to find out how much strength is still there today. If you like saying yes, you are the last to notice that you are running empty. These six minutes are the only point in the day where the answer does not depend on your mood.',
       },
@@ -1488,7 +1488,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'That is just how I am — is it?',
         duration: '15 minutes, once',
-        minutes: 15,
+        tool: { kind: 'timer', minutes: 15 },
         body:
           'Write down three sentences that start with “I am just …”. Ask yourself about each one: was that true five years ago as well? Would someone who knows me well sign it? What would it cost to change it? Accepting something does not mean it cannot change.',
       },
@@ -1503,7 +1503,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'This is how it is',
         duration: '10 minutes daily',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Take something you are not happy about right now and sit down with it. With every out-breath, say to yourself: this is how it is right now. That is neither agreement nor giving up. You are only stopping an argument with a reality that is not impressed by it anyway. What to do next is easier to see afterwards.',
       },
@@ -1539,7 +1539,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'The strongest counter-argument',
         duration: '25 minutes, once',
-        minutes: 25,
+        tool: { kind: 'timer', minutes: 25 },
         body:
           'Take a conviction that really matters to you and write down the best version of its opposite. So good that someone who believes it would sign it. No caricature, and no half-sentence of refutation at the end. Where it gets tight while you write, thinking stops and your self-image begins.',
       },
@@ -1554,7 +1554,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Ten minutes without interpreting',
         duration: '10 minutes daily',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Spend ten minutes with something that wants nothing from you: music, a tree, a face. As soon as you start explaining, classifying or judging, notice it and go back to simply looking. It is not about the calm. It is about noticing how quickly your mind starts up.',
       },
@@ -1590,7 +1590,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'Thanks that arrive',
         duration: '20 minutes, once',
-        minutes: 20,
+        tool: { kind: 'timer', minutes: 20 },
         body:
           'Write down for one person what they have done for you. Concretely, with dates, without general sentences about how good they are. Then send it. The quiet part of this level comes easily to you. It only gets uncomfortable when someone finds out what they mean to you.',
       },
@@ -1605,7 +1605,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'The silent good wish',
         duration: '2 minutes daily',
-        minutes: 2,
+        tool: { kind: 'timer', minutes: 2 },
         body:
           'Think of a person and wish them something concrete and good. They are not supposed to find out, and you are not supposed to do anything about it. On the first day someone close to you, on the second a stranger, on the third someone you find difficult. On the seventh day, yourself. Most people skip the seventh day.',
       },
@@ -1641,7 +1641,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'The unnoticed',
         duration: 'evenings, 5 minutes',
-        minutes: 5,
+        tool: { kind: 'timer', minutes: 5 },
         body:
           'Write down one moment of the day that was good and that nobody else would have noticed: light on a wall, a sentence, the sound of the door. At the end of the week you throw the notes away. You are practising the noticing, not the collecting. Joy you hold on to turns back into desire.',
       },
@@ -1656,7 +1656,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Looking at one thing for a long time',
         duration: '8 minutes daily',
-        minutes: 8,
+        tool: { kind: 'timer', minutes: 8 },
         body:
           'Take an ordinary object: a cup, your hand, a leaf. Look at it until it stops being what you take it for. You are not supposed to interpret it, admire it or photograph it. The joy on this level does not come from special things, it comes from how long you look.',
       },
@@ -1692,7 +1692,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'Who did that help?',
         duration: '10 minutes, weekly',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Write down who concretely benefited from your calm this past week: who settled down? Who was helped? Who stayed? If the list stays empty, that tells you more than any further exercise. Then this peace has withdrawn from the world.',
       },
@@ -1707,7 +1707,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'The breath that breathes itself',
         duration: '20 minutes daily',
-        minutes: 20,
+        tool: { kind: 'timer', minutes: 20 },
         body:
           'Sit down and do nothing with your breath: do not lengthen it, do not count it, do not deepen it. Just notice that breathing is happening without anyone doing it. This is the plainest exercise on the list and the only one that does not get better if you try harder.',
       },
@@ -1742,7 +1742,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'The sentence that is left',
         duration: '10 minutes, once',
-        minutes: 10,
+        tool: { kind: 'timer', minutes: 10 },
         body:
           'Write down in one sentence what you are looking for. Then cross out every word that names a goal, a state or a point in time. Read what is left. Usually it is nothing. That is not a defeat, it is the most honest result at this height.',
       },
