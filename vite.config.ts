@@ -48,6 +48,20 @@ export default defineConfig({
               expiration: { maxEntries: 16 },
             },
           },
+          /* The guided meditations: megabytes each, so never precached, and
+             kept from the first play on. The player fetches each file whole
+             (see `src/components/Track.tsx`), so the answer is a full 200
+             the cache can keep — a streamed one would be a partial 206. Six
+             files are three recordings in two languages. */
+          {
+            urlPattern: ({ url }) => url.pathname.includes('/audio/'),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'hawkinsflow-audio',
+              expiration: { maxEntries: 6 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
         ],
       },
     }),

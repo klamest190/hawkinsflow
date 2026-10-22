@@ -4,6 +4,7 @@ import type { PracticeTool as Tool } from '../types.ts'
 import { Breath } from './Breath.tsx'
 import { Grounding } from './Grounding.tsx'
 import { Timer } from './Timer.tsx'
+import { Track } from './Track.tsx'
 import { Writing, type Journal } from './Writing.tsx'
 
 type PracticeToolProps = {
@@ -36,5 +37,7 @@ export function PracticeTool({ tool, t, journal }: PracticeToolProps) {
       )
     case 'prompts':
       return <Writing prompts={tool.prompts} minutes={tool.minutes} t={t} journal={journal} />
+    case 'audio':
+      return <Track track={tool.track} t={t} />
   }
 }

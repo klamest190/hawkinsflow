@@ -132,6 +132,8 @@ export type Practice = {
  *   live in `copy.ts`.
  * - `prompts` — questions written for this one practice, so they are
  *   translated and stand here with it.
+ * - `audio` — a guided meditation. The recording is per language, so its
+ *   title and file live in `copy.ts` under `tracks`.
  *
  * The two writing tools keep the clock the practice had before them: the
  * fields take the place of the paper, not of the quarter of an hour.
@@ -142,6 +144,20 @@ export type PracticeTool =
   | { kind: 'grounding' }
   | { kind: 'reframe'; minutes?: number }
   | { kind: 'prompts'; prompts: string[]; minutes?: number }
+  | { kind: 'audio'; track: TrackId }
+
+/**
+ * The guided meditations, one per stretch of the scale: `arrive` below the
+ * threshold, `settle` from courage to reason, `open` above.
+ */
+export type TrackId = 'arrive' | 'settle' | 'open'
+
+/** A recording in one language. */
+export type TrackText = {
+  title: string
+  /** Relative to the app's base, e.g. `audio/de/arrive.mp3` in `public/`. */
+  file: string
+}
 
 /**
  * The tools for the second step of the moment flow: the ones for the body.

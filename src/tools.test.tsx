@@ -96,6 +96,24 @@ describe.each(LANGUAGES)('tools (%s)', (language) => {
     )
   })
 
+  it('loads nothing before the first tap on a recording', () => {
+    const html = renderToString(<PracticeTool tool={{ kind: 'audio', track: 'settle' }} t={t} />)
+    expect(html).toContain(t.tracks.settle.title)
+    expect(html).toContain(t.trackPlay)
+    expect(html).toContain(t.trackNote)
+    // No source yet, and nothing the browser would fetch on its own.
+    expect(html).toContain('preload="none"')
+    expect(html).not.toContain(t.tracks.settle.file)
+    // Nothing to seek in until the length is known.
+    expect(html).toMatch(/<input[^>]*type="range"[^>]*disabled/)
+  })
+
+  it('keeps each recording in its own language folder', () => {
+    for (const [id, track] of Object.entries(t.tracks)) {
+      expect(track.file, id).toBe(`audio/${language}/${id}.mp3`)
+    }
+  })
+
   /* From courage to reason, the writing practice has fields: the reframe,
      the prompts or the stoic question of what is in one's hands. */
   it('gives every level from the threshold to reason a writing tool', () => {

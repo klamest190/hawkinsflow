@@ -1,4 +1,4 @@
-import type { Language } from '../types.ts'
+import type { Language, TrackId, TrackText } from '../types.ts'
 
 /* Lists read differently in each language — "a, b und c" against "a, b and c" —
    so each one joins its own. */
@@ -255,6 +255,26 @@ const de = {
     'Was spricht dafür — und was dagegen?',
     'Wie ließe er sich ehrlich auch sagen?',
   ],
+
+  // ── Geführte Meditation ──────────────────────────────────────────────────
+  trackPlay: 'Anhören',
+  trackPause: 'Anhalten',
+  trackResume: 'Weiter',
+  trackAgain: 'Noch einmal',
+  trackLoading: 'Lädt …',
+  trackFailed:
+    'Die Aufnahme ließ sich nicht laden. Ohne Netz geht das erst, wenn sie einmal geladen wurde.',
+  trackSeek: 'Stelle in der Aufnahme',
+  trackPosition: (at: string, of: string): string => `${at} von ${of}`,
+  // Under the player: the first play downloads, and says so before it does.
+  trackNote: 'Lädt beim ersten Anhören einmal ganz herunter und ist danach auch ohne Netz da.',
+  // The recordings, one per stretch of the scale. The files go in
+  // `public/audio/de/`; see `TrackId` in `types.ts`.
+  tracks: {
+    arrive: { title: 'Ankommen', file: 'audio/de/arrive.mp3' },
+    settle: { title: 'Zur Ruhe kommen', file: 'audio/de/settle.mp3' },
+    open: { title: 'Weit werden', file: 'audio/de/open.mp3' },
+  } satisfies Record<TrackId, TrackText>,
 
   // ── Skala ────────────────────────────────────────────────────────────────
   backArrow: '← Zurück',
@@ -575,6 +595,21 @@ const en: Copy = {
     'What speaks for it — and what against it?',
     'How else could it honestly be put?',
   ],
+
+  trackPlay: 'Listen',
+  trackPause: 'Pause',
+  trackResume: 'Resume',
+  trackAgain: 'Play again',
+  trackLoading: 'Loading …',
+  trackFailed: 'The recording could not be loaded. Without a network it only works once it has been loaded once.',
+  trackSeek: 'Position in the recording',
+  trackPosition: (at: string, of: string): string => `${at} of ${of}`,
+  trackNote: 'Downloads in full the first time you listen, and works without a network after that.',
+  tracks: {
+    arrive: { title: 'Arriving', file: 'audio/en/arrive.mp3' },
+    settle: { title: 'Settling', file: 'audio/en/settle.mp3' },
+    open: { title: 'Opening out', file: 'audio/en/open.mp3' },
+  },
 
   backArrow: '← Back',
   scaleTitle: 'The scale',
