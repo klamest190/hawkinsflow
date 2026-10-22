@@ -79,8 +79,8 @@ export function DataCard({ data, language, t, onRestore }: DataCardProps) {
   }
 
   function restore(backup: Backup) {
-    const { answers, plans, history, moments } = backup
-    onRestore({ answers, plans, history, moments })
+    const { answers, plans, history, moments, checkins } = backup
+    onRestore({ answers, plans, history, moments, checkins })
     setStatus({ kind: 'restored' })
   }
 
@@ -118,12 +118,13 @@ export function DataCard({ data, language, t, onRestore }: DataCardProps) {
           <p ref={question} tabIndex={-1} className="text-[14px] leading-relaxed text-text/90 focus:outline-none">
             {t.dataConfirm(
               new Intl.DateTimeFormat(language, { dateStyle: 'long' }).format(new Date(status.backup.exported)),
-              t.dataContents(
-                status.backup.history.length,
-                Object.keys(status.backup.plans).length,
-                status.backup.moments.length,
-                Object.keys(status.backup.answers).length,
-              ),
+              t.dataContents({
+                runs: status.backup.history.length,
+                plans: Object.keys(status.backup.plans).length,
+                moments: status.backup.moments.length,
+                days: status.backup.checkins.length,
+                answers: Object.keys(status.backup.answers).length,
+              }),
             )}
           </p>
           <div className="flex flex-wrap gap-2">

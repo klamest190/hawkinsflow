@@ -136,6 +136,33 @@ test('for apathy the moment flow counts the five senses', async ({ page }) => {
   await expect(page.getByRole('button', { name: 'Von vorn' })).toBeFocused()
 })
 
+test('the daily check-in keeps one level per day', async ({ page }) => {
+  await seed(page, {
+    'hawkinsflow.history.v1': [
+      { taken: new Date(Date.now() - 2 * DAY).toISOString(), level: 'courage', calibration: 214, answered: 34 },
+    ],
+  })
+  await expect(page.getByText('Wo stehst du heute?')).toBeVisible()
+
+  const toggle = page.getByRole('button', { name: 'Ebene wählen' })
+  await toggle.click()
+  await page.getByRole('group', { name: 'Deine Ebene heute' }).getByRole('button', { name: 'Mut' }).click()
+  // The tiles are gone; the toggle has the focus and says what it does now.
+  const change = page.getByRole('button', { name: 'Ändern' })
+  await expect(change).toBeFocused()
+  await expect(page.getByRole('heading', { name: 'Deine Tage' })).toBeVisible()
+
+  // A second tap on the same day corrects the first instead of adding a day.
+  await change.click()
+  await expect(page.getByRole('button', { name: 'Mut', pressed: true })).toBeVisible()
+  await page.getByRole('button', { name: 'Neutralität' }).click()
+  const checkIns = (await stored(page, 'hawkinsflow.checkins.v1')) as { level: string }[]
+  expect(checkIns.map((entry) => entry.level)).toEqual(['neutrality'])
+
+  await page.reload()
+  await expect(page.getByText('Neutralität', { exact: true }).first()).toBeVisible()
+})
+
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()

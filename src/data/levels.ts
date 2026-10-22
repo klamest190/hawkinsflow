@@ -57,6 +57,11 @@ export const BELOW_THRESHOLD: LevelId[] = LEVELS.filter((level) => level.value <
   (level) => level.id,
 )
 
+/** Whether a value names one of the seventeen levels — for what comes out of storage. */
+export function isLevelId(value: unknown): value is LevelId {
+  return typeof value === 'string' && LEVELS.some((level) => level.id === value)
+}
+
 /** Der Rang einer Ebene auf der Skala, 0 (Scham) bis 16 (Erleuchtung). */
 export function rankOf(id: LevelId): number {
   return LEVELS.findIndex((level) => level.id === id)

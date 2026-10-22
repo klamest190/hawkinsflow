@@ -4,10 +4,13 @@ import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { MomentCopy } from '../i18n/moment.ts'
 import type { BackupData } from '../lib/backup.ts'
+import { todayOf } from '../lib/checkins.ts'
 import { dueRun, levelOf as levelById } from '../lib/history.ts'
 import { readableOnDark } from '../lib/oklch.ts'
-import type { History, Language, Level, LevelId, Moments, Plan, PlanVerdict } from '../types.ts'
+import type { CheckIns, History, Language, Level, LevelId, Moments, Plan, PlanVerdict } from '../types.ts'
 import { Button } from './Button.tsx'
+import { CheckInTrail } from './CheckInTrail.tsx'
+import { DailyCheckIn } from './DailyCheckIn.tsx'
 import { DataCard } from './DataCard.tsx'
 import { HistoryTrail } from './HistoryTrail.tsx'
 import { Logo } from './Logo.tsx'
@@ -42,6 +45,10 @@ type IntroProps = {
   /** Die abgeschlossenen Momente, ältester zuerst. */
   moments: Moments
   onClearMoments: () => void
+  /** The daily check-ins, oldest first. */
+  checkIns: CheckIns
+  onCheckIn: (level: LevelId) => void
+  onClearCheckIns: () => void
   /** Everything stored, for the backup at the foot of the page. */
   data: BackupData
   onRestore: (data: BackupData) => void
@@ -136,6 +143,9 @@ export function Intro({
   onClearHistory,
   moments,
   onClearMoments,
+  checkIns,
+  onCheckIn,
+  onClearCheckIns,
   data,
   onRestore,
 }: IntroProps) {
@@ -157,6 +167,11 @@ export function Intro({
   const now = new Date()
   const due = resumeAt === null ? dueRun(history, now) : null
   const dueLevel = due === null ? null : levelById(levels, due.run.level)
+
+  /* The check-in asks for a level by its name. Before the first run the
+     names are just words, so it waits until there is one — or until someone
+     has checked in before, on this device or in a restored backup. */
+  const offerCheckIn = history.length > 0 || checkIns.length > 0
 
   return (
     <div className="animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-16 text-center">
@@ -308,12 +323,24 @@ export function Intro({
 
           Steht ein Plan darüber, rückt die Karte dicht an ihn heran; ohne Plan
           hängt sie an der Leiter und braucht den vollen Abstand. */}
-      {(history.length > 0 || moments.length > 0) && (
+      {/* Today, between the plan and the trails: the plan says what to do,
+          the check-in asks how today is, the trails show how the days were. */}
+      {offerCheckIn && (
+        <DailyCheckIn
+          levels={levels}
+          today={todayOf(checkIns, now)}
+          t={t}
+          onCheckIn={onCheckIn}
+          className={newest === undefined ? 'mt-10' : 'mt-4'}
+        />
+      )}
+
+      {(history.length > 0 || moments.length > 0 || checkIns.length > 0) && (
         <div
           className={
             'w-full divide-y divide-line/60 rounded-2xl border border-line bg-card/60 ' +
             'text-left backdrop-blur-sm ' +
-            (newest === undefined ? 'mt-10' : 'mt-4')
+            (newest === undefined && !offerCheckIn ? 'mt-10' : 'mt-4')
           }
         >
           <HistoryTrail
@@ -330,6 +357,17 @@ export function Intro({
             language={language}
             m={m}
             onClear={onClearMoments}
+          />
+
+          {/* Third and last: days sit between the weeks of the questionnaire
+              and the afternoons of the moments, but they are the newest row
+              and the one most often empty. */}
+          <CheckInTrail
+            checkIns={checkIns}
+            levels={levels}
+            language={language}
+            t={t}
+            onClear={onClearCheckIns}
           />
         </div>
       )}

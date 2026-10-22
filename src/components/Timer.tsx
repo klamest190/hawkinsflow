@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type Ref } from 'react'
 import { useCountdown } from '../hooks/useCountdown.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { chime } from '../lib/chime.ts'
@@ -14,15 +14,26 @@ export function Chip({
   onClick,
   children,
   strong = false,
+  ref,
+  expanded,
+  controls,
 }: {
   onClick: () => void
   children: string
   strong?: boolean
+  /** For a chip that takes the focus back, as the check-in's toggle does. */
+  ref?: Ref<HTMLButtonElement>
+  /** For a chip that opens something: `aria-expanded` and `aria-controls`. */
+  expanded?: boolean
+  controls?: string
 }) {
   return (
     <button
+      ref={ref}
       type="button"
       onClick={onClick}
+      aria-expanded={expanded}
+      aria-controls={controls}
       className={
         'cursor-pointer rounded-full border px-4 py-2 text-[13px] font-semibold ' +
         'transition-[background-color,border-color,color] duration-200 ' +

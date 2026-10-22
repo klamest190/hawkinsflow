@@ -11,6 +11,7 @@ import { copy } from './i18n/copy.ts'
 import { momentCopy } from './i18n/moment.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
 import { useAnswers } from './hooks/useAnswers.ts'
+import { useCheckIns } from './hooks/useCheckIns.ts'
 import { useHistory } from './hooks/useHistory.ts'
 import { useMoments } from './hooks/useMoments.ts'
 import { usePlans } from './hooks/usePlans.ts'
@@ -54,6 +55,8 @@ export default function App() {
      misst Wochen, ein Moment misst einen Nachmittag. In einer Reihe wären das
      zwei Größen in einer Spalte. */
   const { moments, recordMoment, clearMoments, replaceMoments } = useMoments()
+  /* And the daily check-ins: the size between the two — a day. */
+  const { checkIns, checkIn, clearCheckIns, replaceCheckIns } = useCheckIns()
   const [phase, setPhase] = useState<Phase>('intro')
 
   /* Jeder Wechsel der Ansicht legt einen Eintrag in die Browser-Historie.
@@ -185,13 +188,14 @@ export default function App() {
     view.current?.focus()
   }, [phase])
 
-  /* Restoring a backup replaces all four stores at once — see `lib/backup.ts`
+  /* Restoring a backup replaces every store at once — see `lib/backup.ts`
      for why it replaces instead of merging. */
   function restore(data: BackupData) {
     replaceAnswers(data.answers)
     replacePlans(data.plans)
     replaceHistory(data.history)
     replaceMoments(data.moments)
+    replaceCheckIns(data.checkins)
   }
 
   function startFresh() {
@@ -304,7 +308,10 @@ export default function App() {
             onClearHistory={clearHistory}
             moments={moments}
             onClearMoments={clearMoments}
-            data={{ answers, plans, history, moments }}
+            checkIns={checkIns}
+            onCheckIn={checkIn}
+            onClearCheckIns={clearCheckIns}
+            data={{ answers, plans, history, moments, checkins: checkIns }}
             onRestore={restore}
           />
         )}

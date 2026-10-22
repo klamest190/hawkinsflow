@@ -227,6 +227,22 @@ export type Moment = {
 /** Die Momente, ältester zuerst. */
 export type Moments = Moment[]
 
+/**
+ * The daily check-in: one tap on the start page, one level for the day.
+ *
+ * Like a moment, only when and which level — no note, no number. Unlike a
+ * moment, any of the seventeen: a moment is opened when something holds
+ * someone below the threshold, a check-in on any day at all.
+ */
+export type CheckIn = {
+  /** ISO time of the tap. A later tap on the same day replaces it. */
+  at: string
+  level: LevelId
+}
+
+/** The check-ins, oldest first, at most one per calendar day. */
+export type CheckIns = CheckIn[]
+
 /** Eine Frage des Bogens ohne ihren Text — der steht in `i18n/questions.ts`. */
 export type Question = {
   id: QuestionId

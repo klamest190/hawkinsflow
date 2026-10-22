@@ -24,9 +24,10 @@ const data: BackupData = {
   plans: { courage: plan },
   history: [{ taken: '2026-02-15T09:00:00.000Z', level: 'courage', calibration: 214, answered: 34 }],
   moments: [{ taken: '2026-03-01T15:45:00.000Z', level: 'anger' }],
+  checkins: [{ at: '2026-03-02T08:00:00.000Z', level: 'neutrality' }],
 }
 
-const empty: BackupData = { answers: {}, plans: {}, history: [], moments: [] }
+const empty: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [] }
 
 const when = new Date(2026, 8, 26, 10, 30)
 
@@ -41,8 +42,8 @@ describe('parseBackup', () => {
     const parsed = parseBackup(text)
     expect(parsed.ok).toBe(true)
     if (parsed.ok) {
-      const { answers, plans, history, moments } = parsed.backup
-      expect({ answers, plans, history, moments }).toEqual(data)
+      const { answers, plans, history, moments, checkins } = parsed.backup
+      expect({ answers, plans, history, moments, checkins }).toEqual(data)
     }
   })
 
@@ -59,6 +60,17 @@ describe('parseBackup', () => {
     // A moment above the threshold cannot come out of the moment flow.
     expect(parseBackup(fileWith({ moments: [{ taken: 'x', level: 'joy' }] })).ok).toBe(false)
     expect(parseBackup(fileWith({ exported: 'yesterday' })).ok).toBe(false)
+    expect(parseBackup(fileWith({ checkins: [{ at: 'x', level: 'courage' }] })).ok).toBe(false)
+  })
+
+  /* Check-ins came after the first backups. A file from before them must
+     still load — with none — or every backup made so far would be refused. */
+  it('loads a backup from before the check-ins, with none', () => {
+    const { checkins: _, ...before } = toBackup(data, when)
+    const parsed = parseBackup(JSON.stringify(before))
+    expect(parsed.ok).toBe(true)
+    expect(parsed.ok && parsed.backup.checkins).toEqual([])
+    expect(parsed.ok && parsed.backup.history).toEqual(data.history)
   })
 
   it('tells a backup from a newer version apart', () => {
@@ -85,23 +97,28 @@ describe('backup helpers', () => {
   it('knows when there is nothing to save', () => {
     expect(hasData(empty)).toBe(false)
     expect(hasData({ ...empty, answers: { q01: 0 } })).toBe(true)
+    expect(hasData({ ...empty, checkins: data.checkins })).toBe(true)
     expect(hasData(data)).toBe(true)
   })
 })
 
 describe('the confirmation lists what a backup holds', () => {
+  const none = { runs: 0, plans: 0, moments: 0, days: 0, answers: 0 }
+
   it('in German', () => {
     const t = copy.de
-    expect(t.dataContents(2, 1, 7, 0)).toBe('2 Durchgänge, einen Plan und 7 Momente')
-    expect(t.dataContents(1, 0, 0, 20)).toBe('einen Durchgang und Antworten auf 20 Aussagen')
-    expect(t.dataContents(0, 3, 0, 0)).toBe('3 Pläne')
-    expect(t.dataContents(0, 0, 0, 0)).toBe('keine Einträge')
+    expect(t.dataContents({ ...none, runs: 2, plans: 1, moments: 7 })).toBe('2 Durchgänge, einen Plan und 7 Momente')
+    expect(t.dataContents({ ...none, runs: 1, answers: 20 })).toBe('einen Durchgang und Antworten auf 20 Aussagen')
+    expect(t.dataContents({ ...none, plans: 3 })).toBe('3 Pläne')
+    expect(t.dataContents({ ...none, days: 12 })).toBe('12 Tageseinträge')
+    expect(t.dataContents(none)).toBe('keine Einträge')
   })
 
   it('in English', () => {
     const t = copy.en
-    expect(t.dataContents(2, 1, 7, 0)).toBe('2 runs, one plan and 7 moments')
-    expect(t.dataContents(0, 0, 1, 1)).toBe('one moment and the answer to one statement')
-    expect(t.dataContents(0, 0, 0, 0)).toBe('nothing at all')
+    expect(t.dataContents({ ...none, runs: 2, plans: 1, moments: 7 })).toBe('2 runs, one plan and 7 moments')
+    expect(t.dataContents({ ...none, moments: 1, answers: 1 })).toBe('one moment and the answer to one statement')
+    expect(t.dataContents({ ...none, days: 1 })).toBe('one daily entry')
+    expect(t.dataContents(none)).toBe('nothing at all')
   })
 })
