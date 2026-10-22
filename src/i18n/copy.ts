@@ -46,6 +46,11 @@ const de = {
   navMoment: 'Jetzt',
   navScale: 'Skala',
   navThinking: 'Denken',
+  navBreathe: 'Ebb Flow',
+  navMeditation: 'Meditation',
+  // On the phone, the one tab for the scale, thinking and meditation; in the
+  // sidebar, the label over the three.
+  navKnowledge: 'Wissen',
   // Under the moment flow's card in the sidebar, where there is room for it.
   navMomentLead: 'Vier Schritte, anderthalb Minuten. Für den Moment, in dem dich etwas festhält.',
 
@@ -483,6 +488,9 @@ const en: Copy = {
   navMoment: 'Now',
   navScale: 'Scale',
   navThinking: 'Thinking',
+  navBreathe: 'Ebb Flow',
+  navMeditation: 'Meditation',
+  navKnowledge: 'Learn',
   navMomentLead: 'Four steps, a minute and a half. For the moment something has hold of you.',
 
   todayTitle: 'Today',

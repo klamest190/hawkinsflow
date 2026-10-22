@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import { Intro } from './components/Intro.tsx'
-import { Sidebar, TabBar } from './components/Navigation.tsx'
+import { KnowledgeNav, Sidebar, TabBar } from './components/Navigation.tsx'
 import { QuizHome } from './components/QuizHome.tsx'
 import { copy } from './i18n/copy.ts'
 import { levelsIn } from './i18n/levels.ts'
@@ -23,20 +23,27 @@ describe.each(LANGUAGES)('navigation (%s)', (language) => {
   const m = momentCopy[language]
   const levels = levelsIn(language)
 
-  it('shows all five places in the tab bar and marks the current one', () => {
-    const html = renderToString(<TabBar active="scale" onSelect={noop} t={t} />)
+  it('shows five tabs in the bar and marks the one the place sits under', () => {
+    const html = renderToString(<TabBar active="meditation" onSelect={noop} t={t} />)
     expect(html).toContain(`aria-label="${t.navLabel}"`)
-    for (const label of [t.navToday, t.navQuiz, t.navMoment, t.navScale, t.navThinking]) {
+    for (const label of [t.navToday, t.navQuiz, t.navMoment, t.navBreathe, t.navKnowledge]) {
       expect(html).toContain(label)
     }
     expect(html.match(/aria-current="page"/g)).toHaveLength(1)
-    // The marked one is the scale.
-    expect(html).toMatch(new RegExp(`aria-current="page"[^>]*>(?:(?!</button>).)*${t.navScale}`))
+    // Meditation sits under the tab for the places to look things up in.
+    expect(html).toMatch(new RegExp(`aria-current="page"[^>]*>(?:(?!</button>).)*${t.navKnowledge}`))
+  })
+
+  it('switches between the three places to look things up in, marking the current one', () => {
+    const html = renderToString(<KnowledgeNav active="thinking" onSelect={noop} t={t} />)
+    expect(html).toContain(`aria-label="${t.navKnowledge}"`)
+    for (const label of [t.navScale, t.navThinking, t.navMeditation]) expect(html).toContain(label)
+    expect(html).toMatch(new RegExp(`aria-current="page"[^>]*>(?:(?!</button>).)*${t.navThinking}`))
   })
 
   it('puts the moment flow in the middle of the bar', () => {
     const html = renderToString(<TabBar active={null} onSelect={noop} t={t} />)
-    const order = [t.navToday, t.navQuiz, t.navMoment, t.navScale, t.navThinking].map((label) =>
+    const order = [t.navToday, t.navQuiz, t.navMoment, t.navBreathe, t.navKnowledge].map((label) =>
       html.indexOf(`>${label}<`),
     )
     expect(order).toEqual([...order].sort((a, b) => a - b))
@@ -49,6 +56,11 @@ describe.each(LANGUAGES)('navigation (%s)', (language) => {
     )
     expect(html).toContain(m.enter)
     expect(html).toContain(t.navMomentLead)
+    // All seven places by name, the three to look things up in under their label.
+    for (const label of [t.navToday, t.navQuiz, t.navBreathe, t.navScale, t.navThinking, t.navMeditation]) {
+      expect(html).toContain(label)
+    }
+    expect(html).toContain(t.navKnowledge)
     expect(html).toContain(t.languageLabel)
   })
 

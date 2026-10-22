@@ -8,7 +8,10 @@ Each level carries three practices, and a practice can bring a tool along: a
 timer, a paced breath, a five-senses count, fields to write in (kept only on
 request), or a player for a guided meditation. A page of its own sets two models of
 thinking side by side — the "ordinary" one and the Mind Hack Method — station
-by station. German and English.
+by station. Ebb Flow, from the sister app, is a pause between impulse and
+reaction: six slow breaths a minute in three rhythms. A meditation page
+explains the six main forms with what the research does and does not show,
+and its sources. German and English.
 
 The app says plainly that Hawkins' method is not scientifically supported; the
 result is meant as a prompt for reflection, not a measurement. It shows a level

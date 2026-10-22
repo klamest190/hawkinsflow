@@ -3,7 +3,9 @@ import { Aurora } from './components/Aurora.tsx'
 import { Intro } from './components/Intro.tsx'
 import { LanguageToggle } from './components/LanguageToggle.tsx'
 import { Moment } from './components/Moment.tsx'
-import { AppBar, Sidebar, TabBar, type Tab } from './components/Navigation.tsx'
+import { Ebbflow } from './components/Ebbflow.tsx'
+import { Meditation } from './components/Meditation.tsx'
+import { AppBar, KnowledgeNav, Sidebar, TabBar } from './components/Navigation.tsx'
 import { Quiz } from './components/Quiz.tsx'
 import { QuizHome } from './components/QuizHome.tsx'
 import { Result } from './components/Result.tsx'
@@ -11,6 +13,8 @@ import { ScaleBrowser } from './components/ScaleBrowser.tsx'
 import { Thinking } from './components/Thinking.tsx'
 import { QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
+import { ebbCopy } from './i18n/ebbflow.ts'
+import { meditationCopy } from './i18n/meditation.ts'
 import { momentCopy } from './i18n/moment.ts'
 import { thinkingCopy } from './i18n/thinking.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
@@ -24,15 +28,26 @@ import { useLanguage } from './hooks/useLanguage.ts'
 import { itemAt } from './lib/array.ts'
 import type { BackupData } from './lib/backup.ts'
 import { notesOf } from './lib/notes.ts'
+import { KNOWLEDGE, type Place, type Tab } from './lib/places.ts'
 import { readableOnDark } from './lib/oklch.ts'
 import { sortedPlans } from './lib/plans.ts'
 import { answeredCount, evaluate } from './lib/scoring.ts'
 import type { BelowLevelId, LevelId } from './types.ts'
 import type { Journal } from './components/Writing.tsx'
 
-type Phase = 'intro' | 'survey' | 'quiz' | 'result' | 'scale' | 'moment' | 'thinking'
+type Phase = 'intro' | 'survey' | 'quiz' | 'result' | 'scale' | 'moment' | 'thinking' | 'breathe' | 'meditation'
 
-const PHASES: readonly Phase[] = ['intro', 'survey', 'quiz', 'result', 'scale', 'moment', 'thinking']
+const PHASES: readonly Phase[] = [
+  'intro',
+  'survey',
+  'quiz',
+  'result',
+  'scale',
+  'moment',
+  'thinking',
+  'breathe',
+  'meditation',
+]
 
 /**
  * The two views that run as a flow: the questionnaire and the moment flow.
@@ -42,8 +57,8 @@ const PHASES: readonly Phase[] = ['intro', 'survey', 'quiz', 'result', 'scale', 
  */
 const FOCUS: readonly Phase[] = ['quiz', 'moment']
 
-/** Which tab a view belongs to — the one the navigation marks. */
-function tabOf(phase: Phase): Tab {
+/** Which place a view belongs to — the one the navigation marks. */
+function placeOf(phase: Phase): Place {
   switch (phase) {
     case 'intro':
       return 'today'
@@ -57,6 +72,10 @@ function tabOf(phase: Phase): Tab {
       return 'scale'
     case 'thinking':
       return 'thinking'
+    case 'breathe':
+      return 'breathe'
+    case 'meditation':
+      return 'meditation'
   }
 }
 
@@ -275,11 +294,11 @@ export default function App() {
     go('scale')
   }
 
-  /* The navigation's one entrance. The questionnaire's tab shows the result
-     once every statement is answered, and the questionnaire's page before:
-     start, or go on where it stopped. */
-  function select(tab: Tab) {
-    switch (tab) {
+  /* The navigation's one entrance. The questionnaire's place shows the
+     result once every statement is answered, and the questionnaire's page
+     before: start, or go on where it stopped. */
+  function select(place: Place) {
+    switch (place) {
       case 'today':
         go('intro')
         return
@@ -295,10 +314,32 @@ export default function App() {
       case 'thinking':
         go('thinking')
         return
+      case 'breathe':
+        go('breathe')
+        return
+      case 'meditation':
+        go('meditation')
+        return
     }
   }
 
+  /* The phone's tab for the places to look things up in opens the one last
+     visited: whoever reads about meditation and goes to Ebb Flow for a
+     minute comes back to meditation, not to the scale. A ref and not state —
+     nothing on screen depends on it until the tab is tapped. */
+  const lastKnowledge = useRef<Place>('scale')
+  useEffect(() => {
+    const place = placeOf(phase)
+    if (KNOWLEDGE.includes(place)) lastKnowledge.current = place
+  }, [phase])
+
+  function selectTab(tab: Tab) {
+    if (tab === 'knowledge') select(lastKnowledge.current)
+    else select(tab)
+  }
+
   const focusMode = FOCUS.includes(phase)
+  const place = placeOf(phase)
 
   return (
     <div className="grain relative min-h-dvh">
@@ -341,7 +382,7 @@ export default function App() {
         <>
           <AppBar t={t} language={language} onLanguage={setLanguage} />
           <Sidebar
-            active={tabOf(phase)}
+            active={place}
             onSelect={select}
             t={t}
             m={m}
@@ -467,9 +508,17 @@ export default function App() {
           />
         )}
 
+        {/* On a phone, the three places to look things up in share a tab;
+            this row switches between them. The sidebar lists them itself. */}
+        {!focusMode && KNOWLEDGE.includes(place) && <KnowledgeNav active={place} onSelect={select} t={t} />}
+
         {phase === 'thinking' && (
           <Thinking levels={levels} th={thinkingCopy[language]} />
         )}
+
+        {phase === 'breathe' && <Ebbflow t={t} e={ebbCopy[language]} />}
+
+        {phase === 'meditation' && <Meditation d={meditationCopy[language]} />}
 
         {phase === 'scale' && (
           <ScaleBrowser
@@ -491,7 +540,7 @@ export default function App() {
       </main>
       </div>
 
-      {!focusMode && <TabBar active={tabOf(phase)} onSelect={select} t={t} />}
+      {!focusMode && <TabBar active={place} onSelect={selectTab} t={t} />}
     </div>
   )
 }

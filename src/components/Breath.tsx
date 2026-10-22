@@ -47,7 +47,7 @@ function dotAt({ phase, progress }: BreathPoint): { x: number; y: number } {
  * dot is left out. The count in the middle and the phase word below still
  * change — they are text, not motion, and they carry the whole instruction.
  */
-function Figure({
+export function BreathFigure({
   pattern,
   point,
   active,
@@ -156,7 +156,7 @@ export function Breath({ pattern, minutes, t }: BreathProps) {
   return (
     <div className="mt-5 flex flex-col items-center gap-4 border-t border-accent/20 pt-5">
       <div className="relative h-44 w-44">
-        <Figure pattern={pattern} point={point} active={active} still={still} />
+        <BreathFigure pattern={pattern} point={point} active={active} still={still} />
         {active && (
           <span
             aria-hidden

@@ -52,6 +52,13 @@ conventions that are not obvious from a single file.
 - Free text is stored in two places only: plans, and writing someone tapped
   "keep" on. The fields of a writing practice forget on unmount by design.
 
+## Claims about research
+
+- The meditation page and Ebb Flow's "why ten seconds" state findings only as
+  far as the cited reviews go (`SOURCES` in `src/data/meditations.ts`),
+  with their limits and side effects on the page, not behind a fold. A new
+  claim needs a source in that list; a number needs it from the review.
+
 ## Practice tools
 
 - A practice carries at most one `tool` (`PracticeTool` in `types.ts`);
@@ -87,9 +94,11 @@ conventions that are not obvious from a single file.
 - Each view has exactly one `<h1>`, and heading levels don't skip. The app's
   name in the phone's top bar and the sidebar is not a heading, and the logo
   next to it is `decorative`.
-- Five places in the navigation (`Tab` in `Navigation.tsx`): a tab bar on
-  phones, a sidebar from `lg` on. `tabOf` in `App.tsx` says which view
-  belongs to which tab. The questionnaire and the moment flow are `FOCUS`
+- Seven places in the navigation (`Place` in `src/lib/places.ts`): a tab
+  bar on phones, a sidebar from `lg` on. On phones the scale, thinking and
+  meditation share the tab "Wissen" with a row of three at the top of each
+  (`KNOWLEDGE`, `KnowledgeNav`); the bar has five tabs and should stay at
+  five. `placeOf` in `App.tsx` says which view belongs to which place. The questionnaire and the moment flow are `FOCUS`
   views: no navigation, their own "cancel", the language switch fixed top
   right — keep that corner free there.
 - An SVG id must be unique per instance (`useId`): the same component can be

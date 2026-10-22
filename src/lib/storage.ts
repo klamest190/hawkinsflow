@@ -44,6 +44,8 @@ export const KEYS = {
   moments: `${KEY_PREFIX}moments.v1`,
   checkins: `${KEY_PREFIX}checkins.v1`,
   notes: `${KEY_PREFIX}notes.v1`,
+  // A preference like the language, not a record: not in the backup.
+  ebbflow: `${KEY_PREFIX}ebbflow.v1`,
   language: `${KEY_PREFIX}language.v1`,
 } as const
 

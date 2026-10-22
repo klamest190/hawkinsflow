@@ -173,7 +173,7 @@ test('the daily check-in keeps one level per day', async ({ page }) => {
 
 test('writing is kept only on a tap, and can be deleted again', async ({ page }) => {
   await page.goto('/')
-  await tab(page, 'Skala').click()
+  await tab(page, 'Wissen').click()
   await page.getByRole('button', { name: /Mut/ }).click()
 
   // The writing practice is the first tab; its first question has a field.
@@ -201,7 +201,7 @@ test('writing is kept only on a tap, and can be deleted again', async ({ page })
   // What is not kept is gone after a reload.
   await field.fill('Nur ein Entwurf.')
   await page.reload()
-  await tab(page, 'Skala').click()
+  await tab(page, 'Wissen').click()
   await page.getByRole('button', { name: /Mut/ }).click()
   await expect(page.getByRole('textbox', { name: /am meisten Kraft kosten/ })).toHaveValue('')
 })
@@ -210,15 +210,12 @@ test('the navigation reaches every place and marks where you are', async ({ page
   await page.goto('/')
   await expect(tab(page, 'Heute')).toHaveAttribute('aria-current', 'page')
 
-  await tab(page, 'Denken').click()
-  await expect(page.getByRole('heading', { level: 1, name: 'Zwei Arten zu denken' })).toBeVisible()
-  await expect(page.locator('main')).toBeFocused()
-  await expect(tab(page, 'Denken')).toHaveAttribute('aria-current', 'page')
-  await expect(tab(page, 'Heute')).not.toHaveAttribute('aria-current', 'page')
-  await expect(page.getByRole('heading', { level: 3, name: 'Ermächtigende Entscheidungen' })).toBeVisible()
-
-  await tab(page, 'Skala').click()
+  // The tab for looking things up opens on the scale.
+  await tab(page, 'Wissen').click()
   await expect(page.getByRole('heading', { level: 1, name: 'Die Skala' })).toBeVisible()
+  await expect(page.locator('main')).toBeFocused()
+  await expect(tab(page, 'Wissen')).toHaveAttribute('aria-current', 'page')
+  await expect(tab(page, 'Heute')).not.toHaveAttribute('aria-current', 'page')
   // Every place starts at the top, its heading clear of the top bar — moving
   // the focus to the view must not scroll it under the bar.
   expect(await page.evaluate(() => window.scrollY)).toBe(0)
@@ -228,13 +225,70 @@ test('the navigation reaches every place and marks where you are', async ({ page
   // Reached through the navigation, the scale is a place of its own: no back button.
   await expect(page.getByRole('button', { name: '← Zurück' })).toHaveCount(0)
 
+  // The row at the top switches between the three places to look things up in.
+  const knowledge = page.getByRole('navigation', { name: 'Wissen' })
+  await expect(knowledge.getByRole('button', { name: 'Skala' })).toHaveAttribute('aria-current', 'page')
+  await knowledge.getByRole('button', { name: 'Denken' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Zwei Arten zu denken' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 3, name: 'Ermächtigende Entscheidungen' })).toBeVisible()
+  await expect(tab(page, 'Wissen')).toHaveAttribute('aria-current', 'page')
+
   await tab(page, 'Fragebogen').click()
   await expect(page.getByRole('heading', { level: 1, name: 'Fragebogen' })).toBeVisible()
 
   // The browser's back button steps back through the places.
   await page.goBack()
-  await expect(page.getByRole('heading', { level: 1, name: 'Die Skala' })).toBeVisible()
-  await expect(tab(page, 'Skala')).toHaveAttribute('aria-current', 'page')
+  await expect(page.getByRole('heading', { level: 1, name: 'Zwei Arten zu denken' })).toBeVisible()
+
+  // And the tab comes back to the place last read, not to the scale.
+  await tab(page, 'Ebb Flow').click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Ebb Flow' })).toBeVisible()
+  await tab(page, 'Wissen').click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Zwei Arten zu denken' })).toBeVisible()
+})
+
+test('Ebb Flow breathes in and out, and keeps its choice locked while it runs', async ({ page }) => {
+  await page.goto('/')
+  await tab(page, 'Ebb Flow').click()
+  await expect(page.getByText('2 Atemzüge')).toBeVisible()
+
+  // A rhythm and a length, chosen before the start and remembered.
+  await page.getByText('Mitte', { exact: true }).click()
+  await page.getByText('1 min', { exact: true }).click()
+  await expect(page.getByText('6 Atemzüge')).toBeVisible()
+  expect(await stored(page, 'hawkinsflow.ebbflow.v1')).toEqual({ mode: 'balance', seconds: 60 })
+
+  await page.getByRole('button', { name: 'Beginnen' }).click()
+  await expect(page.getByRole('button', { name: 'Anhalten' })).toBeFocused()
+  await expect(page.getByText('Einatmen', { exact: true })).toBeVisible()
+  // Five seconds in, the out-breath begins.
+  await expect(page.getByText('Ausatmen', { exact: true })).toBeVisible({ timeout: 8000 })
+  await expect(page.getByRole('radio', { name: /Ruhe/ })).toBeDisabled()
+  await expect(page.getByText('Während der Pause gibt es nichts zu wählen.')).toBeVisible()
+
+  await page.getByRole('button', { name: 'Anhalten' }).click()
+  await page.getByRole('button', { name: 'Zurücksetzen' }).click()
+  await expect(page.getByRole('radio', { name: /Ruhe/ })).toBeEnabled()
+
+  // The choice survives a reload.
+  await page.reload()
+  await tab(page, 'Ebb Flow').click()
+  await expect(page.getByRole('radio', { name: /Mitte/ })).toBeChecked()
+})
+
+test('the meditation page names its forms, its limits and its sources', async ({ page }) => {
+  await page.goto('/')
+  await tab(page, 'Wissen').click()
+  const knowledge = page.getByRole('navigation', { name: 'Wissen' })
+  await knowledge.getByRole('button', { name: 'Meditation' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Meditation' })).toBeVisible()
+  await expect(knowledge.getByRole('button', { name: 'Meditation' })).toHaveAttribute('aria-current', 'page')
+  await expect(knowledge.getByRole('button', { name: 'Skala' })).not.toHaveAttribute('aria-current', 'page')
+  for (const name of ['Atemmeditation', 'Body Scan', 'Liebende Güte (Metta)', 'Langsames Atmen']) {
+    await expect(page.getByRole('heading', { level: 3, name })).toBeVisible()
+  }
+  await expect(page.getByRole('heading', { level: 2, name: 'Was die Forschung nicht sagt' })).toBeVisible()
+  await expect(page.getByText(/Farias, M\./)).toBeVisible()
 })
 
 test('the questionnaire and the moment flow hide the navigation', async ({ page }) => {
@@ -271,11 +325,18 @@ test('on a wide screen the navigation is a sidebar', async ({ page }) => {
   await sidebar.getByRole('button', { name: 'Skala', exact: true }).click()
   await expect(page.getByRole('heading', { level: 1, name: 'Die Skala' })).toBeVisible()
   await expect(sidebar.getByRole('button', { name: 'Skala', exact: true })).toHaveAttribute('aria-current', 'page')
+
+  // All seven by name: Ebb Flow and meditation, too, without a second row.
+  await sidebar.getByRole('button', { name: 'Meditation', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Meditation' })).toBeVisible()
+  await expect(page.getByRole('navigation')).toHaveCount(1)
+  await sidebar.getByRole('button', { name: 'Ebb Flow', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Ebb Flow' })).toBeVisible()
 })
 
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
-  await tab(page, 'Skala').click()
+  await tab(page, 'Wissen').click()
   await page.getByRole('button', { name: /^200\s*Mut/ }).click()
 
   // In the level detail the form waits behind a button that hands focus on.

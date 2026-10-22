@@ -171,8 +171,13 @@ export type FirstAidTool = Extract<PracticeTool, { kind: 'timer' | 'breath' | 'g
  *   a pause between impulse and action.
  * - `longExhale` — four in, six out, no holds. It calms: the long out-breath
  *   is the one switch on the alarm that can be worked on purpose.
+ * - `balance` — five in, five out: nothing pulls either way.
+ * - `clarity` — six in, four out: the least sedating of the slow breaths.
+ *
+ * The last three are Ebb Flow's rhythms, all ten seconds a breath — see
+ * `lib/ebbflow.ts`.
  */
-export type BreathPatternId = 'box' | 'longExhale'
+export type BreathPatternId = 'box' | 'longExhale' | 'balance' | 'clarity'
 
 /** Seconds per phase, in the order a breath goes through them. A 0 is skipped. */
 export type BreathPattern = {
