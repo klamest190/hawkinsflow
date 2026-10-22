@@ -44,7 +44,7 @@ QUESTIONS.forEach((question, position) => {
 const noop = () => {}
 
 // Nothing saved yet — what the backup card sees on a first visit.
-const nothingStored: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [] }
+const nothingStored: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [] }
 
 /* Ein fertiger Plan — er nimmt in beiden Ansichten den zweiten Zweig: auf der
    Startseite die Erinnerungskarte, im Ergebnis den gespeicherten Satz statt des
@@ -95,6 +95,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         checkIns={[]}
         onCheckIn={noop}
         onClearCheckIns={noop}
+        onClearNotes={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -338,7 +339,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
       levels, language, t, m, plans: [], history, moments: [], data: nothingStored,
       onStart: noop, onBrowse: noop, onResume: noop, onShowResult: noop, onDeletePlan: noop, onCheckPlan: noop, onEditPlan: noop,
       onClearHistory: noop, onMoment: noop, onClearMoments: noop, onRestore: noop, complete: false,
-      checkIns: [], onCheckIn: noop, onClearCheckIns: noop,
+      checkIns: [], onCheckIn: noop, onClearCheckIns: noop, onClearNotes: noop,
     }
     const html = renderToString(<Intro {...props} resumeAt={null} />)
     expect(html).toContain(t.returnNudgeInvite)
@@ -380,6 +381,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         checkIns={[]}
         onCheckIn={noop}
         onClearCheckIns={noop}
+        onClearNotes={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -453,6 +455,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         checkIns={[]}
         onCheckIn={noop}
         onClearCheckIns={noop}
+        onClearNotes={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -492,6 +495,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         checkIns={[]}
         onCheckIn={noop}
         onClearCheckIns={noop}
+        onClearNotes={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -530,6 +534,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         checkIns={[]}
         onCheckIn={noop}
         onClearCheckIns={noop}
+        onClearNotes={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -599,6 +604,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         checkIns={[]}
         onCheckIn={noop}
         onClearCheckIns={noop}
+        onClearNotes={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -686,6 +692,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         checkIns={[]}
         onCheckIn={noop}
         onClearCheckIns={noop}
+        onClearNotes={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -726,6 +733,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         checkIns={[]}
         onCheckIn={noop}
         onClearCheckIns={noop}
+        onClearNotes={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -769,10 +777,11 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
   it('lässt Uhr und Dauer dasselbe sagen', () => {
     for (const level of levels) {
       for (const { tool, duration, name } of level.practices) {
-        if (tool?.kind !== 'timer' && tool?.kind !== 'breath') continue
+        const minutes = tool !== undefined && 'minutes' in tool ? tool.minutes : undefined
+        if (minutes === undefined) continue
 
-        expect(tool.minutes, name).toBeGreaterThan(0)
-        expect(duration, name).toContain(String(tool.minutes))
+        expect(minutes, name).toBeGreaterThan(0)
+        expect(duration, name).toContain(String(minutes))
       }
     }
   })

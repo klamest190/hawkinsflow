@@ -25,9 +25,16 @@ const data: BackupData = {
   history: [{ taken: '2026-02-15T09:00:00.000Z', level: 'courage', calibration: 214, answered: 34 }],
   moments: [{ taken: '2026-03-01T15:45:00.000Z', level: 'anger' }],
   checkins: [{ at: '2026-03-02T08:00:00.000Z', level: 'neutrality' }],
+  notes: [
+    {
+      at: '2026-03-03T20:00:00.000Z',
+      level: 'courage',
+      answers: [{ prompt: 'Was kostet dich Kraft?', text: 'Das Projekt.' }],
+    },
+  ],
 }
 
-const empty: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [] }
+const empty: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [] }
 
 const when = new Date(2026, 8, 26, 10, 30)
 
@@ -42,8 +49,8 @@ describe('parseBackup', () => {
     const parsed = parseBackup(text)
     expect(parsed.ok).toBe(true)
     if (parsed.ok) {
-      const { answers, plans, history, moments, checkins } = parsed.backup
-      expect({ answers, plans, history, moments, checkins }).toEqual(data)
+      const { answers, plans, history, moments, checkins, notes } = parsed.backup
+      expect({ answers, plans, history, moments, checkins, notes }).toEqual(data)
     }
   })
 
@@ -61,15 +68,17 @@ describe('parseBackup', () => {
     expect(parseBackup(fileWith({ moments: [{ taken: 'x', level: 'joy' }] })).ok).toBe(false)
     expect(parseBackup(fileWith({ exported: 'yesterday' })).ok).toBe(false)
     expect(parseBackup(fileWith({ checkins: [{ at: 'x', level: 'courage' }] })).ok).toBe(false)
+    expect(parseBackup(fileWith({ notes: [{ at: 'x', level: 'courage', answers: [] }] })).ok).toBe(false)
   })
 
   /* Check-ins came after the first backups. A file from before them must
      still load — with none — or every backup made so far would be refused. */
-  it('loads a backup from before the check-ins, with none', () => {
-    const { checkins: _, ...before } = toBackup(data, when)
+  it('loads a backup from before the check-ins and entries, with none', () => {
+    const { checkins: _, notes: __, ...before } = toBackup(data, when)
     const parsed = parseBackup(JSON.stringify(before))
     expect(parsed.ok).toBe(true)
     expect(parsed.ok && parsed.backup.checkins).toEqual([])
+    expect(parsed.ok && parsed.backup.notes).toEqual([])
     expect(parsed.ok && parsed.backup.history).toEqual(data.history)
   })
 
@@ -98,12 +107,13 @@ describe('backup helpers', () => {
     expect(hasData(empty)).toBe(false)
     expect(hasData({ ...empty, answers: { q01: 0 } })).toBe(true)
     expect(hasData({ ...empty, checkins: data.checkins })).toBe(true)
+    expect(hasData({ ...empty, notes: data.notes })).toBe(true)
     expect(hasData(data)).toBe(true)
   })
 })
 
 describe('the confirmation lists what a backup holds', () => {
-  const none = { runs: 0, plans: 0, moments: 0, days: 0, answers: 0 }
+  const none = { runs: 0, plans: 0, moments: 0, days: 0, notes: 0, answers: 0 }
 
   it('in German', () => {
     const t = copy.de
@@ -111,6 +121,7 @@ describe('the confirmation lists what a backup holds', () => {
     expect(t.dataContents({ ...none, runs: 1, answers: 20 })).toBe('einen Durchgang und Antworten auf 20 Aussagen')
     expect(t.dataContents({ ...none, plans: 3 })).toBe('3 Pläne')
     expect(t.dataContents({ ...none, days: 12 })).toBe('12 Tageseinträge')
+    expect(t.dataContents({ ...none, days: 1, notes: 2 })).toBe('einen Tageseintrag und 2 Schreibeinträge')
     expect(t.dataContents(none)).toBe('keine Einträge')
   })
 

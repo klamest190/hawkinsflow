@@ -4,6 +4,7 @@ import { levelIn } from '../i18n/levels.ts'
 import type { Language, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
+import type { Journal } from './Writing.tsx'
 
 type ScaleBrowserProps = {
   levels: Level[]
@@ -18,6 +19,8 @@ type ScaleBrowserProps = {
   plans: Plans
   onSavePlan: (level: LevelId, when: string, then: string) => void
   onDeletePlan: (level: LevelId) => void
+  /** The kept writing of a level, for the one that is open. */
+  journalFor?: (level: LevelId) => Journal
   onBack: () => void
 }
 
@@ -36,6 +39,7 @@ export function ScaleBrowser({
   plans,
   onSavePlan,
   onDeletePlan,
+  journalFor,
   onBack,
 }: ScaleBrowserProps) {
   const courage = levelIn(language, 'courage').name
@@ -134,6 +138,7 @@ export function ScaleBrowser({
                       plan={plans[level.id] ?? null}
                       onSavePlan={(when, then) => onSavePlan(level.id, when, then)}
                       onDeletePlan={() => onDeletePlan(level.id)}
+                      journal={journalFor?.(level.id)}
                     />
                   </div>
                 )}

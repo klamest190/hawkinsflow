@@ -2,10 +2,11 @@ import { KEEP as CHECKINS_KEEP, isCheckIns } from './checkins.ts'
 import { KEEP as HISTORY_KEEP, isHistory } from './history.ts'
 import { localDay } from './download.ts'
 import { KEEP as MOMENTS_KEEP, isMoments } from './moments.ts'
+import { KEEP as NOTES_KEEP, isNotes } from './notes.ts'
 import { isPlans } from './plans.ts'
 import { isAnswers } from './scoring.ts'
 import { KEYS, load } from './storage.ts'
-import type { Answers, CheckIns, History, Moments, Plans } from '../types.ts'
+import type { Answers, CheckIns, History, Moments, Notes, Plans } from '../types.ts'
 
 /* A backup of everything this app keeps, as one JSON file.
  *
@@ -29,6 +30,7 @@ export type BackupData = {
   history: History
   moments: Moments
   checkins: CheckIns
+  notes: Notes
 }
 
 /** Raised whenever the shape changes; a file from a newer app is refused. */
@@ -55,8 +57,8 @@ export type ParsedBackup = { ok: true; backup: Backup } | { ok: false; reason: B
  * checks it when it comes out of storage — a file is no more trustworthy than
  * a hand-edited storage entry.
  *
- * History, moments and check-ins are cut to the length the app keeps, so an
- * edited file can't grow them past it.
+ * History, moments, check-ins and kept entries are cut to the length the app
+ * keeps, so an edited file can't grow them past it.
  */
 export function parseBackup(text: string): ParsedBackup {
   let value: unknown
@@ -76,10 +78,12 @@ export function parseBackup(text: string): ParsedBackup {
   }
   if (file.version > BACKUP_VERSION) return { ok: false, reason: 'newer' }
 
-  /* Check-ins came after version 1 and are optional in a file: a backup from
-     before them still loads, with none. Present, they pass their guard like
-     every other part — an additive field, so the version stays. */
+  /* Check-ins and kept entries came after version 1 and are optional in a
+     file: a backup from before them still loads, with none. Present, they
+     pass their guards like every other part — additive fields, so the
+     version stays. */
   const checkins = file.checkins ?? []
+  const notes = file.notes ?? []
 
   if (
     file.version !== BACKUP_VERSION ||
@@ -89,7 +93,8 @@ export function parseBackup(text: string): ParsedBackup {
     !isPlans(file.plans) ||
     !isHistory(file.history) ||
     !isMoments(file.moments) ||
-    !isCheckIns(checkins)
+    !isCheckIns(checkins) ||
+    !isNotes(notes)
   ) {
     return { ok: false, reason: 'invalid' }
   }
@@ -105,6 +110,7 @@ export function parseBackup(text: string): ParsedBackup {
       history: file.history.slice(-HISTORY_KEEP),
       moments: file.moments.slice(-MOMENTS_KEEP),
       checkins: checkins.slice(-CHECKINS_KEEP),
+      notes: notes.slice(-NOTES_KEEP),
     },
   }
 }
@@ -117,6 +123,7 @@ export function readStoredData(): BackupData {
     history: load(KEYS.history, isHistory) ?? [],
     moments: load(KEYS.moments, isMoments) ?? [],
     checkins: load(KEYS.checkins, isCheckIns) ?? [],
+    notes: load(KEYS.notes, isNotes) ?? [],
   }
 }
 
@@ -127,7 +134,8 @@ export function hasData(data: BackupData): boolean {
     Object.keys(data.plans).length > 0 ||
     data.history.length > 0 ||
     data.moments.length > 0 ||
-    data.checkins.length > 0
+    data.checkins.length > 0 ||
+    data.notes.length > 0
   )
 }
 

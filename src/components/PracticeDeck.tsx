@@ -3,10 +3,13 @@ import type { Copy } from '../i18n/copy.ts'
 import { itemAt } from '../lib/array.ts'
 import type { Practice, Practices } from '../types.ts'
 import { PracticeTool } from './PracticeTool.tsx'
+import type { Journal } from './Writing.tsx'
 
 type PracticeDeckProps = {
   practices: Practices
   t: Copy
+  /** The level's kept writing; see `Writing`. */
+  journal?: Journal
 }
 
 /* Ab dieser Strecke gilt ein Wischen als Blättern. Kürzer wäre jedes Scrollen
@@ -25,7 +28,7 @@ const SWIPE = 48
  * Verhalten: erst wählen und dann bestätigen müssen wäre ein Klick zu viel für
  * etwas, das nichts kostet.
  */
-export function PracticeDeck({ practices, t }: PracticeDeckProps) {
+export function PracticeDeck({ practices, t, journal }: PracticeDeckProps) {
   const [active, setActive] = useState(0)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const touchStart = useRef<number | null>(null)
@@ -111,6 +114,13 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
         aria-labelledby={`practice-tab-${active}`}
         tabIndex={-1}
         onTouchStart={(event) => {
+          /* Not from inside a text field: dragging there selects text, and a
+             swipe would flip to the next practice and take the writing with
+             it — the fields forget on leaving. */
+          if (event.target instanceof HTMLTextAreaElement) {
+            touchStart.current = null
+            return
+          }
           // A touchstart always carries a touch; the type can't know that.
           touchStart.current = event.touches[0]?.clientX ?? null
         }}
@@ -141,7 +151,7 @@ export function PracticeDeck({ practices, t }: PracticeDeckProps) {
               beginnt die Uhr als neue, statt mit der Restzeit der vorigen
               weiterzulaufen. */}
           {practice.tool !== undefined && (
-            <PracticeTool key={practice.name} tool={practice.tool} t={t} />
+            <PracticeTool key={practice.name} tool={practice.tool} t={t} journal={journal} />
           )}
         </div>
       </div>

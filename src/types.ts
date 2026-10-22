@@ -127,11 +127,21 @@ export type Practice = {
  * - `grounding` — five senses, counted down from five. Self-paced, so no
  *   minutes: someone who gets stuck starts over, and a clock would only say
  *   they were slow.
+ * - `reframe` — one thought in three steps: as it sounds, tested, put
+ *   again. The three questions are the same wherever it stands, so they
+ *   live in `copy.ts`.
+ * - `prompts` — questions written for this one practice, so they are
+ *   translated and stand here with it.
+ *
+ * The two writing tools keep the clock the practice had before them: the
+ * fields take the place of the paper, not of the quarter of an hour.
  */
 export type PracticeTool =
   | { kind: 'timer'; minutes: number }
   | { kind: 'breath'; pattern: BreathPatternId; minutes: number }
   | { kind: 'grounding' }
+  | { kind: 'reframe'; minutes?: number }
+  | { kind: 'prompts'; prompts: string[]; minutes?: number }
 
 /**
  * The tools for the second step of the moment flow: the ones for the body.
@@ -242,6 +252,29 @@ export type CheckIn = {
 
 /** The check-ins, oldest first, at most one per calendar day. */
 export type CheckIns = CheckIn[]
+
+/** One answered field of a writing practice. */
+export type NoteAnswer = {
+  /** The question as it was shown — kept, so a reworded one doesn't change what was answered. */
+  prompt: string
+  text: string
+}
+
+/**
+ * A writing practice someone chose to keep. Nothing is stored while they
+ * write: the fields forget when the practice closes, unless they tap "keep".
+ * Paper does the same job, and the practices say so.
+ */
+export type Note = {
+  /** ISO time of keeping; also the entry's key. */
+  at: string
+  level: LevelId
+  /** Only the fields that were written in, at least one. */
+  answers: NoteAnswer[]
+}
+
+/** The kept entries, oldest first. */
+export type Notes = Note[]
 
 /** Eine Frage des Bogens ohne ihren Text — der steht in `i18n/questions.ts`. */
 export type Question = {

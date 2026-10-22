@@ -10,6 +10,7 @@ import type { Answers, Language, Level, LevelId, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { Disclosure } from './Disclosure.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
+import type { Journal } from './Writing.tsx'
 import { Spectrum } from './Spectrum.tsx'
 import { Why } from './Why.tsx'
 
@@ -26,6 +27,8 @@ type ResultProps = {
   plan: Plan | null
   onSavePlan: (when: string, then: string) => void
   onDeletePlan: () => void
+  /** The kept writing of the dominant level. */
+  journal?: Journal
   onRestart: () => void
   onBrowse: () => void
   /** Öffnet die Skala mit genau dieser Ebene aufgeklappt — für Ballast und
@@ -80,6 +83,7 @@ export function Result({
   plan,
   onSavePlan,
   onDeletePlan,
+  journal,
   onRestart,
   onBrowse,
   onInspect,
@@ -277,6 +281,7 @@ export function Result({
           plan={plan}
           onSavePlan={onSavePlan}
           onDeletePlan={onDeletePlan}
+          journal={journal}
           collapsible
         />
       </Card>

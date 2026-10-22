@@ -462,7 +462,15 @@ const de = {
         kind: 'writing',
         name: 'Kämpfen oder lassen',
         duration: '15 Minuten, wöchentlich',
-        tool: { kind: 'timer', minutes: 15 },
+        tool: {
+          kind: 'prompts',
+          minutes: 15,
+          prompts: [
+            'Die drei Dinge, die dich gerade am meisten Kraft kosten',
+            'Bei jedem: Musst du hier kämpfen, oder reicht es, die Lage zu nehmen, wie sie ist?',
+            'Welches davon streichst du?',
+          ],
+        },
         body:
           'Schreib die drei Dinge auf, die dich gerade am meisten Kraft kosten. Frag dich bei jedem: Muss ich hier kämpfen, oder reicht es, die Lage zu nehmen, wie sie ist? Streich eines davon. Auf dieser Ebene ist das Streichen die schwierigere Übung, nicht das Anpacken.',
       },
@@ -513,7 +521,14 @@ const de = {
         kind: 'writing',
         name: 'Drei Dinge, für die ich unbequem werde',
         duration: '15 Minuten, dann wöchentlich prüfen',
-        tool: { kind: 'timer', minutes: 15 },
+        tool: {
+          kind: 'prompts',
+          minutes: 15,
+          prompts: [
+            'Drei Dinge, für die du dich einsetzen würdest, auch wenn es dich etwas kostet',
+            'Das kleinste davon: Was tust du diese Woche dafür?',
+          ],
+        },
         body:
           'Schreib drei Dinge auf, für die du dich einsetzen würdest, auch wenn es dich etwas kostet. Nimm dir diese Woche das kleinste davon vor. Neutralität ist ein guter Boden, aber eine schlechte Wohnung. Diese Übung zeigt dir, ob dir noch etwas wichtig genug ist.',
       },
@@ -564,7 +579,15 @@ const de = {
         kind: 'writing',
         name: 'Wozu ich Ja gesagt habe',
         duration: '15 Minuten, sonntags',
-        tool: { kind: 'timer', minutes: 15 },
+        tool: {
+          kind: 'prompts',
+          minutes: 15,
+          prompts: [
+            'Wozu hast du diese Woche Ja gesagt? Alles, auch die Kleinigkeiten.',
+            'Was davon hast du aus Überzeugung übernommen?',
+            'Und was aus Gewohnheit?',
+          ],
+        },
         body:
           'Schreib auf, wozu du in dieser Woche Ja gesagt hast. Alles, auch die Kleinigkeiten. Markier dann, was du aus Überzeugung übernommen hast und was aus Gewohnheit. Die zweite Liste ist die Stelle, an der aus Hilfsbereitschaft Erschöpfung wird.',
       },
@@ -615,7 +638,7 @@ const de = {
         kind: 'writing',
         name: 'So bin ich eben — stimmt das?',
         duration: '15 Minuten, einmal',
-        tool: { kind: 'timer', minutes: 15 },
+        tool: { kind: 'reframe', minutes: 15 },
         body:
           'Schreib drei Sätze auf, die mit „Ich bin nun mal …“ anfangen. Frag dich bei jedem: War das vor fünf Jahren auch schon so? Würde jemand, der mich gut kennt, das unterschreiben? Was würde es kosten, das zu ändern? Etwas anzunehmen heißt nicht, dass es sich nicht ändern lässt.',
       },
@@ -666,7 +689,15 @@ const de = {
         kind: 'writing',
         name: 'Das stärkste Gegenargument',
         duration: '25 Minuten, einmal',
-        tool: { kind: 'timer', minutes: 25 },
+        tool: {
+          kind: 'prompts',
+          minutes: 25,
+          prompts: [
+            'Die Überzeugung, die dir wirklich wichtig ist',
+            'Die beste Fassung des Gegenteils — so gut, dass jemand, der das glaubt, sie unterschreiben würde',
+            'Wo wurde es dir beim Schreiben eng?',
+          ],
+        },
         body:
           'Nimm eine Überzeugung, die dir wirklich wichtig ist, und schreib die beste Fassung des Gegenteils auf. So gut, dass jemand, der das glaubt, sie unterschreiben würde. Keine Karikatur und kein Halbsatz zur Widerlegung am Ende. Wo es dir beim Schreiben eng wird, hört das Denken auf und fängt dein Selbstbild an.',
       },
@@ -1335,7 +1366,15 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'Fight it or leave it',
         duration: '15 minutes, weekly',
-        tool: { kind: 'timer', minutes: 15 },
+        tool: {
+          kind: 'prompts',
+          minutes: 15,
+          prompts: [
+            'The three things costing you the most strength right now',
+            'For each: do you have to fight here, or is it enough to take the situation as it is?',
+            'Which one do you cross out?',
+          ],
+        },
         body:
           'Write down the three things that are costing you the most strength right now. Ask yourself about each one: do I have to fight here, or is it enough to take the situation as it is? Cross one of them out. On this level, crossing out is the harder exercise, not taking things on.',
       },
@@ -1386,7 +1425,14 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'Three things worth the discomfort',
         duration: '15 minutes, then a weekly check',
-        tool: { kind: 'timer', minutes: 15 },
+        tool: {
+          kind: 'prompts',
+          minutes: 15,
+          prompts: [
+            'Three things you would stand up for even if it cost you something',
+            'The smallest of them: what will you do for it this week?',
+          ],
+        },
         body:
           'Write down three things you would stand up for even if it cost you something. Take on the smallest of them this week. Neutrality is good ground but a poor place to live. This exercise shows you whether anything still matters enough to you.',
       },
@@ -1437,7 +1483,15 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'What I said yes to',
         duration: '15 minutes, on Sundays',
-        tool: { kind: 'timer', minutes: 15 },
+        tool: {
+          kind: 'prompts',
+          minutes: 15,
+          prompts: [
+            'What did you say yes to this week? Everything, including the small things.',
+            'Which of it did you take on out of conviction?',
+            'And which out of habit?',
+          ],
+        },
         body:
           'Write down what you said yes to this week. Everything, including the small things. Then mark what you took on out of conviction and what you took on out of habit. The second list is where being helpful turns into exhaustion.',
       },
@@ -1488,7 +1542,7 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'That is just how I am — is it?',
         duration: '15 minutes, once',
-        tool: { kind: 'timer', minutes: 15 },
+        tool: { kind: 'reframe', minutes: 15 },
         body:
           'Write down three sentences that start with “I am just …”. Ask yourself about each one: was that true five years ago as well? Would someone who knows me well sign it? What would it cost to change it? Accepting something does not mean it cannot change.',
       },
@@ -1539,7 +1593,15 @@ const en: LevelCopy = {
         kind: 'writing',
         name: 'The strongest counter-argument',
         duration: '25 minutes, once',
-        tool: { kind: 'timer', minutes: 25 },
+        tool: {
+          kind: 'prompts',
+          minutes: 25,
+          prompts: [
+            'The conviction that really matters to you',
+            'The best version of its opposite — so good that someone who believes it would sign it',
+            'Where did it get tight while you wrote?',
+          ],
+        },
         body:
           'Take a conviction that really matters to you and write down the best version of its opposite. So good that someone who believes it would sign it. No caricature, and no half-sentence of refutation at the end. Where it gets tight while you write, thinking stops and your self-image begins.',
       },

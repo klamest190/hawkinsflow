@@ -14,14 +14,17 @@ import { useAnswers } from './hooks/useAnswers.ts'
 import { useCheckIns } from './hooks/useCheckIns.ts'
 import { useHistory } from './hooks/useHistory.ts'
 import { useMoments } from './hooks/useMoments.ts'
+import { useNotes } from './hooks/useNotes.ts'
 import { usePlans } from './hooks/usePlans.ts'
 import { useLanguage } from './hooks/useLanguage.ts'
 import { itemAt } from './lib/array.ts'
 import type { BackupData } from './lib/backup.ts'
+import { notesOf } from './lib/notes.ts'
 import { readableOnDark } from './lib/oklch.ts'
 import { sortedPlans } from './lib/plans.ts'
 import { answeredCount, evaluate } from './lib/scoring.ts'
 import type { BelowLevelId, LevelId } from './types.ts'
+import type { Journal } from './components/Writing.tsx'
 
 type Phase = 'intro' | 'quiz' | 'result' | 'scale' | 'moment'
 
@@ -57,6 +60,16 @@ export default function App() {
   const { moments, recordMoment, clearMoments, replaceMoments } = useMoments()
   /* And the daily check-ins: the size between the two — a day. */
   const { checkIns, checkIn, clearCheckIns, replaceCheckIns } = useCheckIns()
+  /* What someone chose to keep from a writing practice — the only free text
+     here besides the plans, and only on a tap. */
+  const { notes, keepNote, removeNote, clearNotes, replaceNotes } = useNotes()
+
+  /** A level's kept writing, for the views that show its practices. */
+  const journalFor = (level: LevelId): Journal => ({
+    notes: notesOf(notes, level),
+    onKeep: (answers) => keepNote(level, answers),
+    onDelete: removeNote,
+  })
   const [phase, setPhase] = useState<Phase>('intro')
 
   /* Jeder Wechsel der Ansicht legt einen Eintrag in die Browser-Historie.
@@ -196,6 +209,7 @@ export default function App() {
     replaceHistory(data.history)
     replaceMoments(data.moments)
     replaceCheckIns(data.checkins)
+    replaceNotes(data.notes)
   }
 
   function startFresh() {
@@ -311,7 +325,8 @@ export default function App() {
             checkIns={checkIns}
             onCheckIn={checkIn}
             onClearCheckIns={clearCheckIns}
-            data={{ answers, plans, history, moments, checkins: checkIns }}
+            onClearNotes={clearNotes}
+            data={{ answers, plans, history, moments, checkins: checkIns, notes }}
             onRestore={restore}
           />
         )}
@@ -339,6 +354,7 @@ export default function App() {
             plan={plans[result.dominant.id] ?? null}
             onSavePlan={(when, then) => savePlan(result.dominant.id, when, then)}
             onDeletePlan={() => removePlan(result.dominant.id)}
+            journal={journalFor(result.dominant.id)}
             onRestart={startFresh}
             onBrowse={() => browse('result')}
             onInspect={(id) => {
@@ -373,6 +389,7 @@ export default function App() {
             plans={plans}
             onSavePlan={savePlan}
             onDeletePlan={removePlan}
+            journalFor={journalFor}
             onBack={() => go(returnTo)}
           />
         )}

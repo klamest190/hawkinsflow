@@ -43,6 +43,7 @@ export const KEYS = {
   history: `${KEY_PREFIX}history.v1`,
   moments: `${KEY_PREFIX}moments.v1`,
   checkins: `${KEY_PREFIX}checkins.v1`,
+  notes: `${KEY_PREFIX}notes.v1`,
   language: `${KEY_PREFIX}language.v1`,
 } as const
 

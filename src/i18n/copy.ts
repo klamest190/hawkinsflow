@@ -13,6 +13,7 @@ export type BackupCounts = {
   plans: number
   moments: number
   days: number
+  notes: number
   answers: number
 }
 
@@ -230,6 +231,31 @@ const de = {
   groundingAgain: 'Von vorn',
   groundingDone: 'Das war der kleinste mögliche Kontakt mit der Welt. Mehr braucht es gerade nicht.',
 
+  // ── Schreiben ────────────────────────────────────────────────────────────
+  // Under the fields of a writing practice. The practices say "write it
+  // down", and paper does that at least as well — the app only offers the
+  // table, and says it forgets unless asked not to.
+  writeHint:
+    'Papier tut es genauso. Was du hier schreibst, vergisst die App, sobald du die Übung verlässt — außer du tippst auf „Behalten“.',
+  writeHintNoKeep: 'Papier tut es genauso. Was du hier schreibst, vergisst die App, sobald du die Übung verlässt.',
+  writeKeep: 'Behalten',
+  writeKept: 'Behalten. Es steht jetzt unter dieser Übung, und nur auf diesem Gerät.',
+  notesShow: (count: number): string =>
+    count === 1 ? 'Ein behaltener Eintrag' : `${count} behaltene Einträge`,
+  notesHide: 'Einträge ausblenden',
+  noteDelete: 'Löschen',
+  noteDeleteLabel: (date: string): string => `Eintrag vom ${date} löschen`,
+  noteDate: (iso: string): string =>
+    new Intl.DateTimeFormat('de', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso)),
+  // The reframe: one thought in three steps. The lead says what the third
+  // step is for, so it doesn't turn into talking oneself into something.
+  reframeLead: 'Drei Schritte: den Satz aufschreiben, ihn prüfen, ihn neu sagen. Nicht schöner, sondern genauer.',
+  reframePrompts: [
+    'Der Satz, so wie er in deinem Kopf klingt',
+    'Was spricht dafür — und was dagegen?',
+    'Wie ließe er sich ehrlich auch sagen?',
+  ],
+
   // ── Skala ────────────────────────────────────────────────────────────────
   backArrow: '← Zurück',
   scaleTitle: 'Die Skala',
@@ -344,7 +370,7 @@ const de = {
   // is something to do now and then, not an invitation on every visit.
   dataTitle: 'Deine Daten',
   dataLead:
-    'Pläne, Verlauf, Momente und Tage liegen nur in diesem Browser auf diesem Gerät. Sichere sie als Datei, bevor du das Handy wechselst oder den Browser leerst.',
+    'Pläne, Verlauf, Momente, Tage und behaltene Einträge liegen nur in diesem Browser auf diesem Gerät. Sichere sie als Datei, bevor du das Handy wechselst oder den Browser leerst.',
   // Before anything exists, the only thing to do here is bring it in.
   dataLeadEmpty:
     'Du hast Hawkins Flow schon auf einem anderen Gerät benutzt? Dann lade hier die Sicherung von dort.',
@@ -357,12 +383,13 @@ const de = {
   // Says what will be replaced before anything is — restoring overwrites.
   dataConfirm: (date: string, contents: string): string =>
     `Die Sicherung vom ${date} enthält ${contents}. Sie ersetzt alles, was jetzt auf diesem Gerät liegt.`,
-  dataContents: ({ runs, plans, moments, days, answers }: BackupCounts): string => {
+  dataContents: ({ runs, plans, moments, days, notes, answers }: BackupCounts): string => {
     const parts = [
       runs === 1 ? 'einen Durchgang' : runs > 1 ? `${runs} Durchgänge` : '',
       plans === 1 ? 'einen Plan' : plans > 1 ? `${plans} Pläne` : '',
       moments === 1 ? 'einen Moment' : moments > 1 ? `${moments} Momente` : '',
       days === 1 ? 'einen Tageseintrag' : days > 1 ? `${days} Tageseinträge` : '',
+      notes === 1 ? 'einen Schreibeintrag' : notes > 1 ? `${notes} Schreibeinträge` : '',
       answers === 1 ? 'die Antwort auf eine Aussage' : answers > 1 ? `Antworten auf ${answers} Aussagen` : '',
     ].filter((part) => part !== '')
     return parts.length === 0 ? 'keine Einträge' : joinList(parts, 'und')
@@ -370,6 +397,13 @@ const de = {
   dataReplace: 'Ersetzen',
   dataCancel: 'Abbrechen',
   dataRestored: 'Die Sicherung ist geladen.',
+  // The kept entries are the most private thing here; they can go in one tap.
+  dataNotes: (count: number): string =>
+    count === 1
+      ? 'Ein behaltener Eintrag aus den Schreibübungen.'
+      : `${count} behaltene Einträge aus den Schreibübungen.`,
+  dataNotesClear: 'Alle löschen',
+  dataNotesClearLabel: 'Alle behaltenen Einträge löschen',
 
   // ── Das PDF ──────────────────────────────────────────────────────────────
   // Der Ergebnisschirm ist weg, sobald jemand den Bogen wiederholt. Das PDF ist
@@ -524,6 +558,24 @@ const en: Copy = {
   groundingAgain: 'Start over',
   groundingDone: 'That was the smallest possible contact with the world. Nothing more is needed right now.',
 
+  writeHint:
+    'Paper works just as well. The app forgets what you write here as soon as you leave the practice — unless you tap “Keep”.',
+  writeHintNoKeep: 'Paper works just as well. The app forgets what you write here as soon as you leave the practice.',
+  writeKeep: 'Keep',
+  writeKept: 'Kept. It now sits under this practice, and only on this device.',
+  notesShow: (count: number): string => (count === 1 ? 'One kept entry' : `${count} kept entries`),
+  notesHide: 'Hide the entries',
+  noteDelete: 'Delete',
+  noteDeleteLabel: (date: string): string => `Delete the entry from ${date}`,
+  noteDate: (iso: string): string =>
+    new Intl.DateTimeFormat('en', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso)),
+  reframeLead: 'Three steps: write the sentence down, test it, say it again. Not nicer — more accurate.',
+  reframePrompts: [
+    'The sentence, the way it sounds in your head',
+    'What speaks for it — and what against it?',
+    'How else could it honestly be put?',
+  ],
+
   backArrow: '← Back',
   scaleTitle: 'The scale',
   scaleLead: (levels: number, threshold: number, courage: string): string =>
@@ -602,7 +654,7 @@ const en: Copy = {
 
   dataTitle: 'Your data',
   dataLead:
-    'Your plans, history, moments and days live only in this browser on this device. Save them to a file before you switch phones or clear the browser.',
+    'Your plans, history, moments, days and kept entries live only in this browser on this device. Save them to a file before you switch phones or clear the browser.',
   dataLeadEmpty: 'Used Hawkins Flow on another device before? Load the backup from there.',
   dataExport: 'Save to a file',
   dataImport: 'Load a backup',
@@ -611,12 +663,13 @@ const en: Copy = {
   dataNewer: 'This backup comes from a newer version of the app. Reload the page, then try again.',
   dataConfirm: (date: string, contents: string): string =>
     `The backup from ${date} holds ${contents}. It replaces everything on this device right now.`,
-  dataContents: ({ runs, plans, moments, days, answers }: BackupCounts): string => {
+  dataContents: ({ runs, plans, moments, days, notes, answers }: BackupCounts): string => {
     const parts = [
       runs === 1 ? 'one run' : runs > 1 ? `${runs} runs` : '',
       plans === 1 ? 'one plan' : plans > 1 ? `${plans} plans` : '',
       moments === 1 ? 'one moment' : moments > 1 ? `${moments} moments` : '',
       days === 1 ? 'one daily entry' : days > 1 ? `${days} daily entries` : '',
+      notes === 1 ? 'one written entry' : notes > 1 ? `${notes} written entries` : '',
       answers === 1 ? 'the answer to one statement' : answers > 1 ? `answers to ${answers} statements` : '',
     ].filter((part) => part !== '')
     return parts.length === 0 ? 'nothing at all' : joinList(parts, 'and')
@@ -624,6 +677,10 @@ const en: Copy = {
   dataReplace: 'Replace',
   dataCancel: 'Cancel',
   dataRestored: 'The backup is loaded.',
+  dataNotes: (count: number): string =>
+    count === 1 ? 'One kept entry from the writing practices.' : `${count} kept entries from the writing practices.`,
+  dataNotesClear: 'Delete all',
+  dataNotesClearLabel: 'Delete all kept entries',
 
   pdfCardTitle: 'Take it with you',
   pdfCardLead:

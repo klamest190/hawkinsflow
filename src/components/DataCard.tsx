@@ -19,6 +19,8 @@ type DataCardProps = {
   language: Language
   t: Copy
   onRestore: (data: BackupData) => void
+  /** Deletes every kept writing entry at once; absent on the crash screen. */
+  onClearNotes?: () => void
 }
 
 type Status =
@@ -37,7 +39,7 @@ type Status =
  * Restoring never happens on the file pick alone. The card first says what
  * the file holds and that it replaces what is here, and waits for a second tap.
  */
-export function DataCard({ data, language, t, onRestore }: DataCardProps) {
+export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCardProps) {
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
   const picker = useRef<HTMLInputElement>(null)
   const question = useRef<HTMLParagraphElement>(null)
@@ -79,8 +81,8 @@ export function DataCard({ data, language, t, onRestore }: DataCardProps) {
   }
 
   function restore(backup: Backup) {
-    const { answers, plans, history, moments, checkins } = backup
-    onRestore({ answers, plans, history, moments, checkins })
+    const { answers, plans, history, moments, checkins, notes } = backup
+    onRestore({ answers, plans, history, moments, checkins, notes })
     setStatus({ kind: 'restored' })
   }
 
@@ -113,6 +115,23 @@ export function DataCard({ data, language, t, onRestore }: DataCardProps) {
         />
       </div>
 
+      {/* The kept entries are the most private thing in the app. Each can be
+          deleted under its practice; here all of them go at once, without
+          visiting five levels. */}
+      {onClearNotes !== undefined && data.notes.length > 0 && (
+        <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-line/60 pt-3">
+          <p className="text-[13px] leading-relaxed text-muted">{t.dataNotes(data.notes.length)}</p>
+          <button
+            type="button"
+            onClick={onClearNotes}
+            aria-label={t.dataNotesClearLabel}
+            className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+          >
+            {t.dataNotesClear}
+          </button>
+        </div>
+      )}
+
       {status.kind === 'confirm' && (
         <div className="mt-4 flex flex-col gap-3 rounded-xl border border-line bg-void/40 p-4">
           <p ref={question} tabIndex={-1} className="text-[14px] leading-relaxed text-text/90 focus:outline-none">
@@ -123,6 +142,7 @@ export function DataCard({ data, language, t, onRestore }: DataCardProps) {
                 plans: Object.keys(status.backup.plans).length,
                 moments: status.backup.moments.length,
                 days: status.backup.checkins.length,
+                notes: status.backup.notes.length,
                 answers: Object.keys(status.backup.answers).length,
               }),
             )}

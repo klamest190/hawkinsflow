@@ -5,6 +5,7 @@ import type { Level, Plan } from '../types.ts'
 import { Disclosure } from './Disclosure.tsx'
 import { PlanBuilder } from './PlanBuilder.tsx'
 import { PracticeDeck } from './PracticeDeck.tsx'
+import type { Journal } from './Writing.tsx'
 
 type LevelDetailProps = {
   level: Level
@@ -13,6 +14,8 @@ type LevelDetailProps = {
   plan: Plan | null
   onSavePlan: (when: string, then: string) => void
   onDeletePlan: () => void
+  /** Where the writing practices keep entries for this level. */
+  journal?: Journal
   /**
    * Im Ergebnis: Zeichen, Falle und Maß liegen hinter einem Aufklapper, damit
    * Rat, Übung und Plan zuerst kommen. In der Skala steht alles offen — dort
@@ -47,6 +50,7 @@ export function LevelDetail({
   plan,
   onSavePlan,
   onDeletePlan,
+  journal,
   collapsible = false,
 }: LevelDetailProps) {
   const [open, setOpen] = useState(!collapsible)
@@ -130,7 +134,7 @@ export function LevelDetail({
           eine Taste weit weg. */}
       <section className="flex flex-col gap-3">
         <Heading>{t.practiceHeading}</Heading>
-        <PracticeDeck practices={level.practices} t={t} />
+        <PracticeDeck practices={level.practices} t={t} journal={journal} />
       </section>
 
       {/* Der Wenn-Dann-Plan. Er steht hinter den Übungen und vor dem Mantra:

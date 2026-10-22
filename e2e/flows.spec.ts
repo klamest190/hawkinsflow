@@ -163,6 +163,41 @@ test('the daily check-in keeps one level per day', async ({ page }) => {
   await expect(page.getByText('Neutralität', { exact: true }).first()).toBeVisible()
 })
 
+test('writing is kept only on a tap, and can be deleted again', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()
+  await page.getByRole('button', { name: /Mut/ }).click()
+
+  // The writing practice is the first tab; its first question has a field.
+  const field = page.getByRole('textbox', { name: /am meisten Kraft kosten/ })
+  await field.fill('Das Projekt, das niemand will.')
+  expect(await stored(page, 'hawkinsflow.notes.v1')).toBeNull()
+
+  await page.getByRole('button', { name: 'Behalten' }).click()
+  await expect(page.getByText(/Es steht jetzt unter dieser Übung/)).toBeVisible()
+  // The field is empty again, and the toggle to the kept entry has the focus.
+  await expect(field).toHaveValue('')
+  const toggle = page.getByRole('button', { name: 'Ein behaltener Eintrag' })
+  await expect(toggle).toBeFocused()
+  const notes = (await stored(page, 'hawkinsflow.notes.v1')) as { level: string; answers: { text: string }[] }[]
+  expect(notes).toHaveLength(1)
+  expect(notes[0]?.level).toBe('courage')
+  expect(notes[0]?.answers.map((answer) => answer.text)).toEqual(['Das Projekt, das niemand will.'])
+
+  await toggle.click()
+  await expect(page.getByText('Das Projekt, das niemand will.')).toBeVisible()
+  await page.getByRole('button', { name: /^Eintrag vom .* löschen$/ }).click()
+  await expect(field).toBeFocused()
+  expect(await stored(page, 'hawkinsflow.notes.v1')).toBeNull()
+
+  // What is not kept is gone after a reload.
+  await field.fill('Nur ein Entwurf.')
+  await page.reload()
+  await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()
+  await page.getByRole('button', { name: /Mut/ }).click()
+  await expect(page.getByRole('textbox', { name: /am meisten Kraft kosten/ })).toHaveValue('')
+})
+
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()

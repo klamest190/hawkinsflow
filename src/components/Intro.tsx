@@ -49,6 +49,8 @@ type IntroProps = {
   checkIns: CheckIns
   onCheckIn: (level: LevelId) => void
   onClearCheckIns: () => void
+  /** Deletes every kept writing entry, from the data card. */
+  onClearNotes: () => void
   /** Everything stored, for the backup at the foot of the page. */
   data: BackupData
   onRestore: (data: BackupData) => void
@@ -146,6 +148,7 @@ export function Intro({
   checkIns,
   onCheckIn,
   onClearCheckIns,
+  onClearNotes,
   data,
   onRestore,
 }: IntroProps) {
@@ -422,7 +425,7 @@ export function Intro({
 
       {/* Below the doors, not above them: saving is housekeeping, and the
           start page exists to open one of the two doors. */}
-      <DataCard data={data} language={language} t={t} onRestore={onRestore} />
+      <DataCard data={data} language={language} t={t} onRestore={onRestore} onClearNotes={onClearNotes} />
 
       <p className="mt-12 max-w-md text-[13px] leading-relaxed text-muted">{t.disclaimer}</p>
 

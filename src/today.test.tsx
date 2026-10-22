@@ -50,7 +50,8 @@ describe.each(LANGUAGES)('today (%s)', (language) => {
         checkIns={props.checkIns ?? []}
         onCheckIn={noop}
         onClearCheckIns={noop}
-        data={{ answers: {}, plans: {}, history: [], moments: [], checkins: [] }}
+        onClearNotes={noop}
+        data={{ answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [] }}
         onRestore={noop}
       />,
     )
