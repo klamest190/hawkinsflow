@@ -84,6 +84,58 @@ test('the moment flow is recorded on the start page', async ({ page }) => {
   expect(moments.map((moment) => moment.level)).toEqual(['fear'])
 })
 
+test('for fear the moment flow breathes first, by the clock', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: /Ich stecke gerade fest/ }).click()
+  await page.getByRole('button', { name: /Angst/ }).click()
+  await expect(page.getByRole('heading', { name: 'Erst der Atem' })).toBeVisible()
+
+  await page.getByRole('button', { name: 'Eine Minute atmen' }).click()
+  // The main chip stays where it was and keeps the focus as its label changes.
+  const pause = page.getByRole('button', { name: 'Anhalten' })
+  await expect(pause).toBeFocused()
+  await expect(page.getByText('Einatmen', { exact: true })).toBeVisible()
+  await expect(page.getByText('Runde 1 von 6')).toBeVisible()
+  // Four seconds in, the out-breath begins — the breath runs on the clock.
+  await expect(page.getByText('Ausatmen', { exact: true })).toBeVisible({ timeout: 8000 })
+
+  await pause.click()
+  await expect(page.getByRole('button', { name: 'Zurücksetzen' })).toBeVisible()
+  await page.getByRole('button', { name: 'Zurücksetzen' }).click()
+  await expect(page.getByRole('button', { name: 'Eine Minute atmen' })).toBeVisible()
+})
+
+test('with reduced motion the box breathes without moving', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  await page.getByRole('button', { name: /Ich stecke gerade fest/ }).click()
+  await page.getByRole('button', { name: /Zorn/ }).click()
+  await page.getByRole('button', { name: 'Eine Minute atmen' }).click()
+
+  await expect(page.getByText('Einatmen', { exact: true })).toBeVisible()
+  // The square is there; the dot that goes round it is not.
+  const figure = page.locator('main svg')
+  await expect(figure.locator('rect')).toHaveCount(2)
+  await expect(figure.locator('circle')).toHaveCount(0)
+})
+
+test('for apathy the moment flow counts the five senses', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: /Ich stecke gerade fest/ }).click()
+  await page.getByRole('button', { name: /Apathie/ }).click()
+  await expect(page.getByRole('heading', { name: 'Erst die Welt' })).toBeVisible()
+
+  await page.getByRole('button', { name: 'Zählen beginnen' }).click()
+  const found = page.getByRole('button', { name: 'Gefunden' })
+  await expect(found).toBeFocused()
+  for (const sense of ['siehst', 'hörst', 'spürst', 'riechst', 'schmeckst']) {
+    await expect(page.getByText(new RegExp(`die du ${sense}|das du ${sense}`))).toBeVisible()
+    await found.click()
+  }
+  await expect(page.getByText(/kleinste mögliche Kontakt/)).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Von vorn' })).toBeFocused()
+})
+
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()

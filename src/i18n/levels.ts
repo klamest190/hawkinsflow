@@ -171,7 +171,7 @@ const de = {
         kind: 'sitting',
         name: 'Fünf Dinge im Raum',
         duration: '3 Minuten, zweimal täglich',
-        tool: { kind: 'timer', minutes: 3 },
+        tool: { kind: 'grounding' },
         body:
           'Du sollst nicht meditieren, nur zählen: fünf Dinge, die du siehst, vier, die du hörst, drei, die du spürst, zwei, die du riechst, eins, das du schmeckst. Wenn du nicht weiterkommst, fang von vorn an. Das ist der kleinste mögliche Kontakt mit der Welt, und du brauchst dafür keine Motivation.',
       },
@@ -273,7 +273,7 @@ const de = {
         kind: 'sitting',
         name: 'Länger aus als ein',
         duration: '6 Minuten, wenn es eng wird',
-        tool: { kind: 'timer', minutes: 6 },
+        tool: { kind: 'breath', pattern: 'longExhale', minutes: 6 },
         body:
           'Atme vier Zählzeiten ein und sechs aus, ohne Pause dazwischen. Mehr nicht. Du musst dich nicht beruhigen und dir nicht gut zureden. Das lange Ausatmen ist der einzige Schalter an der Angst, den du bewusst bedienen kannst. Der Kopf folgt dem Atem, und die Argumente kommen zuletzt.',
       },
@@ -1044,7 +1044,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Five things in the room',
         duration: '3 minutes, twice a day',
-        tool: { kind: 'timer', minutes: 3 },
+        tool: { kind: 'grounding' },
         body:
           'You are not supposed to meditate, only to count: five things you can see, four you can hear, three you can feel, two you can smell, one you can taste. If you get stuck, start again. This is the smallest possible contact with the world, and you need no motivation for it.',
       },
@@ -1146,7 +1146,7 @@ const en: LevelCopy = {
         kind: 'sitting',
         name: 'Out longer than in',
         duration: '6 minutes, when it closes in',
-        tool: { kind: 'timer', minutes: 6 },
+        tool: { kind: 'breath', pattern: 'longExhale', minutes: 6 },
         body:
           'Breathe in for four counts and out for six, with no pause in between. Nothing else. You do not have to calm down and you do not have to talk yourself round. The long out-breath is the only switch on fear that you can operate deliberately. Your mind follows the breath, and the arguments come last.',
       },

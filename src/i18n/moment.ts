@@ -1,5 +1,10 @@
 import type { BelowLevelId, Language } from '../types.ts'
 
+/** Typed wide on purpose: looked up by any of the eight levels, written for a few. */
+function perLevel(texts: Partial<Record<BelowLevelId, string>>): Partial<Record<BelowLevelId, string>> {
+  return texts
+}
+
 /**
  * Die Texte des Moment-Bogens — der zweiten Tür in diese App.
  *
@@ -44,6 +49,21 @@ const de = {
   // Steht unter der Uhr. Eine Übung, die man nicht abbrechen darf, ist eine
   // Prüfung, und Prüfungen macht man nicht, wenn es einem schlecht geht.
   feelNote: 'Die Minute ist ein Angebot, keine Bedingung — du kannst jederzeit weitergehen.',
+
+  // Instead of the minute of feeling, for the levels where something has to
+  // come before it — see `FIRST_AID` in `data/firstAid.ts`. Each body says
+  // why this level starts there, and keeps the step's point: the attention
+  // still goes to where the feeling sits.
+  breatheTitle: 'Erst der Atem',
+  groundTitle: 'Erst die Welt',
+  firstAidBody: perLevel({
+    fear: 'Bei Angst kommt der Körper vor dem Gefühl. Atme vier Zählzeiten ein und sechs aus, ohne Pause dazwischen. Sobald der Atem länger aus- als einströmt, merkst du, wo die Angst sitzt: Kehle, Brust oder Bauch. Bleib mit der Aufmerksamkeit dort.',
+    anger:
+      'Zorn will sofort handeln. Das Quadrat gibt dir die Minute dazwischen: vier ein, vier halten, vier aus, vier halten. Du atmest den Zorn damit nicht weg. Such dabei, wo es heiß ist — Kiefer, Nacken, Hände —, und sag noch nichts.',
+    apathy:
+      'Bei Apathie ist im Körper oft nichts zu finden, und die Suche danach macht es schwerer. Fang deshalb draußen an: Zähl, was um dich herum ist. Dafür musst du nichts fühlen und nichts wollen.',
+  }),
+  groundNote: 'Das Zählen ist ein Angebot, keine Bedingung — du kannst jederzeit weitergehen.',
 
   // ── Schritt 3: fragen ────────────────────────────────────────────────────
   askTitle: 'Eine Frage',
@@ -129,6 +149,17 @@ const en: MomentCopy = {
   feelBody:
     'Sit down and look for the sensation in your body: throat, chest, belly, jaw, hands. Stay there and do not carry the story on — no why, no who started it. Only the place and how it feels.',
   feelNote: 'The minute is an offer, not a condition — you can move on at any time.',
+
+  breatheTitle: 'Breath first',
+  groundTitle: 'The world first',
+  firstAidBody: perLevel({
+    fear: 'With fear, the body comes before the feeling. Breathe in for four counts and out for six, with no pause in between. Once the breath goes out longer than it comes in, you notice where the fear sits: throat, chest or belly. Keep your attention there.',
+    anger:
+      'Anger wants to act at once. The square gives you the minute in between: four in, four hold, four out, four hold. You are not breathing the anger away. Look for where it is hot — jaw, neck, hands — and say nothing yet.',
+    apathy:
+      'With apathy there is often nothing to find in the body, and searching for it makes things heavier. So start outside: count what is around you. You need neither to feel nor to want anything for it.',
+  }),
+  groundNote: 'The counting is an offer, not a condition — you can move on at any time.',
 
   askTitle: 'One question',
   askNote:

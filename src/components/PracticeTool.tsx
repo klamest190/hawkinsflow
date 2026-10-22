@@ -1,5 +1,8 @@
+import { BREATH_PATTERNS } from '../data/breathing.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { PracticeTool as Tool } from '../types.ts'
+import { Breath } from './Breath.tsx'
+import { Grounding } from './Grounding.tsx'
 import { Timer } from './Timer.tsx'
 
 type PracticeToolProps = {
@@ -20,5 +23,9 @@ export function PracticeTool({ tool, t }: PracticeToolProps) {
   switch (tool.kind) {
     case 'timer':
       return <Timer minutes={tool.minutes} t={t} />
+    case 'breath':
+      return <Breath pattern={BREATH_PATTERNS[tool.pattern]} minutes={tool.minutes} t={t} />
+    case 'grounding':
+      return <Grounding t={t} />
   }
 }

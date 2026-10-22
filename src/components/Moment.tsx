@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { FIRST_AID } from '../data/firstAid.ts'
 import { CRISIS_BELOW } from '../data/levels.ts'
 import type { Copy } from '../i18n/copy.ts'
 import type { MomentCopy } from '../i18n/moment.ts'
@@ -7,7 +8,7 @@ import { readableOnDark } from '../lib/oklch.ts'
 import type { BelowLevelId, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
 import { PlanBuilder } from './PlanBuilder.tsx'
-import { Timer } from './Timer.tsx'
+import { PracticeTool } from './PracticeTool.tsx'
 
 type MomentProps = {
   /** Alle Ebenen in der gelesenen Sprache; gebraucht werden die unteren acht. */
@@ -27,10 +28,31 @@ type MomentProps = {
   onLeave: () => void
 }
 
-/** Die Minute Stille in Schritt zwei. */
-const FEEL_MINUTES = 1
-
 const STEPS = 4
+
+/**
+ * Step two: the minute of feeling, or what has to come before it on this
+ * level — breath for fear and anger, the five senses for apathy. Which one is
+ * in `FIRST_AID`; the title and the text follow the tool.
+ */
+function FeelStep({ level, t, m }: { level: BelowLevelId; t: Copy; m: MomentCopy }) {
+  const tool = FIRST_AID[level]
+  const title =
+    tool.kind === 'timer' ? m.feelTitle : tool.kind === 'breath' ? m.breatheTitle : m.groundTitle
+  // A test checks that every level with a tool of its own has its text.
+  const body = tool.kind === 'timer' ? m.feelBody : (m.firstAidBody[level] ?? m.feelBody)
+
+  return (
+    <section className="animate-rise rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
+      <h1 className="font-display text-[24px] leading-[1.2] font-bold tracking-[-0.02em]">{title}</h1>
+      <p className="mt-3 text-[16px] leading-relaxed text-text/90">{body}</p>
+      <PracticeTool tool={tool} t={t} />
+      <p className="mt-4 text-[13px] leading-relaxed text-muted">
+        {tool.kind === 'grounding' ? m.groundNote : m.feelNote}
+      </p>
+    </section>
+  )
+}
 
 /**
  * Der Moment-Bogen: vier Schritte, anderthalb Minuten.
@@ -169,17 +191,9 @@ export function Moment({
         {/* ── Schritt 2: fühlen ──────────────────────────────────────────────
             Die Minute steht vor der Rückfrage und nicht danach: Ein Gefühl
             umzudeuten, bevor es gefühlt wurde, ist nur eine schnellere Art, es
-            wegzuschieben. */}
-        {step === 1 && (
-          <section className="animate-rise rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
-            <h1 className="font-display text-[24px] leading-[1.2] font-bold tracking-[-0.02em]">
-              {m.feelTitle}
-            </h1>
-            <p className="mt-3 text-[16px] leading-relaxed text-text/90">{m.feelBody}</p>
-            <Timer minutes={FEEL_MINUTES} t={t} />
-            <p className="mt-4 text-[13px] leading-relaxed text-muted">{m.feelNote}</p>
-          </section>
-        )}
+            wegzuschieben. Bei Angst, Zorn und Apathie kommt davor noch etwas
+            für den Körper — siehe `FeelStep`. */}
+        {step === 1 && level !== null && <FeelStep level={level} t={t} m={m} />}
 
         {/* ── Schritt 3: fragen ──────────────────────────────────────────────
             Eine Frage und kein Merksatz. Ein Satz, den man sich vorsagt, trifft

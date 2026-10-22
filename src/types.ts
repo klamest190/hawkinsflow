@@ -122,8 +122,40 @@ export type Practice = {
  *   `duration`: that line is prose, built differently in each language —
  *   "20 Minuten täglich" and "20 minutes daily" could still be parsed, "so
  *   lange es dauert" no longer.
+ * - `breath` — a paced breath, drawn and counted. `minutes` as for the
+ *   timer; the rounds follow from it and the pattern.
+ * - `grounding` — five senses, counted down from five. Self-paced, so no
+ *   minutes: someone who gets stuck starts over, and a clock would only say
+ *   they were slow.
  */
-export type PracticeTool = { kind: 'timer'; minutes: number }
+export type PracticeTool =
+  | { kind: 'timer'; minutes: number }
+  | { kind: 'breath'; pattern: BreathPatternId; minutes: number }
+  | { kind: 'grounding' }
+
+/**
+ * The tools for the second step of the moment flow: the ones for the body.
+ * The writing tools need a table and a quarter of an hour; the moment flow
+ * has a minute and a half.
+ */
+export type FirstAidTool = Extract<PracticeTool, { kind: 'timer' | 'breath' | 'grounding' }>
+
+/**
+ * - `box` — in, hold, out, hold, four counts each. It steadies: the holds put
+ *   a pause between impulse and action.
+ * - `longExhale` — four in, six out, no holds. It calms: the long out-breath
+ *   is the one switch on the alarm that can be worked on purpose.
+ */
+export type BreathPatternId = 'box' | 'longExhale'
+
+/** Seconds per phase, in the order a breath goes through them. A 0 is skipped. */
+export type BreathPattern = {
+  id: BreathPatternId
+  inhale: number
+  hold: number
+  exhale: number
+  rest: number
+}
 
 /**
  * Genau drei, immer in derselben Reihenfolge: schreiben, tun, sitzen.

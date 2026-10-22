@@ -738,13 +738,13 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(new Set(names).size).toBe(levels.length * 3)
   })
 
-  /* Wo eine Minutenzahl steht, läuft im Kasten eine Uhr. Sie muss zu dem
-     passen, was die Zeile daneben behauptet: Eine Übung, die „6 Minuten" sagt
-     und zehn zählt, ist schlimmer als eine ohne Uhr. */
+  /* Wo eine Minutenzahl steht, läuft im Kasten eine Uhr oder ein Atem. Sie
+     muss zu dem passen, was die Zeile daneben behauptet: Eine Übung, die
+     „6 Minuten" sagt und zehn zählt, ist schlimmer als eine ohne Uhr. */
   it('lässt Uhr und Dauer dasselbe sagen', () => {
     for (const level of levels) {
       for (const { tool, duration, name } of level.practices) {
-        if (tool?.kind !== 'timer') continue
+        if (tool?.kind !== 'timer' && tool?.kind !== 'breath') continue
 
         expect(tool.minutes, name).toBeGreaterThan(0)
         expect(duration, name).toContain(String(tool.minutes))

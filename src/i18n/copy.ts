@@ -197,6 +197,30 @@ const de = {
   timerStop: 'Zurücksetzen',
   timerDone: 'Die Zeit ist um.',
 
+  // ── Atmen ────────────────────────────────────────────────────────────────
+  // The phase words are the instruction: read out to a screen reader, shown
+  // under the shape. "Halten" twice in the box, since the rest after the
+  // out-breath is held as well.
+  breathPhases: { inhale: 'Einatmen', hold: 'Halten', exhale: 'Ausatmen', rest: 'Halten' },
+  breathStart: (minutes: number): string =>
+    minutes === 1 ? 'Eine Minute atmen' : `${minutes} Minuten atmen`,
+  breathRound: (round: number, rounds: number): string => `Runde ${round} von ${rounds}`,
+  breathDone: 'Geschafft. Bleib noch einen Atemzug lang sitzen.',
+
+  // ── Fünf Sinne ───────────────────────────────────────────────────────────
+  // One per step, after the number: five, four, three, two, one.
+  groundingSenses: [
+    'Dinge, die du siehst',
+    'Dinge, die du hörst',
+    'Dinge, die du spürst',
+    'Dinge, die du riechst',
+    'Ding, das du schmeckst',
+  ],
+  groundingStart: 'Zählen beginnen',
+  groundingNext: 'Gefunden',
+  groundingAgain: 'Von vorn',
+  groundingDone: 'Das war der kleinste mögliche Kontakt mit der Welt. Mehr braucht es gerade nicht.',
+
   // ── Skala ────────────────────────────────────────────────────────────────
   backArrow: '← Zurück',
   scaleTitle: 'Die Skala',
@@ -452,6 +476,24 @@ const en: Copy = {
   timerResume: 'Resume',
   timerStop: 'Reset',
   timerDone: 'Time is up.',
+
+  breathPhases: { inhale: 'Breathe in', hold: 'Hold', exhale: 'Breathe out', rest: 'Hold' },
+  breathStart: (minutes: number): string =>
+    minutes === 1 ? 'Breathe for one minute' : `Breathe for ${minutes} minutes`,
+  breathRound: (round: number, rounds: number): string => `Round ${round} of ${rounds}`,
+  breathDone: 'Done. Stay seated for one more breath.',
+
+  groundingSenses: [
+    'things you can see',
+    'things you can hear',
+    'things you can feel',
+    'things you can smell',
+    'thing you can taste',
+  ],
+  groundingStart: 'Start counting',
+  groundingNext: 'Found them',
+  groundingAgain: 'Start over',
+  groundingDone: 'That was the smallest possible contact with the world. Nothing more is needed right now.',
 
   backArrow: '← Back',
   scaleTitle: 'The scale',
