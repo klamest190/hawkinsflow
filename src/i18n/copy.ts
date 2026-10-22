@@ -54,6 +54,8 @@ const de = {
   showResult: 'Ergebnis ansehen',
   restartFromScratch: 'Von vorn beginnen',
   browseFirst: 'Erst die Skala ansehen',
+  // Next to it: the two models of thinking, see `i18n/thinking.ts`.
+  thinkingOpen: 'Zwei Arten zu denken',
   // Steht klein unter den Knöpfen. Eine App, die einem Menschen eine Zahl
   // aufschreibt, muss sagen, woher die Zahl kommt.
   disclaimer:
@@ -471,6 +473,7 @@ const en: Copy = {
   showResult: 'See your result',
   restartFromScratch: 'Start over',
   browseFirst: 'Look at the scale first',
+  thinkingOpen: 'Two ways of thinking',
   disclaimer:
     'Hawkins arrived at his values through applied kinesiology (muscle testing). That is not scientifically established. Take the result as something to think about, not as a diagnosis. If something weighs on you for longer, a professional will help you more than an app.',
 

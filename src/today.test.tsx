@@ -35,6 +35,7 @@ describe.each(LANGUAGES)('today (%s)', (language) => {
         onStart={noop}
         onBrowse={noop}
         onMoment={noop}
+        onThinking={noop}
         resumeAt={null}
         onResume={noop}
         complete={false}

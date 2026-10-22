@@ -90,6 +90,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onClearHistory={noop}
         m={m}
         onMoment={noop}
+        onThinking={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -338,7 +339,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     const props = {
       levels, language, t, m, plans: [], history, moments: [], data: nothingStored,
       onStart: noop, onBrowse: noop, onResume: noop, onShowResult: noop, onDeletePlan: noop, onCheckPlan: noop, onEditPlan: noop,
-      onClearHistory: noop, onMoment: noop, onClearMoments: noop, onRestore: noop, complete: false,
+      onClearHistory: noop, onMoment: noop, onThinking: noop, onClearMoments: noop, onRestore: noop, complete: false,
       checkIns: [], onCheckIn: noop, onClearCheckIns: noop, onClearNotes: noop,
     }
     const html = renderToString(<Intro {...props} resumeAt={null} />)
@@ -376,6 +377,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onClearHistory={noop}
         m={m}
         onMoment={noop}
+        onThinking={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -450,6 +452,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onClearHistory={noop}
         m={m}
         onMoment={noop}
+        onThinking={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -490,6 +493,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onClearHistory={noop}
         m={m}
         onMoment={noop}
+        onThinking={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -529,6 +533,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onClearHistory={noop}
         m={m}
         onMoment={noop}
+        onThinking={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -599,6 +604,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onClearHistory={noop}
         m={m}
         onMoment={noop}
+        onThinking={noop}
         moments={[]}
         onClearMoments={noop}
         checkIns={[]}
@@ -677,6 +683,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onStart={noop}
         onBrowse={noop}
         onMoment={noop}
+        onThinking={noop}
         resumeAt={null}
         onResume={noop}
         complete={false}
@@ -718,6 +725,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onStart={noop}
         onBrowse={noop}
         onMoment={noop}
+        onThinking={noop}
         resumeAt={null}
         onResume={noop}
         complete={false}

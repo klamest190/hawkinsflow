@@ -24,6 +24,8 @@ type IntroProps = {
   m: MomentCopy
   onStart: () => void
   onBrowse: () => void
+  /** Opens the two models of thinking. */
+  onThinking: () => void
   /** Die zweite Tür: der Moment-Bogen für das, was gerade ist. */
   onMoment: () => void
   /** Nur gesetzt, wenn ein angefangener Bogen im Speicher liegt. */
@@ -132,6 +134,7 @@ export function Intro({
   m,
   onStart,
   onBrowse,
+  onThinking,
   onMoment,
   resumeAt,
   onResume,
@@ -420,6 +423,9 @@ export function Intro({
         )}
         <Button variant="quiet" onClick={onBrowse}>
           {t.browseFirst}
+        </Button>
+        <Button variant="quiet" onClick={onThinking}>
+          {t.thinkingOpen}
         </Button>
       </div>
 

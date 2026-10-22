@@ -6,9 +6,11 @@ import { Moment } from './components/Moment.tsx'
 import { Quiz } from './components/Quiz.tsx'
 import { Result } from './components/Result.tsx'
 import { ScaleBrowser } from './components/ScaleBrowser.tsx'
+import { Thinking } from './components/Thinking.tsx'
 import { QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
 import { momentCopy } from './i18n/moment.ts'
+import { thinkingCopy } from './i18n/thinking.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
 import { useAnswers } from './hooks/useAnswers.ts'
 import { useCheckIns } from './hooks/useCheckIns.ts'
@@ -26,9 +28,9 @@ import { answeredCount, evaluate } from './lib/scoring.ts'
 import type { BelowLevelId, LevelId } from './types.ts'
 import type { Journal } from './components/Writing.tsx'
 
-type Phase = 'intro' | 'quiz' | 'result' | 'scale' | 'moment'
+type Phase = 'intro' | 'quiz' | 'result' | 'scale' | 'moment' | 'thinking'
 
-const PHASES: readonly Phase[] = ['intro', 'quiz', 'result', 'scale', 'moment']
+const PHASES: readonly Phase[] = ['intro', 'quiz', 'result', 'scale', 'moment', 'thinking']
 
 function isPhase(value: unknown): value is Phase {
   return typeof value === 'string' && PHASES.some((phase) => phase === value)
@@ -308,6 +310,7 @@ export default function App() {
                Punkt auf der Linie. */
             onShowResult={() => go('result')}
             onBrowse={() => browse('intro')}
+            onThinking={() => go('thinking')}
             onMoment={openMoment}
             plans={sortedPlans(plans)}
             onDeletePlan={removePlan}
@@ -376,6 +379,10 @@ export default function App() {
             onRecord={recordMoment}
             onLeave={() => go('intro')}
           />
+        )}
+
+        {phase === 'thinking' && (
+          <Thinking levels={levels} t={t} th={thinkingCopy[language]} onBack={() => go('intro')} />
         )}
 
         {phase === 'scale' && (

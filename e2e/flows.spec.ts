@@ -198,6 +198,22 @@ test('writing is kept only on a tap, and can be deleted again', async ({ page })
   await expect(page.getByRole('textbox', { name: /am meisten Kraft kosten/ })).toHaveValue('')
 })
 
+test('the two ways of thinking open from the start page and lead back', async ({ page }) => {
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Zwei Arten zu denken' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Zwei Arten zu denken' })).toBeVisible()
+  await expect(page.locator('main')).toBeFocused()
+  await expect(page.getByRole('heading', { name: 'Die Mind-Hack-Methode' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 3, name: 'Ermächtigende Entscheidungen' })).toBeVisible()
+
+  // The browser's back button returns to the start page, as the button does.
+  await page.goBack()
+  await expect(page.getByRole('button', { name: 'Zwei Arten zu denken' })).toBeVisible()
+  await page.getByRole('button', { name: 'Zwei Arten zu denken' }).click()
+  await page.getByRole('button', { name: '← Zurück' }).click()
+  await expect(page.getByRole('button', { name: 'Erst die Skala ansehen' })).toBeVisible()
+})
+
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
   await page.getByRole('button', { name: 'Erst die Skala ansehen' }).click()
