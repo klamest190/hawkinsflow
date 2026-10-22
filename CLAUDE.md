@@ -37,7 +37,8 @@ conventions that are not obvious from a single file.
 
 - All keys are in `KEYS` (`src/lib/storage.ts`); each hook owns one.
 - Every read goes through a type guard (`isAnswers`, `isPlans`, `isHistory`,
-  `isMoments`). A backup file goes through the same guards.
+  `isMoments`, `isCheckIns`, `isNotes`). A backup file goes through the same
+  guards. A stored level id is checked against the scale with `isLevelId`.
 - Changing a stored shape means bumping the key's version and
   `BACKUP_VERSION` in `src/lib/backup.ts`. There is no migration step yet; a
   value that fails its guard is treated as absent.
@@ -46,6 +47,23 @@ conventions that are not obvious from a single file.
   `Plan.checks` came in. The guard still checks the field whenever it is
   there. Bumping `BACKUP_VERSION` would make every earlier backup file
   unloadable, so don't do it for an additive change.
+- The same holds for a backup field: `checkins` and `notes` are optional in
+  a file, absent reads as empty, present passes its guard.
+- Free text is stored in two places only: plans, and writing someone tapped
+  "keep" on. The fields of a writing practice forget on unmount by design.
+
+## Practice tools
+
+- A practice carries at most one `tool` (`PracticeTool` in `types.ts`);
+  `PracticeTool.tsx` switches over every kind without a default, so a new
+  kind fails the build there.
+- Which tool the moment flow's second step uses is `FIRST_AID` in
+  `src/data/firstAid.ts`; a level with a tool other than the timer needs its
+  text in `firstAidBody` (`src/i18n/moment.ts`), which a test checks.
+- `src/tools.test.tsx` holds the rules per stretch of the scale, e.g. every
+  level from 200 to 400 has a writing tool.
+- Motion set from script (the breathing shape) asks `useReducedMotion`; the
+  CSS rule in `index.css` doesn't reach it.
 
 ## Types
 
