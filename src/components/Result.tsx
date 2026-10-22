@@ -165,7 +165,7 @@ export function Result({
   }
 
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-10 sm:px-6">
+    <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-10 sm:px-6 lg:max-w-3xl">
       {/* Der rechte Abstand hält die Ecke frei, in der die Sprachwahl steht. */}
       <header className="flex items-center justify-between pr-24">
         <Button variant="quiet" onClick={onBrowse} className="-ml-4">

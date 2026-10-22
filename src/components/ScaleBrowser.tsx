@@ -46,7 +46,7 @@ export function ScaleBrowser({
   const courage = levelIn(language, 'courage').name
 
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col px-5 py-8 sm:px-6">
+    <div className="animate-rise mx-auto flex w-full max-w-2xl flex-col px-5 py-8 sm:px-6 lg:max-w-3xl">
       {onBack !== undefined && (
         <header className="mb-4 flex items-center justify-between">
           <Button variant="quiet" onClick={onBack} className="-ml-4">

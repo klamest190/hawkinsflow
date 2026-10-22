@@ -144,7 +144,7 @@ export function Intro({
     !complete
 
   return (
-    <div className="animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-12 text-center lg:py-16">
+    <div className="animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-12 text-center lg:max-w-4xl lg:py-16">
       {welcome ? (
         <>
           <Logo className="h-16 w-16 drop-shadow-[0_8px_28px_rgba(0,0,0,0.5)]" />
@@ -152,7 +152,7 @@ export function Intro({
           <h1 className="mt-7 font-display text-5xl font-bold tracking-[-0.03em] sm:text-6xl">
             Hawkins&nbsp;Flow
           </h1>
-          <p className="mt-4 text-balance text-[17px] leading-relaxed text-muted">
+          <p className="mt-4 max-w-xl text-balance text-[17px] leading-relaxed text-muted">
             {t.introLead(QUESTIONS.length)}
           </p>
 
@@ -170,7 +170,7 @@ export function Intro({
               Grafik, der etwas sagt. In `flex-col-reverse` steht das erste Kind
               unten: Die Linie wird vor Mut ausgegeben und landet damit genau
               zwischen Stolz und Mut. */}
-          <div className="mt-10 flex w-full flex-col-reverse items-center gap-[3px]">
+          <div className="mt-10 flex w-full max-w-xl flex-col-reverse items-center gap-[3px]">
             {levels.map((level, rank) => (
               <Fragment key={level.id}>
                 {level.value === THRESHOLD && (
@@ -213,191 +213,206 @@ export function Intro({
         </header>
       )}
 
-      {/* A questionnaire half done: one line and the button that goes on.
-          The navigation leads there too, but this says that it is waiting. */}
-      {resumeAt !== null && (
-        <div className="mt-8 flex w-full flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
-          <p className="text-[14.5px] leading-relaxed text-text/90">{t.resumeLead}</p>
-          <Button size="sm" onClick={onResume}>
-            {t.resume(resumeAt + 1)}
-          </Button>
-        </div>
-      )}
+      {/* The day's cards. On a phone one under the other, as always; on a wide
+          screen the plan and the check-in side by side — the two that ask for
+          something today — and everything else across the full width. */}
+      <div className="mt-8 grid w-full gap-4 lg:grid-cols-2 lg:items-start">
+        {/* A questionnaire half done: one line and the button that goes on.
+            The navigation leads there too, but this says that it is waiting. */}
+        {resumeAt !== null && (
+          <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-2xl lg:col-span-2 border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
+            <p className="text-[14.5px] leading-relaxed text-text/90">{t.resumeLead}</p>
+            <Button size="sm" onClick={onResume}>
+              {t.resume(resumeAt + 1)}
+            </Button>
+          </div>
+        )}
 
-      {/* The last run is weeks old. One sentence, no exclamation mark: an
-          offer, not a reminder that nags. The button leads to the
-          questionnaire's page, not straight into a new run — starting over
-          replaces the answers, and that is a choice to make there. */}
-      {due !== null && (
-        <div className="mt-8 flex w-full flex-col items-start gap-3 rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
-          <p className="text-[14.5px] leading-relaxed text-muted">
-            {t.returnNudge(due.days)}
-            {dueLevel !== null && (
-              <>
-                {' '}
-                {t.returnNudgeLevel}{' '}
-                <span className="font-semibold" style={{ color: readableOnDark(dueLevel.color) }}>
-                  {dueLevel.name}
-                </span>
-                .
-              </>
-            )}{' '}
-            {t.returnNudgeInvite}
-          </p>
-          <Button variant="ghost" size="sm" onClick={onOpenQuiz}>
-            {t.nudgeOpen}
-          </Button>
-        </div>
-      )}
+        {/* The last run is weeks old. One sentence, no exclamation mark: an
+            offer, not a reminder that nags. The button leads to the
+            questionnaire's page, not straight into a new run — starting over
+            replaces the answers, and that is a choice to make there. */}
+        {due !== null && (
+          <div className="flex w-full flex-col items-start gap-3 rounded-2xl lg:col-span-2 border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
+            <p className="text-[14.5px] leading-relaxed text-muted">
+              {t.returnNudge(due.days)}
+              {dueLevel !== null && (
+                <>
+                  {' '}
+                  {t.returnNudgeLevel}{' '}
+                  <span className="font-semibold" style={{ color: readableOnDark(dueLevel.color) }}>
+                    {dueLevel.name}
+                  </span>
+                  .
+                </>
+              )}{' '}
+              {t.returnNudgeInvite}
+            </p>
+            <Button variant="ghost" size="sm" onClick={onOpenQuiz}>
+              {t.nudgeOpen}
+            </Button>
+          </div>
+        )}
 
-      {/* Der Plan steht vor den Knöpfen und nicht am Seitenende: Ein
-          Wenn-Dann-Satz wirkt nur, wenn er einem wieder einfällt, und die
-          Startseite ist der einzige Ort, an dem diese App das erzwingen kann,
-          ohne zu benachrichtigen. */}
-      {newest !== undefined && (
-        <div className="mt-10 w-full rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
-              {t.introPlanLabel}
-            </h2>
-            {newestLevel !== null && (
-              <p className="text-[12px] font-semibold" style={{ color: readableOnDark(newestLevel.color) }}>
-                {newestLevel.name}
-              </p>
+        {/* Der Plan steht vor den Knöpfen und nicht am Seitenende: Ein
+            Wenn-Dann-Satz wirkt nur, wenn er einem wieder einfällt, und die
+            Startseite ist der einzige Ort, an dem diese App das erzwingen kann,
+            ohne zu benachrichtigen. */}
+        {newest !== undefined && (
+          <div
+            className={
+              'w-full rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm ' +
+              (offerCheckIn ? '' : 'lg:col-span-2')
+            }
+          >
+            <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+                {t.introPlanLabel}
+              </h2>
+              {newestLevel !== null && (
+                <p className="text-[12px] font-semibold" style={{ color: readableOnDark(newestLevel.color) }}>
+                  {newestLevel.name}
+                </p>
+              )}
+            </div>
+            <p className="mt-3 text-[15px] leading-relaxed text-text/90">
+              <span className="font-display font-semibold text-accent-ink">{t.planWhen}</span>{' '}
+              {newest.when}
+            </p>
+            <p className="mt-1.5 text-[15px] leading-relaxed text-text/90">
+              <span className="font-display font-semibold text-accent-ink">{t.planThen}</span>{' '}
+              {newest.then}
+            </p>
+
+            {/* Only the newest plan is asked about: one question on the start
+                page is an offer, one per plan would be a form. `key` starts the
+                reply afresh when a different plan moves to the top. */}
+            <PlanCheckIn
+              key={newest.level}
+              plan={newest}
+              t={t}
+              now={now}
+              onCheck={(verdict) => onCheckPlan(newest.level, verdict)}
+              onEdit={() => onEditPlan(newest.level)}
+            />
+
+            <div className="mt-3 flex justify-end">
+              <DeleteLink
+                label={t.planDelete}
+                title={t.planDeleteLabel(newestLevel?.name ?? newest.level)}
+                onClick={() => onDeletePlan(newest.level)}
+              />
+            </div>
+
+            {/* Die älteren Pläne: eine Zeile je Ebene, gekürzt auf das „dann".
+                Das „Wenn" fehlt hier bewusst — wer den ganzen Satz wiedersehen
+                oder ändern will, klappt die Ebene in der Skala auf. Was diese
+                Liste leisten muss, ist zu zeigen, dass es sie gibt, und sie
+                löschbar zu machen. */}
+            {older.length > 0 && (
+              <div className="mt-5 flex flex-col gap-2.5 border-t border-line pt-4">
+                <h3 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+                  {t.introPlanOthers}
+                </h3>
+                {older.map((plan) => {
+                  const level = levelOf(plan)
+                  return (
+                    <div key={plan.level} className="flex items-baseline justify-between gap-3">
+                      <p className="min-w-0 flex-1 truncate text-[13px] leading-relaxed text-muted">
+                        <span
+                          className="font-semibold"
+                          style={{ color: readableOnDark(level?.color ?? 'var(--hf-muted)') }}
+                        >
+                          {level?.name ?? plan.level}
+                        </span>{' '}
+                        · {plan.then}
+                      </p>
+                      <DeleteLink
+                        label={t.planDelete}
+                        title={t.planDeleteLabel(level?.name ?? plan.level)}
+                        onClick={() => onDeletePlan(plan.level)}
+                      />
+                    </div>
+                  )
+                })}
+              </div>
             )}
           </div>
-          <p className="mt-3 text-[15px] leading-relaxed text-text/90">
-            <span className="font-display font-semibold text-accent-ink">{t.planWhen}</span>{' '}
-            {newest.when}
-          </p>
-          <p className="mt-1.5 text-[15px] leading-relaxed text-text/90">
-            <span className="font-display font-semibold text-accent-ink">{t.planThen}</span>{' '}
-            {newest.then}
-          </p>
+        )}
 
-          {/* Only the newest plan is asked about: one question on the start
-              page is an offer, one per plan would be a form. `key` starts the
-              reply afresh when a different plan moves to the top. */}
-          <PlanCheckIn
-            key={newest.level}
-            plan={newest}
+        {/* Verlauf und Momente, in einer Karte mit zwei Zeilen.
+
+            Sie standen einmal in zwei Kästen untereinander — zweimal derselbe
+            Rahmen, zweimal dieselbe Kopfzeile, zweimal ein erklärender Absatz. Auf
+            einem Telefon war die Startseite damit vor allem Kachelwerk, und der
+            Verlauf, der eigentlich in einer Sekunde beantworten soll „wo stand ich
+            beim letzten Mal", brauchte dafür den halben Bildschirm.
+
+            Zwei Zeilen und trotzdem keine gemeinsame Grafik: Der Verlauf zeigt, wo
+            jemand über Wochen steht, die Momente zeigen einzelne Dienstage — in
+            einem Bild wären das zwei Größen in einer Spalte. Getrennt hält sie
+            jetzt die Linie zwischen den Zeilen statt eines zweiten Rahmens.
+
+            Beide Spuren geben von sich aus nichts aus, solange nichts da ist. Der
+            Kasten muss das noch einmal selbst prüfen, sonst stünde beim ersten
+            Besuch ein leerer Rahmen unter dem Plan.
+
+            Steht ein Plan darüber, rückt die Karte dicht an ihn heran; ohne Plan
+            hängt sie an der Leiter und braucht den vollen Abstand. */}
+        {/* Today, between the plan and the trails: the plan says what to do,
+            the check-in asks how today is, the trails show how the days were. */}
+        {offerCheckIn && (
+          <DailyCheckIn
+            levels={levels}
+            today={todayOf(checkIns, now)}
             t={t}
-            now={now}
-            onCheck={(verdict) => onCheckPlan(newest.level, verdict)}
-            onEdit={() => onEditPlan(newest.level)}
+            onCheckIn={onCheckIn}
+            className={newest === undefined ? 'lg:col-span-2' : ''}
           />
+        )}
 
-          <div className="mt-3 flex justify-end">
-            <DeleteLink
-              label={t.planDelete}
-              title={t.planDeleteLabel(newestLevel?.name ?? newest.level)}
-              onClick={() => onDeletePlan(newest.level)}
+        {(history.length > 0 || moments.length > 0 || checkIns.length > 0) && (
+          <div
+            className={
+              'w-full divide-y divide-line/60 rounded-2xl border border-line bg-card/60 ' +
+              'text-left backdrop-blur-sm lg:col-span-2 ' +
+              /* On a wide screen the rows stand side by side, one column per
+                 row that has something to show. Stacked across the full
+                 width, each line grew with it — the drawings scale with
+                 their width — and turned into a tall, mostly empty box. */
+              'lg:grid lg:auto-cols-fr lg:grid-flow-col lg:divide-x lg:divide-y-0'
+            }
+          >
+            <HistoryTrail
+              history={history}
+              levels={levels}
+              language={language}
+              t={t}
+              onClear={onClearHistory}
+            />
+
+            <MomentTrail
+              moments={moments}
+              levels={levels}
+              language={language}
+              m={m}
+              onClear={onClearMoments}
+            />
+
+            {/* Third and last: days sit between the weeks of the questionnaire
+                and the afternoons of the moments, but they are the newest row
+                and the one most often empty. */}
+            <CheckInTrail
+              checkIns={checkIns}
+              levels={levels}
+              language={language}
+              t={t}
+              onClear={onClearCheckIns}
             />
           </div>
+        )}
 
-          {/* Die älteren Pläne: eine Zeile je Ebene, gekürzt auf das „dann".
-              Das „Wenn" fehlt hier bewusst — wer den ganzen Satz wiedersehen
-              oder ändern will, klappt die Ebene in der Skala auf. Was diese
-              Liste leisten muss, ist zu zeigen, dass es sie gibt, und sie
-              löschbar zu machen. */}
-          {older.length > 0 && (
-            <div className="mt-5 flex flex-col gap-2.5 border-t border-line pt-4">
-              <h3 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
-                {t.introPlanOthers}
-              </h3>
-              {older.map((plan) => {
-                const level = levelOf(plan)
-                return (
-                  <div key={plan.level} className="flex items-baseline justify-between gap-3">
-                    <p className="min-w-0 flex-1 truncate text-[13px] leading-relaxed text-muted">
-                      <span
-                        className="font-semibold"
-                        style={{ color: readableOnDark(level?.color ?? 'var(--hf-muted)') }}
-                      >
-                        {level?.name ?? plan.level}
-                      </span>{' '}
-                      · {plan.then}
-                    </p>
-                    <DeleteLink
-                      label={t.planDelete}
-                      title={t.planDeleteLabel(level?.name ?? plan.level)}
-                      onClick={() => onDeletePlan(plan.level)}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Verlauf und Momente, in einer Karte mit zwei Zeilen.
-
-          Sie standen einmal in zwei Kästen untereinander — zweimal derselbe
-          Rahmen, zweimal dieselbe Kopfzeile, zweimal ein erklärender Absatz. Auf
-          einem Telefon war die Startseite damit vor allem Kachelwerk, und der
-          Verlauf, der eigentlich in einer Sekunde beantworten soll „wo stand ich
-          beim letzten Mal", brauchte dafür den halben Bildschirm.
-
-          Zwei Zeilen und trotzdem keine gemeinsame Grafik: Der Verlauf zeigt, wo
-          jemand über Wochen steht, die Momente zeigen einzelne Dienstage — in
-          einem Bild wären das zwei Größen in einer Spalte. Getrennt hält sie
-          jetzt die Linie zwischen den Zeilen statt eines zweiten Rahmens.
-
-          Beide Spuren geben von sich aus nichts aus, solange nichts da ist. Der
-          Kasten muss das noch einmal selbst prüfen, sonst stünde beim ersten
-          Besuch ein leerer Rahmen unter dem Plan.
-
-          Steht ein Plan darüber, rückt die Karte dicht an ihn heran; ohne Plan
-          hängt sie an der Leiter und braucht den vollen Abstand. */}
-      {/* Today, between the plan and the trails: the plan says what to do,
-          the check-in asks how today is, the trails show how the days were. */}
-      {offerCheckIn && (
-        <DailyCheckIn
-          levels={levels}
-          today={todayOf(checkIns, now)}
-          t={t}
-          onCheckIn={onCheckIn}
-          className={newest === undefined ? 'mt-10' : 'mt-4'}
-        />
-      )}
-
-      {(history.length > 0 || moments.length > 0 || checkIns.length > 0) && (
-        <div
-          className={
-            'w-full divide-y divide-line/60 rounded-2xl border border-line bg-card/60 ' +
-            'text-left backdrop-blur-sm ' +
-            (newest === undefined && !offerCheckIn ? 'mt-10' : 'mt-4')
-          }
-        >
-          <HistoryTrail
-            history={history}
-            levels={levels}
-            language={language}
-            t={t}
-            onClear={onClearHistory}
-          />
-
-          <MomentTrail
-            moments={moments}
-            levels={levels}
-            language={language}
-            m={m}
-            onClear={onClearMoments}
-          />
-
-          {/* Third and last: days sit between the weeks of the questionnaire
-              and the afternoons of the moments, but they are the newest row
-              and the one most often empty. */}
-          <CheckInTrail
-            checkIns={checkIns}
-            levels={levels}
-            language={language}
-            t={t}
-            onClear={onClearCheckIns}
-          />
-        </div>
-      )}
+      </div>
 
       {/* At the foot: saving is housekeeping, and this page exists for the
           day, not for the file. */}
