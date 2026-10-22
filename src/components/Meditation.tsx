@@ -32,7 +32,7 @@ function Part({ label, children }: { label: string; children: string }) {
 }
 
 /**
- * The meditation page: the six forms as cards — how, what it can do, what
+ * The meditation page: the six forms as cards, best supported first — how, what it can do, what
  * the research says, where the app practises it — then what happens in the
  * body, what the research does not say, and the sources.
  *
@@ -46,7 +46,9 @@ export function Meditation({ d }: { d: MeditationCopy }) {
       <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{d.lead}</p>
 
       <h2 className="mt-10 font-display text-[24px] font-bold tracking-[-0.01em]">{d.formsTitle}</h2>
-      <ul className="mt-5 grid gap-4 lg:grid-cols-2">
+      <p className="mt-2 text-[14px] leading-relaxed text-muted">{d.formsLead}</p>
+      {/* An ordered list: the order is a statement — best supported first. */}
+      <ol className="mt-5 grid gap-4 lg:grid-cols-2">
         {MEDITATIONS.map((id) => {
           const form = d.forms[id]
           return (
@@ -69,7 +71,7 @@ export function Meditation({ d }: { d: MeditationCopy }) {
             </li>
           )
         })}
-      </ul>
+      </ol>
 
       <h2 className="mt-12 font-display text-[24px] font-bold tracking-[-0.01em]">{d.bodyTitle}</h2>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">

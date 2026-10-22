@@ -1,9 +1,14 @@
 /**
- * The forms of meditation on the meditation page, in the order they are
- * usually learnt: attention on one anchor first, then the body, then open
- * awareness, then the forms that work with words or with the breath itself.
+ * The forms of meditation on the meditation page, the best supported first.
+ *
+ * Ordered by the evidence and not by effect sizes: the reviews measure
+ * different things — relapse, mood, blood pressure — against different
+ * comparisons, and their numbers can't be lined up. Within a step of
+ * `EVIDENCE`, the broader and sounder base comes first: forty-seven trials
+ * before twenty-two, a measured bodily effect before one at risk of bias.
+ * A test checks the steps never go back up.
  */
-export const MEDITATIONS = ['breath', 'bodyScan', 'openAwareness', 'lovingKindness', 'mantra', 'slowBreathing'] as const
+export const MEDITATIONS = ['bodyScan', 'breath', 'lovingKindness', 'slowBreathing', 'mantra', 'openAwareness'] as const
 
 export type MeditationId = (typeof MEDITATIONS)[number]
 
@@ -16,6 +21,9 @@ export type MeditationId = (typeof MEDITATIONS)[number]
  * - `thin` — hardly studied on its own.
  */
 export type Evidence = 'solid' | 'moderate' | 'thin'
+
+/** The steps from best to least supported — the order of the page. */
+export const EVIDENCE_ORDER: readonly Evidence[] = ['solid', 'moderate', 'thin']
 
 export const EVIDENCE: Record<MeditationId, Evidence> = {
   breath: 'moderate',

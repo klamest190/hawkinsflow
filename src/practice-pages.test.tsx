@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import { Ebbflow } from './components/Ebbflow.tsx'
 import { Meditation } from './components/Meditation.tsx'
-import { EVIDENCE, MEDITATIONS, SOURCES } from './data/meditations.ts'
+import { EVIDENCE, EVIDENCE_ORDER, MEDITATIONS, SOURCES } from './data/meditations.ts'
 import { copy } from './i18n/copy.ts'
 import { ebbCopy } from './i18n/ebbflow.ts'
 import { meditationCopy } from './i18n/meditation.ts'
@@ -52,6 +52,21 @@ describe.each(LANGUAGES)('meditation (%s)', (language) => {
   it('has one page heading and no skipped heading level', () => {
     expect(html.match(/<h1/g)).toHaveLength(1)
     expect(skips(html)).toEqual([])
+  })
+})
+
+describe('the order of the forms', () => {
+  it('puts the best supported first and never goes back up', () => {
+    const steps = MEDITATIONS.map((id) => EVIDENCE_ORDER.indexOf(EVIDENCE[id]))
+    expect(steps).toEqual([...steps].sort((a, b) => a - b))
+    expect(MEDITATIONS[0]).toBe('bodyScan')
+  })
+
+  it('shows them on the page in that order', () => {
+    const html = renderToString(<Meditation d={meditationCopy.de} />)
+    const positions = MEDITATIONS.map((id) => html.indexOf(`>${meditationCopy.de.forms[id].name}</h3>`))
+    expect(positions.every((position) => position >= 0)).toBe(true)
+    expect(positions).toEqual([...positions].sort((a, b) => a - b))
   })
 })
 

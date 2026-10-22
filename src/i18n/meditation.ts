@@ -39,6 +39,9 @@ const de = {
   lead: 'Meditieren heißt, die Aufmerksamkeit zu üben: bemerken, wohin sie wandert, und sie zurückholen. Hier stehen die sechs Formen, die am häufigsten gelehrt und am besten untersucht sind, mit dem, was sie bewirken können, und dem, was die Forschung tatsächlich dazu sagt.',
 
   formsTitle: 'Die wichtigsten Formen',
+  // Says what "first" means here: best studied, not "works best for you".
+  formsLead:
+    'Sortiert nach der Studienlage: was am besten belegt ist, steht oben. Welche Form dir am meisten bringt, kann trotzdem eine weiter unten sein.',
   howLabel: 'So geht’s',
   effectLabel: 'Was sie bewirken kann',
   evidenceLabel: 'Was die Forschung sagt',
@@ -149,6 +152,8 @@ const en: MeditationCopy = {
   lead: 'To meditate is to practise attention: noticing where it wanders and bringing it back. Here are the six forms most often taught and best studied, with what they can do and what the research actually says about them.',
 
   formsTitle: 'The main forms',
+  formsLead:
+    'Ordered by the evidence: the best supported come first. The form that does most for you may still be one further down.',
   howLabel: 'How it works',
   effectLabel: 'What it can do',
   evidenceLabel: 'What the research says',
