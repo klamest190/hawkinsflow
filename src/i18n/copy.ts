@@ -48,8 +48,10 @@ const de = {
   navThinking: 'Denken',
   navBreathe: 'Ebb Flow',
   navMeditation: 'Meditation',
-  // On the phone, the one tab for the scale, thinking and meditation; in the
-  // sidebar, the label over the three.
+  // Bodo Schäfer's laws of winners, in one short word for the row of pills.
+  navWinners: 'Erfolg',
+  // On the phone, the one tab for the places to look things up in; in the
+  // sidebar, the label over them.
   navKnowledge: 'Wissen',
   // Under the moment flow's card in the sidebar, where there is room for it.
   navMomentLead: 'Vier Schritte, anderthalb Minuten. Für den Moment, in dem dich etwas festhält.',
@@ -490,6 +492,7 @@ const en: Copy = {
   navThinking: 'Thinking',
   navBreathe: 'Ebb Flow',
   navMeditation: 'Meditation',
+  navWinners: 'Success',
   navKnowledge: 'Learn',
   navMomentLead: 'Four steps, a minute and a half. For the moment something has hold of you.',
 

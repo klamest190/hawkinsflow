@@ -31,6 +31,8 @@ function labelOf(item: Icon, t: Copy): string {
       return t.navThinking
     case 'meditation':
       return t.navMeditation
+    case 'winners':
+      return t.navWinners
   }
 }
 
@@ -59,6 +61,8 @@ function Glyph({ item, className = 'h-6 w-6' }: { item: Icon; className?: string
       'M5 19.5c1.5-4 4-6.25 7-6.25s5.5 2.25 7 6.25',
       'M3.5 15.5 8.5 12.5M20.5 15.5l-5-3',
     ],
+    // A summit with a flag: the laws of winners.
+    winners: ['M2.5 20 9 9.5l3.5 5.5L15 11l6.5 9H2.5Z', 'M15 11V3.5l3.5 1.75L15 7'],
   }
 
   return (
@@ -165,11 +169,11 @@ export function TabBar({ active, onSelect, t }: TabBarProps) {
 }
 
 /**
- * The row of three at the top of the places to look things up in, on a
- * phone: the scale, the two ways of thinking, meditation. A navigation of its
+ * The row at the top of the places to look things up in, on a phone: the
+ * scale, the two ways of thinking, meditation, the laws of winners. A navigation of its
  * own and not tabs of a page — each is a view with its own heading and its
  * own entry in the browser's history. Hidden from `lg` on, where the sidebar
- * lists all three.
+ * lists them all.
  */
 export function KnowledgeNav({
   active,
@@ -182,7 +186,9 @@ export function KnowledgeNav({
 }) {
   return (
     <nav aria-label={t.navKnowledge} className="mx-auto w-full max-w-2xl px-5 pt-5 sm:px-6 lg:hidden">
-      <ul className="flex gap-2 overflow-x-auto">
+      {/* Wrapping and not scrolling sideways: a pill cut off at the edge is
+          a place nobody sees. */}
+      <ul className="flex flex-wrap gap-2">
         {KNOWLEDGE.map((place) => {
           const here = active === place
           return (

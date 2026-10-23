@@ -12,6 +12,7 @@ import { QuizHome } from './components/QuizHome.tsx'
 import { Result } from './components/Result.tsx'
 import { ScaleBrowser } from './components/ScaleBrowser.tsx'
 import { Thinking } from './components/Thinking.tsx'
+import { Winners } from './components/Winners.tsx'
 import { QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
 import { ebbCopy } from './i18n/ebbflow.ts'
@@ -20,6 +21,7 @@ import { sessionCopy } from './i18n/sessions.ts'
 import type { GuidedId } from './data/sessions.ts'
 import { momentCopy } from './i18n/moment.ts'
 import { thinkingCopy } from './i18n/thinking.ts'
+import { winnersCopy } from './i18n/winners.ts'
 import { levelIn, levelsIn } from './i18n/levels.ts'
 import { useAnswers } from './hooks/useAnswers.ts'
 import { useCheckIns } from './hooks/useCheckIns.ts'
@@ -49,6 +51,7 @@ type Phase =
   | 'breathe'
   | 'meditation'
   | 'session'
+  | 'winners'
 
 const PHASES: readonly Phase[] = [
   'intro',
@@ -61,6 +64,7 @@ const PHASES: readonly Phase[] = [
   'breathe',
   'meditation',
   'session',
+  'winners',
 ]
 
 /**
@@ -91,6 +95,8 @@ function placeOf(phase: Phase): Place {
     case 'meditation':
     case 'session':
       return 'meditation'
+    case 'winners':
+      return 'winners'
   }
 }
 
@@ -349,6 +355,9 @@ export default function App() {
       case 'meditation':
         go('meditation')
         return
+      case 'winners':
+        go('winners')
+        return
     }
   }
 
@@ -557,6 +566,8 @@ export default function App() {
             onEbbFlow={() => go('breathe')}
           />
         )}
+
+        {phase === 'winners' && <Winners w={winnersCopy[language]} />}
 
         {phase === 'session' && sessionId !== null && (
           <GuidedSession

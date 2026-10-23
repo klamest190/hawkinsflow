@@ -417,6 +417,18 @@ test('the examples of the two ways of thinking switch by tap and by arrow key', 
   await expect(page.getByText(/Im Meeting hast du eine Idee/)).toBeVisible()
 })
 
+test('the laws of winners stand under the tab for looking things up', async ({ page }) => {
+  await page.goto('/')
+  await tab(page, 'Wissen').click()
+  const knowledge = page.getByRole('navigation', { name: 'Wissen' })
+  await knowledge.getByRole('button', { name: 'Erfolg' }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Die Gesetze der Gewinner' })).toBeVisible()
+  await expect(knowledge.getByRole('button', { name: 'Erfolg' })).toHaveAttribute('aria-current', 'page')
+  await expect(page.getByRole('heading', { level: 3 })).toHaveCount(30)
+  await expect(page.getByRole('heading', { level: 3, name: /Gesetz 1: Triff Entscheidungen/ })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Einordnung' })).toBeVisible()
+})
+
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
   await tab(page, 'Wissen').click()

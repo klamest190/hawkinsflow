@@ -37,7 +37,7 @@ describe.each(LANGUAGES)('navigation (%s)', (language) => {
   it('switches between the three places to look things up in, marking the current one', () => {
     const html = renderToString(<KnowledgeNav active="thinking" onSelect={noop} t={t} />)
     expect(html).toContain(`aria-label="${t.navKnowledge}"`)
-    for (const label of [t.navScale, t.navThinking, t.navMeditation]) expect(html).toContain(label)
+    for (const label of [t.navScale, t.navThinking, t.navMeditation, t.navWinners]) expect(html).toContain(label)
     expect(html).toMatch(new RegExp(`aria-current="page"[^>]*>(?:(?!</button>).)*${t.navThinking}`))
   })
 
@@ -57,7 +57,7 @@ describe.each(LANGUAGES)('navigation (%s)', (language) => {
     expect(html).toContain(m.enter)
     expect(html).toContain(t.navMomentLead)
     // All seven places by name, the three to look things up in under their label.
-    for (const label of [t.navToday, t.navQuiz, t.navBreathe, t.navScale, t.navThinking, t.navMeditation]) {
+    for (const label of [t.navToday, t.navQuiz, t.navBreathe, t.navScale, t.navThinking, t.navMeditation, t.navWinners]) {
       expect(html).toContain(label)
     }
     expect(html).toContain(t.navKnowledge)
