@@ -14,6 +14,24 @@ function stations(list: Station[]): Station[] {
 }
 
 /**
+ * One situation, thought through both models: what the inner voice says at
+ * each station, from the foundation upwards — six sentences for the ordinary
+ * model, six for the Mind Hack Method. Without quotation marks: the view
+ * sets them, in the language's own form.
+ */
+export type Example = {
+  title: string
+  situation: string
+  ordinary: string[]
+  mindHack: string[]
+}
+
+/* Typed wide on purpose: the six-and-six is checked by a test, not the type. */
+function examples(list: Example[]): Example[] {
+  return list
+}
+
+/**
  * The two models of thinking — the "ordinary" one and the Mind Hack Method —
  * and what happens at each of their six stations.
  *
@@ -110,6 +128,77 @@ const de = {
     },
   ]),
 
+  // Three situations, each thought through both models, station by station.
+  // In the inner voice and in the first person: that is where these
+  // sentences are heard, and where they can be caught.
+  examplesTitle: 'Drei Beispiele',
+  examplesLead:
+    'Dieselbe Lage, zweimal durchdacht. Links, wie es von allein läuft, rechts, wie es bewusst gewählt klingen kann. Von unten nach oben gelesen, Station für Station.',
+  examplesLabel: 'Bereich des Beispiels',
+  situationLabel: 'Die Lage',
+  examples: examples([
+    {
+      title: 'Karriere & Geld',
+      situation: 'Intern ist eine Stelle mit mehr Verantwortung und mehr Gehalt ausgeschrieben. Die Frist endet in einer Woche.',
+      ordinary: [
+        'Leute wie ich werden nicht befördert. Geld verdienen die anderen.',
+        'Mir fehlen Erfahrung, Kontakte und der richtige Abschluss.',
+        'Vielleicht erst eine Weiterbildung? Oder gleich etwas ganz anderes? Ich weiß nicht mal, was ich eigentlich will.',
+        'Warum ist das bei mir immer so schwer? Was, wenn die mich auslachen?',
+        'Wenn ich mich bewerbe und abgelehnt werde, wissen alle, dass ich es nicht kann.',
+        'Ich lasse die Frist verstreichen und sage mir, dass der Zeitpunkt sowieso schlecht war.',
+      ],
+      mindHack: [
+        'Ich bewerbe mich als jemand, der wachsen will, nicht als jemand, der schon alles kann.',
+        'Ich habe zwei Projekte erfolgreich durchgezogen, und mein Team vertraut mir.',
+        'Ich will diese Rolle und fünfzehn Prozent mehr Gehalt. Daran messe ich die nächsten drei Monate.',
+        'Wer hat diese Rolle schon, und wen kann ich diese Woche fragen, wie der Weg dorthin war?',
+        'Ich weiß nicht, ob es klappt. Ich weiß, dass ich am Versuch wachse.',
+        'Ich schreibe heute Abend die Bewerbung und bitte morgen meine Chefin um ein Gespräch.',
+      ],
+    },
+    {
+      title: 'Selbstbewusstsein',
+      situation: 'Im Meeting hast du eine Idee, die noch niemand angesprochen hat.',
+      ordinary: [
+        'Was ich sage, ist nicht so wichtig.',
+        'Ich rede zu umständlich, die anderen sind schlagfertiger, und letztes Mal hat keiner reagiert.',
+        'Jetzt sagen oder später? Ist die Idee überhaupt gut? Vielleicht hat sie schon jemand gebracht.',
+        'Warum kann ich nicht einfach so selbstsicher sein wie die anderen?',
+        'Wenn ich mich blamiere, denken alle, ich habe keine Ahnung.',
+        'Ich sage nichts und ärgere mich hinterher, als jemand anderes genau das vorschlägt.',
+      ],
+      mindHack: [
+        'Meine Sicht ist ein Beitrag, auch wenn sie nicht perfekt ist.',
+        'Ich kenne das Thema gut, und zwei Kollegen haben mich schon nach meiner Meinung gefragt.',
+        'Ich sage einen Satz: das Problem und meinen Vorschlag. Mehr nicht.',
+        'Wie würde ich es sagen, wenn ich wüsste, dass es niemanden stört?',
+        'Ein Satz, der nicht perfekt ist, kostet mich wenig. Schweigen kostet mich mehr.',
+        'Ich hebe die Hand und sage den einen Satz, bevor ich ihn zerdenke.',
+      ],
+    },
+    {
+      title: 'Dating & Partnerschaft',
+      situation: 'Nach einem schönen zweiten Date meldet sich die andere Person einen Tag lang nicht.',
+      ordinary: [
+        'Am Ende will mich sowieso niemand wirklich.',
+        'Keine Antwort. Ich war zu viel, habe zu viel erzählt, mein Witz kam falsch an.',
+        'Schreiben oder abwarten? Bin ich zu anhänglich, wenn ich mich melde, und zu kühl, wenn nicht?',
+        'Was stimmt nicht mit mir, dass es nie klappt?',
+        'Wenn ich mich melde und abgewiesen werde, bestätigt das alles.',
+        'Ich schreibe drei Nachrichten hintereinander, oder ich ziehe mich zurück und lösche die Nummer.',
+      ],
+      mindHack: [
+        'Ich bin es wert, gemocht zu werden, egal, wie dieser eine Mensch antwortet.',
+        'Der Abend war schön, wir haben viel gelacht, und ich war ehrlich ich selbst.',
+        'Ich suche jemanden, der sich auch auf mich freut. Das ist mein Maßstab, nicht die Geschwindigkeit einer Antwort.',
+        'Was würde ich jetzt tun, wenn ich mich sicher fühlen würde?',
+        'Ich weiß nicht, wie es ausgeht. Ich kann gut damit leben, mich gezeigt zu haben.',
+        'Ich schreibe eine freundliche Nachricht, dass mir der Abend gefallen hat, und lege das Handy weg.',
+      ],
+    },
+  ]),
+
   // Same standard as for Hawkins: what is a model is called a model.
   sourceNote:
     'Beide Modelle stammen aus dem Buch zur Mind-Hack-Methode; die Erklärungen hier sind in eigenen Worten geschrieben. Wie Hawkins’ Skala sind sie ein Denkmodell und nicht wissenschaftlich untersucht.',
@@ -197,6 +286,74 @@ const en: ThinkingCopy = {
       name: 'Action',
       body: 'At the end there is acting instead of reacting: a step you chose, not one the situation forces on you. Every action like that is evidence against the old sentence and for the decision it all started with.',
       inApp: 'The practice “The one thing in the morning” under courage: one thing, chosen on purpose, in the first hour.',
+    },
+  ]),
+
+  examplesTitle: 'Three examples',
+  examplesLead:
+    'The same situation, thought through twice. On the left, how it runs by itself; on the right, how it can sound when chosen on purpose. Read from the bottom up, station by station.',
+  examplesLabel: 'Area of the example',
+  situationLabel: 'The situation',
+  examples: examples([
+    {
+      title: 'Career & money',
+      situation: 'A role with more responsibility and a higher salary has been advertised internally. Applications close in a week.',
+      ordinary: [
+        'People like me do not get promoted. Money is for other people.',
+        'I lack the experience, the contacts and the right degree.',
+        'Maybe a course first? Or something else entirely? I do not even know what I want.',
+        'Why is it always so hard for me? What if they laugh at me?',
+        'If I apply and get turned down, everyone will know I cannot do it.',
+        'I let the deadline pass and tell myself the timing was bad anyway.',
+      ],
+      mindHack: [
+        'I am applying as someone who wants to grow, not as someone who can already do it all.',
+        'I have pulled off two projects, and my team trusts me.',
+        'I want this role and fifteen per cent more pay. That is what I will measure the next three months by.',
+        'Who already has this role, and whom can I ask this week how they got there?',
+        'I do not know whether it will work. I know I grow by trying.',
+        'I will write the application tonight and ask my manager for a conversation tomorrow.',
+      ],
+    },
+    {
+      title: 'Self-confidence',
+      situation: 'In a meeting you have an idea nobody has raised yet.',
+      ordinary: [
+        'What I have to say does not really matter.',
+        'I ramble, the others are quicker, and last time nobody reacted.',
+        'Say it now or later? Is the idea even good? Maybe someone has already said it.',
+        'Why can I not just be as confident as everyone else?',
+        'If I embarrass myself, everyone will think I have no idea.',
+        'I say nothing and kick myself afterwards when someone else suggests exactly that.',
+      ],
+      mindHack: [
+        'My view is a contribution, even if it is not perfect.',
+        'I know this subject well, and two colleagues have already asked for my opinion.',
+        'I will say one sentence: the problem and my suggestion. Nothing more.',
+        'How would I put it if I knew it would bother nobody?',
+        'An imperfect sentence costs me little. Staying silent costs me more.',
+        'I raise my hand and say the one sentence before I overthink it.',
+      ],
+    },
+    {
+      title: 'Dating & relationships',
+      situation: 'After a lovely second date, the other person has not been in touch for a day.',
+      ordinary: [
+        'In the end nobody really wants me anyway.',
+        'No reply. I was too much, talked too much, my joke landed wrong.',
+        'Text or wait? Am I clingy if I get in touch, and cold if I do not?',
+        'What is wrong with me that it never works out?',
+        'If I get in touch and get turned down, it proves everything.',
+        'I send three messages in a row, or I pull back and delete the number.',
+      ],
+      mindHack: [
+        'I am worth liking, however this one person replies.',
+        'The evening was lovely, we laughed a lot, and I was honestly myself.',
+        'I am looking for someone who looks forward to me, too. That is my measure, not how fast a reply comes.',
+        'What would I do right now if I felt secure?',
+        'I do not know how it will turn out. I can live well with having shown myself.',
+        'I send one friendly message saying I enjoyed the evening, and put the phone down.',
+      ],
     },
   ]),
 

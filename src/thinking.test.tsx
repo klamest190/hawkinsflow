@@ -59,6 +59,39 @@ describe.each(LANGUAGES)('two ways of thinking (%s)', (language) => {
   })
 })
 
+describe('the three examples', () => {
+  it('thinks every situation through all six stations, in both models and both languages', () => {
+    for (const language of LANGUAGES) {
+      const th = thinkingCopy[language]
+      expect(th.examples, language).toHaveLength(3)
+      for (const example of th.examples) {
+        expect(example.ordinary, example.title).toHaveLength(th.ordinary.length)
+        expect(example.mindHack, example.title).toHaveLength(th.mindHack.length)
+        for (const sentence of [...example.ordinary, ...example.mindHack]) {
+          expect(sentence.length, example.title).toBeGreaterThan(20)
+          // The view sets the quotation marks; the texts carry none.
+          expect(sentence, example.title).not.toMatch(/^[„“"”]/)
+        }
+      }
+    }
+  })
+
+  it('shows the first example open, with its tabs, as quotes under their stations', () => {
+    for (const language of LANGUAGES) {
+      const th = thinkingCopy[language]
+      const html = renderToString(<Thinking levels={levelsIn(language)} th={th} />)
+      expect(html).toContain('role="tablist"')
+      for (const example of th.examples) expect(html).toContain(example.title.replace(/&/g, '&amp;'))
+      const first = th.examples[0]
+      if (first === undefined) throw new Error('no example')
+      expect(html).toContain(first.situation)
+      for (const sentence of [...first.ordinary, ...first.mindHack]) {
+        expect(html).toContain(`<q>${sentence.replace(/&/g, '&amp;')}</q>`)
+      }
+    }
+  })
+})
+
 describe('two ways of thinking in both languages', () => {
   it('names the same stations in the same order', () => {
     const { de, en } = thinkingCopy

@@ -389,6 +389,25 @@ test('a guided session can be cancelled and stepped back out of', async ({ page 
   await expect(page.getByRole('button', { name: 'Beginnen' })).toBeVisible()
 })
 
+test('the examples of the two ways of thinking switch by tap and by arrow key', async ({ page }) => {
+  await page.goto('/')
+  await tab(page, 'Wissen').click()
+  await page.getByRole('navigation', { name: 'Wissen' }).getByRole('button', { name: 'Denken' }).click()
+  await expect(page.getByRole('heading', { level: 2, name: 'Drei Beispiele' })).toBeVisible()
+  await expect(page.getByText(/Intern ist eine Stelle/)).toBeVisible()
+
+  await page.getByRole('tab', { name: 'Dating & Partnerschaft' }).click()
+  await expect(page.getByText(/Nach einem schönen zweiten Date/)).toBeVisible()
+  await expect(page.getByText(/Ich schreibe eine freundliche Nachricht/)).toBeVisible()
+
+  // The arrow keys move along the tabs, and the selection follows the focus.
+  await page.keyboard.press('ArrowLeft')
+  const confidence = page.getByRole('tab', { name: 'Selbstbewusstsein' })
+  await expect(confidence).toBeFocused()
+  await expect(confidence).toHaveAttribute('aria-selected', 'true')
+  await expect(page.getByText(/Im Meeting hast du eine Idee/)).toBeVisible()
+})
+
 test('a plan typed with its own "Wenn" is kept without the double word', async ({ page }) => {
   await page.goto('/')
   await tab(page, 'Wissen').click()

@@ -1,4 +1,5 @@
-import type { Station, ThinkingCopy } from '../i18n/thinking.ts'
+import { useRef, useState, type KeyboardEvent } from 'react'
+import type { Example, Station, ThinkingCopy } from '../i18n/thinking.ts'
 import { itemAt } from '../lib/array.ts'
 import { readableOnDark } from '../lib/oklch.ts'
 import type { Level } from '../types.ts'
@@ -103,6 +104,140 @@ function Side({ tag, station, color, inAppLabel }: { tag: string; station: Stati
 }
 
 /**
+ * The three examples, one at a time: a row of tabs for the area, and under
+ * it the situation and the six stations, each with what the inner voice
+ * says in the ordinary model and in the Mind Hack Method.
+ *
+ * Tabs as in `PracticeDeck`: the arrow keys move between them, the
+ * selection follows the focus, and screen readers announce that there are
+ * three and which one is open. One at a time and not all three below each
+ * other: thirty-six sentences in a row read as a list to skim, six pairs as
+ * one situation to think through.
+ */
+function Examples({
+  th,
+  ordinaryColors,
+  mindHackColors,
+}: {
+  th: ThinkingCopy
+  ordinaryColors: string[]
+  mindHackColors: string[]
+}) {
+  const [active, setActive] = useState(0)
+  const tabs = useRef<(HTMLButtonElement | null)[]>([])
+  const example: Example = itemAt(th.examples, active)
+
+  function show(index: number) {
+    const target = (index + th.examples.length) % th.examples.length
+    setActive(target)
+    tabs.current[target]?.focus()
+  }
+
+  function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    const jump: Record<string, number> = {
+      ArrowRight: active + 1,
+      ArrowLeft: active - 1,
+      Home: 0,
+      End: th.examples.length - 1,
+    }
+    const target = jump[event.key]
+    if (target === undefined) return
+    event.preventDefault()
+    show(target)
+  }
+
+  return (
+    <div className="mt-6 flex flex-col gap-4">
+      {/* As in the tabs pattern, the tabs carry the roving tab stop and the
+          list takes no focus of its own. */}
+      {/* oxlint-disable-next-line jsx-a11y/interactive-supports-focus */}
+      <div role="tablist" aria-label={th.examplesLabel} onKeyDown={onKeyDown} className="flex flex-wrap gap-2">
+        {th.examples.map((entry, index) => {
+          const selected = index === active
+          return (
+            <button
+              key={entry.title}
+              ref={(node) => {
+                tabs.current[index] = node
+              }}
+              type="button"
+              role="tab"
+              id={`example-tab-${index}`}
+              aria-selected={selected}
+              aria-controls={`example-panel-${index}`}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setActive(index)}
+              className={
+                'cursor-pointer rounded-full border px-4 py-2 text-[13.5px] font-semibold ' +
+                'transition-[background-color,border-color,color] duration-200 ' +
+                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
+                (selected
+                  ? 'border-accent-ink/60 bg-accent/20 text-text'
+                  : 'border-line bg-void/30 text-muted hover:border-accent/40 hover:text-text')
+              }
+            >
+              {entry.title}
+            </button>
+          )
+        })}
+      </div>
+
+      <div
+        role="tabpanel"
+        id={`example-panel-${active}`}
+        aria-labelledby={`example-tab-${active}`}
+        tabIndex={-1}
+        className="rounded-2xl border border-line bg-card/50 p-5 backdrop-blur-sm"
+      >
+        {/* The key starts the fade-in afresh on every change of tab. */}
+        <div key={example.title} className="animate-rise flex flex-col gap-5">
+          <div className="flex flex-col gap-1">
+            <p className="text-[11px] font-semibold tracking-[0.16em] text-accent-ink uppercase">{th.situationLabel}</p>
+            <p className="text-[15.5px] leading-relaxed text-text/90">{example.situation}</p>
+          </div>
+
+          <ol className="flex flex-col gap-4">
+            {example.ordinary.map((ordinary, index) => (
+              <li key={ordinary} className="flex flex-col gap-2 border-t border-line/60 pt-4">
+                <p className="tabular text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+                  {th.stationLabel(index + 1)}
+                </p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Voice
+                    station={itemAt(th.ordinary, index).name}
+                    color={itemAt(ordinaryColors, index)}
+                    text={ordinary}
+                  />
+                  <Voice
+                    station={itemAt(th.mindHack, index).name}
+                    color={itemAt(mindHackColors, index)}
+                    text={itemAt(example.mindHack, index)}
+                  />
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/** One sentence of the inner voice, under the name of its station. */
+function Voice({ station, color, text }: { station: string; color: string; text: string }) {
+  return (
+    <div className="flex flex-col gap-1 border-l-2 pl-3.5" style={{ borderColor: color }}>
+      <p className="text-[12px] font-semibold" style={{ color: readableOnDark(color) }}>
+        {station}
+      </p>
+      <p className="text-[14.5px] leading-relaxed text-text/85">
+        <q>{text}</q>
+      </p>
+    </div>
+  )
+}
+
+/**
  * Two models of thinking, side by side: the pyramids, then the six stations
  * in pairs — each station of the ordinary model next to the one of the Mind
  * Hack Method that answers it.
@@ -163,6 +298,10 @@ export function Thinking({ levels, th }: ThinkingProps) {
           </li>
         ))}
       </ol>
+
+      <h2 className="mt-12 font-display text-[24px] font-bold tracking-[-0.01em]">{th.examplesTitle}</h2>
+      <p className="mt-2 text-[15px] leading-relaxed text-muted">{th.examplesLead}</p>
+      <Examples th={th} ordinaryColors={ordinaryColors} mindHackColors={mindHackColors} />
 
       <div className="mt-8 flex flex-col gap-2 pb-10">
         <p className="text-[12.5px] leading-relaxed text-muted">{th.sourceNote}</p>
