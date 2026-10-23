@@ -59,11 +59,11 @@ describe.each(LANGUAGES)('two ways of thinking (%s)', (language) => {
   })
 })
 
-describe('the three examples', () => {
+describe('the examples', () => {
   it('thinks every situation through all six stations, in both models and both languages', () => {
     for (const language of LANGUAGES) {
       const th = thinkingCopy[language]
-      expect(th.examples, language).toHaveLength(3)
+      expect(th.examples, language).toHaveLength(6)
       for (const example of th.examples) {
         expect(example.ordinary, example.title).toHaveLength(th.ordinary.length)
         expect(example.mindHack, example.title).toHaveLength(th.mindHack.length)

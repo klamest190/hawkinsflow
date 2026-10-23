@@ -104,15 +104,15 @@ function Side({ tag, station, color, inAppLabel }: { tag: string; station: Stati
 }
 
 /**
- * The three examples, one at a time: a row of tabs for the area, and under
+ * The examples, one at a time: a row of tabs for the area, and under
  * it the situation and the six stations, each with what the inner voice
  * says in the ordinary model and in the Mind Hack Method.
  *
  * Tabs as in `PracticeDeck`: the arrow keys move between them, the
- * selection follows the focus, and screen readers announce that there are
- * three and which one is open. One at a time and not all three below each
- * other: thirty-six sentences in a row read as a list to skim, six pairs as
- * one situation to think through.
+ * selection follows the focus, and screen readers announce how many there
+ * are and which one is open. One at a time and not all below each other:
+ * seventy-two sentences in a row read as a list to skim, six pairs as one
+ * situation to think through.
  */
 function Examples({
   th,

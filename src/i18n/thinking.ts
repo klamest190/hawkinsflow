@@ -128,10 +128,12 @@ const de = {
     },
   ]),
 
-  // Three situations, each thought through both models, station by station.
+  // Six situations, each thought through both models, station by station —
+  // work, the self, love, the body, friends and family, the direction of a
+  // life: the areas where the same six steps come up most.
   // In the inner voice and in the first person: that is where these
   // sentences are heard, and where they can be caught.
-  examplesTitle: 'Drei Beispiele',
+  examplesTitle: 'Sechs Beispiele',
   examplesLead:
     'Dieselbe Lage, zweimal durchdacht. Links, wie es von allein läuft, rechts, wie es bewusst gewählt klingen kann. Von unten nach oben gelesen, Station für Station.',
   examplesLabel: 'Bereich des Beispiels',
@@ -195,6 +197,66 @@ const de = {
         'Was würde ich jetzt tun, wenn ich mich sicher fühlen würde?',
         'Ich weiß nicht, wie es ausgeht. Ich kann gut damit leben, mich gezeigt zu haben.',
         'Ich schreibe eine freundliche Nachricht, dass mir der Abend gefallen hat, und lege das Handy weg.',
+      ],
+    },
+    {
+      title: 'Gesundheit & Körper',
+      situation: 'Du wolltest dreimal die Woche Sport machen. Nach zwei Wochen hast du eine ganze Woche ausgelassen.',
+      ordinary: [
+        'Ich bin einfach nicht der sportliche Typ. Ich halte nie etwas durch.',
+        'Keine Zeit, kein Geld fürs Studio, und mein Knie zwickt auch noch.',
+        'Laufen, Krafttraining oder doch Yoga? Morgens oder abends? Ich weiß nicht, wo ich anfangen soll.',
+        'Warum schaffen das alle anderen, nur ich nicht?',
+        'Wenn ich wieder anfange und wieder aufhöre, ist das der Beweis, dass es keinen Sinn hat.',
+        'Ich lasse es ganz und nehme mir vor, im Januar richtig neu anzufangen.',
+      ],
+      mindHack: [
+        'Ich bin jemand, der sich bewegt, auch nach einer Pause. Eine verpasste Woche ändert daran nichts.',
+        'Zwei Wochen habe ich geschafft, und mein Körper hat sich danach gut angefühlt.',
+        'Zweimal die Woche zwanzig Minuten zügig gehen. Das ist das Ziel, mehr nicht.',
+        'Was ist die kleinste Bewegung, die ich heute noch schaffe?',
+        'Ich muss nicht wissen, ob ich es ein Jahr durchhalte. Ich muss nur heute losgehen.',
+        'Ich ziehe jetzt die Schuhe an und gehe eine Runde um den Block.',
+      ],
+    },
+    {
+      title: 'Familie & Freundschaft',
+      situation: 'Eine gute Freundin hat deinen Geburtstag vergessen und sich seitdem nicht gemeldet.',
+      ordinary: [
+        'Ich bin den Leuten nie so wichtig wie sie mir.',
+        'Kein Anruf, keine Nachricht. Und letzten Monat hat sie auch schon abgesagt.',
+        'Ansprechen oder runterschlucken? Bin ich kleinlich? Ist die Freundschaft vorbei?',
+        'Warum muss immer ich mich um alles kümmern?',
+        'Wenn ich es anspreche, gibt es Streit, und dann verliere ich sie ganz.',
+        'Ich antworte kühl auf ihre nächste Nachricht und erzähle anderen, wie enttäuscht ich bin.',
+      ],
+      mindHack: [
+        'Ich darf sagen, was mir wichtig ist. Eine Freundschaft verträgt das.',
+        'Sie war da, als es mir im Frühjahr schlecht ging. Das zählt mehr als ein vergessener Tag.',
+        'Ich will ihr ohne Vorwurf sagen, dass es mich getroffen hat, und wissen, wie es ihr geht.',
+        'Was ist bei ihr gerade los, und wie sage ich es so, dass sie es hören kann?',
+        'Ich weiß nicht, wie sie reagiert. Ich vertraue darauf, dass Ehrlichkeit uns näher bringt als Schweigen.',
+        'Ich rufe sie an und sage: Ich war traurig, dass du dich nicht gemeldet hast. Wie geht es dir?',
+      ],
+    },
+    {
+      title: 'Sinn & Zukunft',
+      situation: 'Der Job ist sicher, das Leben läuft. Trotzdem fragst du dich immer öfter, ob das schon alles war.',
+      ordinary: [
+        'Für große Veränderungen ist es jetzt zu spät. Andere hatten einfach mehr Glück.',
+        'Kredit, Verantwortung, keine Rücklagen für einen Neuanfang. Und eine Idee habe ich auch nicht.',
+        'Kündigen? Teilzeit? Studium? Auswandern? Jeder Gedanke führt zu zehn neuen.',
+        'Was habe ich bloß die letzten zehn Jahre gemacht?',
+        'Wenn ich etwas ändere und es schiefgeht, stehe ich mit nichts da.',
+        'Ich scrolle abends durch Jobportale und mache am nächsten Morgen weiter wie immer.',
+      ],
+      mindHack: [
+        'Mein Leben gehört mir, auch wenn ich die Antwort noch nicht kenne.',
+        'Ich habe einen sicheren Job, der mir Zeit und Geld gibt, Neues auszuprobieren.',
+        'Ich will herausfinden, wobei ich die Zeit vergesse. Drei Versuche in den nächsten drei Monaten.',
+        'Was würde ich ausprobieren, wenn es nur ein Experiment wäre und kein Lebensentwurf?',
+        'Ich muss nicht den ganzen Weg sehen. Der nächste Schritt reicht.',
+        'Ich melde mich diese Woche für einen Abendkurs an und spreche mit jemandem, der den Weg schon gegangen ist.',
       ],
     },
   ]),
@@ -289,7 +351,7 @@ const en: ThinkingCopy = {
     },
   ]),
 
-  examplesTitle: 'Three examples',
+  examplesTitle: 'Six examples',
   examplesLead:
     'The same situation, thought through twice. On the left, how it runs by itself; on the right, how it can sound when chosen on purpose. Read from the bottom up, station by station.',
   examplesLabel: 'Area of the example',
@@ -353,6 +415,66 @@ const en: ThinkingCopy = {
         'What would I do right now if I felt secure?',
         'I do not know how it will turn out. I can live well with having shown myself.',
         'I send one friendly message saying I enjoyed the evening, and put the phone down.',
+      ],
+    },
+    {
+      title: 'Health & body',
+      situation: 'You meant to exercise three times a week. After two weeks you skipped a whole week.',
+      ordinary: [
+        'I am just not the sporty type. I never stick with anything.',
+        'No time, no money for a gym, and my knee is playing up as well.',
+        'Running, weights or yoga? Mornings or evenings? I do not know where to start.',
+        'Why can everyone else manage it, just not me?',
+        'If I start again and stop again, that proves there is no point.',
+        'I drop it altogether and promise myself a proper fresh start in January.',
+      ],
+      mindHack: [
+        'I am someone who moves, even after a break. One missed week does not change that.',
+        'I managed two weeks, and my body felt good afterwards.',
+        'Twenty minutes of brisk walking, twice a week. That is the goal, nothing more.',
+        'What is the smallest bit of movement I can still manage today?',
+        'I do not have to know whether I will keep it up for a year. I only have to set off today.',
+        'I put my shoes on now and walk once round the block.',
+      ],
+    },
+    {
+      title: 'Family & friends',
+      situation: 'A good friend forgot your birthday and has not been in touch since.',
+      ordinary: [
+        'I never matter to people as much as they matter to me.',
+        'No call, no message. And last month she cancelled on me, too.',
+        'Raise it or swallow it? Am I being petty? Is the friendship over?',
+        'Why is it always me who has to take care of everything?',
+        'If I bring it up, there will be a row, and then I will lose her altogether.',
+        'I reply coolly to her next message and tell others how let down I feel.',
+      ],
+      mindHack: [
+        'I am allowed to say what matters to me. A friendship can take that.',
+        'She was there when I was struggling in the spring. That counts for more than one forgotten day.',
+        'I want to tell her, without blame, that it hurt, and to find out how she is.',
+        'What is going on for her at the moment, and how can I say it so she can hear it?',
+        'I do not know how she will react. I trust that honesty brings us closer than silence.',
+        'I call her and say: I was sad you did not get in touch. How are you?',
+      ],
+    },
+    {
+      title: 'Meaning & the future',
+      situation: 'The job is secure, life is ticking along. Still, you wonder more and more often whether this is all there is.',
+      ordinary: [
+        'It is too late now for big changes. Other people were simply luckier.',
+        'A mortgage, responsibilities, no savings for a fresh start. And I do not even have an idea.',
+        'Quit? Go part-time? Study? Move abroad? Every thought leads to ten more.',
+        'What on earth have I been doing for the last ten years?',
+        'If I change something and it goes wrong, I will be left with nothing.',
+        'I scroll through job sites in the evening and carry on as usual the next morning.',
+      ],
+      mindHack: [
+        'My life belongs to me, even while I do not know the answer yet.',
+        'I have a secure job that gives me the time and money to try new things.',
+        'I want to find out what makes me lose track of time. Three experiments in the next three months.',
+        'What would I try if it were only an experiment and not a plan for my life?',
+        'I do not have to see the whole way. The next step is enough.',
+        'This week I sign up for an evening class and talk to someone who has walked that path.',
       ],
     },
   ]),

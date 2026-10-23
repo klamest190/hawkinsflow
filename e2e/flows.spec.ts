@@ -393,7 +393,8 @@ test('the examples of the two ways of thinking switch by tap and by arrow key', 
   await page.goto('/')
   await tab(page, 'Wissen').click()
   await page.getByRole('navigation', { name: 'Wissen' }).getByRole('button', { name: 'Denken' }).click()
-  await expect(page.getByRole('heading', { level: 2, name: 'Drei Beispiele' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 2, name: 'Sechs Beispiele' })).toBeVisible()
+  await expect(page.getByRole('tab')).toHaveCount(6)
   await expect(page.getByText(/Intern ist eine Stelle/)).toBeVisible()
 
   await page.getByRole('tab', { name: 'Dating & Partnerschaft' }).click()
