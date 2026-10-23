@@ -45,6 +45,34 @@ const de = {
   whyBody:
     'Alle drei Rhythmen dauern zehn Sekunden je Atemzug, also sechs in der Minute. In diesem Tempo schwingen Herzschlag und Atem miteinander: Beim Einatmen schlägt das Herz etwas schneller, beim Ausatmen langsamer, und bei vielen Menschen wird diese Schwankung um sechs Atemzüge pro Minute am größten. Das ist gut gemessen. Der Rhythmus ändert nur die Neigung: Ein längerer Ausatem bremst stärker, ein längerer Einatem weniger.',
   whySource: 'Lehrer & Gevirtz (2014), Frontiers in Psychology · Zaccaro et al. (2018), Frontiers in Human Neuroscience',
+
+  // A quote for each pause, from the Ebb Flow app. Only the index is kept,
+  // so a quote on screen switches along with the language — both lists must
+  // carry the same thought line for line, which a test checks by length.
+  // Three lines that named "twenty seconds" say "the pause" here: a pause in
+  // this app runs up to five minutes.
+  quotes: [
+    'Zwischen dem, was auf dich einwirkt, und dem, was du tust, liegt ein kurzer, freier Raum.',
+    'Die Welle steigt. Du musst sie nicht reiten – du kannst sie auch einfach vorbeiziehen lassen.',
+    'Nicht jeder Gedanke, der laut ruft, verdient eine Antwort.',
+    'Was jetzt dringend wirkt, ist nach der Pause meist nur ein Gedanke unter vielen.',
+    'Du entscheidest nicht, ob der Impuls kommt. Du entscheidest, was danach passiert.',
+    'Ruhe ist kein Zustand, den man abwartet. Sie ist einer, den man kurz herstellt.',
+    'Ein Reiz ist ein Vorschlag, keine Anweisung.',
+    'Das Meer zieht sich zurück, bevor die nächste Welle kommt. Auch das ist ein Rhythmus.',
+    'Was du jetzt nicht tust, kannst du in einer Minute immer noch tun.',
+    'Dringlichkeit ist ein Gefühl, keine Tatsache.',
+    'Der Impuls will Tempo. Gib ihm stattdessen Zeit.',
+    'Du musst nicht glauben, was die erste Sekunde dir sagt.',
+    'Ein aufgeschobener Klick hat noch nie etwas kaputt gemacht.',
+    'Die Nachricht ist nach der Pause noch da. Deine Ruhe vielleicht nicht.',
+    'Atme aus, bevor du antwortest.',
+    'Was aufwühlt, will gesehen werden – nicht sofort bedient.',
+    'Zwischen Reiz und Reaktion darfst du wohnen bleiben.',
+    'Ein Impuls ist ein Gast, kein Befehl.',
+    'Du kannst den Gedanken bemerken, ohne ihm zu folgen.',
+    'Diese Pause gehört dir – niemandem sonst.',
+  ],
 }
 
 /** Derived from the German template — every language carries the same keys. */
@@ -80,6 +108,29 @@ const en: EbbCopy = {
   whyBody:
     'All three rhythms take ten seconds a breath, which is six a minute. At that pace heartbeat and breath swing together: the heart beats a little faster on the in-breath and slower on the out-breath, and for many people that swing is largest at around six breaths a minute. That is well measured. The rhythm only changes the lean: a longer out-breath slows things more, a longer in-breath less.',
   whySource: 'Lehrer & Gevirtz (2014), Frontiers in Psychology · Zaccaro et al. (2018), Frontiers in Human Neuroscience',
+
+  quotes: [
+    'Between what acts on you and what you do lies a brief, open space.',
+    'The wave is rising. You do not have to ride it – you can let it pass.',
+    'Not every thought that shouts deserves an answer.',
+    'What feels urgent now is usually one thought among many once the pause is over.',
+    'You do not decide whether the urge arrives. You decide what happens next.',
+    'Calm is not a state you wait for. It is one you make, briefly.',
+    'A stimulus is a suggestion, not an instruction.',
+    'The sea draws back before the next wave. That, too, is a rhythm.',
+    'What you do not do now, you can still do a minute from now.',
+    'Urgency is a feeling, not a fact.',
+    'The urge wants speed. Give it time instead.',
+    'You do not have to believe what the first second tells you.',
+    'A postponed tap has never broken anything.',
+    'The message will still be there after the pause. Your calm might not be.',
+    'Breathe out before you answer.',
+    'What stirs you wants to be seen – not immediately obeyed.',
+    'You are allowed to linger between stimulus and response.',
+    'An urge is a guest, not a command.',
+    'You can notice the thought without following it.',
+    'This pause belongs to you – to no one else.',
+  ],
 }
 
 export const ebbCopy: Record<Language, EbbCopy> = { de, en }

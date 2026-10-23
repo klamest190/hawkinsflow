@@ -266,9 +266,17 @@ test('Ebb Flow breathes in and out, and keeps its choice locked while it runs', 
   await expect(page.getByRole('radio', { name: /Ruhe/ })).toBeDisabled()
   await expect(page.getByText('Während der Pause gibt es nichts zu wählen.')).toBeVisible()
 
+  // Each pause brings a quote from the pool; a pause resumed keeps its own.
+  const quote = page.locator('figure blockquote')
+  await expect(quote).toBeVisible()
+  const first = await quote.textContent()
+  await page.getByRole('button', { name: 'Anhalten' }).click()
+  await page.getByRole('button', { name: 'Weiter' }).click()
+  await expect(quote).toHaveText(first ?? '')
   await page.getByRole('button', { name: 'Anhalten' }).click()
   await page.getByRole('button', { name: 'Zurücksetzen' }).click()
   await expect(page.getByRole('radio', { name: /Ruhe/ })).toBeEnabled()
+  await expect(quote).toHaveCount(0)
 
   // The choice survives a reload.
   await page.reload()

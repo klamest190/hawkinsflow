@@ -94,6 +94,8 @@ describe.each(LANGUAGES)('Ebb Flow (%s)', (language) => {
     expect(html).toContain(e.modes.relax.use)
     // Nothing is announced before the start: the live region stands empty.
     expect(html).toMatch(/aria-live="polite"[^>]*><\/p>/)
+    // And no quote yet: one is drawn when a pause begins.
+    expect(html).not.toContain('<blockquote')
   })
 
   it('offers every rhythm and length, with the rhythm read out as seconds', () => {

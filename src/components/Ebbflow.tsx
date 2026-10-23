@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useBreath } from '../hooks/useBreath.ts'
 import { useEbbPreference } from '../hooks/useEbbPreference.ts'
 import { useReducedMotion } from '../hooks/useReducedMotion.ts'
@@ -11,6 +11,7 @@ import {
   EBB_MODES,
   EBB_PATTERNS,
   breathsIn,
+  pushNextQuote,
   remainingLabel,
   type EbbPreference,
 } from '../lib/ebbflow.ts'
@@ -81,6 +82,18 @@ export function Ebbflow({ t, e }: EbbflowProps) {
   }
 
   const left = total - elapsed
+
+  /* The quotes shown lately, by index — the last one is on screen. A new one
+     is drawn at the start of every pause and stays through it and after. */
+  const [recentQuotes, setRecentQuotes] = useState<number[]>([])
+  const quoteIndex = recentQuotes.at(-1)
+  const quote = quoteIndex === undefined ? null : (e.quotes[quoteIndex] ?? null)
+
+  function begin() {
+    // A resumed pause keeps its quote; a new one draws the next.
+    if (!active) setRecentQuotes((recent) => pushNextQuote(recent, e.quotes.length))
+    start()
+  }
 
   return (
     <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col px-5 py-8 sm:px-6 ${PAGE_WIDTH}`}>
@@ -172,11 +185,23 @@ export function Ebbflow({ t, e }: EbbflowProps) {
 
           {/* The main chip keeps its place through every state, as in `Breath`. */}
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <Chip onClick={running ? pause : start} strong>
+            <Chip onClick={running ? pause : begin} strong>
               {running ? t.timerPause : active ? t.timerResume : done ? e.again : e.start}
             </Chip>
             {active && <Chip onClick={stop}>{t.timerStop}</Chip>}
           </div>
+
+          {/* The quote of this pause: under the controls, set apart by a short
+              rule, quiet enough not to compete with the breath. The key fades
+              each new one in. */}
+          {(active || done) && quote !== null && (
+            <figure key={quote} className="animate-rise flex max-w-sm flex-col items-center gap-3 pt-1">
+              <span aria-hidden className="h-px w-6 bg-line" />
+              <blockquote className="text-center font-display text-[15.5px] leading-relaxed text-balance text-text/80 italic">
+                {quote}
+              </blockquote>
+            </figure>
+          )}
         </div>
       </div>
 

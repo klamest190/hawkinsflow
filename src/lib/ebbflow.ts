@@ -73,6 +73,33 @@ export function isEbbPreference(value: unknown): value is EbbPreference {
 }
 
 /**
+ * This many recently shown quotes stay blocked. As in the Ebb Flow app: what
+ * reads as repetition is the same line coming round twice in quick
+ * succession, and a short memory prevents that far better than a longer list.
+ */
+const RECENT_QUOTES = 8
+
+/**
+ * The next quote's index, none of the recently shown ones, with the memory
+ * carried forward — the one just drawn at the end. Picked from a list of
+ * candidates rather than drawn until one fits, so it always ends; at least
+ * two candidates always remain, so it never becomes predictable.
+ *
+ * `random` is a parameter so a test can pin it.
+ */
+export function pushNextQuote(recent: readonly number[], total: number, random: () => number = Math.random): number[] {
+  const memory = Math.max(0, Math.min(RECENT_QUOTES, total - 2))
+  // `slice(-0)` would be the whole list, not none of it.
+  const blocked = new Set(memory === 0 ? [] : recent.slice(-memory))
+  const candidates: number[] = []
+  for (let index = 0; index < total; index++) {
+    if (!blocked.has(index)) candidates.push(index)
+  }
+  const next = candidates[Math.floor(random() * candidates.length)] ?? 0
+  return [...recent, next].slice(-RECENT_QUOTES)
+}
+
+/**
  * The time left as it stands in the ring: plain seconds for a twenty-second
  * pause, `m:ss` from a minute on. The form follows the session, not what is
  * left of it — a one-minute session shows `0:59`, and never switches from
