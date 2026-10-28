@@ -66,7 +66,7 @@ function Card({ children, className = '', ...rest }: ComponentPropsWithoutRef<'s
     <section
       {...rest}
       className={
-        'rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8 ' + className
+        'surface p-6 sm:p-8 ' + className
       }
     >
       {children}
@@ -166,7 +166,7 @@ export function Result({
   }
 
   return (
-    <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-10 sm:px-6 ${PAGE_WIDTH}`}>
+    <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col gap-10 px-5 py-10 sm:px-6 ${PAGE_WIDTH}`}>
       {/* No space kept free on the right: the result is not a focus view,
           so the language switch is in the bar or the sidebar, not in this
           corner. */}
@@ -186,7 +186,7 @@ export function Result({
       {result.reservation === 'bothEnds' && (
         /* A note, not a heading: as an <h2> it stood before the page's <h1>.
            It is still read first — that is the point of putting it here. */
-        <Card className="animate-pop border-line/80" role="note" aria-labelledby="reservation-title">
+        <Card className="animate-pop" role="note" aria-labelledby="reservation-title">
           <p
             id="reservation-title"
             className="text-small font-semibold text-muted"
@@ -205,7 +205,7 @@ export function Result({
 
           Die Zahl der Ebene selbst (Mut (200)) bleibt stehen: die stammt von
           Hawkins und ist ein Name, keine Messung an dieser Person. */}
-      <Card className="animate-pop text-center">
+      <section className="surface-feature animate-pop p-6 text-center sm:p-8">
         <p className="text-small font-semibold text-muted">
           {t.focusLabel}
         </p>
@@ -263,15 +263,15 @@ export function Result({
         {answered < QUESTIONS.length && (
           <p className="mt-4 text-small text-muted">{t.partial(answered, QUESTIONS.length)}</p>
         )}
-      </Card>
+      </section>
 
       {/* ── Die Ebene im Detail ────────────────────────────────────────────
           Direkt hinter dem Schwerpunkt und vor dem Profil: Wer sein Ergebnis
           gelesen hat, will als Nächstes wissen, was zu tun ist — nicht erst
           siebzehn Balken und zwei Karten Einordnung. Das Profil kommt danach,
           für die, die verstehen wollen, wie es zustande kam. */}
-      <Card>
-        <h2 className="mb-6 font-display text-title font-semibold">
+      <section>
+        <h2 className="mb-6 font-display text-heading font-semibold">
           {t.levelHeading(dominant.value, dominant.name)}
         </h2>
         {/* Der Wenn-Dann-Plan steht mit im Detailblock — hinter den Übungen,
@@ -287,15 +287,15 @@ export function Result({
           journal={journal}
           collapsible
         />
-      </Card>
+      </section>
 
       {/* ── Was zieht und was trägt ────────────────────────────────────────
           Stays in view: both name a level to work on or to trust, and the
           button under the drag leads to it. */}
       {(drag !== null || reach.id !== dominant.id) && (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-x-10 gap-y-8 border-t border-line pt-8 sm:grid-cols-2">
           {drag !== null && (
-            <Card className="flex flex-col gap-2">
+            <section className="flex flex-col gap-2">
               <h2 className="text-small font-semibold text-muted">
                 {t.dragTitle}
               </h2>
@@ -308,10 +308,10 @@ export function Result({
                   {t.inspectLevel}
                 </Button>
               </div>
-            </Card>
+            </section>
           )}
           {reach.id !== dominant.id && (
-            <Card className="flex flex-col gap-2">
+            <section className="flex flex-col gap-2">
               <h2 className="text-small font-semibold text-muted">
                 {t.reachTitle}
               </h2>
@@ -319,7 +319,7 @@ export function Result({
                 {reach.name} ({reach.value})
               </p>
               <p className="text-body leading-relaxed text-muted">{t.reachBody}</p>
-            </Card>
+            </section>
           )}
         </div>
       )}
@@ -333,24 +333,24 @@ export function Result({
       </Disclosure>
 
       {originOpen && (
-        <div id={originId} className="animate-rise flex flex-col gap-6">
-          <Card>
+        <div id={originId} className="animate-rise flex flex-col gap-10">
+          <section>
             <h2 className="font-display text-title font-semibold">{t.whyTitle}</h2>
             <p className="mt-1.5 mb-6 text-body leading-relaxed text-muted">{t.whyLead(levels.length)}</p>
             <Why scores={scores} answers={answers} language={language} t={t} />
-          </Card>
+          </section>
 
-          <Card>
+          <section>
             <h2 className="font-display text-title font-semibold">{t.profileTitle}</h2>
             <p className="mt-1.5 mb-6 text-body leading-relaxed text-muted">{t.profileLead}</p>
             <Spectrum scores={scores} dominant={dominant.id} drag={drag?.id ?? null} t={t} />
-          </Card>
+          </section>
         </div>
       )}
 
       {/* ── Der nächste Schritt ──────────────────────────────────────────── */}
       {next && (
-        <Card className="text-center">
+        <section className="border-t border-line pt-8 text-center">
           <p className="text-small font-semibold text-muted">
             {t.nextLabel}
           </p>
@@ -368,7 +368,7 @@ export function Result({
               {t.inspectLevel}
             </Button>
           </div>
-        </Card>
+        </section>
       )}
 
       {/* ── Mitnehmen ────────────────────────────────────────────────────

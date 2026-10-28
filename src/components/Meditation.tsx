@@ -68,7 +68,7 @@ export function Meditation({
         {MEDITATIONS.map((id) => {
           const form = d.forms[id]
           return (
-            <li key={id} className="flex flex-col gap-4 rounded-2xl border border-line bg-card/60 p-5 backdrop-blur-sm">
+            <li key={id} className="surface flex flex-col gap-4 p-5">
               <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
                 <div>
                   <h3 className="font-display text-title leading-snug font-semibold">{form.name}</h3>
@@ -104,9 +104,9 @@ export function Meditation({
       </ol>
 
       <h2 className="mt-12 font-display text-heading font-bold tracking-[-0.01em]">{d.bodyTitle}</h2>
-      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+      <div className="mt-5 grid gap-x-10 gap-y-6 sm:grid-cols-2">
         {d.body.map((block) => (
-          <section key={block.title} className="rounded-2xl border border-line bg-card/50 p-5 backdrop-blur-sm">
+          <section key={block.title} className="border-t border-line pt-4">
             <h3 className="font-display text-lead font-semibold">{block.title}</h3>
             <p className="mt-2 text-body leading-relaxed text-text/85">{block.body}</p>
           </section>
@@ -114,7 +114,7 @@ export function Meditation({
       </div>
 
       <h2 className="mt-12 font-display text-heading font-bold tracking-[-0.01em]">{d.limitsTitle}</h2>
-      <ul className="mt-5 flex flex-col gap-3 rounded-2xl border border-accent/25 bg-accent/[0.06] p-5">
+      <ul className="mt-5 flex flex-col gap-3 border-l-2 border-accent/50 pl-4">
         {d.limits.map((limit) => (
           <li key={limit} className="flex gap-3 text-body leading-relaxed text-text/90">
             <span aria-hidden className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent-ink" />

@@ -89,6 +89,30 @@
   --text-hero-l: 64px;
 }
 
+/* Three surfaces, and each one says what it holds:
+   - none: text to read sits on the ground, without a box;
+   - `surface`: a group of things to use (a practice, a form, a tool);
+   - `surface-feature`: the one thing a view is about, once per view, in the
+     level's color.
+   Emphasis inside reading text is a rule on the left (`border-l-2
+   border-accent/50 pl-4`), not another box. Corners grow with rank: a
+   control `xl`, a surface 1rem, the feature 1.5rem. */
+@utility surface {
+  border-radius: 1rem;
+  border: 1px solid var(--hf-line);
+  background-color: color-mix(in oklab, var(--hf-card) 60%, transparent);
+}
+
+@utility surface-feature {
+  border-radius: 1.5rem;
+  border: 1px solid color-mix(in oklab, var(--hf-accent) 30%, transparent);
+  background-color: color-mix(
+    in oklab,
+    color-mix(in oklab, var(--hf-accent) 8%, var(--hf-card)) 75%,
+    transparent
+  );
+}
+
 @media (min-width: 1024px) {
   :root {
     --text-caption: 12px;

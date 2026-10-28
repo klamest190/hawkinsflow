@@ -43,6 +43,17 @@ conventions that are not obvious from a single file.
   `text-hero-l`). The reading steps grow by one notch from `lg` on, through
   the variables, not through classes. No `text-[13px]` and no Tailwind sizes:
   `src/typescale.test.ts` fails on either.
+- Labels are small headings in sentence case (`text-small font-semibold
+  text-muted`), not tracked capitals. Between two facts there is no middle
+  dot: a level's value goes in brackets („Mut (200)“), lists take commas.
+
+## Surfaces
+
+- Three, defined in `index.css`: text to read sits on the ground without a
+  box; `surface` holds a group of things to use (a practice, a form, a
+  tool); `surface-feature` is the one thing a view is about, once per view.
+  Emphasis inside reading text is a rule on the left
+  (`border-l-2 border-accent/50 pl-4`), not another box.
 
 ## Storage
 

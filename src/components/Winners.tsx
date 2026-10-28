@@ -26,11 +26,11 @@ export function Winners({ w }: { w: WinnersCopy }) {
       {LAW_GROUPS.map((group) => (
         <section key={group} className="mt-10">
           <h2 className="font-display text-heading font-bold tracking-[-0.01em]">{w.groups[group]}</h2>
-          <ul className="mt-5 grid gap-4 lg:grid-cols-2">
+          <ul className="mt-6 grid gap-x-10 gap-y-8 lg:grid-cols-2">
             {GROUP_LAWS[group].map((number) => {
               const law = itemAt(w.laws, number - 1)
               return (
-                <li key={number} className="flex flex-col gap-3 rounded-2xl border border-line bg-card/60 p-5 backdrop-blur-sm">
+                <li key={number} className="flex flex-col gap-3 border-t border-line pt-5">
                   <div className="flex items-start gap-3">
                     <span
                       aria-hidden
@@ -44,7 +44,7 @@ export function Winners({ w }: { w: WinnersCopy }) {
                     </h3>
                   </div>
                   <p className="text-body leading-relaxed text-text/85">{law.core}</p>
-                  <div className="flex flex-col gap-1 rounded-xl border border-accent/25 bg-accent/[0.06] px-4 py-3">
+                  <div className="flex flex-col gap-1 border-l-2 border-accent/50 pl-4">
                     <p className="text-small font-semibold text-accent-ink">{w.todayLabel}</p>
                     <p className="text-body leading-relaxed text-text/90">{law.today}</p>
                   </div>
@@ -61,7 +61,7 @@ export function Winners({ w }: { w: WinnersCopy }) {
       ))}
 
       <h2 className="mt-12 font-display text-heading font-bold tracking-[-0.01em]">{w.notesTitle}</h2>
-      <ul className="mt-5 flex flex-col gap-3 rounded-2xl border border-accent/25 bg-accent/[0.06] p-5">
+      <ul className="mt-5 flex flex-col gap-3 border-l-2 border-accent/50 pl-4">
         {w.notes.map((note) => (
           <li key={note} className="flex gap-3 text-body leading-relaxed text-text/90">
             <span aria-hidden className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent-ink" />

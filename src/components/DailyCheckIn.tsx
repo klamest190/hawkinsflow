@@ -40,7 +40,7 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
   return (
     <section
       className={
-        'w-full rounded-2xl border border-accent/25 bg-accent/[0.06] p-5 text-left backdrop-blur-sm ' +
+        'surface-feature w-full p-5 text-left ' +
         className
       }
     >

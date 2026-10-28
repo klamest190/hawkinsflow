@@ -153,23 +153,28 @@ export function Ebbflow({ t, e }: EbbflowProps) {
           </p>
         </div>
 
-        <div className="order-first flex flex-col items-center gap-5 rounded-3xl border border-line bg-card/60 p-6 backdrop-blur-sm lg:order-last">
+        <div className="order-first flex flex-col items-center gap-5 surface-feature p-6 lg:order-last">
           <div className="relative h-64 w-64 sm:h-72 sm:w-72">
             <BreathFigure pattern={pattern} point={point} active={active} still={still} />
-            {/* The ring that runs down: full at the start, empty at the end. */}
+            {/* The ring that runs down: full at the start, empty at the end.
+                Before the start only its track: a full ring in the accent
+                around the figure's own circles read as a target, not a
+                pause. */}
             <svg viewBox="0 0 100 100" aria-hidden className="absolute inset-0 h-full w-full -rotate-90">
               <circle cx={50} cy={50} r={47} fill="none" stroke="var(--hf-line)" strokeWidth={1.5} />
-              <circle
-                cx={50}
-                cy={50}
-                r={47}
-                fill="none"
-                stroke="var(--hf-accent-ink)"
-                strokeWidth={1.5}
-                strokeLinecap="round"
-                strokeDasharray={RING}
-                strokeDashoffset={RING * (elapsed / total)}
-              />
+              {!untouched && (
+                <circle
+                  cx={50}
+                  cy={50}
+                  r={47}
+                  fill="none"
+                  stroke="var(--hf-accent-ink)"
+                  strokeWidth={1.5}
+                  strokeLinecap="round"
+                  strokeDasharray={RING}
+                  strokeDashoffset={RING * (elapsed / total)}
+                />
+              )}
             </svg>
             <span
               aria-hidden
@@ -179,9 +184,19 @@ export function Ebbflow({ t, e }: EbbflowProps) {
             </span>
           </div>
 
-          <p aria-live="polite" className="min-h-[1.5em] text-center font-display text-lead font-semibold text-text">
-            {done ? e.done : active ? t.breathPhases[point.phase] : ''}
-          </p>
+          {/* Before the start, the line the phases will take says the rhythm
+              chosen, instead of standing empty under the figure. Not in the
+              live region, which stays empty until the start: picking a
+              rhythm should not be announced as if the pause had begun. Both
+              share one grid cell, so the line keeps its height. */}
+          <div className="grid min-h-[1.5em] place-items-center text-center">
+            {untouched && (
+              <p className="[grid-area:1/1] text-body text-muted">{e.split(pattern.inhale, pattern.exhale)}</p>
+            )}
+            <p aria-live="polite" className="[grid-area:1/1] font-display text-lead font-semibold text-text">
+              {done ? e.done : active ? t.breathPhases[point.phase] : ''}
+            </p>
+          </div>
 
           {/* The main chip keeps its place through every state, as in `Breath`. */}
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -205,7 +220,7 @@ export function Ebbflow({ t, e }: EbbflowProps) {
         </div>
       </div>
 
-      <section className="mt-10 rounded-2xl border border-line bg-card/50 p-5 backdrop-blur-sm">
+      <section className="mt-10 border-t border-line pt-6">
         <h2 className="font-display text-lead font-semibold">{e.whyTitle}</h2>
         <p className="mt-2 text-body leading-relaxed text-text/85">{e.whyBody}</p>
         <p className="mt-3 text-small leading-relaxed text-muted">{e.whySource}</p>

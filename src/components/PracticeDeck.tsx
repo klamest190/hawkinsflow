@@ -133,7 +133,7 @@ export function PracticeDeck({ practices, t, journal }: PracticeDeckProps) {
           const moved = to - from
           if (Math.abs(moved) >= SWIPE) show(moved < 0 ? active + 1 : active - 1, false)
         }}
-        className="rounded-2xl border border-accent/30 bg-accent/8 p-5"
+        className="surface p-5"
       >
         {/* Das `key` erzwingt einen neuen Knoten je Übung — sonst liefe die
             Einblendung nur beim ersten Mal, und das Blättern sähe aus wie ein

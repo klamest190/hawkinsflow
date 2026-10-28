@@ -45,7 +45,7 @@ function Pyramid({
   const shown = stations.map((station, index) => ({ station, index })).reverse()
 
   return (
-    <section className="flex flex-col gap-3 rounded-3xl border border-line bg-card/60 p-5 backdrop-blur-sm">
+    <section className="surface flex flex-col gap-3 p-5">
       <h2 className="font-display text-title leading-snug font-semibold">{title}</h2>
       <p className="text-body leading-relaxed text-muted">{lead}</p>
 
@@ -187,7 +187,7 @@ function Examples({
         id={`example-panel-${active}`}
         aria-labelledby={`example-tab-${active}`}
         tabIndex={-1}
-        className="rounded-2xl border border-line bg-card/50 p-5 backdrop-blur-sm"
+        className="surface p-5"
       >
         {/* The key starts the fade-in afresh on every change of tab. */}
         <div key={example.title} className="animate-rise flex flex-col gap-5">
@@ -275,9 +275,9 @@ export function Thinking({ levels, th }: ThinkingProps) {
       <h2 className="mt-12 font-display text-heading font-bold tracking-[-0.01em]">{th.stationsTitle}</h2>
       <p className="mt-2 text-body leading-relaxed text-muted">{th.stationsLead}</p>
 
-      <ol className="mt-6 flex flex-col gap-4">
+      <ol className="mt-6 flex flex-col gap-8">
         {th.ordinary.map((ordinary, index) => (
-          <li key={ordinary.name} className="rounded-2xl border border-line bg-card/50 p-5 backdrop-blur-sm">
+          <li key={ordinary.name} className="border-t border-line pt-5">
             <p className="tabular text-small font-semibold text-muted">
               {th.stationLabel(index + 1)}
             </p>

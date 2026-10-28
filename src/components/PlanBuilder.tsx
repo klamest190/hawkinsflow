@@ -158,7 +158,7 @@ export function PlanBuilder({
       <div className="flex flex-col gap-5">
         {/* Als Satz und nicht als ausgefülltes Formular: Was hier steht, soll
             man lesen können wie etwas, das man sich selbst gesagt hat. */}
-        <div className="flex flex-col gap-2 rounded-2xl border border-accent/30 bg-accent/8 p-5">
+        <div className="surface flex flex-col gap-2 p-5">
           <p className="text-lead leading-relaxed text-text/90">
             <Keyword>{t.planWhen}</Keyword> {plan.when}
           </p>

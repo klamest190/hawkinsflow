@@ -43,7 +43,7 @@ function FeelStep({ level, t, m }: { level: BelowLevelId; t: Copy; m: MomentCopy
   const body = tool.kind === 'timer' ? m.feelBody : (m.firstAidBody[level] ?? m.feelBody)
 
   return (
-    <section className="animate-rise rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
+    <section className="animate-rise surface p-6 sm:p-8">
       <h1 className="font-display text-heading leading-[1.2] font-bold tracking-[-0.02em]">{title}</h1>
       <p className="mt-3 text-lead leading-relaxed text-text/90">{body}</p>
       <PracticeTool tool={tool} t={t} />
@@ -199,7 +199,7 @@ export function Moment({
             Eine Frage und kein Merksatz. Ein Satz, den man sich vorsagt, trifft
             auf einen Kopf, der ihm widerspricht; eine Frage nimmt ihn in Dienst. */}
         {step === 2 && chosen !== null && level !== null && (
-          <section className="animate-rise rounded-3xl border border-line bg-card/70 p-6 text-center backdrop-blur-md sm:p-8">
+          <section className="animate-rise surface p-6 text-center sm:p-8">
             <p className="text-small font-semibold text-muted">
               {m.askTitle}
             </p>
@@ -221,7 +221,7 @@ export function Moment({
             anderthalb Minuten. */}
         {step === 3 && chosen !== null && (
           <div className="animate-rise flex flex-col gap-4">
-            <section className="rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
+            <section className="surface p-6 sm:p-8">
               <h1 className="font-display text-heading leading-[1.2] font-bold tracking-[-0.02em]">
                 {m.actTitle}
               </h1>

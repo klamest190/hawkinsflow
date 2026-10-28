@@ -109,11 +109,10 @@ export function LevelDetail({
         </div>
       </div>
 
-      {/* Der Rat. Ein Absatz, eigene Fläche: Hier spricht jemand den Leser an,
-          während der Rest der Seite über eine Ebene berichtet. Der Kasten trägt
-          die Ebenenfarbe, sehr blass — kräftiger geriete er in Streit mit dem
-          Übungskasten weiter unten, der dieselbe Farbe führt. */}
-      <section className="flex flex-col gap-2.5 rounded-2xl border border-accent/25 bg-accent/[0.07] px-5 py-4">
+      {/* The advice: the one paragraph that speaks to the reader while the
+          rest reports on a level. Reading text, so no box — a rule in the
+          readable accent, stronger than the strength's above, marks it. */}
+      <section className="flex flex-col gap-2.5 border-l-2 border-accent-ink/70 pl-4">
         <Heading>{t.adviceHeading}</Heading>
         <p className="text-body leading-relaxed text-text/90">{level.advice}</p>
       </section>
@@ -177,7 +176,7 @@ export function LevelDetail({
 
       {/* Die Anführungszeichen kommen aus der Sprache, nicht aus dem Text: im
           Deutschen „unten und oben", im Englischen beide oben. */}
-      <p className="rounded-2xl border border-line bg-card/60 px-5 py-4 text-center font-display text-lead leading-snug font-medium text-balance">
+      <p className="px-2 text-center font-display text-title leading-snug font-medium text-balance italic">
         <q>{level.mantra}</q>
       </p>
     </div>

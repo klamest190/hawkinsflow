@@ -231,7 +231,7 @@ export function GuidedSession({ id, form, language, t, s, onLeave }: GuidedSessi
         )}
 
         {stage === 'run' && (
-          <section className="animate-rise rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
+          <section className="animate-rise surface p-6 sm:p-8">
             <Running
               key={preference.minutes}
               steps={steps}
@@ -248,7 +248,7 @@ export function GuidedSession({ id, form, language, t, s, onLeave }: GuidedSessi
         )}
 
         {stage === 'done' && (
-          <section className="animate-rise flex flex-col gap-5 rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
+          <section className="animate-rise flex flex-col gap-5 surface p-6 sm:p-8">
             <h2 className="font-display text-display-s font-bold tracking-[-0.02em]">{s.doneTitle}</h2>
             <p className="text-lead leading-relaxed text-text/90">{s.doneBody}</p>
             <div className="flex flex-wrap items-center gap-2">

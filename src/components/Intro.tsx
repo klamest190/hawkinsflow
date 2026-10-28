@@ -221,7 +221,7 @@ export function Intro({
         {/* A questionnaire half done: one line and the button that goes on.
             The navigation leads there too, but this says that it is waiting. */}
         {resumeAt !== null && (
-          <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-2xl lg:col-span-2 border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
+          <div className="flex w-full flex-wrap items-center justify-between gap-3 surface p-5 text-left lg:col-span-2">
             <p className="text-body leading-relaxed text-text/90">{t.resumeLead}</p>
             <Button size="sm" onClick={onResume}>
               {t.resume(resumeAt + 1)}
@@ -234,7 +234,7 @@ export function Intro({
             questionnaire's page, not straight into a new run — starting over
             replaces the answers, and that is a choice to make there. */}
         {due !== null && (
-          <div className="flex w-full flex-col items-start gap-3 rounded-2xl lg:col-span-2 border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
+          <div className="flex w-full flex-col items-start gap-3 surface p-5 text-left lg:col-span-2">
             <p className="text-body leading-relaxed text-muted">
               {t.returnNudge(due.days)}
               {dueLevel !== null && (
@@ -262,7 +262,7 @@ export function Intro({
         {newest !== undefined && (
           <div
             className={
-              'w-full rounded-2xl border border-line bg-card/60 p-5 text-left backdrop-blur-sm ' +
+              'surface w-full p-5 text-left ' +
               (offerCheckIn ? '' : 'lg:col-span-2')
             }
           >
@@ -375,8 +375,8 @@ export function Intro({
         {(history.length > 0 || moments.length > 0 || checkIns.length > 0) && (
           <div
             className={
-              'w-full divide-y divide-line/60 rounded-2xl border border-line bg-card/60 ' +
-              'text-left backdrop-blur-sm lg:col-span-2 ' +
+              'surface w-full divide-y divide-line/60 ' +
+              'text-left lg:col-span-2 ' +
               /* On a wide screen the rows stand side by side, one column per
                  row that has something to show. Stacked across the full
                  width, each line grew with it — the drawings scale with
