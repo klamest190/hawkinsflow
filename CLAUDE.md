@@ -54,6 +54,12 @@ conventions that are not obvious from a single file.
   tool); `surface-feature` is the one thing a view is about, once per view.
   Emphasis inside reading text is a rule on the left
   (`border-l-2 border-accent/50 pl-4`), not another box.
+- The ladder (`Ladder`) is the app's picture of the scale: on the start
+  page, over the scale's list, beside the result, and on its side as the
+  questionnaire's progress. On the result it climbs to the level found
+  before the name appears. That is the one orchestrated motion: the short
+  rise of a view answers a change of place, but nothing else gets a
+  staged entrance of its own.
 
 ## Storage
 

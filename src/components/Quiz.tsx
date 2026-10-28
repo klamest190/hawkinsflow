@@ -1,4 +1,5 @@
 import { useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { LEVELS } from '../data/levels.ts'
 import { ANSWER_VALUES, QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { questionText } from '../i18n/questions.ts'
@@ -156,23 +157,28 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
       </header>
 
       {/* Der Balken füllt sich im Regenbogen der Skala — der Fortschritt selbst
-          ist schon ein Aufstieg von unten nach oben. */}
+          ist schon ein Aufstieg von unten nach oben. Drawn as the ladder on
+          its side: seventeen segments in the levels' own colors, the lowest
+          on the left, so the bar is the same picture as the start page's. */}
       <div
-        className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-line"
+        className="mt-4 flex w-full gap-[3px]"
         role="progressbar"
         aria-valuenow={Math.round(progress * 100)}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-label={t.progressLabel}
       >
-        <div
-          className="h-full rounded-full transition-[width] duration-500 ease-out"
-          style={{
-            width: `${Math.max(progress * 100, 2)}%`,
-            background:
-              'linear-gradient(90deg, oklch(0.55 0.17 20), oklch(0.72 0.17 70), oklch(0.85 0.17 102), oklch(0.78 0.15 175), oklch(0.74 0.16 300))',
-          }}
-        />
+        {LEVELS.map((level, rank) => {
+          const fill = Math.min(Math.max(progress * LEVELS.length - rank, 0), 1)
+          return (
+            <div key={level.id} className="h-1.5 flex-1 overflow-hidden rounded-full bg-line">
+              <div
+                className="h-full rounded-full transition-[width] duration-500 ease-out"
+                style={{ width: `${fill * 100}%`, background: level.color }}
+              />
+            </div>
+          )
+        })}
       </div>
 
       <div className="flex flex-1 flex-col justify-center py-10">

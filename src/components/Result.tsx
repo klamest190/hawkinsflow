@@ -9,6 +9,7 @@ import { exportResult } from '../pdf/exportResult.ts'
 import type { Answers, Language, Level, LevelId, Plan } from '../types.ts'
 import { Button } from './Button.tsx'
 import { Disclosure } from './Disclosure.tsx'
+import { CLIMB_STEP_MS, Ladder } from './Ladder.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
 import type { Journal } from './Writing.tsx'
 import { Spectrum } from './Spectrum.tsx'
@@ -105,6 +106,10 @@ export function Result({
   // auf Englisch „Courage". Aus der Liste geholt und nicht geschrieben, damit
   // beides eine Quelle hat.
   const courage = levelIn(language, 'courage').name
+  // Where the ladder stops climbing, and so when the level's name may appear:
+  // once the rung of the level found has lit.
+  const reachedRank = levels.findIndex((level) => level.id === dominant.id)
+  const nameDelay = `${Math.max(reachedRank, 0) * CLIMB_STEP_MS + 300}ms`
 
   async function downloadPdf() {
     setExporting(true)
@@ -166,7 +171,7 @@ export function Result({
   }
 
   return (
-    <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col gap-10 px-5 py-10 sm:px-6 ${PAGE_WIDTH}`}>
+    <div className={`animate-rise mx-auto w-full max-w-2xl px-5 py-10 sm:px-6 ${PAGE_WIDTH}`}>
       {/* No space kept free on the right: the result is not a focus view,
           so the language switch is in the bar or the sidebar, not in this
           corner. */}
@@ -179,242 +184,256 @@ export function Result({
         </Button>
       </header>
 
-      {/* Der Widerspruch steht als erste Karte und nicht als Fußnote unten:
-          Wer die Ebene erst in 64 Pixeln gelesen hat, liest den Vorbehalt
-          danach nicht mehr. Bewusst ohne Akzentfarbe — er ist kein Teil des
-          Befundes, sondern etwas, das davorsteht. */}
-      {result.reservation === 'bothEnds' && (
-        /* A note, not a heading: as an <h2> it stood before the page's <h1>.
-           It is still read first — that is the point of putting it here. */
-        <Card className="animate-pop" role="note" aria-labelledby="reservation-title">
-          <p
-            id="reservation-title"
-            className="text-small font-semibold text-muted"
-          >
-            {t.bothEndsTitle}
-          </p>
-          <p className="mt-3 text-body leading-relaxed text-text/90">{t.bothEndsBody}</p>
-        </Card>
-      )}
+      {/* On a wide screen two columns: the ladder stays in view on the left
+          while the page scrolls past it. On a phone it stands above the
+          focus. Either way it climbs once, to the level found, and then the
+          level's name appears: the app's one orchestrated motion. */}
+      <div className="mt-10 xl:grid xl:grid-cols-[12rem_minmax(0,1fr)] xl:gap-14">
+        <aside className="mx-auto mb-10 w-full max-w-64 xl:sticky xl:top-10 xl:mb-0 xl:max-w-none xl:self-start">
+          <Ladder levels={levels} thresholdLabel={t.thresholdMark(THRESHOLD)} reached={dominant.id} climb rung="h-[6px]" />
+        </aside>
 
-      {/* ── Der Schwerpunkt ──────────────────────────────────────────────
-          Hier stand einmal die interpolierte Zahl, groß und mitgezählt. Sie ist
-          raus: dreistellig aus 34 Kreuzen gerechnet sah sie aus wie ein
-          Messwert, und einer war sie nie. Was bleibt, ist die Ebene — und
-          darunter das Band, das sagt, wie scharf das überhaupt zu lesen ist.
+        <div className="flex min-w-0 flex-col gap-10">
 
-          Die Zahl der Ebene selbst (Mut (200)) bleibt stehen: die stammt von
-          Hawkins und ist ein Name, keine Messung an dieser Person. */}
-      <section className="surface-feature animate-pop p-6 text-center sm:p-8">
-        <p className="text-small font-semibold text-muted">
-          {t.focusLabel}
-        </p>
-        <h1
-          className="mt-3 font-display text-hero leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-hero-l"
-          style={{
-            color: 'var(--hf-accent-ink)',
-            textShadow: '0 12px 60px color-mix(in oklab, var(--hf-accent) 45%, transparent)',
-          }}
-        >
-          {dominant.name}
-        </h1>
-        {/* Hawkins' Originalbegriff steht darunter — außer im Englischen, wo er
-            dasselbe Wort noch einmal wäre. */}
-        <p className="tabular mt-2 text-small text-muted">
-          {dominant.name === dominant.original
-            ? dominant.value
-            : `${dominant.original} (${dominant.value})`}
-        </p>
-
-        {/* Das Band. Der Verlauf läuft von der einen Ebenenfarbe in die andere,
-            die Beschriftung trägt dieselben Farben — so ist ohne ein weiteres
-            Wort zu sehen, dass hier eine Strecke gemeint ist und kein Punkt. */}
-        <div className="mt-8">
-          <div
-            className="h-2.5 rounded-full"
-            style={{ background: `linear-gradient(90deg, ${band[0].color}, ${band[1].color})` }}
-          />
-          <div className="tabular mt-2.5 flex justify-between gap-3 text-small font-semibold">
-            <span style={{ color: readableOnDark(band[0].color) }}>
-              {band[0].name} ({band[0].value})
-            </span>
-            <span style={{ color: readableOnDark(band[1].color) }}>
-              {band[1].name} ({band[1].value})
-            </span>
-          </div>
-        </div>
-        <p className="mx-auto mt-4 max-w-md text-small leading-relaxed text-balance text-muted">
-          {t.bandNote(band[0].name, band[1].name, QUESTIONS.length)}
-        </p>
-
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <span className="rounded-full border border-line bg-void/40 px-3.5 py-1.5 text-small text-muted">
-            {t.emotionLabel}: <span className="text-text">{dominant.emotion}</span>
-          </span>
-          <span className="rounded-full border border-line bg-void/40 px-3.5 py-1.5 text-small text-muted">
-            {t.worldviewLabel}: <span className="text-text">{dominant.worldview}</span>
-          </span>
-        </div>
-
-        <p className="mt-6 text-body leading-relaxed text-muted">
-          {aboveThreshold ? t.aboveThreshold(THRESHOLD) : t.belowThreshold(THRESHOLD, courage)}
-        </p>
-
-        {answered < QUESTIONS.length && (
-          <p className="mt-4 text-small text-muted">{t.partial(answered, QUESTIONS.length)}</p>
-        )}
-      </section>
-
-      {/* ── Die Ebene im Detail ────────────────────────────────────────────
-          Direkt hinter dem Schwerpunkt und vor dem Profil: Wer sein Ergebnis
-          gelesen hat, will als Nächstes wissen, was zu tun ist — nicht erst
-          siebzehn Balken und zwei Karten Einordnung. Das Profil kommt danach,
-          für die, die verstehen wollen, wie es zustande kam. */}
-      <section>
-        <h2 className="mb-6 font-display text-heading font-semibold">
-          {t.levelHeading(dominant.value, dominant.name)}
-        </h2>
-        {/* Der Wenn-Dann-Plan steht mit im Detailblock — hinter den Übungen,
-            vor dem Mantra. Früher war er eine eigene Karte darunter; seit er im
-            Detailblock sitzt, gibt es ihn zu jeder Ebene, die irgendwo
-            aufgeschlagen wird, und nicht nur zu dieser hier. */}
-        <LevelDetail
-          level={dominant}
-          t={t}
-          plan={plan}
-          onSavePlan={onSavePlan}
-          onDeletePlan={onDeletePlan}
-          journal={journal}
-          collapsible
-        />
-      </section>
-
-      {/* ── Was zieht und was trägt ────────────────────────────────────────
-          Stays in view: both name a level to work on or to trust, and the
-          button under the drag leads to it. */}
-      {(drag !== null || reach.id !== dominant.id) && (
-        <div className="grid gap-x-10 gap-y-8 border-t border-line pt-8 sm:grid-cols-2">
-          {drag !== null && (
-            <section className="flex flex-col gap-2">
-              <h2 className="text-small font-semibold text-muted">
-                {t.dragTitle}
-              </h2>
-              <p className="font-display text-title font-semibold" style={{ color: readableOnDark(drag.color) }}>
-                {drag.name} ({drag.value})
+          {/* Der Widerspruch steht als erste Karte und nicht als Fußnote unten:
+              Wer die Ebene erst in 64 Pixeln gelesen hat, liest den Vorbehalt
+              danach nicht mehr. Bewusst ohne Akzentfarbe — er ist kein Teil des
+              Befundes, sondern etwas, das davorsteht. */}
+          {result.reservation === 'bothEnds' && (
+            /* A note, not a heading: as an <h2> it stood before the page's <h1>.
+               It is still read first — that is the point of putting it here. */
+            <Card className="animate-pop" role="note" aria-labelledby="reservation-title">
+              <p
+                id="reservation-title"
+                className="text-small font-semibold text-muted"
+              >
+                {t.bothEndsTitle}
               </p>
-              <p className="text-body leading-relaxed text-muted">{t.dragBody}</p>
-              <div className="mt-auto pt-2">
-                <Button variant="quiet" onClick={() => onInspect(drag.id)} className="-ml-4">
+              <p className="mt-3 text-body leading-relaxed text-text/90">{t.bothEndsBody}</p>
+            </Card>
+          )}
+
+          {/* ── Der Schwerpunkt ──────────────────────────────────────────────
+              Hier stand einmal die interpolierte Zahl, groß und mitgezählt. Sie ist
+              raus: dreistellig aus 34 Kreuzen gerechnet sah sie aus wie ein
+              Messwert, und einer war sie nie. Was bleibt, ist die Ebene — und
+              darunter das Band, das sagt, wie scharf das überhaupt zu lesen ist.
+
+              Die Zahl der Ebene selbst (Mut (200)) bleibt stehen: die stammt von
+              Hawkins und ist ein Name, keine Messung an dieser Person. */}
+          <section className="surface-feature p-6 text-center sm:p-8">
+            <p className="text-small font-semibold text-muted">
+              {t.focusLabel}
+            </p>
+            <h1
+              className="mt-3 font-display text-hero leading-[1.05] font-bold tracking-[-0.03em] text-balance motion-safe:animate-rise sm:text-hero-l"
+              style={{
+                animationDelay: nameDelay,
+                color: 'var(--hf-accent-ink)',
+                textShadow: '0 12px 60px color-mix(in oklab, var(--hf-accent) 45%, transparent)',
+              }}
+            >
+              {dominant.name}
+            </h1>
+            {/* Hawkins' Originalbegriff steht darunter — außer im Englischen, wo er
+                dasselbe Wort noch einmal wäre. */}
+            <p className="tabular mt-2 text-small text-muted">
+              {dominant.name === dominant.original
+                ? dominant.value
+                : `${dominant.original} (${dominant.value})`}
+            </p>
+
+            {/* Das Band. Der Verlauf läuft von der einen Ebenenfarbe in die andere,
+                die Beschriftung trägt dieselben Farben — so ist ohne ein weiteres
+                Wort zu sehen, dass hier eine Strecke gemeint ist und kein Punkt. */}
+            <div className="mt-8">
+              <div
+                className="h-2.5 rounded-full"
+                style={{ background: `linear-gradient(90deg, ${band[0].color}, ${band[1].color})` }}
+              />
+              <div className="tabular mt-2.5 flex justify-between gap-3 text-small font-semibold">
+                <span style={{ color: readableOnDark(band[0].color) }}>
+                  {band[0].name} ({band[0].value})
+                </span>
+                <span style={{ color: readableOnDark(band[1].color) }}>
+                  {band[1].name} ({band[1].value})
+                </span>
+              </div>
+            </div>
+            <p className="mx-auto mt-4 max-w-md text-small leading-relaxed text-balance text-muted">
+              {t.bandNote(band[0].name, band[1].name, QUESTIONS.length)}
+            </p>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-2">
+              <span className="rounded-full border border-line bg-void/40 px-3.5 py-1.5 text-small text-muted">
+                {t.emotionLabel}: <span className="text-text">{dominant.emotion}</span>
+              </span>
+              <span className="rounded-full border border-line bg-void/40 px-3.5 py-1.5 text-small text-muted">
+                {t.worldviewLabel}: <span className="text-text">{dominant.worldview}</span>
+              </span>
+            </div>
+
+            <p className="mt-6 text-body leading-relaxed text-muted">
+              {aboveThreshold ? t.aboveThreshold(THRESHOLD) : t.belowThreshold(THRESHOLD, courage)}
+            </p>
+
+            {answered < QUESTIONS.length && (
+              <p className="mt-4 text-small text-muted">{t.partial(answered, QUESTIONS.length)}</p>
+            )}
+          </section>
+
+          {/* ── Die Ebene im Detail ────────────────────────────────────────────
+              Direkt hinter dem Schwerpunkt und vor dem Profil: Wer sein Ergebnis
+              gelesen hat, will als Nächstes wissen, was zu tun ist — nicht erst
+              siebzehn Balken und zwei Karten Einordnung. Das Profil kommt danach,
+              für die, die verstehen wollen, wie es zustande kam. */}
+          <section>
+            <h2 className="mb-6 font-display text-heading font-semibold">
+              {t.levelHeading(dominant.value, dominant.name)}
+            </h2>
+            {/* Der Wenn-Dann-Plan steht mit im Detailblock — hinter den Übungen,
+                vor dem Mantra. Früher war er eine eigene Karte darunter; seit er im
+                Detailblock sitzt, gibt es ihn zu jeder Ebene, die irgendwo
+                aufgeschlagen wird, und nicht nur zu dieser hier. */}
+            <LevelDetail
+              level={dominant}
+              t={t}
+              plan={plan}
+              onSavePlan={onSavePlan}
+              onDeletePlan={onDeletePlan}
+              journal={journal}
+              collapsible
+            />
+          </section>
+
+          {/* ── Was zieht und was trägt ────────────────────────────────────────
+              Stays in view: both name a level to work on or to trust, and the
+              button under the drag leads to it. */}
+          {(drag !== null || reach.id !== dominant.id) && (
+            <div className="grid gap-x-10 gap-y-8 border-t border-line pt-8 sm:grid-cols-2">
+              {drag !== null && (
+                <section className="flex flex-col gap-2">
+                  <h2 className="text-small font-semibold text-muted">
+                    {t.dragTitle}
+                  </h2>
+                  <p className="font-display text-title font-semibold" style={{ color: readableOnDark(drag.color) }}>
+                    {drag.name} ({drag.value})
+                  </p>
+                  <p className="text-body leading-relaxed text-muted">{t.dragBody}</p>
+                  <div className="mt-auto pt-2">
+                    <Button variant="quiet" onClick={() => onInspect(drag.id)} className="-ml-4">
+                      {t.inspectLevel}
+                    </Button>
+                  </div>
+                </section>
+              )}
+              {reach.id !== dominant.id && (
+                <section className="flex flex-col gap-2">
+                  <h2 className="text-small font-semibold text-muted">
+                    {t.reachTitle}
+                  </h2>
+                  <p className="font-display text-title font-semibold" style={{ color: readableOnDark(reach.color) }}>
+                    {reach.name} ({reach.value})
+                  </p>
+                  <p className="text-body leading-relaxed text-muted">{t.reachBody}</p>
+                </section>
+              )}
+            </div>
+          )}
+
+          {/* ── How this came about ────────────────────────────────────────────
+              Folded: the profile and the statements behind the result explain,
+              they don't help, and open they made the page twice as long before
+              the next step. Whoever wants to check the result opens them. */}
+          <Disclosure open={originOpen} onToggle={() => setOriginOpen((previous) => !previous)} controls={originId}>
+            {t.originToggle}
+          </Disclosure>
+
+          {originOpen && (
+            <div id={originId} className="animate-rise flex flex-col gap-10">
+              <section>
+                <h2 className="font-display text-title font-semibold">{t.whyTitle}</h2>
+                <p className="mt-1.5 mb-6 text-body leading-relaxed text-muted">{t.whyLead(levels.length)}</p>
+                <Why scores={scores} answers={answers} language={language} t={t} />
+              </section>
+
+              <section>
+                <h2 className="font-display text-title font-semibold">{t.profileTitle}</h2>
+                <p className="mt-1.5 mb-6 text-body leading-relaxed text-muted">{t.profileLead}</p>
+                <Spectrum scores={scores} dominant={dominant.id} drag={drag?.id ?? null} t={t} />
+              </section>
+            </div>
+          )}
+
+          {/* ── Der nächste Schritt ──────────────────────────────────────────── */}
+          {next && (
+            <section className="border-t border-line pt-8 text-center">
+              <p className="text-small font-semibold text-muted">
+                {t.nextLabel}
+              </p>
+              <p className="mt-3 font-display text-display-s font-bold" style={{ color: readableOnDark(next.color) }}>
+                {next.name}
+              </p>
+              <p className="tabular mt-1 text-small text-muted">
+                {next.name === next.original ? next.value : `${next.original} (${next.value})`}
+              </p>
+              <p className="mx-auto mt-4 max-w-md text-body leading-relaxed text-balance text-muted">
+                {next.essence}
+              </p>
+              <div className="mt-4 flex justify-center">
+                <Button variant="quiet" onClick={() => onInspect(next.id)}>
                   {t.inspectLevel}
                 </Button>
               </div>
             </section>
           )}
-          {reach.id !== dominant.id && (
-            <section className="flex flex-col gap-2">
-              <h2 className="text-small font-semibold text-muted">
-                {t.reachTitle}
-              </h2>
-              <p className="font-display text-title font-semibold" style={{ color: readableOnDark(reach.color) }}>
-                {reach.name} ({reach.value})
-              </p>
-              <p className="text-body leading-relaxed text-muted">{t.reachBody}</p>
-            </section>
+
+          {/* ── Mitnehmen ────────────────────────────────────────────────────
+              Steht als eigene Karte und nicht als dritter Knopf in der Reihe unten:
+              Dort war der Export ein Geist neben zwei anderen und wurde übersehen.
+              Hier hat er ein Zeichen, einen Satz und einen vollen Knopf.
+
+              Der Platz ist bewusst das Ende — erst ist das Ergebnis gelesen, dann
+              lohnt es sich, es mitzunehmen. */}
+          {answered > 0 && (
+            <Card className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
+              <span
+                aria-hidden
+                className="grid h-12 w-12 shrink-0 place-items-center self-center rounded-2xl border border-accent/40 bg-accent/10 text-accent-ink sm:self-start"
+              >
+                <DownloadMark className="h-6 w-6" />
+              </span>
+
+              <div className="min-w-0 flex-1">
+                <h2 className="font-display text-title font-semibold">{t.pdfCardTitle}</h2>
+                <p className="mt-1.5 text-body leading-relaxed text-muted">{t.pdfCardLead}</p>
+                {exportFailed && (
+                  <p role="alert" className="mt-2 text-small text-muted">
+                    {t.pdfFailed}
+                  </p>
+                )}
+              </div>
+
+              <Button onClick={() => void downloadPdf()} disabled={exporting} className="shrink-0">
+                <DownloadMark className="h-[18px] w-[18px]" />
+                {exporting ? t.pdfBusy : t.pdfDownload}
+              </Button>
+            </Card>
           )}
-        </div>
-      )}
 
-      {/* ── How this came about ────────────────────────────────────────────
-          Folded: the profile and the statements behind the result explain,
-          they don't help, and open they made the page twice as long before
-          the next step. Whoever wants to check the result opens them. */}
-      <Disclosure open={originOpen} onToggle={() => setOriginOpen((previous) => !previous)} controls={originId}>
-        {t.originToggle}
-      </Disclosure>
+          {/* Der Vorbehalt steht auch hier und nicht nur auf der Startseite: dort
+              war noch nichts zu glauben. */}
+          <p className="mx-auto max-w-lg px-2 text-center text-small leading-relaxed text-muted">
+            {t.resultDisclaimer}
+          </p>
 
-      {originOpen && (
-        <div id={originId} className="animate-rise flex flex-col gap-10">
-          <section>
-            <h2 className="font-display text-title font-semibold">{t.whyTitle}</h2>
-            <p className="mt-1.5 mb-6 text-body leading-relaxed text-muted">{t.whyLead(levels.length)}</p>
-            <Why scores={scores} answers={answers} language={language} t={t} />
-          </section>
-
-          <section>
-            <h2 className="font-display text-title font-semibold">{t.profileTitle}</h2>
-            <p className="mt-1.5 mb-6 text-body leading-relaxed text-muted">{t.profileLead}</p>
-            <Spectrum scores={scores} dominant={dominant.id} drag={drag?.id ?? null} t={t} />
-          </section>
-        </div>
-      )}
-
-      {/* ── Der nächste Schritt ──────────────────────────────────────────── */}
-      {next && (
-        <section className="border-t border-line pt-8 text-center">
-          <p className="text-small font-semibold text-muted">
-            {t.nextLabel}
-          </p>
-          <p className="mt-3 font-display text-display-s font-bold" style={{ color: readableOnDark(next.color) }}>
-            {next.name}
-          </p>
-          <p className="tabular mt-1 text-small text-muted">
-            {next.name === next.original ? next.value : `${next.original} (${next.value})`}
-          </p>
-          <p className="mx-auto mt-4 max-w-md text-body leading-relaxed text-balance text-muted">
-            {next.essence}
-          </p>
-          <div className="mt-4 flex justify-center">
-            <Button variant="quiet" onClick={() => onInspect(next.id)}>
-              {t.inspectLevel}
+          <div className="flex flex-wrap justify-center gap-3 pt-2 pb-6">
+            <Button onClick={onBrowse}>{t.seeAllLevels(levels.length)}</Button>
+            <Button variant="ghost" onClick={onRestart}>
+              {t.repeatQuiz}
             </Button>
           </div>
-        </section>
-      )}
-
-      {/* ── Mitnehmen ────────────────────────────────────────────────────
-          Steht als eigene Karte und nicht als dritter Knopf in der Reihe unten:
-          Dort war der Export ein Geist neben zwei anderen und wurde übersehen.
-          Hier hat er ein Zeichen, einen Satz und einen vollen Knopf.
-
-          Der Platz ist bewusst das Ende — erst ist das Ergebnis gelesen, dann
-          lohnt es sich, es mitzunehmen. */}
-      {answered > 0 && (
-        <Card className="flex flex-col items-center gap-5 text-center sm:flex-row sm:text-left">
-          <span
-            aria-hidden
-            className="grid h-12 w-12 shrink-0 place-items-center self-center rounded-2xl border border-accent/40 bg-accent/10 text-accent-ink sm:self-start"
-          >
-            <DownloadMark className="h-6 w-6" />
-          </span>
-
-          <div className="min-w-0 flex-1">
-            <h2 className="font-display text-title font-semibold">{t.pdfCardTitle}</h2>
-            <p className="mt-1.5 text-body leading-relaxed text-muted">{t.pdfCardLead}</p>
-            {exportFailed && (
-              <p role="alert" className="mt-2 text-small text-muted">
-                {t.pdfFailed}
-              </p>
-            )}
-          </div>
-
-          <Button onClick={() => void downloadPdf()} disabled={exporting} className="shrink-0">
-            <DownloadMark className="h-[18px] w-[18px]" />
-            {exporting ? t.pdfBusy : t.pdfDownload}
-          </Button>
-        </Card>
-      )}
-
-      {/* Der Vorbehalt steht auch hier und nicht nur auf der Startseite: dort
-          war noch nichts zu glauben. */}
-      <p className="mx-auto max-w-lg px-2 text-center text-small leading-relaxed text-muted">
-        {t.resultDisclaimer}
-      </p>
-
-      <div className="flex flex-wrap justify-center gap-3 pt-2 pb-6">
-        <Button onClick={onBrowse}>{t.seeAllLevels(levels.length)}</Button>
-        <Button variant="ghost" onClick={onRestart}>
-          {t.repeatQuiz}
-        </Button>
+        </div>
       </div>
     </div>
   )

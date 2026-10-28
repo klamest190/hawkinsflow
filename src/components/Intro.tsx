@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { THRESHOLD } from '../data/levels.ts'
 import { QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
@@ -13,6 +12,7 @@ import { CheckInTrail } from './CheckInTrail.tsx'
 import { DailyCheckIn } from './DailyCheckIn.tsx'
 import { DataCard } from './DataCard.tsx'
 import { HistoryTrail } from './HistoryTrail.tsx'
+import { Ladder } from './Ladder.tsx'
 import { MomentTrail } from './MomentTrail.tsx'
 import { PlanCheckIn } from './PlanCheckIn.tsx'
 import { PAGE_WIDTH } from './page.ts'
@@ -157,44 +157,8 @@ export function Intro({
             {t.introLead(QUESTIONS.length)}
           </p>
 
-          {/* Die Leiter: siebzehn Sprossen, unten breit und dunkel, oben schmal und
-              licht. Sie erklärt die Skala schneller als ein Absatz Text — und in
-              jeder Sprache gleich, weil sie fast ohne Worte auskommt.
-
-              Das eine Wort ist die Schwelle. Sie steht hier, im Profil und in der
-              Skalenansicht an derselben Stelle und in derselben Form, weil sie
-              überall dasselbe meint: die einzige Höhe dieser Skala, an der sich das
-              Vorzeichen ändert.
-
-              `aria-hidden` sitzt an den Sprossen und nicht am Kasten — sonst wäre
-              die Beschriftung mit versteckt, und sie ist der einzige Teil dieser
-              Grafik, der etwas sagt. In `flex-col-reverse` steht das erste Kind
-              unten: Die Linie wird vor Mut ausgegeben und landet damit genau
-              zwischen Stolz und Mut. */}
-          <div className="mt-10 flex w-full max-w-xl flex-col-reverse items-center gap-[3px]">
-            {levels.map((level, rank) => (
-              <Fragment key={level.id}>
-                {level.value === THRESHOLD && (
-                  <div className="flex w-full items-center gap-3 py-1.5">
-                    <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-                    <span className="text-small font-semibold text-muted">
-                      {t.thresholdMark(THRESHOLD)}
-                    </span>
-                    <span aria-hidden className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
-                  </div>
-                )}
-                <div
-                  aria-hidden
-                  className="h-[7px] rounded-full transition-[width] duration-500"
-                  style={{
-                    background: level.color,
-                    width: `${96 - rank * 4}%`,
-                    opacity: 0.45 + rank * 0.032,
-                  }}
-                />
-              </Fragment>
-            ))}
-          </div>
+          {/* The ladder, the app's picture of the scale. See `Ladder`. */}
+          <Ladder levels={levels} thresholdLabel={t.thresholdMark(THRESHOLD)} className="mt-10 max-w-xl" />
 
           {/* The one button to begin with, and the quiet way to look first.
               Everything else is in the navigation. */}

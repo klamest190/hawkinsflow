@@ -36,6 +36,8 @@ const de = {
   lead: 'Dreißig Grundsätze für Erfolg und ein erfülltes Leben aus dem Buch von Bodo Schäfer. Zu jedem steht, worum es geht, ein Schritt für heute und, wo es passt, wo du ihn in dieser App schon übst.',
   groupNote: 'Die Gruppen sind eine Ordnung dieser App, die Nummern die Reihenfolge im Buch.',
   lawLabel: (number: number): string => `Gesetz ${number}`,
+  // Names the list of groups that jumps to each one.
+  contentsLabel: 'Inhalt',
   todayLabel: 'Heute',
   inAppLabel: 'Hier in der App',
   groups: {
@@ -238,6 +240,7 @@ const en: WinnersCopy = {
   lead: 'Thirty principles for success and a fulfilled life from Bodo Schäfer’s book. Each comes with what it is about, one step for today and, where it fits, where you already practise it in this app.',
   groupNote: 'The groups are this app’s order; the numbers are the order in the book.',
   lawLabel: (number: number): string => `Law ${number}`,
+  contentsLabel: 'Contents',
   todayLabel: 'Today',
   inAppLabel: 'In this app',
   groups: {

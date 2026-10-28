@@ -3,6 +3,7 @@ import type { Copy } from '../i18n/copy.ts'
 import { levelIn } from '../i18n/levels.ts'
 import type { Language, Level, LevelId, Plans } from '../types.ts'
 import { Button } from './Button.tsx'
+import { Ladder } from './Ladder.tsx'
 import { LevelDetail } from './LevelDetail.tsx'
 import type { Journal } from './Writing.tsx'
 import { PAGE_WIDTH } from './page.ts'
@@ -61,7 +62,17 @@ export function ScaleBrowser({
         {t.scaleLead(levels.length, THRESHOLD, courage)}
       </p>
 
-      <ol className="mt-8 flex flex-col gap-2.5 pb-10">
+      {/* The whole scale at a glance before the list of it: the start page's
+          ladder, lit up to the level of the last run once there is one. */}
+      <Ladder
+        levels={levels}
+        thresholdLabel={t.thresholdMark(THRESHOLD)}
+        reached={dominant ?? undefined}
+        rung="h-[5px]"
+        className="mx-auto mt-8 max-w-sm"
+      />
+
+      <ol className="mt-10 flex flex-col gap-2.5 pb-10">
         {[...levels].reverse().map((level) => {
           const isOpen = open === level.id
           const isMine = dominant === level.id
