@@ -160,14 +160,14 @@ export function Breath({ pattern, minutes, t }: BreathProps) {
         {active && (
           <span
             aria-hidden
-            className="tabular absolute inset-0 grid place-items-center font-display text-[30px] font-semibold text-accent-ink"
+            className="tabular absolute inset-0 grid place-items-center font-display text-display-s font-semibold text-accent-ink"
           >
             {point.left}
           </span>
         )}
       </div>
 
-      <p aria-live="polite" className="min-h-[1.5em] font-display text-[17px] font-semibold text-text">
+      <p aria-live="polite" className="min-h-[1.5em] font-display text-lead font-semibold text-text">
         {done ? t.breathDone : active ? t.breathPhases[point.phase] : ''}
       </p>
 
@@ -179,7 +179,7 @@ export function Breath({ pattern, minutes, t }: BreathProps) {
         </Chip>
         {active && <Chip onClick={stop}>{t.timerStop}</Chip>}
         {active && (
-          <span className="tabular text-[13px] text-muted">
+          <span className="tabular text-small text-muted">
             {t.breathRound(Math.min(point.round + 1, rounds), rounds)}
           </span>
         )}

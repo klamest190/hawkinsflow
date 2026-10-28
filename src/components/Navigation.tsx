@@ -131,7 +131,7 @@ export function TabBar({ active, onSelect, t }: TabBarProps) {
                   <span className="grid h-14 w-14 place-items-center rounded-full bg-accent-ink text-[var(--hf-on-accent)] shadow-[0_12px_30px_-10px_var(--hf-accent)] ring-4 ring-deep transition-transform duration-200 group-hover:-translate-y-px group-active:scale-95 group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-accent-ink">
                     <Glyph item={tab} className="h-7 w-7" />
                   </span>
-                  <span className="text-[11px] font-semibold text-text">{labelOf(tab, t)}</span>
+                  <span className="text-caption font-semibold text-text">{labelOf(tab, t)}</span>
                 </button>
               </li>
             )
@@ -144,7 +144,7 @@ export function TabBar({ active, onSelect, t }: TabBarProps) {
                 onClick={() => onSelect(tab)}
                 aria-current={here ? 'page' : undefined}
                 className={
-                  'group flex w-full cursor-pointer flex-col items-center gap-1 pt-2 pb-2 text-[11px] font-semibold ' +
+                  'group flex w-full cursor-pointer flex-col items-center gap-1 pt-2 pb-2 text-caption font-semibold ' +
                   'transition-colors focus-visible:outline-none ' +
                   (here ? 'text-accent-ink' : 'text-muted hover:text-text')
                 }
@@ -198,7 +198,7 @@ export function KnowledgeNav({
                 onClick={() => onSelect(place)}
                 aria-current={here ? 'page' : undefined}
                 className={
-                  'flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-1.5 text-[13px] font-semibold whitespace-nowrap ' +
+                  'flex cursor-pointer items-center gap-2 rounded-full border px-3.5 py-1.5 text-small font-semibold whitespace-nowrap ' +
                   'transition-[background-color,border-color,color] duration-200 ' +
                   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
                   (here
@@ -240,7 +240,7 @@ export function AppBar({
         paddingRight: 'calc(env(safe-area-inset-right) + 1rem)',
       }}
     >
-      <p className="flex items-center gap-2.5 font-display text-[16px] font-semibold">
+      <p className="flex items-center gap-2.5 font-display text-lead font-semibold">
         <Logo className="h-7 w-7" decorative />
         {t.appName}
       </p>
@@ -269,7 +269,7 @@ function SideItem({
         onClick={() => onSelect(place)}
         aria-current={here ? 'page' : undefined}
         className={
-          'flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left text-[14.5px] font-semibold ' +
+          'flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left text-body font-semibold ' +
           'transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
           (here ? 'bg-accent/12 text-text' : 'text-muted hover:bg-card/70 hover:text-text')
         }
@@ -311,7 +311,7 @@ export function Sidebar({
       className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col overflow-y-auto border-r border-line/60 bg-deep/70 px-4 py-6 backdrop-blur-md lg:flex"
       style={{ paddingLeft: 'calc(env(safe-area-inset-left) + 1rem)' }}
     >
-      <p className="flex items-center gap-3 px-3 font-display text-[18px] font-semibold">
+      <p className="flex items-center gap-3 px-3 font-display text-lead font-semibold">
         <Logo className="h-8 w-8" decorative />
         {t.appName}
       </p>
@@ -324,7 +324,7 @@ export function Sidebar({
         </ul>
 
         <div className="flex flex-col gap-1">
-          <p id="sidebar-knowledge" className="px-3 pb-1 text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+          <p id="sidebar-knowledge" className="px-3 pb-1 text-caption font-semibold tracking-[0.16em] text-muted uppercase">
             {t.navKnowledge}
           </p>
           <ul aria-labelledby="sidebar-knowledge" className="flex flex-col gap-1">
@@ -340,13 +340,13 @@ export function Sidebar({
           aria-current={active === 'moment' ? 'page' : undefined}
           className="flex cursor-pointer flex-col gap-1.5 rounded-2xl border border-accent/45 bg-accent/10 p-4 text-left transition-[border-color,background-color] duration-200 hover:border-accent/70 hover:bg-accent/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
         >
-          <span className="flex items-center gap-2.5 font-display text-[15px] font-semibold text-text">
+          <span className="flex items-center gap-2.5 font-display text-body font-semibold text-text">
             <span className="text-accent-ink">
               <Glyph item="moment" className="h-5 w-5" />
             </span>
             {m.enter}
           </span>
-          <span className="text-[12.5px] leading-relaxed text-muted">{t.navMomentLead}</span>
+          <span className="text-small leading-relaxed text-muted">{t.navMomentLead}</span>
         </button>
       </nav>
 

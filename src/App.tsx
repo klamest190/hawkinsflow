@@ -395,7 +395,7 @@ export default function App() {
           // under the top bar.
           view.current?.focus({ preventScroll: true })
         }}
-        className="sr-only z-30 rounded-full bg-card px-5 py-2.5 text-[14px] font-semibold text-text focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+        className="sr-only z-30 rounded-full bg-card px-5 py-2.5 text-body font-semibold text-text focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
         style={{ marginTop: 'env(safe-area-inset-top)', marginLeft: 'env(safe-area-inset-left)' }}
       >
         {t.skipToContent}
@@ -407,14 +407,19 @@ export default function App() {
           beide Abläufe halten diese Ecke frei; sonst sitzt sie in der
           Kopfzeile des Telefons und am Fuß der Sidebar. */}
       {focusMode ? (
+        /* On the views' header row: they start 2rem down (`py-8`) and the
+           row is `h-10`, so the switch sits level with "cancel" and the
+           counter instead of above them. */
         <div
-          className="fixed top-0 right-0 z-20 p-4"
+          className="fixed top-0 right-0 z-20"
           style={{
-            paddingTop: 'calc(env(safe-area-inset-top) + 1rem)',
+            paddingTop: 'calc(env(safe-area-inset-top) + 2rem)',
             paddingRight: 'calc(env(safe-area-inset-right) + 1rem)',
           }}
         >
-          <LanguageToggle language={language} onChange={setLanguage} t={t} />
+          <div className="flex h-10 items-center">
+            <LanguageToggle language={language} onChange={setLanguage} t={t} />
+          </div>
         </div>
       ) : (
         <>

@@ -62,11 +62,11 @@ export function CheckInTrail({ checkIns, levels, language, t, onClear }: CheckIn
   return (
     <section className="p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+        <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
           {t.checkInTrailTitle}
         </h2>
         {latestLevel !== null && (
-          <p className="text-[12px] font-semibold" style={{ color: readableOnDark(latestLevel.color) }}>
+          <p className="text-small font-semibold" style={{ color: readableOnDark(latestLevel.color) }}>
             {t.checkInTrailLatest}: {latestLevel.name}
           </p>
         )}
@@ -128,13 +128,13 @@ export function CheckInTrail({ checkIns, levels, language, t, onClear }: CheckIn
       </svg>
 
       <div className="mt-2.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="text-[12px] leading-relaxed text-muted">
+        <p className="text-small leading-relaxed text-muted">
           <span className="tabular">{day.format(end)}</span> · {t.checkInTrailLead(checkIns.length)}
         </p>
         <button
           type="button"
           onClick={onClear}
-          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+          className="shrink-0 cursor-pointer text-small font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
         >
           {t.checkInClear}
         </button>

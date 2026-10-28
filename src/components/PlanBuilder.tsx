@@ -33,19 +33,19 @@ type PlanBuilderProps = {
 
 const field =
   'w-full resize-none rounded-xl border border-line bg-void/50 px-4 py-3 ' +
-  'text-[15px] leading-relaxed text-text placeholder:text-muted/60 ' +
+  'text-body leading-relaxed text-text placeholder:text-muted/60 ' +
   'transition-colors focus:border-accent-ink/60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink'
 
 const chip =
   'cursor-pointer rounded-full border border-line bg-void/40 px-3 py-1.5 text-left ' +
-  'text-[12.5px] leading-snug text-muted transition-colors ' +
+  'text-small leading-snug text-muted transition-colors ' +
   'hover:border-accent/50 hover:text-text ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink'
 
 /** Das Schlüsselwort vor jedem Feld — „Wenn" und „dann", in der Ebenenfarbe. */
 function Keyword({ children }: { children: string }) {
   return (
-    <span className="font-display text-[17px] font-semibold text-accent-ink">
+    <span className="font-display text-lead font-semibold text-accent-ink">
       {children}
     </span>
   )
@@ -144,7 +144,7 @@ export function PlanBuilder({
   if (!editing && plan === null) {
     return (
       <div className="flex flex-col items-start gap-4">
-        <p className="text-[14px] leading-relaxed text-muted">{lead}</p>
+        <p className="text-body leading-relaxed text-muted">{lead}</p>
         <Button variant="ghost" onClick={open}>
           {t.planStart}
         </Button>
@@ -159,15 +159,15 @@ export function PlanBuilder({
         {/* Als Satz und nicht als ausgefülltes Formular: Was hier steht, soll
             man lesen können wie etwas, das man sich selbst gesagt hat. */}
         <div className="flex flex-col gap-2 rounded-2xl border border-accent/30 bg-accent/8 p-5">
-          <p className="text-[16px] leading-relaxed text-text/90">
+          <p className="text-lead leading-relaxed text-text/90">
             <Keyword>{t.planWhen}</Keyword> {plan.when}
           </p>
-          <p className="text-[16px] leading-relaxed text-text/90">
+          <p className="text-lead leading-relaxed text-text/90">
             <Keyword>{t.planThen}</Keyword> {plan.then}
           </p>
         </div>
 
-        <p className="text-[13px] leading-relaxed text-muted">{t.planStoredNote}</p>
+        <p className="text-small leading-relaxed text-muted">{t.planStoredNote}</p>
 
         <div className="flex flex-wrap gap-2">
           <Button variant="ghost" onClick={() => setEditing(true)}>
@@ -184,7 +184,7 @@ export function PlanBuilder({
   // ── Das Formular ──────────────────────────────────────────────────────────
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-[14px] leading-relaxed text-muted">{lead}</p>
+      <p className="text-body leading-relaxed text-muted">{lead}</p>
 
       <div className="flex flex-col gap-2.5">
         <label htmlFor={`${id}-when`} className="cursor-pointer">
@@ -199,7 +199,7 @@ export function PlanBuilder({
           placeholder={t.planWhenPlaceholder}
           className={field}
         />
-        <p className="mt-1 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">
+        <p className="mt-1 text-caption font-semibold tracking-[0.14em] text-muted uppercase">
           {t.planCueHint}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -227,7 +227,7 @@ export function PlanBuilder({
         {/* Die Schritte der Ebene, auf ihren Kern gekürzt. Sie stehen wenige
             Zeilen weiter oben in voller Länge — hier zählt nur, dass man sie
             mit einem Griff übernehmen kann. */}
-        <p className="mt-1 text-[11px] font-semibold tracking-[0.14em] text-muted uppercase">
+        <p className="mt-1 text-caption font-semibold tracking-[0.14em] text-muted uppercase">
           {t.planStepHint}
         </p>
         <div className="flex flex-wrap gap-2">

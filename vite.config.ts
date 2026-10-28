@@ -4,8 +4,10 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 /* The PDF renderer and its fonts: loaded only when someone taps "save as PDF"
-   (see `src/pdf/exportResult.ts`). Kept out of the precache below. */
-const PDF_ASSETS = /\/assets\/(react-pdf|ResultDocument|inter-).*\.(js|woff2?)$/
+   (see `src/pdf/exportResult.ts`). Kept out of the precache below. The PDF's
+   Inter is a static `.woff`; the app's own faces are `.woff2` and precached,
+   so the installed app keeps its type offline. */
+const PDF_ASSETS = /\/assets\/((react-pdf|ResultDocument).*\.js|inter-.*\.woff)$/
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -23,7 +25,7 @@ export default defineConfig({
          of the app is closed and takes over on the next cold start, never in
          the middle of the questionnaire or the moment flow, where a reload
          would lose the current step.
-       - The precache holds the shell, the entry bundle, styles and icons. The
+       - The precache holds the shell, the entry bundle, styles, fonts and icons. The
          PDF renderer (about 440 kB gzipped) and its fonts are cached on first
          use instead: the moment flow, the reason for going offline, needs no
          PDF, and preloading 1.7 MB on a first visit is the wrong price.
@@ -34,7 +36,7 @@ export default defineConfig({
       injectRegister: 'script-defer',
       manifest: false,
       workbox: {
-        globPatterns: ['**/*.{js,css,html,png,svg,webmanifest}'],
+        globPatterns: ['**/*.{js,css,html,png,svg,webmanifest,woff2}'],
         globIgnores: ['**/react-pdf*.js', '**/ResultDocument*.js'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,

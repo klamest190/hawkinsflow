@@ -43,7 +43,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
               <span
                 aria-hidden
                 className={
-                  'w-[104px] shrink-0 text-right text-[13px] transition-colors ' +
+                  'w-[104px] shrink-0 text-right text-small transition-colors ' +
                   (isDominant ? 'font-semibold text-text' : 'text-muted')
                 }
               >
@@ -67,7 +67,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
               <span
                 aria-hidden
                 className={
-                  'tabular w-[42px] shrink-0 text-[12px] ' +
+                  'tabular w-[42px] shrink-0 text-small ' +
                   (isDominant ? 'font-semibold text-text' : 'text-muted')
                 }
               >
@@ -76,7 +76,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
 
               {/* Zwei Marker, die ohne Farbe auskommen — die Balken sind bunt
                   genug, und Farbe allein trägt keine Bedeutung. */}
-              <span aria-hidden className="w-4 shrink-0 text-[12px] text-muted">
+              <span aria-hidden className="w-4 shrink-0 text-small text-muted">
                 {isDominant ? '◆' : isDrag ? '↓' : ''}
               </span>
             </li>
@@ -96,7 +96,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
                 wäre sie nur ein Einwurf. */}
             {level.value === THRESHOLD && (
               <li aria-hidden className="flex items-center gap-3 py-1">
-                <span className="w-[104px] shrink-0 text-right text-[10px] font-semibold tracking-[0.14em] text-muted uppercase">
+                <span className="w-[104px] shrink-0 text-right text-caption font-semibold tracking-[0.14em] text-muted uppercase">
                   {t.thresholdMark(THRESHOLD)}
                 </span>
                 <span className="h-px flex-1 bg-gradient-to-r from-muted/30 via-muted/15 to-transparent" />

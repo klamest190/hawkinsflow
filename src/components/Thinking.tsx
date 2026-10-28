@@ -46,8 +46,8 @@ function Pyramid({
 
   return (
     <section className="flex flex-col gap-3 rounded-3xl border border-line bg-card/60 p-5 backdrop-blur-sm">
-      <h2 className="font-display text-[19px] leading-snug font-semibold">{title}</h2>
-      <p className="text-[14px] leading-relaxed text-muted">{lead}</p>
+      <h2 className="font-display text-title leading-snug font-semibold">{title}</h2>
+      <p className="text-body leading-relaxed text-muted">{lead}</p>
 
       <ol className="mt-2 flex flex-col items-center gap-1">
         {shown.map(({ station, index }, row) => {
@@ -72,7 +72,7 @@ function Pyramid({
               }}
             >
               <span
-                className="text-[11.5px] leading-tight font-semibold tracking-[0.08em] uppercase"
+                className="text-caption leading-tight font-semibold tracking-[0.08em] uppercase"
                 style={{ color: readableOnDark(color) }}
               >
                 <span className="tabular opacity-70">{index + 1}</span> {station.name}
@@ -89,13 +89,13 @@ function Pyramid({
 function Side({ tag, station, color, inAppLabel }: { tag: string; station: Station; color: string; inAppLabel: string }) {
   return (
     <div className="flex flex-col gap-1.5 border-l-2 pl-4" style={{ borderColor: color }}>
-      <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">{tag}</p>
-      <h3 className="font-display text-[17px] leading-snug font-semibold" style={{ color: readableOnDark(color) }}>
+      <p className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">{tag}</p>
+      <h3 className="font-display text-lead leading-snug font-semibold" style={{ color: readableOnDark(color) }}>
         {station.name}
       </h3>
-      <p className="text-[14.5px] leading-relaxed text-text/85">{station.body}</p>
+      <p className="text-body leading-relaxed text-text/85">{station.body}</p>
       {station.inApp !== undefined && (
-        <p className="mt-1 text-[13px] leading-relaxed text-muted">
+        <p className="mt-1 text-small leading-relaxed text-muted">
           <span className="font-semibold text-text/80">{inAppLabel}:</span> {station.inApp}
         </p>
       )}
@@ -168,7 +168,7 @@ function Examples({
               tabIndex={selected ? 0 : -1}
               onClick={() => setActive(index)}
               className={
-                'cursor-pointer rounded-full border px-4 py-2 text-[13.5px] font-semibold ' +
+                'cursor-pointer rounded-full border px-4 py-2 text-small font-semibold ' +
                 'transition-[background-color,border-color,color] duration-200 ' +
                 'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
                 (selected
@@ -192,14 +192,14 @@ function Examples({
         {/* The key starts the fade-in afresh on every change of tab. */}
         <div key={example.title} className="animate-rise flex flex-col gap-5">
           <div className="flex flex-col gap-1">
-            <p className="text-[11px] font-semibold tracking-[0.16em] text-accent-ink uppercase">{th.situationLabel}</p>
-            <p className="text-[15.5px] leading-relaxed text-text/90">{example.situation}</p>
+            <p className="text-caption font-semibold tracking-[0.16em] text-accent-ink uppercase">{th.situationLabel}</p>
+            <p className="text-body leading-relaxed text-text/90">{example.situation}</p>
           </div>
 
           <ol className="flex flex-col gap-4">
             {example.ordinary.map((ordinary, index) => (
               <li key={ordinary} className="flex flex-col gap-2 border-t border-line/60 pt-4">
-                <p className="tabular text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+                <p className="tabular text-caption font-semibold tracking-[0.16em] text-muted uppercase">
                   {th.stationLabel(index + 1)}
                 </p>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -227,10 +227,10 @@ function Examples({
 function Voice({ station, color, text }: { station: string; color: string; text: string }) {
   return (
     <div className="flex flex-col gap-1 border-l-2 pl-3.5" style={{ borderColor: color }}>
-      <p className="text-[12px] font-semibold" style={{ color: readableOnDark(color) }}>
+      <p className="text-small font-semibold" style={{ color: readableOnDark(color) }}>
         {station}
       </p>
-      <p className="text-[14.5px] leading-relaxed text-text/85">
+      <p className="text-body leading-relaxed text-text/85">
         <q>{text}</q>
       </p>
     </div>
@@ -252,8 +252,8 @@ export function Thinking({ levels, th }: ThinkingProps) {
 
   return (
     <div className={`animate-rise mx-auto flex w-full max-w-3xl flex-col px-5 py-8 sm:px-6 ${PAGE_WIDTH}`}>
-      <h1 className="font-display text-4xl font-bold tracking-[-0.02em] text-balance">{th.title}</h1>
-      <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{th.lead}</p>
+      <h1 className="font-display text-display font-bold tracking-[-0.02em] text-balance">{th.title}</h1>
+      <p className="mt-2.5 text-body leading-relaxed text-muted">{th.lead}</p>
 
       <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <Pyramid
@@ -272,13 +272,13 @@ export function Thinking({ levels, th }: ThinkingProps) {
         />
       </div>
 
-      <h2 className="mt-12 font-display text-[24px] font-bold tracking-[-0.01em]">{th.stationsTitle}</h2>
-      <p className="mt-2 text-[15px] leading-relaxed text-muted">{th.stationsLead}</p>
+      <h2 className="mt-12 font-display text-heading font-bold tracking-[-0.01em]">{th.stationsTitle}</h2>
+      <p className="mt-2 text-body leading-relaxed text-muted">{th.stationsLead}</p>
 
       <ol className="mt-6 flex flex-col gap-4">
         {th.ordinary.map((ordinary, index) => (
           <li key={ordinary.name} className="rounded-2xl border border-line bg-card/50 p-5 backdrop-blur-sm">
-            <p className="tabular text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+            <p className="tabular text-caption font-semibold tracking-[0.16em] text-muted uppercase">
               {th.stationLabel(index + 1)}
             </p>
             <div className="mt-3 grid gap-5 sm:grid-cols-2">
@@ -299,13 +299,13 @@ export function Thinking({ levels, th }: ThinkingProps) {
         ))}
       </ol>
 
-      <h2 className="mt-12 font-display text-[24px] font-bold tracking-[-0.01em]">{th.examplesTitle}</h2>
-      <p className="mt-2 text-[15px] leading-relaxed text-muted">{th.examplesLead}</p>
+      <h2 className="mt-12 font-display text-heading font-bold tracking-[-0.01em]">{th.examplesTitle}</h2>
+      <p className="mt-2 text-body leading-relaxed text-muted">{th.examplesLead}</p>
       <Examples th={th} ordinaryColors={ordinaryColors} mindHackColors={mindHackColors} />
 
       <div className="mt-8 flex flex-col gap-2 pb-10">
-        <p className="text-[12.5px] leading-relaxed text-muted">{th.sourceNote}</p>
-        <p className="text-[12.5px] leading-relaxed text-muted">{th.colorNote}</p>
+        <p className="text-small leading-relaxed text-muted">{th.sourceNote}</p>
+        <p className="text-small leading-relaxed text-muted">{th.colorNote}</p>
       </div>
     </div>
   )

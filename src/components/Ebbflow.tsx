@@ -97,8 +97,8 @@ export function Ebbflow({ t, e }: EbbflowProps) {
 
   return (
     <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col px-5 py-8 sm:px-6 ${PAGE_WIDTH}`}>
-      <h1 className="font-display text-4xl font-bold tracking-[-0.02em]">{e.title}</h1>
-      <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{e.lead}</p>
+      <h1 className="font-display text-display font-bold tracking-[-0.02em]">{e.title}</h1>
+      <p className="mt-2.5 text-body leading-relaxed text-muted">{e.lead}</p>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
         <div className="flex flex-col gap-6">
@@ -119,7 +119,7 @@ export function Ebbflow({ t, e }: EbbflowProps) {
           {/* The split as two widths and not two numbers: the boundary moves
               when the rhythm changes. */}
           <div className="flex flex-col gap-2">
-            <div aria-hidden className="flex h-8 gap-1 overflow-hidden rounded-full text-[11.5px] font-semibold">
+            <div aria-hidden className="flex h-8 gap-1 overflow-hidden rounded-full text-caption font-semibold">
               <span
                 className="grid place-items-center rounded-l-full bg-accent/30 text-text transition-[flex-grow] duration-500"
                 style={{ flexGrow: pattern.inhale }}
@@ -133,7 +133,7 @@ export function Ebbflow({ t, e }: EbbflowProps) {
                 {e.exhaleShort(pattern.exhale)}
               </span>
             </div>
-            <p className="text-[13.5px] leading-relaxed text-muted">{e.modes[preference.mode].use}</p>
+            <p className="text-small leading-relaxed text-muted">{e.modes[preference.mode].use}</p>
           </div>
 
           <Choice
@@ -147,9 +147,9 @@ export function Ebbflow({ t, e }: EbbflowProps) {
               label: e.duration(seconds),
             }))}
           />
-          <p className="-mt-3 text-[13px] text-muted">
+          <p className="-mt-3 text-small text-muted">
             {e.breaths(rounds)}
-            {active && <span className="block pt-1 text-[12.5px]">{e.locked}</span>}
+            {active && <span className="block pt-1 text-small">{e.locked}</span>}
           </p>
         </div>
 
@@ -173,13 +173,13 @@ export function Ebbflow({ t, e }: EbbflowProps) {
             </svg>
             <span
               aria-hidden
-              className="tabular absolute inset-0 grid place-items-center font-display text-[34px] font-semibold text-accent-ink"
+              className="tabular absolute inset-0 grid place-items-center font-display text-display-s font-semibold text-accent-ink"
             >
               {remainingLabel(left, preference.seconds)}
             </span>
           </div>
 
-          <p aria-live="polite" className="min-h-[1.5em] text-center font-display text-[18px] font-semibold text-text">
+          <p aria-live="polite" className="min-h-[1.5em] text-center font-display text-lead font-semibold text-text">
             {done ? e.done : active ? t.breathPhases[point.phase] : ''}
           </p>
 
@@ -197,7 +197,7 @@ export function Ebbflow({ t, e }: EbbflowProps) {
           {(active || done) && quote !== null && (
             <figure key={quote} className="animate-rise flex max-w-sm flex-col items-center gap-3 pt-1">
               <span aria-hidden className="h-px w-6 bg-line" />
-              <blockquote className="text-center font-display text-[15.5px] leading-relaxed text-balance text-text/80 italic">
+              <blockquote className="text-center font-display text-body leading-relaxed text-balance text-text/80 italic">
                 {quote}
               </blockquote>
             </figure>
@@ -206,9 +206,9 @@ export function Ebbflow({ t, e }: EbbflowProps) {
       </div>
 
       <section className="mt-10 rounded-2xl border border-line bg-card/50 p-5 backdrop-blur-sm">
-        <h2 className="font-display text-[17px] font-semibold">{e.whyTitle}</h2>
-        <p className="mt-2 text-[14.5px] leading-relaxed text-text/85">{e.whyBody}</p>
-        <p className="mt-3 text-[12px] leading-relaxed text-muted">{e.whySource}</p>
+        <h2 className="font-display text-lead font-semibold">{e.whyTitle}</h2>
+        <p className="mt-2 text-body leading-relaxed text-text/85">{e.whyBody}</p>
+        <p className="mt-3 text-small leading-relaxed text-muted">{e.whySource}</p>
       </section>
     </div>
   )

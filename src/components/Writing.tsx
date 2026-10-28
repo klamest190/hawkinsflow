@@ -69,11 +69,11 @@ export function Writing({ prompts, lead, minutes, t, journal }: WritingProps) {
 
   return (
     <div className="mt-5 flex flex-col gap-4 border-t border-accent/20 pt-4">
-      {lead !== undefined && <p className="text-[14px] leading-relaxed text-text/85">{lead}</p>}
+      {lead !== undefined && <p className="text-body leading-relaxed text-text/85">{lead}</p>}
 
       {prompts.map((prompt, index) => (
         <label key={prompt} className="flex flex-col gap-1.5">
-          <span className="text-[13px] leading-snug font-semibold text-text/90">{prompt}</span>
+          <span className="text-small leading-snug font-semibold text-text/90">{prompt}</span>
           <textarea
             ref={index === 0 ? firstField : undefined}
             rows={3}
@@ -84,12 +84,12 @@ export function Writing({ prompts, lead, minutes, t, journal }: WritingProps) {
               setTexts((previous) => previous.map((text, at) => (at === index ? value : text)))
               setKept(false)
             }}
-            className="resize-y rounded-xl border border-line bg-void/40 px-3.5 py-2.5 text-[15px] leading-relaxed text-text transition-colors focus:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+            className="resize-y rounded-xl border border-line bg-void/40 px-3.5 py-2.5 text-body leading-relaxed text-text transition-colors focus:border-accent/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
           />
         </label>
       ))}
 
-      <p className="text-[12.5px] leading-relaxed text-muted">
+      <p className="text-small leading-relaxed text-muted">
         {journal === undefined ? t.writeHintNoKeep : t.writeHint}
       </p>
 
@@ -110,7 +110,7 @@ export function Writing({ prompts, lead, minutes, t, journal }: WritingProps) {
               {showKept ? t.notesHide : t.notesShow(notes.length)}
             </Chip>
           )}
-          <p role="status" className="empty:hidden text-[13px] text-text/90">
+          <p role="status" className="empty:hidden text-small text-text/90">
             {kept ? t.writeKept : ''}
           </p>
         </div>
@@ -125,20 +125,20 @@ export function Writing({ prompts, lead, minutes, t, journal }: WritingProps) {
             return (
               <li key={note.at} className="rounded-xl border border-line bg-void/30 p-4">
                 <div className="flex items-baseline justify-between gap-3">
-                  <p className="tabular text-[12px] font-semibold text-muted">{date}</p>
+                  <p className="tabular text-small font-semibold text-muted">{date}</p>
                   <button
                     type="button"
                     onClick={() => remove(note.at)}
                     aria-label={t.noteDeleteLabel(date)}
-                    className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+                    className="shrink-0 cursor-pointer text-small font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
                   >
                     {t.noteDelete}
                   </button>
                 </div>
                 {note.answers.map((answer) => (
                   <div key={answer.prompt} className="mt-2.5">
-                    <p className="text-[12px] leading-snug text-muted">{answer.prompt}</p>
-                    <p className="mt-0.5 text-[14.5px] leading-relaxed whitespace-pre-wrap text-text/90">
+                    <p className="text-small leading-snug text-muted">{answer.prompt}</p>
+                    <p className="mt-0.5 text-body leading-relaxed whitespace-pre-wrap text-text/90">
                       {answer.text}
                     </p>
                   </div>

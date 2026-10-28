@@ -44,10 +44,10 @@ function FeelStep({ level, t, m }: { level: BelowLevelId; t: Copy; m: MomentCopy
 
   return (
     <section className="animate-rise rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
-      <h1 className="font-display text-[24px] leading-[1.2] font-bold tracking-[-0.02em]">{title}</h1>
-      <p className="mt-3 text-[16px] leading-relaxed text-text/90">{body}</p>
+      <h1 className="font-display text-heading leading-[1.2] font-bold tracking-[-0.02em]">{title}</h1>
+      <p className="mt-3 text-lead leading-relaxed text-text/90">{body}</p>
       <PracticeTool tool={tool} t={t} />
-      <p className="mt-4 text-[13px] leading-relaxed text-muted">
+      <p className="mt-4 text-small leading-relaxed text-muted">
         {tool.kind === 'grounding' ? m.groundNote : m.feelNote}
       </p>
     </section>
@@ -124,11 +124,11 @@ export function Moment({
   return (
     <div className="animate-rise mx-auto flex w-full max-w-xl flex-col gap-6 px-5 py-8 sm:px-6">
       {/* Der rechte Abstand hält die Ecke frei, in der die Sprachwahl steht. */}
-      <header className="flex items-center justify-between gap-4 pr-24">
+      <header className="flex h-10 items-center justify-between gap-4 pr-24">
         <Button variant="quiet" onClick={onLeave} className="-ml-4">
           {m.leave}
         </Button>
-        <span className="tabular text-[13px] font-medium text-muted">
+        <span className="tabular text-small font-medium text-muted">
           {m.stepOf(step + 1, STEPS)}
         </span>
       </header>
@@ -137,7 +137,7 @@ export function Moment({
           ganze Bogen dreht sich um sie, und ohne die Zeile wüsste man nach der
           Minute Stille nicht mehr sicher, was man angetippt hat. */}
       {chosen !== null && step > 0 && (
-        <p className="text-[13px] font-semibold">
+        <p className="text-small font-semibold">
           <span style={{ color: readableOnDark(chosen.color) }}>{chosen.name}</span>
           <span className="text-muted"> · {chosen.emotion}</span>
         </p>
@@ -153,10 +153,10 @@ export function Moment({
         {step === 0 && (
           <div className="animate-rise flex flex-col gap-5">
             <div>
-              <h1 className="font-display text-[28px] leading-[1.2] font-bold tracking-[-0.02em] text-balance sm:text-[32px]">
+              <h1 className="font-display text-display-s leading-[1.2] font-bold tracking-[-0.02em] text-balance sm:text-display-s">
                 {m.pickTitle}
               </h1>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted">{m.pickLead}</p>
+              <p className="mt-3 text-body leading-relaxed text-muted">{m.pickLead}</p>
             </div>
 
             <ul className="grid grid-cols-2 gap-2.5">
@@ -178,8 +178,8 @@ export function Moment({
                       style={{ background: entry.color, boxShadow: `0 0 12px -2px ${entry.color}` }}
                     />
                     <span className="min-w-0">
-                      <span className="block truncate text-[15px] font-semibold">{entry.name}</span>
-                      <span className="block truncate text-[12.5px] text-muted">{entry.emotion}</span>
+                      <span className="block truncate text-body font-semibold">{entry.name}</span>
+                      <span className="block truncate text-small text-muted">{entry.emotion}</span>
                     </span>
                   </button>
                 </li>
@@ -200,16 +200,16 @@ export function Moment({
             auf einen Kopf, der ihm widerspricht; eine Frage nimmt ihn in Dienst. */}
         {step === 2 && chosen !== null && level !== null && (
           <section className="animate-rise rounded-3xl border border-line bg-card/70 p-6 text-center backdrop-blur-md sm:p-8">
-            <p className="text-[11px] font-semibold tracking-[0.18em] text-muted uppercase">
+            <p className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
               {m.askTitle}
             </p>
             <p
-              className="mt-5 font-display text-[26px] leading-[1.25] font-semibold text-balance sm:text-[30px]"
+              className="mt-5 font-display text-heading leading-[1.25] font-semibold text-balance sm:text-display-s"
               style={{ color: 'var(--hf-accent-ink)' }}
             >
               {m.questions[level]}
             </p>
-            <p className="mx-auto mt-6 max-w-sm text-[13px] leading-relaxed text-balance text-muted">
+            <p className="mx-auto mt-6 max-w-sm text-small leading-relaxed text-balance text-muted">
               {m.askNote}
             </p>
           </section>
@@ -222,15 +222,15 @@ export function Moment({
         {step === 3 && chosen !== null && (
           <div className="animate-rise flex flex-col gap-4">
             <section className="rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
-              <h1 className="font-display text-[24px] leading-[1.2] font-bold tracking-[-0.02em]">
+              <h1 className="font-display text-heading leading-[1.2] font-bold tracking-[-0.02em]">
                 {m.actTitle}
               </h1>
-              <p className="mt-4 rounded-2xl border border-accent/30 bg-accent/8 p-5 text-[16px] leading-relaxed text-text/90">
+              <p className="mt-4 rounded-2xl border border-accent/30 bg-accent/8 p-5 text-lead leading-relaxed text-text/90">
                 {m.noDecision}
               </p>
 
               <div className="mt-6">
-                <p className="text-[11px] font-semibold tracking-[0.16em] text-accent-ink uppercase">
+                <p className="text-caption font-semibold tracking-[0.16em] text-accent-ink uppercase">
                   {m.planLabel}
                 </p>
                 {/* Steht noch keiner, wird er hier geschrieben und nicht auf
@@ -261,11 +261,11 @@ export function Moment({
                   </div>
                 ) : (
                   <div className="mt-2.5 flex flex-col gap-1.5">
-                    <p className="text-[16px] leading-relaxed text-text/90">
+                    <p className="text-lead leading-relaxed text-text/90">
                       <span className="font-display font-semibold text-accent-ink">{t.planWhen}</span>{' '}
                       {plans[chosen.id]?.when}
                     </p>
-                    <p className="text-[16px] leading-relaxed text-text/90">
+                    <p className="text-lead leading-relaxed text-text/90">
                       <span className="font-display font-semibold text-accent-ink">{t.planThen}</span>{' '}
                       {plans[chosen.id]?.then}
                     </p>
@@ -274,12 +274,12 @@ export function Moment({
               </div>
 
               <div className="mt-6">
-                <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+                <p className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
                   {m.mantraLabel}
                 </p>
                 {/* Die Anführungszeichen kommen aus der Sprache, nicht aus dem
                     Text: im Deutschen unten und oben, im Englischen beide oben. */}
-                <p className="mt-2.5 font-display text-[17px] leading-snug font-medium text-balance">
+                <p className="mt-2.5 font-display text-lead leading-snug font-medium text-balance">
                   <q>{chosen.mantra}</q>
                 </p>
               </div>
@@ -289,9 +289,9 @@ export function Moment({
                 bei Scham oder Apathie hier ankommt, soll sie sehen, ohne dass
                 die App sie jedem anderen unterschiebt. */}
             {chosen.value < CRISIS_BELOW && (
-              <p className="px-2 text-[14px] leading-relaxed text-text/90">{t.crisisNote}</p>
+              <p className="px-2 text-body leading-relaxed text-text/90">{t.crisisNote}</p>
             )}
-            <p className="px-2 text-[12.5px] leading-relaxed text-muted">{m.sourceNote}</p>
+            <p className="px-2 text-small leading-relaxed text-muted">{m.sourceNote}</p>
           </div>
         )}
 

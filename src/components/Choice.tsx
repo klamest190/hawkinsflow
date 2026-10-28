@@ -17,7 +17,7 @@ export function Choice({
 }) {
   return (
     <fieldset disabled={disabled} className="flex flex-col gap-2.5 transition-opacity disabled:opacity-55">
-      <legend className="mb-2.5 text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">{legend}</legend>
+      <legend className="mb-2.5 text-caption font-semibold tracking-[0.16em] text-muted uppercase">{legend}</legend>
       <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}>
         {options.map((option) => (
           <label
@@ -37,9 +37,9 @@ export function Choice({
               onChange={option.onPick}
               className="sr-only"
             />
-            <span className="text-[14px] font-semibold text-text">{option.label}</span>
+            <span className="text-body font-semibold text-text">{option.label}</span>
             {option.detail !== undefined && (
-              <span aria-hidden className="tabular text-[12px] text-muted">
+              <span aria-hidden className="tabular text-small text-muted">
                 {option.detail}
               </span>
             )}

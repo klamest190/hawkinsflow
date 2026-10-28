@@ -88,8 +88,8 @@ export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCar
 
   return (
     <section className="mt-10 w-full rounded-2xl border border-line/70 bg-card/40 p-5 text-left backdrop-blur-sm">
-      <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">{t.dataTitle}</h2>
-      <p className="mt-2 text-[13.5px] leading-relaxed text-muted">
+      <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">{t.dataTitle}</h2>
+      <p className="mt-2 text-small leading-relaxed text-muted">
         {filled ? t.dataLead : t.dataLeadEmpty}
       </p>
 
@@ -120,12 +120,12 @@ export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCar
           visiting five levels. */}
       {onClearNotes !== undefined && data.notes.length > 0 && (
         <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-line/60 pt-3">
-          <p className="text-[13px] leading-relaxed text-muted">{t.dataNotes(data.notes.length)}</p>
+          <p className="text-small leading-relaxed text-muted">{t.dataNotes(data.notes.length)}</p>
           <button
             type="button"
             onClick={onClearNotes}
             aria-label={t.dataNotesClearLabel}
-            className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+            className="shrink-0 cursor-pointer text-small font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
           >
             {t.dataNotesClear}
           </button>
@@ -134,7 +134,7 @@ export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCar
 
       {status.kind === 'confirm' && (
         <div className="mt-4 flex flex-col gap-3 rounded-xl border border-line bg-void/40 p-4">
-          <p ref={question} tabIndex={-1} className="text-[14px] leading-relaxed text-text/90 focus:outline-none">
+          <p ref={question} tabIndex={-1} className="text-body leading-relaxed text-text/90 focus:outline-none">
             {t.dataConfirm(
               new Intl.DateTimeFormat(language, { dateStyle: 'long' }).format(new Date(status.backup.exported)),
               t.dataContents({
@@ -159,10 +159,10 @@ export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCar
       )}
 
       {/* Always in the tree, so the announcement is heard when it changes. */}
-      <p role="status" className="empty:hidden mt-3 text-[13px] text-text/90">
+      <p role="status" className="empty:hidden mt-3 text-small text-text/90">
         {status.kind === 'restored' ? t.dataRestored : ''}
       </p>
-      <p role="alert" className="empty:hidden mt-3 text-[13px] text-text/90">
+      <p role="alert" className="empty:hidden mt-3 text-small text-text/90">
         {status.kind === 'saveFailed'
           ? t.dataExportFailed
           : status.kind === 'refused'

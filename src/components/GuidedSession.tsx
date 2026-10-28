@@ -100,22 +100,22 @@ function Running({
 
   return (
     <div className="flex flex-col gap-5">
-      <p className="tabular text-[13px] font-medium text-muted">{s.stepOf(point.index + 1, steps.length)}</p>
+      <p className="tabular text-small font-medium text-muted">{s.stepOf(point.index + 1, steps.length)}</p>
 
       {/* The step's name and instruction are announced together at every
           change; the running seconds stay out of it. */}
       <div aria-live="polite" className="flex flex-col gap-3">
-        <h2 className="font-display text-[28px] leading-[1.2] font-bold tracking-[-0.02em] text-accent-ink">
+        <h2 className="font-display text-display-s leading-[1.2] font-bold tracking-[-0.02em] text-accent-ink">
           {step.title}
         </h2>
-        <p className="text-[17px] leading-relaxed text-text/90">{step.cue}</p>
+        <p className="text-lead leading-relaxed text-text/90">{step.cue}</p>
       </div>
 
       <div aria-hidden className="flex flex-col gap-2">
         <div className="h-1.5 overflow-hidden rounded-full bg-line">
           <div className="h-full rounded-full bg-accent-ink" style={{ width: `${point.stepProgress * 100}%` }} />
         </div>
-        <p className="tabular text-[12.5px] text-muted">{s.left(clockOf(remaining))}</p>
+        <p className="tabular text-small text-muted">{s.left(clockOf(remaining))}</p>
       </div>
 
       {/* The main chip keeps its place through every state, as in `Breath`. */}
@@ -175,18 +175,18 @@ export function GuidedSession({ id, form, language, t, s, onLeave }: GuidedSessi
   return (
     <div className="animate-rise mx-auto flex w-full max-w-xl flex-col gap-6 px-5 py-8 sm:px-6">
       {/* The right padding keeps the corner free for the language switch. */}
-      <header className="flex items-center justify-between gap-4 pr-24">
+      <header className="flex h-10 items-center justify-between gap-4 pr-24">
         <Button variant="quiet" onClick={onLeave} className="-ml-4">
           {s.leave}
         </Button>
       </header>
 
-      <h1 className="font-display text-[22px] font-semibold text-muted">{form.name}</h1>
+      <h1 className="font-display text-title font-semibold text-muted">{form.name}</h1>
 
       <div ref={stageView} tabIndex={-1} className="focus:outline-none">
         {stage === 'prep' && (
           <div className="animate-rise flex flex-col gap-6">
-            <p className="text-[15.5px] leading-relaxed text-text/90">{form.how}</p>
+            <p className="text-body leading-relaxed text-text/90">{form.how}</p>
 
             <Choice
               legend={s.lengthLegend}
@@ -203,7 +203,7 @@ export function GuidedSession({ id, form, language, t, s, onLeave }: GuidedSessi
             <div className={'flex flex-col gap-1.5 rounded-2xl border border-line bg-void/30 p-4 ' + (available ? '' : 'opacity-60')}>
               <label
                 className={
-                  'flex items-center gap-3 text-[14.5px] font-semibold text-text ' +
+                  'flex items-center gap-3 text-body font-semibold text-text ' +
                   (available ? 'cursor-pointer' : '')
                 }
               >
@@ -217,12 +217,12 @@ export function GuidedSession({ id, form, language, t, s, onLeave }: GuidedSessi
                 />
                 {s.voice}
               </label>
-              <p id="session-voice-hint" className="pl-8 text-[13px] leading-relaxed text-muted">
+              <p id="session-voice-hint" className="pl-8 text-small leading-relaxed text-muted">
                 {available ? s.voiceHint : s.voiceMissing}
               </p>
             </div>
 
-            <p className="text-[13px] leading-relaxed text-muted">{s.screenHint}</p>
+            <p className="text-small leading-relaxed text-muted">{s.screenHint}</p>
 
             <div>
               <Button onClick={() => setStage('run')}>{s.begin}</Button>
@@ -249,8 +249,8 @@ export function GuidedSession({ id, form, language, t, s, onLeave }: GuidedSessi
 
         {stage === 'done' && (
           <section className="animate-rise flex flex-col gap-5 rounded-3xl border border-line bg-card/70 p-6 backdrop-blur-md sm:p-8">
-            <h2 className="font-display text-[28px] font-bold tracking-[-0.02em]">{s.doneTitle}</h2>
-            <p className="text-[16px] leading-relaxed text-text/90">{s.doneBody}</p>
+            <h2 className="font-display text-display-s font-bold tracking-[-0.02em]">{s.doneTitle}</h2>
+            <p className="text-lead leading-relaxed text-text/90">{s.doneBody}</p>
             <div className="flex flex-wrap items-center gap-2">
               <Button onClick={onLeave}>{s.backToMeditation}</Button>
               <Button variant="quiet" onClick={() => setStage('prep')}>

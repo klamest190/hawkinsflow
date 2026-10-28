@@ -60,14 +60,78 @@
   --color-accent: var(--hf-accent);
   --color-accent-ink: var(--hf-accent-ink);
 
-  --font-sans: -apple-system, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-display: "SF Pro Display", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter Variable", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Newsreader Variable", Georgia, "Times New Roman", serif;
   --font-mono: "SF Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
   --animate-drift-a: drift-a 24s ease-in-out infinite;
   --animate-drift-b: drift-b 31s ease-in-out infinite;
   --animate-rise: rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-pop: pop 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* The type scale: every size in the app is one of these. Not `inline`, so
+   the utilities read the variables and the override below reaches them:
+   reading sizes (caption to lead) step up one notch from `lg` on, so text
+   next to the sidebar isn't phone-sized on a wide screen. Display sizes
+   change per breakpoint with a class (`text-heading sm:text-display-s`).
+   `--text-*: initial` drops Tailwind's own sizes, and
+   `src/typescale.test.ts` refuses an arbitrary one. */
+@theme {
+  --text-*: initial;
+  --text-caption: 11px;
+  --text-small: 13px;
+  --text-body: 15px;
+  --text-lead: 17px;
+  --text-title: 20px;
+  --text-heading: 24px;
+  --text-display-s: 30px;
+  --text-display: 36px;
+  --text-hero: 52px;
+  --text-hero-l: 64px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --text-caption: 12px;
+    --text-small: 14px;
+    --text-body: 16px;
+    --text-lead: 18px;
+  }
+}
+
+/* The two faces, latin subset only: the app speaks German and English, and
+   the latin file holds umlauts, ß and both languages' quotation marks.
+   Self-hosted and precached (see `vite.config.ts`), so the installed app
+   looks the same offline. Inter is the face the PDF is set in, too.
+   Newsreader carries an optical-size axis: the same family is drawn finer
+   at 64px than at 17px, which is why it can set both the level's name and a
+   practice title. */
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Newsreader Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2")
+    format("woff2-variations");
+}
+
+/* For Ebb Flow's quotes: a drawn italic, not a slanted roman. */
+@font-face {
+  font-family: "Newsreader Variable";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2")
+    format("woff2-variations");
 }
 
 @keyframes drift-a {

@@ -33,12 +33,12 @@ const variants: Record<Variant, string> = {
   ghost:
     'font-semibold border-line bg-card/60 text-muted backdrop-blur-sm ' +
     'hover:border-accent/50 hover:bg-card hover:text-text',
-  quiet: 'border-transparent bg-transparent px-4 py-2 text-[14px] font-medium text-muted hover:text-text',
+  quiet: 'border-transparent bg-transparent px-4 py-2 text-body font-medium text-muted hover:text-text',
 }
 
 const sizes: Record<Size, string> = {
-  md: 'px-7 py-3 text-[15px]',
-  sm: 'px-4 py-2 text-[13.5px]',
+  md: 'px-7 py-3 text-body',
+  sm: 'px-4 py-2 text-small',
 }
 
 export function Button({ variant = 'primary', size = 'md', className = '', ...rest }: ButtonProps) {

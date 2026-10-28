@@ -28,7 +28,7 @@ export function Why({
     <ol className="flex flex-col gap-6">
       {weightiest(scores).map(({ level }) => (
         <li key={level.id} className="flex flex-col gap-2.5">
-          <h3 className="font-display text-[17px] font-semibold" style={{ color: readableOnDark(level.color) }}>
+          <h3 className="font-display text-lead font-semibold" style={{ color: readableOnDark(level.color) }}>
             {level.name} · {level.value}
           </h3>
           <ul className="flex flex-col gap-2">
@@ -41,8 +41,8 @@ export function Why({
                   key={question.id}
                   className="flex flex-col gap-1.5 border-l-2 border-line pl-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
                 >
-                  <q className="text-[14.5px] leading-relaxed text-text/90">{questionText(language, question.id)}</q>
-                  <span className="shrink-0 self-start rounded-full border border-line bg-void/40 px-3 py-1 text-[12.5px] text-muted">
+                  <q className="text-body leading-relaxed text-text/90">{questionText(language, question.id)}</q>
+                  <span className="shrink-0 self-start rounded-full border border-line bg-void/40 px-3 py-1 text-small text-muted">
                     <span className="sr-only">{t.whyAnswerPrefix} </span>
                     {answer}
                   </span>

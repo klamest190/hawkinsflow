@@ -87,7 +87,7 @@ export function PracticeDeck({ practices, t, journal }: PracticeDeckProps) {
                 tabIndex={selected ? 0 : -1}
                 onClick={() => show(index, false)}
                 className={
-                  'cursor-pointer rounded-full border px-3.5 py-1.5 text-[12px] font-semibold ' +
+                  'cursor-pointer rounded-full border px-3.5 py-1.5 text-small font-semibold ' +
                   'transition-[background-color,border-color,color] duration-200 ' +
                   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
                   (selected
@@ -103,7 +103,7 @@ export function PracticeDeck({ practices, t, journal }: PracticeDeckProps) {
 
         {/* Der Hinweis steht klein daneben und verschwindet auf schmalen
             Geräten — dort gibt es keine Pfeiltasten, dafür das Wischen. */}
-        <p aria-hidden className="hidden text-[12px] text-muted sm:block">
+        <p aria-hidden className="hidden text-small text-muted sm:block">
           {t.practiceHint}
         </p>
       </div>
@@ -140,12 +140,12 @@ export function PracticeDeck({ practices, t, journal }: PracticeDeckProps) {
             Textwechsel im selben Kasten. */}
         <div key={practice.name} className="animate-rise">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <p className="font-display text-[17px] font-semibold">{practice.name}</p>
-            <p className="text-[12px] font-semibold tracking-[0.08em] text-accent-ink uppercase">
+            <p className="font-display text-lead font-semibold">{practice.name}</p>
+            <p className="text-small font-semibold tracking-[0.08em] text-accent-ink uppercase">
               {practice.duration}
             </p>
           </div>
-          <p className="mt-3 text-[15px] leading-relaxed text-muted">{practice.body}</p>
+          <p className="mt-3 text-body leading-relaxed text-muted">{practice.body}</p>
 
           {/* Das `key` bindet das Werkzeug an seine Übung: Beim Blättern
               beginnt die Uhr als neue, statt mit der Restzeit der vorigen

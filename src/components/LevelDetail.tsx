@@ -27,7 +27,7 @@ type LevelDetailProps = {
 /** Eine Überschrift im Detailblock — klein, gesperrt, in der Ebenenfarbe. */
 function Heading({ children }: { children: string }) {
   return (
-    <h3 className="text-[11px] font-semibold tracking-[0.16em] text-accent-ink uppercase">{children}</h3>
+    <h3 className="text-caption font-semibold tracking-[0.16em] text-accent-ink uppercase">{children}</h3>
   )
 }
 
@@ -64,7 +64,7 @@ export function LevelDetail({
         <Heading>{t.signsHeading}</Heading>
         <ul className="flex flex-col gap-2">
           {level.signs.map((sign) => (
-            <li key={sign} className="flex gap-3 text-[15px] leading-relaxed text-muted">
+            <li key={sign} className="flex gap-3 text-body leading-relaxed text-muted">
               <span aria-hidden className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-accent-ink" />
               {sign}
             </li>
@@ -74,7 +74,7 @@ export function LevelDetail({
 
       <section className="flex flex-col gap-3">
         <Heading>{t.trapHeading}</Heading>
-        <p className="border-l-2 border-accent/50 pl-4 text-[15px] leading-relaxed text-muted">
+        <p className="border-l-2 border-accent/50 pl-4 text-body leading-relaxed text-muted">
           {level.trap}
         </p>
       </section>
@@ -85,11 +85,11 @@ export function LevelDetail({
           überhaupt etwas bringt. */}
       <section className="flex flex-col gap-3">
         <Heading>{t.progressHeading}</Heading>
-        <p className="text-[15px] leading-relaxed text-muted">{level.progress}</p>
+        <p className="text-body leading-relaxed text-muted">{level.progress}</p>
         {/* In der Skala steht die Nummer hier; im Ergebnis weiter oben, wo sie
             nicht hinter einem Aufklapper liegt. */}
         {crisis && !collapsible && (
-          <p className="text-[14px] leading-relaxed text-text/90">{t.crisisNote}</p>
+          <p className="text-body leading-relaxed text-text/90">{t.crisisNote}</p>
         )}
       </section>
     </>
@@ -98,14 +98,14 @@ export function LevelDetail({
   return (
     <div className="flex flex-col gap-7">
       <div className="flex flex-col gap-4">
-        <p className="text-[16px] leading-relaxed text-text/90">{level.essence}</p>
+        <p className="text-lead leading-relaxed text-text/90">{level.essence}</p>
         {/* Die Stärke der Ebene, direkt hinter der Essenz und vor dem Rat: Ein
             Rat ohne Anerkennung liest sich wie eine Zurechtweisung. Kein
             Kasten, nur eine Zeile mit Etikett — sie soll gehört werden, nicht
             auffallen. */}
         <div className="flex flex-col gap-1.5 border-l-2 border-accent/50 pl-4">
           <Heading>{t.strengthHeading}</Heading>
-          <p className="text-[15px] leading-relaxed text-text/80">{level.strength}</p>
+          <p className="text-body leading-relaxed text-text/80">{level.strength}</p>
         </div>
       </div>
 
@@ -115,14 +115,14 @@ export function LevelDetail({
           Übungskasten weiter unten, der dieselbe Farbe führt. */}
       <section className="flex flex-col gap-2.5 rounded-2xl border border-accent/25 bg-accent/[0.07] px-5 py-4">
         <Heading>{t.adviceHeading}</Heading>
-        <p className="text-[15px] leading-relaxed text-text/90">{level.advice}</p>
+        <p className="text-body leading-relaxed text-text/90">{level.advice}</p>
       </section>
 
       {/* Die Nummer steht in voller Farbe und nicht gedämpft, und im Ergebnis
           vor dem Aufklapper: der eine Satz auf dieser Seite, der nicht
           überlesen werden darf. */}
       {crisis && collapsible && (
-        <p className="text-[14px] leading-relaxed text-text/90">{t.crisisNote}</p>
+        <p className="text-body leading-relaxed text-text/90">{t.crisisNote}</p>
       )}
 
       {!collapsible && explanation}
@@ -177,7 +177,7 @@ export function LevelDetail({
 
       {/* Die Anführungszeichen kommen aus der Sprache, nicht aus dem Text: im
           Deutschen „unten und oben", im Englischen beide oben. */}
-      <p className="rounded-2xl border border-line bg-card/60 px-5 py-4 text-center font-display text-[17px] leading-snug font-medium text-balance">
+      <p className="rounded-2xl border border-line bg-card/60 px-5 py-4 text-center font-display text-lead leading-snug font-medium text-balance">
         <q>{level.mantra}</q>
       </p>
     </div>

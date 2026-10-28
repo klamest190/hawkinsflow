@@ -120,8 +120,8 @@ export function Track({ track, t }: TrackProps) {
   return (
     <div className="mt-5 flex flex-col gap-3 border-t border-accent/20 pt-4">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="font-display text-[15px] font-semibold text-text">{title}</p>
-        {duration !== null && <p className="tabular text-[12px] text-muted">{clockOf(duration)}</p>}
+        <p className="font-display text-body font-semibold text-text">{title}</p>
+        {duration !== null && <p className="tabular text-small text-muted">{clockOf(duration)}</p>}
       </div>
 
       <input
@@ -147,16 +147,16 @@ export function Track({ track, t }: TrackProps) {
           {label}
         </Chip>
         {duration !== null && (
-          <span aria-hidden className="tabular text-[13px] text-muted">
+          <span aria-hidden className="tabular text-small text-muted">
             {clockOf(time)} / {clockOf(duration)}
           </span>
         )}
-        <p role="status" className="empty:hidden text-[13px] text-text/90">
+        <p role="status" className="empty:hidden text-small text-text/90">
           {status === 'loading' ? t.trackLoading : status === 'failed' ? t.trackFailed : ''}
         </p>
       </div>
 
-      <p className="text-[12px] leading-relaxed text-muted">{t.trackNote}</p>
+      <p className="text-small leading-relaxed text-muted">{t.trackNote}</p>
 
       {/* No captions track: what the voice says is the practice text above
           it, which stands on the page for anyone who can't hear it. */}

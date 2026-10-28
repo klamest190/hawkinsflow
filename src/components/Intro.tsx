@@ -13,7 +13,6 @@ import { CheckInTrail } from './CheckInTrail.tsx'
 import { DailyCheckIn } from './DailyCheckIn.tsx'
 import { DataCard } from './DataCard.tsx'
 import { HistoryTrail } from './HistoryTrail.tsx'
-import { Logo } from './Logo.tsx'
 import { MomentTrail } from './MomentTrail.tsx'
 import { PlanCheckIn } from './PlanCheckIn.tsx'
 import { PAGE_WIDTH } from './page.ts'
@@ -75,7 +74,7 @@ function DeleteLink({
       type="button"
       onClick={onClick}
       aria-label={title}
-      className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+      className="shrink-0 cursor-pointer text-small font-medium text-muted underline decoration-line underline-offset-4 transition-colors hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
     >
       {label}
     </button>
@@ -148,12 +147,13 @@ export function Intro({
     <div className={`animate-rise mx-auto flex w-full max-w-xl flex-col items-center px-6 py-12 text-center lg:py-16 ${PAGE_WIDTH}`}>
       {welcome ? (
         <>
-          <Logo className="h-16 w-16 drop-shadow-[0_8px_28px_rgba(0,0,0,0.5)]" />
-
-          <h1 className="mt-7 font-display text-5xl font-bold tracking-[-0.03em] sm:text-6xl">
+          {/* No logo above the name: the bar or the sidebar already shows it,
+              and the ladder below is the same picture, large. A third copy
+              pushed the button behind the phone's tab bar. */}
+          <h1 className="font-display text-hero font-bold tracking-[-0.03em] sm:text-hero-l">
             Hawkins&nbsp;Flow
           </h1>
-          <p className="mt-4 max-w-xl text-balance text-[17px] leading-relaxed text-muted">
+          <p className="mt-4 max-w-xl text-balance text-lead leading-relaxed text-muted">
             {t.introLead(QUESTIONS.length)}
           </p>
 
@@ -177,7 +177,7 @@ export function Intro({
                 {level.value === THRESHOLD && (
                   <div className="flex w-full items-center gap-3 py-1.5">
                     <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-                    <span className="text-[10px] font-semibold tracking-[0.18em] text-muted uppercase">
+                    <span className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
                       {t.thresholdMark(THRESHOLD)}
                     </span>
                     <span aria-hidden className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
@@ -207,8 +207,8 @@ export function Intro({
         </>
       ) : (
         <header>
-          <h1 className="font-display text-4xl font-bold tracking-[-0.02em]">{t.todayTitle}</h1>
-          <p className="mt-2 text-[14px] text-muted">
+          <h1 className="font-display text-display font-bold tracking-[-0.02em]">{t.todayTitle}</h1>
+          <p className="mt-2 text-body text-muted">
             {new Intl.DateTimeFormat(language, { weekday: 'long', day: 'numeric', month: 'long' }).format(now)}
           </p>
         </header>
@@ -222,7 +222,7 @@ export function Intro({
             The navigation leads there too, but this says that it is waiting. */}
         {resumeAt !== null && (
           <div className="flex w-full flex-wrap items-center justify-between gap-3 rounded-2xl lg:col-span-2 border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
-            <p className="text-[14.5px] leading-relaxed text-text/90">{t.resumeLead}</p>
+            <p className="text-body leading-relaxed text-text/90">{t.resumeLead}</p>
             <Button size="sm" onClick={onResume}>
               {t.resume(resumeAt + 1)}
             </Button>
@@ -235,7 +235,7 @@ export function Intro({
             replaces the answers, and that is a choice to make there. */}
         {due !== null && (
           <div className="flex w-full flex-col items-start gap-3 rounded-2xl lg:col-span-2 border border-line bg-card/60 p-5 text-left backdrop-blur-sm">
-            <p className="text-[14.5px] leading-relaxed text-muted">
+            <p className="text-body leading-relaxed text-muted">
               {t.returnNudge(due.days)}
               {dueLevel !== null && (
                 <>
@@ -267,20 +267,20 @@ export function Intro({
             }
           >
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+              <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
                 {t.introPlanLabel}
               </h2>
               {newestLevel !== null && (
-                <p className="text-[12px] font-semibold" style={{ color: readableOnDark(newestLevel.color) }}>
+                <p className="text-small font-semibold" style={{ color: readableOnDark(newestLevel.color) }}>
                   {newestLevel.name}
                 </p>
               )}
             </div>
-            <p className="mt-3 text-[15px] leading-relaxed text-text/90">
+            <p className="mt-3 text-body leading-relaxed text-text/90">
               <span className="font-display font-semibold text-accent-ink">{t.planWhen}</span>{' '}
               {newest.when}
             </p>
-            <p className="mt-1.5 text-[15px] leading-relaxed text-text/90">
+            <p className="mt-1.5 text-body leading-relaxed text-text/90">
               <span className="font-display font-semibold text-accent-ink">{t.planThen}</span>{' '}
               {newest.then}
             </p>
@@ -312,14 +312,14 @@ export function Intro({
                 löschbar zu machen. */}
             {older.length > 0 && (
               <div className="mt-5 flex flex-col gap-2.5 border-t border-line pt-4">
-                <h3 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+                <h3 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
                   {t.introPlanOthers}
                 </h3>
                 {older.map((plan) => {
                   const level = levelOf(plan)
                   return (
                     <div key={plan.level} className="flex items-baseline justify-between gap-3">
-                      <p className="min-w-0 flex-1 truncate text-[13px] leading-relaxed text-muted">
+                      <p className="min-w-0 flex-1 truncate text-small leading-relaxed text-muted">
                         <span
                           className="font-semibold"
                           style={{ color: readableOnDark(level?.color ?? 'var(--hf-muted)') }}
@@ -419,12 +419,12 @@ export function Intro({
           day, not for the file. */}
       <DataCard data={data} language={language} t={t} onRestore={onRestore} onClearNotes={onClearNotes} />
 
-      <p className="mt-12 max-w-md text-[13px] leading-relaxed text-muted">{t.disclaimer}</p>
+      <p className="mt-12 max-w-md text-small leading-relaxed text-muted">{t.disclaimer}</p>
 
       {/* Steht wie in den Schwester-Apps klein am Fuß der Startseite: Es soll
           dastehen, nicht auffallen. Das Jahr kommt aus der Uhr, damit niemand
           es einmal im Januar nachziehen muss. */}
-      <p className="mt-8 text-[11px] tracking-wide text-muted/50">
+      <p className="mt-8 text-caption tracking-wide text-muted/50">
         {`© ${new Date().getFullYear()} ${t.appName} · Karsten Lamest`}
       </p>
     </div>

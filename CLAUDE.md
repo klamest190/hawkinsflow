@@ -33,6 +33,17 @@ conventions that are not obvious from a single file.
   from `index.css`. If a ground color changes, that test says whether text
   still reads.
 
+## Type
+
+- Two faces, self-hosted from `@fontsource-variable`, latin subset only,
+  declared in `index.css` and precached: Inter for text and controls
+  (`font-sans`, the face the PDF uses too), Newsreader with its optical-size
+  axis for headings, level names and counters (`font-display`).
+- Every font size is a step of the scale in `index.css` (`text-caption` …
+  `text-hero-l`). The reading steps grow by one notch from `lg` on, through
+  the variables, not through classes. No `text-[13px]` and no Tailwind sizes:
+  `src/typescale.test.ts` fails on either.
+
 ## Storage
 
 - All keys are in `KEYS` (`src/lib/storage.ts`); each hook owns one.

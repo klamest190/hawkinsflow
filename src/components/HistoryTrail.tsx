@@ -87,11 +87,11 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
   return (
     <section className="p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+        <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
           {t.historyTitle}
         </h2>
         {latestLevel !== null && (
-          <p className="text-[12px] font-semibold" style={{ color: readableOnDark(latestLevel.color) }}>
+          <p className="text-small font-semibold" style={{ color: readableOnDark(latestLevel.color) }}>
             {t.historyLatest}: {latestLevel.name}
           </p>
         )}
@@ -183,20 +183,20 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
           weiterhin dazu — dass diese Linie keine Messreihe ist, muss dabeistehen
           —, aber er sagt es jetzt in einem halben Satz. */}
       <div className="mt-2.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <p className="text-[12px] leading-relaxed text-muted">
+        <p className="text-small leading-relaxed text-muted">
           <span className="tabular">{date}</span> · {t.historyLead(history.length)}
         </p>
         <button
           type="button"
           onClick={onClear}
-          className="shrink-0 cursor-pointer text-[12px] font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+          className="shrink-0 cursor-pointer text-small font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
         >
           {t.historyClear}
         </button>
       </div>
 
       {breakRun !== null && (
-        <p className="mt-1.5 text-[12px] leading-relaxed text-muted">
+        <p className="mt-1.5 text-small leading-relaxed text-muted">
           {t.historyEditionBreak(day.format(new Date(breakRun.taken)))}
         </p>
       )}

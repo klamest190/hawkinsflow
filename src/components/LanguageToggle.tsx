@@ -35,7 +35,7 @@ export function LanguageToggle({ language, onChange, t }: LanguageToggleProps) {
             aria-label={option === 'de' ? t.toGerman : t.toEnglish}
             aria-pressed={active}
             className={
-              'cursor-pointer rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-[0.12em] uppercase ' +
+              'cursor-pointer rounded-full px-2.5 py-1 text-caption font-semibold tracking-[0.12em] uppercase ' +
               'transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
               (active ? 'bg-accent/20 text-accent-ink' : 'text-muted hover:text-text')
             }

@@ -35,7 +35,7 @@ export function Chip({
       aria-expanded={expanded}
       aria-controls={controls}
       className={
-        'cursor-pointer rounded-full border px-4 py-2 text-[13px] font-semibold ' +
+        'cursor-pointer rounded-full border px-4 py-2 text-small font-semibold ' +
         'transition-[background-color,border-color,color] duration-200 ' +
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink ' +
         (strong
@@ -88,7 +88,7 @@ export function Timer({ minutes, t }: { minutes: number; t: Copy }) {
               weiter unten nur, dass die Zeit um ist. */}
           <p
             aria-hidden
-            className="tabular font-display text-[26px] leading-none font-semibold text-accent-ink"
+            className="tabular font-display text-heading leading-none font-semibold text-accent-ink"
           >
             {clockOf(remaining)}
           </p>
@@ -107,7 +107,7 @@ export function Timer({ minutes, t }: { minutes: number; t: Copy }) {
         </>
       )}
 
-      <p role="status" className="text-[13px] text-muted">
+      <p role="status" className="text-small text-muted">
         {done ? t.timerDone : ''}
       </p>
     </div>

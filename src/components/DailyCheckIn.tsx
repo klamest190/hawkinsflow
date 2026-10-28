@@ -44,7 +44,7 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
         className
       }
     >
-      <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">{t.checkInTitle}</h2>
+      <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">{t.checkInTitle}</h2>
 
       <div className="mt-2 flex items-center justify-between gap-4">
         {/* One live region for both states, so the change from the question
@@ -52,12 +52,12 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
         <div aria-live="polite" className="min-w-0">
           {chosen === null ? (
             <>
-              <p className="font-display text-[17px] font-semibold text-text">{t.checkInQuestion}</p>
-              <p className="mt-1 text-[13px] leading-relaxed text-muted">{t.checkInLead}</p>
+              <p className="font-display text-lead font-semibold text-text">{t.checkInQuestion}</p>
+              <p className="mt-1 text-small leading-relaxed text-muted">{t.checkInLead}</p>
             </>
           ) : (
-            <p className="text-[15px] leading-relaxed">
-              <span className="font-display text-[17px] font-semibold" style={{ color: readableOnDark(chosen.color) }}>
+            <p className="text-body leading-relaxed">
+              <span className="font-display text-lead font-semibold" style={{ color: readableOnDark(chosen.color) }}>
                 {chosen.name}
               </span>
               <span className="text-muted"> · {chosen.emotion}</span>
@@ -89,7 +89,7 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
                 {level.value === THRESHOLD && (
                   <div className="col-span-full flex items-center gap-3 py-1">
                     <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-                    <span className="text-[10px] font-semibold tracking-[0.18em] text-muted uppercase">
+                    <span className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
                       {t.thresholdMark(THRESHOLD)}
                     </span>
                     <span aria-hidden className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
@@ -113,7 +113,7 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
                     className="h-6 w-1 shrink-0 rounded-full"
                     style={{ background: level.color, boxShadow: `0 0 10px -2px ${level.color}` }}
                   />
-                  <span className="min-w-0 truncate text-[13px] font-semibold text-text">{level.name}</span>
+                  <span className="min-w-0 truncate text-small font-semibold text-text">{level.name}</span>
                 </button>
               </Fragment>
             )

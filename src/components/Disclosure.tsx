@@ -21,12 +21,12 @@ export function Disclosure({ open, onToggle, controls, children }: DisclosurePro
       aria-expanded={open}
       aria-controls={open ? controls : undefined}
       onClick={onToggle}
-      className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl border border-line bg-void/30 px-5 py-3.5 text-left text-[14px] font-semibold text-text transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+      className="flex w-full cursor-pointer items-center justify-between gap-3 rounded-2xl border border-line bg-void/30 px-5 py-3.5 text-left text-body font-semibold text-text transition-colors hover:border-accent/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
     >
       {children}
       <span
         aria-hidden
-        className={'text-[13px] text-muted transition-transform duration-300 ' + (open ? 'rotate-180' : '')}
+        className={'text-small text-muted transition-transform duration-300 ' + (open ? 'rotate-180' : '')}
       >
         ▾
       </span>

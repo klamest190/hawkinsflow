@@ -135,11 +135,11 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
     <div className="mx-auto flex min-h-dvh w-full max-w-xl flex-col px-6 py-8">
       {/* Rechts bleibt Platz für die Sprachwahl, die fest in dieser Ecke
           steht (siehe App.tsx) — sonst läge der Zähler darunter. */}
-      <header className="flex items-center justify-between gap-4 pr-24">
+      <header className="flex h-10 items-center justify-between gap-4 pr-24">
         <Button variant="quiet" onClick={onLeave} className="-ml-4">
           {t.quizAbort}
         </Button>
-        <span className="tabular text-[13px] font-medium text-muted">
+        <span className="tabular text-small font-medium text-muted">
           {t.quizProgress(index + 1, QUESTIONS.length)}
         </span>
       </header>
@@ -168,7 +168,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
         {/* `key` erzwingt bei jeder Frage einen neuen Knoten — nur so läuft die
             Einblend-Animation erneut statt nur beim ersten Mal. */}
         <div key={question.id} className="animate-rise">
-          <p className="text-[11px] font-semibold tracking-[0.18em] text-muted uppercase">
+          <p className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
             {t.quizPrompt}
           </p>
           {/* The question is the page heading of this view: without it, the
@@ -177,7 +177,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
             ref={heading}
             id={headingId}
             tabIndex={-1}
-            className="mt-4 text-balance font-display text-[26px] leading-[1.25] font-semibold focus:outline-none sm:text-[30px]"
+            className="mt-4 text-balance font-display text-heading leading-[1.25] font-semibold focus:outline-none sm:text-display-s"
           >
             {questionText(language, question.id)}
           </h1>
@@ -225,16 +225,19 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
                   }
                 >
                   {/* Fünf Punkte, die mit der Zustimmung wachsen: die Skala ist
-                      auch ohne Lesen erfassbar. */}
-                  <span
-                    aria-hidden
-                    className={
-                      'shrink-0 rounded-full transition-all duration-200 ' +
-                      (selected ? 'bg-accent-ink' : 'bg-muted/40 group-hover:bg-accent/60')
-                    }
-                    style={{ width: 8 + value * 3, height: 8 + value * 3 }}
-                  />
-                  <span className="text-[16px] font-medium">{label}</span>
+                      auch ohne Lesen erfassbar. They grow inside a column as
+                      wide as the largest (8 + 4 × 3 = 20px), so the labels
+                      start on one line instead of stepping right. */}
+                  <span aria-hidden className="flex w-5 shrink-0 justify-center">
+                    <span
+                      className={
+                        'rounded-full transition-all duration-200 ' +
+                        (selected ? 'bg-accent-ink' : 'bg-muted/40 group-hover:bg-accent/60')
+                      }
+                      style={{ width: 8 + value * 3, height: 8 + value * 3 }}
+                    />
+                  </span>
+                  <span className="text-lead font-medium">{label}</span>
                 </button>
               )
             })}
@@ -245,11 +248,11 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
               Tastaturhinweis, und nur dort, wo es eine Tastatur gibt: auf dem
               Handy wäre der Satz ein Rätsel. */}
           {canAdvance ? (
-            <p className="mt-5 hidden text-[12px] text-muted sm:block">
+            <p className="mt-5 hidden text-small text-muted sm:block">
               {t.quizKeyHint}
             </p>
           ) : (
-            <p className="mt-5 text-[12px] text-muted">{t.quizNeedsAnswer}</p>
+            <p className="mt-5 text-small text-muted">{t.quizNeedsAnswer}</p>
           )}
         </div>
       </div>

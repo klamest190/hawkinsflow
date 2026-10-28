@@ -143,14 +143,14 @@ export function Result({
     return (
       <div className={`animate-rise mx-auto flex w-full max-w-xl flex-col gap-6 px-5 py-16 sm:px-6 ${PAGE_WIDTH}`}>
         <Card className="animate-pop text-center">
-          <h1 className="font-display text-[30px] leading-[1.15] font-bold tracking-[-0.02em] text-balance sm:text-[36px]">
+          <h1 className="font-display text-display-s leading-[1.15] font-bold tracking-[-0.02em] text-balance sm:text-display">
             {empty ? t.emptyTitle : t.uniformTitle}
           </h1>
-          <p className="mx-auto mt-5 max-w-md text-[15px] leading-relaxed text-balance text-muted">
+          <p className="mx-auto mt-5 max-w-md text-body leading-relaxed text-balance text-muted">
             {empty ? t.emptyLead : t.uniformLead}
           </p>
           {!empty && (
-            <p className="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-balance text-muted">
+            <p className="mx-auto mt-3 max-w-md text-body leading-relaxed text-balance text-muted">
               {t.uniformHint}
             </p>
           )}
@@ -167,8 +167,10 @@ export function Result({
 
   return (
     <div className={`animate-rise mx-auto flex w-full max-w-2xl flex-col gap-6 px-5 py-10 sm:px-6 ${PAGE_WIDTH}`}>
-      {/* Der rechte Abstand hält die Ecke frei, in der die Sprachwahl steht. */}
-      <header className="flex items-center justify-between pr-24">
+      {/* No space kept free on the right: the result is not a focus view,
+          so the language switch is in the bar or the sidebar, not in this
+          corner. */}
+      <header className="flex items-center justify-between">
         <Button variant="quiet" onClick={onBrowse} className="-ml-4">
           {t.wholeScale}
         </Button>
@@ -187,11 +189,11 @@ export function Result({
         <Card className="animate-pop border-line/80" role="note" aria-labelledby="reservation-title">
           <p
             id="reservation-title"
-            className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase"
+            className="text-caption font-semibold tracking-[0.16em] text-muted uppercase"
           >
             {t.bothEndsTitle}
           </p>
-          <p className="mt-3 text-[15px] leading-relaxed text-text/90">{t.bothEndsBody}</p>
+          <p className="mt-3 text-body leading-relaxed text-text/90">{t.bothEndsBody}</p>
         </Card>
       )}
 
@@ -204,11 +206,11 @@ export function Result({
           Die Zahl der Ebene selbst (Mut · 200) bleibt stehen: die stammt von
           Hawkins und ist ein Name, keine Messung an dieser Person. */}
       <Card className="animate-pop text-center">
-        <p className="text-[11px] font-semibold tracking-[0.18em] text-muted uppercase">
+        <p className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
           {t.focusLabel}
         </p>
         <h1
-          className="mt-3 font-display text-[52px] leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-[64px]"
+          className="mt-3 font-display text-hero leading-[1.05] font-bold tracking-[-0.03em] text-balance sm:text-hero-l"
           style={{
             color: 'var(--hf-accent-ink)',
             textShadow: '0 12px 60px color-mix(in oklab, var(--hf-accent) 45%, transparent)',
@@ -218,7 +220,7 @@ export function Result({
         </h1>
         {/* Hawkins' Originalbegriff steht darunter — außer im Englischen, wo er
             dasselbe Wort noch einmal wäre. */}
-        <p className="tabular mt-2 text-[13px] text-muted">
+        <p className="tabular mt-2 text-small text-muted">
           {dominant.name === dominant.original
             ? dominant.value
             : `${dominant.original} · ${dominant.value}`}
@@ -232,7 +234,7 @@ export function Result({
             className="h-2.5 rounded-full"
             style={{ background: `linear-gradient(90deg, ${band[0].color}, ${band[1].color})` }}
           />
-          <div className="tabular mt-2.5 flex justify-between gap-3 text-[12px] font-semibold">
+          <div className="tabular mt-2.5 flex justify-between gap-3 text-small font-semibold">
             <span style={{ color: readableOnDark(band[0].color) }}>
               {band[0].name} · {band[0].value}
             </span>
@@ -241,25 +243,25 @@ export function Result({
             </span>
           </div>
         </div>
-        <p className="mx-auto mt-4 max-w-md text-[13px] leading-relaxed text-balance text-muted">
+        <p className="mx-auto mt-4 max-w-md text-small leading-relaxed text-balance text-muted">
           {t.bandNote(band[0].name, band[1].name, QUESTIONS.length)}
         </p>
 
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <span className="rounded-full border border-line bg-void/40 px-3.5 py-1.5 text-[13px] text-muted">
+          <span className="rounded-full border border-line bg-void/40 px-3.5 py-1.5 text-small text-muted">
             {t.emotionLabel}: <span className="text-text">{dominant.emotion}</span>
           </span>
-          <span className="rounded-full border border-line bg-void/40 px-3.5 py-1.5 text-[13px] text-muted">
+          <span className="rounded-full border border-line bg-void/40 px-3.5 py-1.5 text-small text-muted">
             {t.worldviewLabel}: <span className="text-text">{dominant.worldview}</span>
           </span>
         </div>
 
-        <p className="mt-6 text-[14px] leading-relaxed text-muted">
+        <p className="mt-6 text-body leading-relaxed text-muted">
           {aboveThreshold ? t.aboveThreshold(THRESHOLD) : t.belowThreshold(THRESHOLD, courage)}
         </p>
 
         {answered < QUESTIONS.length && (
-          <p className="mt-4 text-[13px] text-muted">{t.partial(answered, QUESTIONS.length)}</p>
+          <p className="mt-4 text-small text-muted">{t.partial(answered, QUESTIONS.length)}</p>
         )}
       </Card>
 
@@ -269,7 +271,7 @@ export function Result({
           siebzehn Balken und zwei Karten Einordnung. Das Profil kommt danach,
           für die, die verstehen wollen, wie es zustande kam. */}
       <Card>
-        <h2 className="mb-6 font-display text-xl font-semibold">
+        <h2 className="mb-6 font-display text-title font-semibold">
           {t.levelHeading(dominant.value, dominant.name)}
         </h2>
         {/* Der Wenn-Dann-Plan steht mit im Detailblock — hinter den Übungen,
@@ -294,13 +296,13 @@ export function Result({
         <div className="grid gap-4 sm:grid-cols-2">
           {drag !== null && (
             <Card className="flex flex-col gap-2">
-              <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+              <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
                 {t.dragTitle}
               </h2>
-              <p className="font-display text-xl font-semibold" style={{ color: readableOnDark(drag.color) }}>
+              <p className="font-display text-title font-semibold" style={{ color: readableOnDark(drag.color) }}>
                 {drag.name} · {drag.value}
               </p>
-              <p className="text-[14px] leading-relaxed text-muted">{t.dragBody}</p>
+              <p className="text-body leading-relaxed text-muted">{t.dragBody}</p>
               <div className="mt-auto pt-2">
                 <Button variant="quiet" onClick={() => onInspect(drag.id)} className="-ml-4">
                   {t.inspectLevel}
@@ -310,13 +312,13 @@ export function Result({
           )}
           {reach.id !== dominant.id && (
             <Card className="flex flex-col gap-2">
-              <h2 className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+              <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
                 {t.reachTitle}
               </h2>
-              <p className="font-display text-xl font-semibold" style={{ color: readableOnDark(reach.color) }}>
+              <p className="font-display text-title font-semibold" style={{ color: readableOnDark(reach.color) }}>
                 {reach.name} · {reach.value}
               </p>
-              <p className="text-[14px] leading-relaxed text-muted">{t.reachBody}</p>
+              <p className="text-body leading-relaxed text-muted">{t.reachBody}</p>
             </Card>
           )}
         </div>
@@ -333,14 +335,14 @@ export function Result({
       {originOpen && (
         <div id={originId} className="animate-rise flex flex-col gap-6">
           <Card>
-            <h2 className="font-display text-xl font-semibold">{t.whyTitle}</h2>
-            <p className="mt-1.5 mb-6 text-[14px] leading-relaxed text-muted">{t.whyLead(levels.length)}</p>
+            <h2 className="font-display text-title font-semibold">{t.whyTitle}</h2>
+            <p className="mt-1.5 mb-6 text-body leading-relaxed text-muted">{t.whyLead(levels.length)}</p>
             <Why scores={scores} answers={answers} language={language} t={t} />
           </Card>
 
           <Card>
-            <h2 className="font-display text-xl font-semibold">{t.profileTitle}</h2>
-            <p className="mt-1.5 mb-6 text-[14px] leading-relaxed text-muted">{t.profileLead}</p>
+            <h2 className="font-display text-title font-semibold">{t.profileTitle}</h2>
+            <p className="mt-1.5 mb-6 text-body leading-relaxed text-muted">{t.profileLead}</p>
             <Spectrum scores={scores} dominant={dominant.id} drag={drag?.id ?? null} t={t} />
           </Card>
         </div>
@@ -349,16 +351,16 @@ export function Result({
       {/* ── Der nächste Schritt ──────────────────────────────────────────── */}
       {next && (
         <Card className="text-center">
-          <p className="text-[11px] font-semibold tracking-[0.16em] text-muted uppercase">
+          <p className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
             {t.nextLabel}
           </p>
-          <p className="mt-3 font-display text-3xl font-bold" style={{ color: readableOnDark(next.color) }}>
+          <p className="mt-3 font-display text-display-s font-bold" style={{ color: readableOnDark(next.color) }}>
             {next.name}
           </p>
-          <p className="tabular mt-1 text-[13px] text-muted">
+          <p className="tabular mt-1 text-small text-muted">
             {next.name === next.original ? next.value : `${next.original} · ${next.value}`}
           </p>
-          <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-balance text-muted">
+          <p className="mx-auto mt-4 max-w-md text-body leading-relaxed text-balance text-muted">
             {next.essence}
           </p>
           <div className="mt-4 flex justify-center">
@@ -386,10 +388,10 @@ export function Result({
           </span>
 
           <div className="min-w-0 flex-1">
-            <h2 className="font-display text-xl font-semibold">{t.pdfCardTitle}</h2>
-            <p className="mt-1.5 text-[14px] leading-relaxed text-muted">{t.pdfCardLead}</p>
+            <h2 className="font-display text-title font-semibold">{t.pdfCardTitle}</h2>
+            <p className="mt-1.5 text-body leading-relaxed text-muted">{t.pdfCardLead}</p>
             {exportFailed && (
-              <p role="alert" className="mt-2 text-[13px] text-muted">
+              <p role="alert" className="mt-2 text-small text-muted">
                 {t.pdfFailed}
               </p>
             )}
@@ -404,7 +406,7 @@ export function Result({
 
       {/* Der Vorbehalt steht auch hier und nicht nur auf der Startseite: dort
           war noch nichts zu glauben. */}
-      <p className="mx-auto max-w-lg px-2 text-center text-[13px] leading-relaxed text-muted">
+      <p className="mx-auto max-w-lg px-2 text-center text-small leading-relaxed text-muted">
         {t.resultDisclaimer}
       </p>
 

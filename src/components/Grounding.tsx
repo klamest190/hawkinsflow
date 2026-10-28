@@ -25,10 +25,10 @@ export function Grounding({ t }: { t: Copy }) {
       {active && (
         <div className="flex flex-col gap-3">
           <p aria-live="polite" className="flex items-baseline gap-3">
-            <span aria-hidden className="tabular font-display text-[40px] leading-none font-semibold text-accent-ink">
+            <span aria-hidden className="tabular font-display text-display leading-none font-semibold text-accent-ink">
               {itemAt(COUNTS, step)}
             </span>
-            <span className="text-[16px] leading-snug text-text">
+            <span className="text-lead leading-snug text-text">
               <span className="sr-only">{itemAt(COUNTS, step)} </span>
               {itemAt(t.groundingSenses, step)}
             </span>
@@ -47,7 +47,7 @@ export function Grounding({ t }: { t: Copy }) {
         </div>
       )}
 
-      <p aria-live="polite" className="empty:hidden text-[15px] leading-relaxed text-text/90">
+      <p aria-live="polite" className="empty:hidden text-body leading-relaxed text-text/90">
         {done ? t.groundingDone : ''}
       </p>
 

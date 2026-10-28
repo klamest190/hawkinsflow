@@ -17,7 +17,7 @@ type PlanCheckInProps = {
 const VERDICTS: readonly PlanVerdict[] = ['held', 'partly', 'missed']
 
 const choice =
-  'cursor-pointer rounded-full border border-line bg-void/40 px-4 py-1.5 text-[13px] font-medium text-text ' +
+  'cursor-pointer rounded-full border border-line bg-void/40 px-4 py-1.5 text-small font-medium text-text ' +
   'transition-colors hover:border-accent/50 ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink'
 
@@ -49,7 +49,7 @@ export function PlanCheckIn({ plan, t, now, onCheck, onEdit }: PlanCheckInProps)
     <>
       {asked && (
         <div role="group" aria-labelledby={questionId} className="mt-4 border-t border-line pt-4">
-          <p id={questionId} className="text-[14px] font-semibold text-text">
+          <p id={questionId} className="text-body font-semibold text-text">
             {t.planCheckQuestion}
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
@@ -67,7 +67,7 @@ export function PlanCheckIn({ plan, t, now, onCheck, onEdit }: PlanCheckInProps)
       <div aria-live="polite">
         {reply !== null && (
           <div className="mt-4 border-t border-line pt-4">
-            <p className="text-[14px] leading-relaxed text-text/90">{t.planCheckReply[reply]}</p>
+            <p className="text-body leading-relaxed text-text/90">{t.planCheckReply[reply]}</p>
             {reply !== 'held' && (
               <Button variant="ghost" onClick={onEdit} className="mt-3">
                 {t.planRework}
@@ -78,7 +78,7 @@ export function PlanCheckIn({ plan, t, now, onCheck, onEdit }: PlanCheckInProps)
       </div>
 
       {!asked && tally.held + tally.partly + tally.missed > 0 && (
-        <p className="mt-3 text-[12px] text-muted">{t.planTally(tally.held, tally.partly, tally.missed)}</p>
+        <p className="mt-3 text-small text-muted">{t.planTally(tally.held, tally.partly, tally.missed)}</p>
       )}
     </>
   )

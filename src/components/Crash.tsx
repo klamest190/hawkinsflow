@@ -58,11 +58,11 @@ export function Crash() {
         <h1
           ref={heading}
           tabIndex={-1}
-          className="mt-7 font-display text-3xl font-bold tracking-[-0.02em] focus:outline-none"
+          className="mt-7 font-display text-display-s font-bold tracking-[-0.02em] focus:outline-none"
         >
           {t.title}
         </h1>
-        <p className="mt-4 text-[16px] leading-relaxed text-muted">{t.lead}</p>
+        <p className="mt-4 text-lead leading-relaxed text-muted">{t.lead}</p>
 
         <Button className="mt-8" onClick={() => window.location.reload()}>
           {t.reload}
@@ -71,7 +71,7 @@ export function Crash() {
         <div className="mt-14 w-full border-t border-line pt-6">
           {confirming ? (
             <div className="flex flex-col items-center gap-4">
-              <p className="text-[14px] leading-relaxed text-text/90">{t.resetWarning}</p>
+              <p className="text-body leading-relaxed text-text/90">{t.resetWarning}</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {hasData(stored) && (
                   <Button variant="ghost" onClick={backup}>
@@ -85,13 +85,13 @@ export function Crash() {
                   {t.resetCancel}
                 </Button>
               </div>
-              <p role="alert" className="empty:hidden text-[13px] text-text/90">
+              <p role="alert" className="empty:hidden text-small text-text/90">
                 {backupFailed ? t.backupFailed : ''}
               </p>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-1">
-              <p className="text-[13px] text-muted">{t.resetOffer}</p>
+              <p className="text-small text-muted">{t.resetOffer}</p>
               <Button variant="quiet" onClick={() => setConfirming(true)}>
                 {t.resetStart}
               </Button>

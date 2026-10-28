@@ -56,8 +56,8 @@ export function ScaleBrowser({
         </header>
       )}
 
-      <h1 className=" font-display text-4xl font-bold tracking-[-0.02em]">{t.scaleTitle}</h1>
-      <p className="mt-2.5 text-[15px] leading-relaxed text-muted">
+      <h1 className=" font-display text-display font-bold tracking-[-0.02em]">{t.scaleTitle}</h1>
+      <p className="mt-2.5 text-body leading-relaxed text-muted">
         {t.scaleLead(levels.length, THRESHOLD, courage)}
       </p>
 
@@ -73,7 +73,7 @@ export function ScaleBrowser({
               {level.value === THRESHOLD && (
                 <div aria-hidden className="mb-3 flex items-center gap-3 pt-1">
                   <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-                  <span className="text-[10px] font-semibold tracking-[0.18em] text-muted uppercase">
+                  <span className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
                     {t.thresholdMark(THRESHOLD)}
                   </span>
                   <span className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
@@ -102,21 +102,21 @@ export function ScaleBrowser({
                       className="h-9 w-1.5 shrink-0 rounded-full"
                       style={{ background: level.color, boxShadow: `0 0 14px -2px ${level.color}` }}
                     />
-                    <span className="tabular w-[46px] shrink-0 font-display text-[19px] font-bold">
+                    <span className="tabular w-[46px] shrink-0 font-display text-title font-bold">
                       {level.value}
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block truncate text-[16px] font-semibold">
+                      <span className="block truncate text-lead font-semibold">
                         {level.name}
                         {isMine && (
-                          <span className="ml-2 align-middle text-[11px] font-medium text-accent-ink">
+                          <span className="ml-2 align-middle text-caption font-medium text-accent-ink">
                             {t.yourLevel}
                           </span>
                         )}
                       </span>
                       {/* Im Englischen wäre „Courage · Courage" doppelt gemoppelt —
                           dort steht deshalb nur das Gefühl. */}
-                      <span className="block truncate text-[13px] text-muted">
+                      <span className="block truncate text-small text-muted">
                         {level.name === level.original
                           ? level.emotion
                           : `${level.original} · ${level.emotion}`}
@@ -125,7 +125,7 @@ export function ScaleBrowser({
                     <span
                       aria-hidden
                       className={
-                        'shrink-0 text-[13px] text-muted transition-transform duration-300 ' +
+                        'shrink-0 text-small text-muted transition-transform duration-300 ' +
                         (isOpen ? 'rotate-180' : '')
                       }
                     >
