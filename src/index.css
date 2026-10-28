@@ -64,8 +64,6 @@
   --font-display: "Newsreader Variable", Georgia, "Times New Roman", serif;
   --font-mono: "SF Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
-  --animate-drift-a: drift-a 24s ease-in-out infinite;
-  --animate-drift-b: drift-b 31s ease-in-out infinite;
   --animate-rise: rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-pop: pop 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -132,16 +130,6 @@
   font-weight: 200 800;
   src: url("../node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2")
     format("woff2-variations");
-}
-
-@keyframes drift-a {
-  0%, 100% { transform: translate3d(-6%, -4%, 0) scale(1); opacity: 0.55; }
-  50%      { transform: translate3d(6%, 5%, 0) scale(1.25); opacity: 0.8; }
-}
-
-@keyframes drift-b {
-  0%, 100% { transform: translate3d(5%, 6%, 0) scale(1.2); opacity: 0.45; }
-  50%      { transform: translate3d(-6%, -5%, 0) scale(1); opacity: 0.7; }
 }
 
 @keyframes rise {

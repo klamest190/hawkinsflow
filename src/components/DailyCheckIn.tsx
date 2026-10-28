@@ -44,7 +44,7 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
         className
       }
     >
-      <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">{t.checkInTitle}</h2>
+      <h2 className="text-small font-semibold text-muted">{t.checkInTitle}</h2>
 
       <div className="mt-2 flex items-center justify-between gap-4">
         {/* One live region for both states, so the change from the question
@@ -60,7 +60,7 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
               <span className="font-display text-lead font-semibold" style={{ color: readableOnDark(chosen.color) }}>
                 {chosen.name}
               </span>
-              <span className="text-muted"> · {chosen.emotion}</span>
+              <span className="text-muted">, {chosen.emotion}</span>
             </p>
           )}
         </div>
@@ -89,7 +89,7 @@ export function DailyCheckIn({ levels, today, t, onCheckIn, className = '' }: Da
                 {level.value === THRESHOLD && (
                   <div className="col-span-full flex items-center gap-3 py-1">
                     <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-                    <span className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
+                    <span className="text-small font-semibold text-muted">
                       {t.thresholdMark(THRESHOLD)}
                     </span>
                     <span aria-hidden className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />

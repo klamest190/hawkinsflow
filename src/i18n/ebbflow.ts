@@ -44,7 +44,7 @@ const de = {
   whyTitle: 'Warum zehn Sekunden',
   whyBody:
     'Alle drei Rhythmen dauern zehn Sekunden je Atemzug, also sechs in der Minute. In diesem Tempo schwingen Herzschlag und Atem miteinander: Beim Einatmen schlägt das Herz etwas schneller, beim Ausatmen langsamer, und bei vielen Menschen wird diese Schwankung um sechs Atemzüge pro Minute am größten. Das ist gut gemessen. Der Rhythmus ändert nur die Neigung: Ein längerer Ausatem bremst stärker, ein längerer Einatem weniger.',
-  whySource: 'Lehrer & Gevirtz (2014), Frontiers in Psychology · Zaccaro et al. (2018), Frontiers in Human Neuroscience',
+  whySource: 'Lehrer & Gevirtz (2014), Frontiers in Psychology; Zaccaro et al. (2018), Frontiers in Human Neuroscience',
 
   // A quote for each pause, from the Ebb Flow app. Only the index is kept,
   // so a quote on screen switches along with the language — both lists must
@@ -107,7 +107,7 @@ const en: EbbCopy = {
   whyTitle: 'Why ten seconds',
   whyBody:
     'All three rhythms take ten seconds a breath, which is six a minute. At that pace heartbeat and breath swing together: the heart beats a little faster on the in-breath and slower on the out-breath, and for many people that swing is largest at around six breaths a minute. That is well measured. The rhythm only changes the lean: a longer out-breath slows things more, a longer in-breath less.',
-  whySource: 'Lehrer & Gevirtz (2014), Frontiers in Psychology · Zaccaro et al. (2018), Frontiers in Human Neuroscience',
+  whySource: 'Lehrer & Gevirtz (2014), Frontiers in Psychology; Zaccaro et al. (2018), Frontiers in Human Neuroscience',
 
   quotes: [
     'Between what acts on you and what you do lies a brief, open space.',

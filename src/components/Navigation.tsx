@@ -324,7 +324,7 @@ export function Sidebar({
         </ul>
 
         <div className="flex flex-col gap-1">
-          <p id="sidebar-knowledge" className="px-3 pb-1 text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+          <p id="sidebar-knowledge" className="px-3 pb-1 text-small font-semibold text-muted">
             {t.navKnowledge}
           </p>
           <ul aria-labelledby="sidebar-knowledge" className="flex flex-col gap-1">

@@ -88,7 +88,7 @@ export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCar
 
   return (
     <section className="mt-10 w-full rounded-2xl border border-line/70 bg-card/40 p-5 text-left backdrop-blur-sm">
-      <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">{t.dataTitle}</h2>
+      <h2 className="text-small font-semibold text-muted">{t.dataTitle}</h2>
       <p className="mt-2 text-small leading-relaxed text-muted">
         {filled ? t.dataLead : t.dataLeadEmpty}
       </p>

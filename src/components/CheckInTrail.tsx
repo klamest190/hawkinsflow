@@ -62,7 +62,7 @@ export function CheckInTrail({ checkIns, levels, language, t, onClear }: CheckIn
   return (
     <section className="p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+        <h2 className="text-small font-semibold text-muted">
           {t.checkInTrailTitle}
         </h2>
         {latestLevel !== null && (
@@ -80,7 +80,7 @@ export function CheckInTrail({ checkIns, levels, language, t, onClear }: CheckIn
           .map(({ entry }) =>
             t.checkInEntryLabel(day.format(new Date(entry.at)), levelOf(entry)?.name ?? entry.level),
           )
-          .join(' · ')}
+          .join(', ')}
       >
         <line
           x1={0}
@@ -129,7 +129,8 @@ export function CheckInTrail({ checkIns, levels, language, t, onClear }: CheckIn
 
       <div className="mt-2.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <p className="text-small leading-relaxed text-muted">
-          <span className="tabular">{day.format(end)}</span> · {t.checkInTrailLead(checkIns.length)}
+          <span className="tabular mr-2.5 text-text/80">{day.format(end)}</span>
+          {t.checkInTrailLead(checkIns.length)}
         </p>
         <button
           type="button"

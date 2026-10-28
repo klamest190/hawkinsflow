@@ -189,7 +189,7 @@ export function Result({
         <Card className="animate-pop border-line/80" role="note" aria-labelledby="reservation-title">
           <p
             id="reservation-title"
-            className="text-caption font-semibold tracking-[0.16em] text-muted uppercase"
+            className="text-small font-semibold text-muted"
           >
             {t.bothEndsTitle}
           </p>
@@ -203,10 +203,10 @@ export function Result({
           Messwert, und einer war sie nie. Was bleibt, ist die Ebene — und
           darunter das Band, das sagt, wie scharf das überhaupt zu lesen ist.
 
-          Die Zahl der Ebene selbst (Mut · 200) bleibt stehen: die stammt von
+          Die Zahl der Ebene selbst (Mut (200)) bleibt stehen: die stammt von
           Hawkins und ist ein Name, keine Messung an dieser Person. */}
       <Card className="animate-pop text-center">
-        <p className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
+        <p className="text-small font-semibold text-muted">
           {t.focusLabel}
         </p>
         <h1
@@ -223,7 +223,7 @@ export function Result({
         <p className="tabular mt-2 text-small text-muted">
           {dominant.name === dominant.original
             ? dominant.value
-            : `${dominant.original} · ${dominant.value}`}
+            : `${dominant.original} (${dominant.value})`}
         </p>
 
         {/* Das Band. Der Verlauf läuft von der einen Ebenenfarbe in die andere,
@@ -236,10 +236,10 @@ export function Result({
           />
           <div className="tabular mt-2.5 flex justify-between gap-3 text-small font-semibold">
             <span style={{ color: readableOnDark(band[0].color) }}>
-              {band[0].name} · {band[0].value}
+              {band[0].name} ({band[0].value})
             </span>
             <span style={{ color: readableOnDark(band[1].color) }}>
-              {band[1].name} · {band[1].value}
+              {band[1].name} ({band[1].value})
             </span>
           </div>
         </div>
@@ -296,11 +296,11 @@ export function Result({
         <div className="grid gap-4 sm:grid-cols-2">
           {drag !== null && (
             <Card className="flex flex-col gap-2">
-              <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+              <h2 className="text-small font-semibold text-muted">
                 {t.dragTitle}
               </h2>
               <p className="font-display text-title font-semibold" style={{ color: readableOnDark(drag.color) }}>
-                {drag.name} · {drag.value}
+                {drag.name} ({drag.value})
               </p>
               <p className="text-body leading-relaxed text-muted">{t.dragBody}</p>
               <div className="mt-auto pt-2">
@@ -312,11 +312,11 @@ export function Result({
           )}
           {reach.id !== dominant.id && (
             <Card className="flex flex-col gap-2">
-              <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+              <h2 className="text-small font-semibold text-muted">
                 {t.reachTitle}
               </h2>
               <p className="font-display text-title font-semibold" style={{ color: readableOnDark(reach.color) }}>
-                {reach.name} · {reach.value}
+                {reach.name} ({reach.value})
               </p>
               <p className="text-body leading-relaxed text-muted">{t.reachBody}</p>
             </Card>
@@ -351,14 +351,14 @@ export function Result({
       {/* ── Der nächste Schritt ──────────────────────────────────────────── */}
       {next && (
         <Card className="text-center">
-          <p className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+          <p className="text-small font-semibold text-muted">
             {t.nextLabel}
           </p>
           <p className="mt-3 font-display text-display-s font-bold" style={{ color: readableOnDark(next.color) }}>
             {next.name}
           </p>
           <p className="tabular mt-1 text-small text-muted">
-            {next.name === next.original ? next.value : `${next.original} · ${next.value}`}
+            {next.name === next.original ? next.value : `${next.original} (${next.value})`}
           </p>
           <p className="mx-auto mt-4 max-w-md text-body leading-relaxed text-balance text-muted">
             {next.essence}

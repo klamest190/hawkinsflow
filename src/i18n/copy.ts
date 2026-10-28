@@ -175,7 +175,7 @@ const de = {
   reachTitle: 'Wohin du schon reichst',
   reachBody:
     'So weit reichen deine guten Momente schon. Was es dort oben gibt, kennst du also. Es darf nur öfter vorkommen.',
-  levelHeading: (value: number, name: string): string => `Ebene ${value} · ${name}`,
+  levelHeading: (value: number, name: string): string => `Ebene ${value}: ${name}`,
   nextLabel: 'Als Nächstes',
   seeAllLevels: (count: number): string => `Alle ${count} Ebenen ansehen`,
   repeatQuiz: 'Fragebogen wiederholen',
@@ -357,7 +357,7 @@ const de = {
       missed > 0 ? `${missed} × nein` : '',
     ]
       .filter((part) => part !== '')
-      .join(' · '),
+      .join(', '),
 
   // ── Der Verlauf ──────────────────────────────────────────────────────────
   // Steht auf der Startseite unter dem Plan. Der Ton bleibt vorsichtig: Aus
@@ -570,7 +570,7 @@ const en: Copy = {
   reachTitle: 'How far you already reach',
   reachBody:
     'Your good moments already reach this far. So you know what it is like up there. It just needs to happen more often.',
-  levelHeading: (value: number, name: string): string => `Level ${value} · ${name}`,
+  levelHeading: (value: number, name: string): string => `Level ${value}: ${name}`,
   nextLabel: 'Up next',
   seeAllLevels: (count: number): string => `See all ${count} levels`,
   repeatQuiz: 'Take the questionnaire again',
@@ -693,7 +693,7 @@ const en: Copy = {
       missed > 0 ? `${missed} × no` : '',
     ]
       .filter((part) => part !== '')
-      .join(' · '),
+      .join(', '),
 
   historyTitle: 'Your runs',
   historyLead: (runs: number): string =>

@@ -141,7 +141,7 @@ export function PracticeDeck({ practices, t, journal }: PracticeDeckProps) {
         <div key={practice.name} className="animate-rise">
           <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <p className="font-display text-lead font-semibold">{practice.name}</p>
-            <p className="text-small font-semibold tracking-[0.08em] text-accent-ink uppercase">
+            <p className="text-small font-semibold text-accent-ink">
               {practice.duration}
             </p>
           </div>

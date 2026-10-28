@@ -199,7 +199,7 @@ export function PlanBuilder({
           placeholder={t.planWhenPlaceholder}
           className={field}
         />
-        <p className="mt-1 text-caption font-semibold tracking-[0.14em] text-muted uppercase">
+        <p className="mt-1 text-small font-semibold text-muted">
           {t.planCueHint}
         </p>
         <div className="flex flex-wrap gap-2">
@@ -227,7 +227,7 @@ export function PlanBuilder({
         {/* Die Schritte der Ebene, auf ihren Kern gekürzt. Sie stehen wenige
             Zeilen weiter oben in voller Länge — hier zählt nur, dass man sie
             mit einem Griff übernehmen kann. */}
-        <p className="mt-1 text-caption font-semibold tracking-[0.14em] text-muted uppercase">
+        <p className="mt-1 text-small font-semibold text-muted">
           {t.planStepHint}
         </p>
         <div className="flex flex-wrap gap-2">

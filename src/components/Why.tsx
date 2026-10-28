@@ -29,7 +29,7 @@ export function Why({
       {weightiest(scores).map(({ level }) => (
         <li key={level.id} className="flex flex-col gap-2.5">
           <h3 className="font-display text-lead font-semibold" style={{ color: readableOnDark(level.color) }}>
-            {level.name} · {level.value}
+            {level.name} ({level.value})
           </h3>
           <ul className="flex flex-col gap-2">
             {QUESTIONS.filter((question) => question.level === level.id).map((question) => {

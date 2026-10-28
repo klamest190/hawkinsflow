@@ -111,7 +111,7 @@ export function Ebbflow({ t, e }: EbbflowProps) {
               checked: preference.mode === mode,
               onPick: () => pick({ mode }),
               label: e.modes[mode].name,
-              detail: `${EBB_PATTERNS[mode].inhale} · ${EBB_PATTERNS[mode].exhale}`,
+              detail: `${EBB_PATTERNS[mode].inhale} : ${EBB_PATTERNS[mode].exhale}`,
               spoken: e.split(EBB_PATTERNS[mode].inhale, EBB_PATTERNS[mode].exhale),
             }))}
           />

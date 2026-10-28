@@ -107,7 +107,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
     expect(html).not.toContain(m.trailTitle)
     // Das Kürzel am Fuß der Seite, mit dem laufenden Jahr statt einem
     // einbetonierten.
-    expect(html).toContain(`© ${new Date().getFullYear()} ${t.appName} · Karsten Lamest`)
+    expect(html).toContain(`${t.appName} © ${new Date().getFullYear()} Karsten Lamest`)
     expect(html).not.toContain('undefined')
   })
 
@@ -416,7 +416,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
   })
 
   it('writes the tally in the words of the answers', () => {
-    expect(t.planTally(2, 0, 1)).toBe(language === 'de' ? 'Bisher: 2 × ja · 1 × nein' : 'So far: 2 × yes · 1 × no')
+    expect(t.planTally(2, 0, 1)).toBe(language === 'de' ? 'Bisher: 2 × ja, 1 × nein' : 'So far: 2 × yes, 1 × no')
   })
 
   /* Ein Plan zu einer Ebene, auf der man nicht mehr herauskommt, war früher

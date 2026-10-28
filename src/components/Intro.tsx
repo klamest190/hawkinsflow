@@ -177,7 +177,7 @@ export function Intro({
                 {level.value === THRESHOLD && (
                   <div className="flex w-full items-center gap-3 py-1.5">
                     <span aria-hidden className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-                    <span className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
+                    <span className="text-small font-semibold text-muted">
                       {t.thresholdMark(THRESHOLD)}
                     </span>
                     <span aria-hidden className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
@@ -267,7 +267,7 @@ export function Intro({
             }
           >
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-              <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+              <h2 className="text-small font-semibold text-muted">
                 {t.introPlanLabel}
               </h2>
               {newestLevel !== null && (
@@ -312,7 +312,7 @@ export function Intro({
                 löschbar zu machen. */}
             {older.length > 0 && (
               <div className="mt-5 flex flex-col gap-2.5 border-t border-line pt-4">
-                <h3 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+                <h3 className="text-small font-semibold text-muted">
                   {t.introPlanOthers}
                 </h3>
                 {older.map((plan) => {
@@ -325,8 +325,8 @@ export function Intro({
                           style={{ color: readableOnDark(level?.color ?? 'var(--hf-muted)') }}
                         >
                           {level?.name ?? plan.level}
-                        </span>{' '}
-                        · {plan.then}
+                        </span>
+                        : {plan.then}
                       </p>
                       <DeleteLink
                         label={t.planDelete}
@@ -425,7 +425,7 @@ export function Intro({
           dastehen, nicht auffallen. Das Jahr kommt aus der Uhr, damit niemand
           es einmal im Januar nachziehen muss. */}
       <p className="mt-8 text-caption tracking-wide text-muted/50">
-        {`© ${new Date().getFullYear()} ${t.appName} · Karsten Lamest`}
+        {`${t.appName} © ${new Date().getFullYear()} Karsten Lamest`}
       </p>
     </div>
   )

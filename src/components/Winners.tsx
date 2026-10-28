@@ -45,7 +45,7 @@ export function Winners({ w }: { w: WinnersCopy }) {
                   </div>
                   <p className="text-body leading-relaxed text-text/85">{law.core}</p>
                   <div className="flex flex-col gap-1 rounded-xl border border-accent/25 bg-accent/[0.06] px-4 py-3">
-                    <p className="text-caption font-semibold tracking-[0.16em] text-accent-ink uppercase">{w.todayLabel}</p>
+                    <p className="text-small font-semibold text-accent-ink">{w.todayLabel}</p>
                     <p className="text-body leading-relaxed text-text/90">{law.today}</p>
                   </div>
                   {law.inApp !== undefined && (

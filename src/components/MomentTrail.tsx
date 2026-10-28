@@ -42,7 +42,7 @@ export function MomentTrail({ moments, levels, language, m, onClear }: MomentTra
   return (
     <section className="p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+        <h2 className="text-small font-semibold text-muted">
           {m.trailTitle}
         </h2>
         {latestLevel !== null && (
@@ -63,7 +63,7 @@ export function MomentTrail({ moments, levels, language, m, onClear }: MomentTra
               levelOf(moment.level)?.name ?? moment.level,
             ),
           )
-          .join(' · ')}
+          .join(', ')}
         className="mt-3 flex flex-wrap items-center gap-1.5"
       >
         {shown.map((moment, index) => {

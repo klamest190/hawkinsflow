@@ -27,7 +27,7 @@ type LevelDetailProps = {
 /** Eine Überschrift im Detailblock — klein, gesperrt, in der Ebenenfarbe. */
 function Heading({ children }: { children: string }) {
   return (
-    <h3 className="text-caption font-semibold tracking-[0.16em] text-accent-ink uppercase">{children}</h3>
+    <h3 className="text-small font-semibold text-accent-ink">{children}</h3>
   )
 }
 

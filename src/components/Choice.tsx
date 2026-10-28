@@ -17,7 +17,7 @@ export function Choice({
 }) {
   return (
     <fieldset disabled={disabled} className="flex flex-col gap-2.5 transition-opacity disabled:opacity-55">
-      <legend className="mb-2.5 text-caption font-semibold tracking-[0.16em] text-muted uppercase">{legend}</legend>
+      <legend className="mb-2.5 text-small font-semibold text-muted">{legend}</legend>
       <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }}>
         {options.map((option) => (
           <label

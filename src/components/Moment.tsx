@@ -139,7 +139,7 @@ export function Moment({
       {chosen !== null && step > 0 && (
         <p className="text-small font-semibold">
           <span style={{ color: readableOnDark(chosen.color) }}>{chosen.name}</span>
-          <span className="text-muted"> · {chosen.emotion}</span>
+          <span className="text-muted">, {chosen.emotion}</span>
         </p>
       )}
 
@@ -200,7 +200,7 @@ export function Moment({
             auf einen Kopf, der ihm widerspricht; eine Frage nimmt ihn in Dienst. */}
         {step === 2 && chosen !== null && level !== null && (
           <section className="animate-rise rounded-3xl border border-line bg-card/70 p-6 text-center backdrop-blur-md sm:p-8">
-            <p className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
+            <p className="text-small font-semibold text-muted">
               {m.askTitle}
             </p>
             <p
@@ -230,7 +230,7 @@ export function Moment({
               </p>
 
               <div className="mt-6">
-                <p className="text-caption font-semibold tracking-[0.16em] text-accent-ink uppercase">
+                <p className="text-small font-semibold text-accent-ink">
                   {m.planLabel}
                 </p>
                 {/* Steht noch keiner, wird er hier geschrieben und nicht auf
@@ -274,7 +274,7 @@ export function Moment({
               </div>
 
               <div className="mt-6">
-                <p className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+                <p className="text-small font-semibold text-muted">
                   {m.mantraLabel}
                 </p>
                 {/* Die Anführungszeichen kommen aus der Sprache, nicht aus dem

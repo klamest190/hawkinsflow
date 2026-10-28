@@ -179,7 +179,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
         {/* `key` erzwingt bei jeder Frage einen neuen Knoten — nur so läuft die
             Einblend-Animation erneut statt nur beim ersten Mal. */}
         <div key={question.id} className="animate-rise">
-          <p className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
+          <p className="text-small font-semibold text-muted">
             {t.quizPrompt}
           </p>
           {/* The question is the page heading of this view: without it, the

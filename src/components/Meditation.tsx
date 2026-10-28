@@ -31,7 +31,7 @@ function isGuided(id: string): id is GuidedId {
 function Part({ label, children }: { label: string; children: string }) {
   return (
     <div className="flex flex-col gap-1">
-      <p className="text-caption font-semibold tracking-[0.16em] text-accent-ink uppercase">{label}</p>
+      <p className="text-small font-semibold text-accent-ink">{label}</p>
       <p className="text-body leading-relaxed text-text/85">{children}</p>
     </div>
   )

@@ -87,7 +87,7 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
   return (
     <section className="p-4 sm:p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <h2 className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+        <h2 className="text-small font-semibold text-muted">
           {t.historyTitle}
         </h2>
         {latestLevel !== null && (
@@ -110,7 +110,7 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
               levelOf(levels, run.level)?.name ?? run.level,
             ),
           )
-          .join(' · ')}
+          .join(', ')}
       >
         {/* Die Schwelle bei 200 — die einzige Höhe dieser Skala, an der sich
             etwas grundsätzlich ändert, und deshalb die einzige eingezeichnete. */}
@@ -184,7 +184,8 @@ export function HistoryTrail({ history, levels, language, t, onClear }: HistoryT
           —, aber er sagt es jetzt in einem halben Satz. */}
       <div className="mt-2.5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <p className="text-small leading-relaxed text-muted">
-          <span className="tabular">{date}</span> · {t.historyLead(history.length)}
+          <span className="tabular mr-2.5 text-text/80">{date}</span>
+          {t.historyLead(history.length)}
         </p>
         <button
           type="button"

@@ -73,7 +73,7 @@ export function ScaleBrowser({
               {level.value === THRESHOLD && (
                 <div aria-hidden className="mb-3 flex items-center gap-3 pt-1">
                   <span className="h-px flex-1 bg-gradient-to-r from-transparent to-line" />
-                  <span className="text-caption font-semibold tracking-[0.18em] text-muted uppercase">
+                  <span className="text-small font-semibold text-muted">
                     {t.thresholdMark(THRESHOLD)}
                   </span>
                   <span className="h-px flex-1 bg-gradient-to-l from-transparent to-line" />
@@ -114,12 +114,12 @@ export function ScaleBrowser({
                           </span>
                         )}
                       </span>
-                      {/* Im Englischen wäre „Courage · Courage" doppelt gemoppelt —
+                      {/* Im Englischen wäre „Courage (Courage)" doppelt gemoppelt —
                           dort steht deshalb nur das Gefühl. */}
                       <span className="block truncate text-small text-muted">
                         {level.name === level.original
                           ? level.emotion
-                          : `${level.original} · ${level.emotion}`}
+                          : `${level.emotion} (${level.original})`}
                       </span>
                     </span>
                     <span

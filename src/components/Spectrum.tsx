@@ -96,7 +96,7 @@ export function Spectrum({ scores, dominant, drag, t }: SpectrumProps) {
                 wäre sie nur ein Einwurf. */}
             {level.value === THRESHOLD && (
               <li aria-hidden className="flex items-center gap-3 py-1">
-                <span className="w-[104px] shrink-0 text-right text-caption font-semibold tracking-[0.14em] text-muted uppercase">
+                <span className="w-[104px] shrink-0 text-right text-caption font-semibold text-muted">
                   {t.thresholdMark(THRESHOLD)}
                 </span>
                 <span className="h-px flex-1 bg-gradient-to-r from-muted/30 via-muted/15 to-transparent" />

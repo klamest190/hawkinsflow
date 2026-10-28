@@ -72,7 +72,7 @@ function Pyramid({
               }}
             >
               <span
-                className="text-caption leading-tight font-semibold tracking-[0.08em] uppercase"
+                className="text-caption leading-tight font-semibold"
                 style={{ color: readableOnDark(color) }}
               >
                 <span className="tabular opacity-70">{index + 1}</span> {station.name}
@@ -89,7 +89,7 @@ function Pyramid({
 function Side({ tag, station, color, inAppLabel }: { tag: string; station: Station; color: string; inAppLabel: string }) {
   return (
     <div className="flex flex-col gap-1.5 border-l-2 pl-4" style={{ borderColor: color }}>
-      <p className="text-caption font-semibold tracking-[0.16em] text-muted uppercase">{tag}</p>
+      <p className="text-small font-semibold text-muted">{tag}</p>
       <h3 className="font-display text-lead leading-snug font-semibold" style={{ color: readableOnDark(color) }}>
         {station.name}
       </h3>
@@ -192,14 +192,14 @@ function Examples({
         {/* The key starts the fade-in afresh on every change of tab. */}
         <div key={example.title} className="animate-rise flex flex-col gap-5">
           <div className="flex flex-col gap-1">
-            <p className="text-caption font-semibold tracking-[0.16em] text-accent-ink uppercase">{th.situationLabel}</p>
+            <p className="text-small font-semibold text-accent-ink">{th.situationLabel}</p>
             <p className="text-body leading-relaxed text-text/90">{example.situation}</p>
           </div>
 
           <ol className="flex flex-col gap-4">
             {example.ordinary.map((ordinary, index) => (
               <li key={ordinary} className="flex flex-col gap-2 border-t border-line/60 pt-4">
-                <p className="tabular text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+                <p className="tabular text-small font-semibold text-muted">
                   {th.stationLabel(index + 1)}
                 </p>
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -278,7 +278,7 @@ export function Thinking({ levels, th }: ThinkingProps) {
       <ol className="mt-6 flex flex-col gap-4">
         {th.ordinary.map((ordinary, index) => (
           <li key={ordinary.name} className="rounded-2xl border border-line bg-card/50 p-5 backdrop-blur-sm">
-            <p className="tabular text-caption font-semibold tracking-[0.16em] text-muted uppercase">
+            <p className="tabular text-small font-semibold text-muted">
               {th.stationLabel(index + 1)}
             </p>
             <div className="mt-3 grid gap-5 sm:grid-cols-2">
