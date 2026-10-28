@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { ANSWER_VALUES, QUESTIONS } from '../data/questions.ts'
 import type { Copy } from '../i18n/copy.ts'
 import { questionText } from '../i18n/questions.ts'
@@ -31,7 +31,11 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
 
   // Ein hängengebliebener Timer würde nach dem Verlassen der Ansicht auf einem
   // nicht mehr vorhandenen Zustand landen — deshalb beim Aufräumen abbrechen.
-  useEffect(() => () => window.clearTimeout(timer.current), [])
+  // Also whenever the question changes some other way: "next" or → within
+  // the advance delay moved on once, and the timer then moved on again, past
+  // a question nobody had answered. In a layout effect, so the timer is gone
+  // in the same commit as the change and can't fire in between.
+  useLayoutEffect(() => () => window.clearTimeout(timer.current), [index])
 
   /* Each question is a new node (see `key` below), so the answer that had
      focus is gone after the advance and focus falls to <body>: the next Tab
@@ -102,7 +106,7 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
      Der Lauscher hängt am Fenster und nicht an einem Element, weil der Fokus
      nach dem Antworten nirgends besonders steht. Tastenkürzel mit Strg, Alt oder
      Cmd bleiben unangetastet — das sind die des Browsers. */
-  useEffect(() => {
+  useLayoutEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.metaKey || event.ctrlKey || event.altKey) return
 
@@ -128,7 +132,14 @@ export function Quiz({ answers, language, t, startIndex, onAnswer, onDone, onLea
     return () => window.removeEventListener('keydown', onKeyDown)
     /* Ohne Abhängigkeitsliste, also nach jedem Rendern neu: Der Lauscher greift
        auf die aktuelle Frage zu, und ein einmal gesetzter hielte für immer die
-       erste fest. Ein Lauscher ab- und wieder anzumelden kostet nichts. */
+       erste fest. Ein Lauscher ab- und wieder anzumelden kostet nichts.
+
+       A layout effect and not a passive one: a passive effect runs after
+       paint, so for a frame the new question was on screen while the old
+       listener still held the previous one. A key pressed then answered the
+       previous question again, the advance skipped the new one, and the run
+       finished with 33 answers. A layout effect swaps the listener before
+       the question is painted. */
   })
 
   return (

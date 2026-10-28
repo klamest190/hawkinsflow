@@ -66,6 +66,21 @@ test('the questionnaire leads to a result and into the history', async ({ page }
   await expect(page.getByText('Dein Schwerpunkt', { exact: true })).toBeVisible()
 })
 
+test('moving on by hand during the automatic advance skips no question', async ({ page }) => {
+  await page.goto('/')
+  await startButton(page).click()
+
+  await expect(page.getByText('1 / 34')).toBeVisible()
+  // An answer, and → before the questionnaire moves on by itself.
+  await page.keyboard.press('3')
+  await page.keyboard.press('ArrowRight')
+  await expect(page.getByText('2 / 34')).toBeVisible()
+
+  // Longer than the advance delay: the pending advance must not go on to 3.
+  await page.waitForTimeout(600)
+  await expect(page.getByText('2 / 34')).toBeVisible()
+})
+
 test('switching the language mid-questionnaire keeps the answers', async ({ page }) => {
   await page.goto('/')
   await startButton(page).click()
