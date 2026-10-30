@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { copy } from '../i18n/copy.ts'
-import type { History, Plan } from '../types.ts'
+import type { Decision, History, Plan } from '../types.ts'
 import {
   BACKUP_VERSION,
   backupBlob,
@@ -10,6 +10,7 @@ import {
   toBackup,
   type BackupData,
 } from './backup.ts'
+import { KEEP as DECISIONS_KEEP } from './decisions.ts'
 import { KEEP as HISTORY_KEEP } from './history.ts'
 
 const plan: Plan = {
@@ -32,9 +33,19 @@ const data: BackupData = {
       answers: [{ prompt: 'Was kostet dich Kraft?', text: 'Das Projekt.' }],
     },
   ],
+  decisions: [
+    {
+      id: 'd1',
+      day: '2026-03-04',
+      at: '2026-03-04T09:00:00.000Z',
+      belief: 'Ich muss alles allein schaffen.',
+      decision: 'Ich bitte um Hilfe.',
+      evidence: 'Letzte Woche hat es geholfen.',
+    },
+  ],
 }
 
-const empty: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [] }
+const empty: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [], decisions: [] }
 
 const when = new Date(2026, 8, 26, 10, 30)
 
@@ -49,8 +60,8 @@ describe('parseBackup', () => {
     const parsed = parseBackup(text)
     expect(parsed.ok).toBe(true)
     if (parsed.ok) {
-      const { answers, plans, history, moments, checkins, notes } = parsed.backup
-      expect({ answers, plans, history, moments, checkins, notes }).toEqual(data)
+      const { answers, plans, history, moments, checkins, notes, decisions } = parsed.backup
+      expect({ answers, plans, history, moments, checkins, notes, decisions }).toEqual(data)
     }
   })
 
@@ -82,6 +93,30 @@ describe('parseBackup', () => {
     expect(parsed.ok && parsed.backup.history).toEqual(data.history)
   })
 
+  it('reads a file from before the matrix as having none', () => {
+    const parsed = parseBackup(fileWith({ decisions: undefined }))
+    expect(parsed.ok).toBe(true)
+    expect(parsed.ok && parsed.backup.decisions).toEqual([])
+  })
+
+  it('refuses a file whose decisions fail their guard', () => {
+    expect(parseBackup(fileWith({ decisions: [{ id: 'x' }] }))).toEqual({ ok: false, reason: 'invalid' })
+  })
+
+  it('cuts restored decisions to what the app keeps', () => {
+    const [one] = data.decisions
+    const many: Decision[] = Array.from({ length: DECISIONS_KEEP + 1 }, (_, index) => ({
+      ...(one as Decision),
+      id: 'd' + index,
+    }))
+    const parsed = parseBackup(fileWith({ decisions: many }))
+    expect(parsed.ok && parsed.backup.decisions.length).toBe(DECISIONS_KEEP)
+  })
+
+  it('keeps the backup version', () => {
+    expect(BACKUP_VERSION).toBe(1)
+  })
+
   it('tells a backup from a newer version apart', () => {
     expect(parseBackup(fileWith({ version: BACKUP_VERSION + 1 }))).toEqual({ ok: false, reason: 'newer' })
   })
@@ -108,12 +143,13 @@ describe('backup helpers', () => {
     expect(hasData({ ...empty, answers: { q01: 0 } })).toBe(true)
     expect(hasData({ ...empty, checkins: data.checkins })).toBe(true)
     expect(hasData({ ...empty, notes: data.notes })).toBe(true)
+    expect(hasData({ ...empty, decisions: data.decisions })).toBe(true)
     expect(hasData(data)).toBe(true)
   })
 })
 
 describe('the confirmation lists what a backup holds', () => {
-  const none = { runs: 0, plans: 0, moments: 0, days: 0, notes: 0, answers: 0 }
+  const none = { runs: 0, plans: 0, moments: 0, days: 0, notes: 0, decisions: 0, answers: 0 }
 
   it('in German', () => {
     const t = copy.de
@@ -122,6 +158,8 @@ describe('the confirmation lists what a backup holds', () => {
     expect(t.dataContents({ ...none, plans: 3 })).toBe('3 Pläne')
     expect(t.dataContents({ ...none, days: 12 })).toBe('12 Tageseinträge')
     expect(t.dataContents({ ...none, days: 1, notes: 2 })).toBe('einen Tageseintrag und 2 Schreibeinträge')
+    expect(t.dataContents({ ...none, notes: 1, decisions: 2 })).toBe('einen Schreibeintrag und 2 Matrix-Einträge')
+    expect(t.dataContents({ ...none, decisions: 1 })).toBe('einen Matrix-Eintrag')
     expect(t.dataContents(none)).toBe('keine Einträge')
   })
 

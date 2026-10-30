@@ -84,7 +84,7 @@ describe.each(LANGUAGES)('tools (%s)', (language) => {
   })
 
   it('lets all kept entries go from the data card at once', () => {
-    const data = { answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [note] }
+    const data = { answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [note], decisions: [] }
     const html = renderToString(
       <DataCard data={data} language={language} t={t} onRestore={noop} onClearNotes={noop} />,
     )

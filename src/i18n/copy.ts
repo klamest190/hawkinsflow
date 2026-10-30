@@ -14,6 +14,7 @@ export type BackupCounts = {
   moments: number
   days: number
   notes: number
+  decisions: number
   answers: number
 }
 
@@ -428,13 +429,14 @@ const de = {
   // Says what will be replaced before anything is — restoring overwrites.
   dataConfirm: (date: string, contents: string): string =>
     `Die Sicherung vom ${date} enthält ${contents}. Sie ersetzt alles, was jetzt auf diesem Gerät liegt.`,
-  dataContents: ({ runs, plans, moments, days, notes, answers }: BackupCounts): string => {
+  dataContents: ({ runs, plans, moments, days, notes, decisions, answers }: BackupCounts): string => {
     const parts = [
       runs === 1 ? 'einen Durchgang' : runs > 1 ? `${runs} Durchgänge` : '',
       plans === 1 ? 'einen Plan' : plans > 1 ? `${plans} Pläne` : '',
       moments === 1 ? 'einen Moment' : moments > 1 ? `${moments} Momente` : '',
       days === 1 ? 'einen Tageseintrag' : days > 1 ? `${days} Tageseinträge` : '',
       notes === 1 ? 'einen Schreibeintrag' : notes > 1 ? `${notes} Schreibeinträge` : '',
+      decisions === 1 ? 'einen Matrix-Eintrag' : decisions > 1 ? `${decisions} Matrix-Einträge` : '',
       answers === 1 ? 'die Antwort auf eine Aussage' : answers > 1 ? `Antworten auf ${answers} Aussagen` : '',
     ].filter((part) => part !== '')
     return parts.length === 0 ? 'keine Einträge' : joinList(parts, 'und')
@@ -449,6 +451,10 @@ const de = {
       : `${count} behaltene Einträge aus den Schreibübungen.`,
   dataNotesClear: 'Alle löschen',
   dataNotesClearLabel: 'Alle behaltenen Einträge löschen',
+  dataDecisions: (count: number): string =>
+    count === 1 ? 'Die Matrix hat einen Eintrag.' : `Die Matrix hat ${count} Einträge.`,
+  dataDecisionsClear: 'Alle löschen',
+  dataDecisionsClearLabel: 'Alle Einträge der Matrix löschen',
 
   // ── Das PDF ──────────────────────────────────────────────────────────────
   // Der Ergebnisschirm ist weg, sobald jemand den Bogen wiederholt. Das PDF ist
@@ -737,13 +743,14 @@ const en: Copy = {
   dataNewer: 'This backup comes from a newer version of the app. Reload the page, then try again.',
   dataConfirm: (date: string, contents: string): string =>
     `The backup from ${date} holds ${contents}. It replaces everything on this device right now.`,
-  dataContents: ({ runs, plans, moments, days, notes, answers }: BackupCounts): string => {
+  dataContents: ({ runs, plans, moments, days, notes, decisions, answers }: BackupCounts): string => {
     const parts = [
       runs === 1 ? 'one run' : runs > 1 ? `${runs} runs` : '',
       plans === 1 ? 'one plan' : plans > 1 ? `${plans} plans` : '',
       moments === 1 ? 'one moment' : moments > 1 ? `${moments} moments` : '',
       days === 1 ? 'one daily entry' : days > 1 ? `${days} daily entries` : '',
       notes === 1 ? 'one written entry' : notes > 1 ? `${notes} written entries` : '',
+      decisions === 1 ? 'one matrix entry' : decisions > 1 ? `${decisions} matrix entries` : '',
       answers === 1 ? 'the answer to one statement' : answers > 1 ? `answers to ${answers} statements` : '',
     ].filter((part) => part !== '')
     return parts.length === 0 ? 'nothing at all' : joinList(parts, 'and')
@@ -755,6 +762,10 @@ const en: Copy = {
     count === 1 ? 'One kept entry from the writing practices.' : `${count} kept entries from the writing practices.`,
   dataNotesClear: 'Delete all',
   dataNotesClearLabel: 'Delete all kept entries',
+  dataDecisions: (count: number): string =>
+    count === 1 ? 'The matrix holds one entry.' : `The matrix holds ${count} entries.`,
+  dataDecisionsClear: 'Delete all',
+  dataDecisionsClearLabel: 'Delete every entry in the matrix',
 
   pdfCardTitle: 'Take it with you',
   pdfCardLead:

@@ -21,6 +21,8 @@ type DataCardProps = {
   onRestore: (data: BackupData) => void
   /** Deletes every kept writing entry at once; absent on the crash screen. */
   onClearNotes?: () => void
+  /** Deletes every matrix entry at once; absent on the crash screen. */
+  onClearDecisions?: () => void
 }
 
 type Status =
@@ -39,7 +41,7 @@ type Status =
  * Restoring never happens on the file pick alone. The card first says what
  * the file holds and that it replaces what is here, and waits for a second tap.
  */
-export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCardProps) {
+export function DataCard({ data, language, t, onRestore, onClearNotes, onClearDecisions }: DataCardProps) {
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
   const picker = useRef<HTMLInputElement>(null)
   const question = useRef<HTMLParagraphElement>(null)
@@ -81,8 +83,8 @@ export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCar
   }
 
   function restore(backup: Backup) {
-    const { answers, plans, history, moments, checkins, notes } = backup
-    onRestore({ answers, plans, history, moments, checkins, notes })
+    const { answers, plans, history, moments, checkins, notes, decisions } = backup
+    onRestore({ answers, plans, history, moments, checkins, notes, decisions })
     setStatus({ kind: 'restored' })
   }
 
@@ -132,6 +134,20 @@ export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCar
         </div>
       )}
 
+      {onClearDecisions !== undefined && data.decisions.length > 0 && (
+        <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-line/60 pt-3">
+          <p className="text-small leading-relaxed text-muted">{t.dataDecisions(data.decisions.length)}</p>
+          <button
+            type="button"
+            onClick={onClearDecisions}
+            aria-label={t.dataDecisionsClearLabel}
+            className="shrink-0 cursor-pointer text-small font-medium text-muted underline decoration-line underline-offset-4 hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-ink"
+          >
+            {t.dataDecisionsClear}
+          </button>
+        </div>
+      )}
+
       {status.kind === 'confirm' && (
         <div className="mt-4 flex flex-col gap-3 rounded-xl border border-line bg-void/40 p-4">
           <p ref={question} tabIndex={-1} className="text-body leading-relaxed text-text/90 focus:outline-none">
@@ -143,6 +159,7 @@ export function DataCard({ data, language, t, onRestore, onClearNotes }: DataCar
                 moments: status.backup.moments.length,
                 days: status.backup.checkins.length,
                 notes: status.backup.notes.length,
+                decisions: status.backup.decisions.length,
                 answers: Object.keys(status.backup.answers).length,
               }),
             )}

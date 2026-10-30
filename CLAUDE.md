@@ -65,7 +65,7 @@ conventions that are not obvious from a single file.
 
 - All keys are in `KEYS` (`src/lib/storage.ts`); each hook owns one.
 - Every read goes through a type guard (`isAnswers`, `isPlans`, `isHistory`,
-  `isMoments`, `isCheckIns`, `isNotes`). A backup file goes through the same
+  `isMoments`, `isCheckIns`, `isNotes`, `isDecisions`). A backup file goes through the same
   guards. A stored level id is checked against the scale with `isLevelId`.
 - Changing a stored shape means bumping the key's version and
   `BACKUP_VERSION` in `src/lib/backup.ts`. There is no migration step yet; a
@@ -75,10 +75,11 @@ conventions that are not obvious from a single file.
   `Plan.checks` came in. The guard still checks the field whenever it is
   there. Bumping `BACKUP_VERSION` would make every earlier backup file
   unloadable, so don't do it for an additive change.
-- The same holds for a backup field: `checkins` and `notes` are optional in
+- The same holds for a backup field: `checkins`, `notes` and `decisions` are optional in
   a file, absent reads as empty, present passes its guard.
-- Free text is stored in two places only: plans, and writing someone tapped
-  "keep" on. The fields of a writing practice forget on unmount by design.
+- Free text is stored in three places only: plans, writing someone tapped
+  "keep" on, and the decision matrix. The fields of a writing practice forget
+  on unmount by design.
 
 ## Claims about research
 

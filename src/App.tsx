@@ -27,6 +27,7 @@ import { useAnswers } from './hooks/useAnswers.ts'
 import { useCheckIns } from './hooks/useCheckIns.ts'
 import { useHistory } from './hooks/useHistory.ts'
 import { useMoments } from './hooks/useMoments.ts'
+import { useDecisions } from './hooks/useDecisions.ts'
 import { useNotes } from './hooks/useNotes.ts'
 import { usePlans } from './hooks/usePlans.ts'
 import { useLanguage } from './hooks/useLanguage.ts'
@@ -133,6 +134,7 @@ export default function App() {
   /* What someone chose to keep from a writing practice — the only free text
      here besides the plans, and only on a tap. */
   const { notes, keepNote, removeNote, clearNotes, replaceNotes } = useNotes()
+  const { decisions, clearDecisions, replaceDecisions } = useDecisions()
 
   /** A level's kept writing, for the views that show its practices. */
   const journalFor = (level: LevelId): Journal => ({
@@ -298,6 +300,7 @@ export default function App() {
     replaceMoments(data.moments)
     replaceCheckIns(data.checkins)
     replaceNotes(data.notes)
+    replaceDecisions(data.decisions)
   }
 
   function startFresh() {
@@ -485,7 +488,8 @@ export default function App() {
             onCheckIn={checkIn}
             onClearCheckIns={clearCheckIns}
             onClearNotes={clearNotes}
-            data={{ answers, plans, history, moments, checkins: checkIns, notes }}
+            onClearDecisions={clearDecisions}
+            data={{ answers, plans, history, moments, checkins: checkIns, notes, decisions }}
             onRestore={restore}
           />
         )}

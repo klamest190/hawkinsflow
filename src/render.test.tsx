@@ -44,7 +44,7 @@ QUESTIONS.forEach((question, position) => {
 const noop = () => {}
 
 // Nothing saved yet — what the backup card sees on a first visit.
-const nothingStored: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [] }
+const nothingStored: BackupData = { answers: {}, plans: {}, history: [], moments: [], checkins: [], notes: [], decisions: [] }
 
 /* Ein fertiger Plan — er nimmt in beiden Ansichten den zweiten Zweig: auf der
    Startseite die Erinnerungskarte, im Ergebnis den gespeicherten Satz statt des
@@ -95,6 +95,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onCheckIn={noop}
         onClearCheckIns={noop}
         onClearNotes={noop}
+        onClearDecisions={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -338,7 +339,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
       levels, language, t, m, plans: [], history, moments: [], data: nothingStored,
       onStart: noop, onBrowse: noop, onResume: noop, onDeletePlan: noop, onCheckPlan: noop, onEditPlan: noop,
       onClearHistory: noop, onOpenQuiz: noop, onClearMoments: noop, onRestore: noop, complete: false,
-      checkIns: [], onCheckIn: noop, onClearCheckIns: noop, onClearNotes: noop,
+      checkIns: [], onCheckIn: noop, onClearCheckIns: noop, onClearNotes: noop, onClearDecisions: noop,
     }
     const html = renderToString(<Intro {...props} resumeAt={null} />)
     expect(html).toContain(t.returnNudgeInvite)
@@ -380,6 +381,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onCheckIn={noop}
         onClearCheckIns={noop}
         onClearNotes={noop}
+        onClearDecisions={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -453,6 +455,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onCheckIn={noop}
         onClearCheckIns={noop}
         onClearNotes={noop}
+        onClearDecisions={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -492,6 +495,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onCheckIn={noop}
         onClearCheckIns={noop}
         onClearNotes={noop}
+        onClearDecisions={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -530,6 +534,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onCheckIn={noop}
         onClearCheckIns={noop}
         onClearNotes={noop}
+        onClearDecisions={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -599,6 +604,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onCheckIn={noop}
         onClearCheckIns={noop}
         onClearNotes={noop}
+        onClearDecisions={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -686,6 +692,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onCheckIn={noop}
         onClearCheckIns={noop}
         onClearNotes={noop}
+        onClearDecisions={noop}
         data={nothingStored}
         onRestore={noop}
       />,
@@ -727,6 +734,7 @@ describe.each(LANGUAGES)('Ansichten (%s)', (language) => {
         onCheckIn={noop}
         onClearCheckIns={noop}
         onClearNotes={noop}
+        onClearDecisions={noop}
         data={nothingStored}
         onRestore={noop}
       />,

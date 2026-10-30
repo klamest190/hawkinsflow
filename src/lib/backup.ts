@@ -1,4 +1,5 @@
 import { KEEP as CHECKINS_KEEP, isCheckIns } from './checkins.ts'
+import { KEEP as DECISIONS_KEEP, isDecisions } from './decisions.ts'
 import { KEEP as HISTORY_KEEP, isHistory } from './history.ts'
 import { localDay } from './download.ts'
 import { KEEP as MOMENTS_KEEP, isMoments } from './moments.ts'
@@ -6,7 +7,7 @@ import { KEEP as NOTES_KEEP, isNotes } from './notes.ts'
 import { isPlans } from './plans.ts'
 import { isAnswers } from './scoring.ts'
 import { KEYS, load } from './storage.ts'
-import type { Answers, CheckIns, History, Moments, Notes, Plans } from '../types.ts'
+import type { Answers, CheckIns, Decisions, History, Moments, Notes, Plans } from '../types.ts'
 
 /* A backup of everything this app keeps, as one JSON file.
  *
@@ -31,6 +32,7 @@ export type BackupData = {
   moments: Moments
   checkins: CheckIns
   notes: Notes
+  decisions: Decisions
 }
 
 /** Raised whenever the shape changes; a file from a newer app is refused. */
@@ -78,12 +80,13 @@ export function parseBackup(text: string): ParsedBackup {
   }
   if (file.version > BACKUP_VERSION) return { ok: false, reason: 'newer' }
 
-  /* Check-ins and kept entries came after version 1 and are optional in a
-     file: a backup from before them still loads, with none. Present, they
+  /* Check-ins, kept entries and the matrix came after version 1 and are
+     optional in a file: a backup from before them still loads, with none. Present, they
      pass their guards like every other part — additive fields, so the
      version stays. */
   const checkins = file.checkins ?? []
   const notes = file.notes ?? []
+  const decisions = file.decisions ?? []
 
   if (
     file.version !== BACKUP_VERSION ||
@@ -94,7 +97,8 @@ export function parseBackup(text: string): ParsedBackup {
     !isHistory(file.history) ||
     !isMoments(file.moments) ||
     !isCheckIns(checkins) ||
-    !isNotes(notes)
+    !isNotes(notes) ||
+    !isDecisions(decisions)
   ) {
     return { ok: false, reason: 'invalid' }
   }
@@ -111,6 +115,7 @@ export function parseBackup(text: string): ParsedBackup {
       moments: file.moments.slice(-MOMENTS_KEEP),
       checkins: checkins.slice(-CHECKINS_KEEP),
       notes: notes.slice(-NOTES_KEEP),
+      decisions: decisions.slice(-DECISIONS_KEEP),
     },
   }
 }
@@ -124,6 +129,7 @@ export function readStoredData(): BackupData {
     moments: load(KEYS.moments, isMoments) ?? [],
     checkins: load(KEYS.checkins, isCheckIns) ?? [],
     notes: load(KEYS.notes, isNotes) ?? [],
+    decisions: load(KEYS.decisions, isDecisions) ?? [],
   }
 }
 
@@ -135,7 +141,8 @@ export function hasData(data: BackupData): boolean {
     data.history.length > 0 ||
     data.moments.length > 0 ||
     data.checkins.length > 0 ||
-    data.notes.length > 0
+    data.notes.length > 0 ||
+    data.decisions.length > 0
   )
 }
 

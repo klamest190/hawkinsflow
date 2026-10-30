@@ -50,6 +50,7 @@ type IntroProps = {
   onClearCheckIns: () => void
   /** Deletes every kept writing entry, from the data card. */
   onClearNotes: () => void
+  onClearDecisions: () => void
   /** Everything stored, for the backup at the foot of the page. */
   data: BackupData
   onRestore: (data: BackupData) => void
@@ -104,6 +105,7 @@ export function Intro({
   onCheckIn,
   onClearCheckIns,
   onClearNotes,
+  onClearDecisions,
   data,
   onRestore,
 }: IntroProps) {
@@ -381,7 +383,9 @@ export function Intro({
 
       {/* At the foot: saving is housekeeping, and this page exists for the
           day, not for the file. */}
-      <DataCard data={data} language={language} t={t} onRestore={onRestore} onClearNotes={onClearNotes} />
+      <DataCard data={data} language={language} t={t} onRestore={onRestore} onClearNotes={onClearNotes}
+        onClearDecisions={onClearDecisions}
+      />
 
       <p className="mt-12 max-w-md text-small leading-relaxed text-muted">{t.disclaimer}</p>
 
