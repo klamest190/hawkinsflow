@@ -31,6 +31,15 @@ export function trimmed(fields: DecisionFields): DecisionFields {
 
 const DAY = /^\d{4}-\d{2}-\d{2}$/
 
+/**
+ * A local `yyyy-MM-dd` day, the shape the guard asks for. The form checks it
+ * too: a date field can be cleared, and an entry stored with an empty day
+ * would make the whole list fail its guard on the next load.
+ */
+export function isDay(value: string): boolean {
+  return DAY.test(value)
+}
+
 function isTime(value: unknown): value is string {
   return typeof value === 'string' && !Number.isNaN(Date.parse(value))
 }
@@ -49,7 +58,7 @@ export function isDecisions(value: unknown): value is Decisions {
     return (
       typeof decision.id === 'string' &&
       typeof decision.day === 'string' &&
-      DAY.test(decision.day) &&
+      isDay(decision.day) &&
       typeof belief === 'string' &&
       typeof chosen === 'string' &&
       typeof evidence === 'string' &&

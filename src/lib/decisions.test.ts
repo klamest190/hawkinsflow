@@ -6,6 +6,7 @@ import {
   LONGEST,
   appendDecision,
   byDay,
+  isDay,
   isDecisions,
   isFilled,
   reviseDecision,
@@ -43,6 +44,17 @@ describe('isDecisions', () => {
     expect(isDecisions([{ ...base, at: 'yesterday' }])).toBe(false)
     expect(isDecisions([{ ...base, revised: 'later' }])).toBe(false)
     expect(isDecisions([withoutId])).toBe(false)
+  })
+})
+
+/* The date field can be cleared; a stored day of '' would make the guard
+   drop the whole list on the next load. */
+describe('isDay', () => {
+  it('takes a local yyyy-MM-dd day and nothing else', () => {
+    expect(isDay('2026-10-30')).toBe(true)
+    expect(isDay('')).toBe(false)
+    expect(isDay('30.10.2026')).toBe(false)
+    expect(isDay('+012026-10-30')).toBe(false)
   })
 })
 

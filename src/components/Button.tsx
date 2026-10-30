@@ -1,10 +1,10 @@
-import type { ComponentPropsWithoutRef } from 'react'
+import type { ComponentProps } from 'react'
 
 type Variant = 'primary' | 'ghost' | 'quiet'
 type Size = 'md' | 'sm'
 
 /** Eigene Props plus alles, was ein <button> ohnehin kann (onClick, disabled …). */
-type ButtonProps = ComponentPropsWithoutRef<'button'> & {
+type ButtonProps = ComponentProps<'button'> & {
   variant?: Variant
   /** For primary and ghost; the quiet variant has one size of its own. */
   size?: Size
