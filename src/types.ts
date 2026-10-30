@@ -297,6 +297,27 @@ export type Note = {
 /** The kept entries, oldest first. */
 export type Notes = Note[]
 
+/**
+ * One entry of the decision matrix: the belief behind a choice, the decision
+ * made instead, and the evidence for it. `day` is the local `yyyy-MM-dd` the
+ * entry belongs to, `at` when it was written, `revised` when it was last edited.
+ */
+export type Decision = {
+  id: string
+  day: string
+  belief: string
+  decision: string
+  evidence: string
+  at: string
+  revised?: string
+}
+
+/** The kept entries, oldest first. */
+export type Decisions = Decision[]
+
+/** What the form edits; the rest of a `Decision` is bookkeeping. */
+export type DecisionFields = Pick<Decision, 'day' | 'belief' | 'decision' | 'evidence'>
+
 /** Eine Frage des Bogens ohne ihren Text — der steht in `i18n/questions.ts`. */
 export type Question = {
   id: QuestionId
