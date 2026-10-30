@@ -256,7 +256,7 @@ test('the navigation reaches every place and marks where you are', async ({ page
   await expect(page.getByRole('heading', { level: 1, name: 'Zwei Arten zu denken' })).toBeVisible()
 
   // And the tab comes back to the place last read, not to the scale.
-  await tab(page, 'Ebb Flow').click()
+  await tab(page, 'Üben').click()
   await expect(page.getByRole('heading', { level: 1, name: 'Ebb Flow' })).toBeVisible()
   await tab(page, 'Wissen').click()
   await expect(page.getByRole('heading', { level: 1, name: 'Zwei Arten zu denken' })).toBeVisible()
@@ -264,7 +264,7 @@ test('the navigation reaches every place and marks where you are', async ({ page
 
 test('Ebb Flow breathes in and out, and keeps its choice locked while it runs', async ({ page }) => {
   await page.goto('/')
-  await tab(page, 'Ebb Flow').click()
+  await tab(page, 'Üben').click()
   await expect(page.getByText('2 Atemzüge')).toBeVisible()
 
   // A rhythm and a length, chosen before the start and remembered.
@@ -295,7 +295,7 @@ test('Ebb Flow breathes in and out, and keeps its choice locked while it runs', 
 
   // The choice survives a reload.
   await page.reload()
-  await tab(page, 'Ebb Flow').click()
+  await tab(page, 'Üben').click()
   await expect(page.getByRole('radio', { name: /Mitte/ })).toBeChecked()
 })
 
@@ -349,12 +349,14 @@ test('on a wide screen the navigation is a sidebar', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'Die Skala' })).toBeVisible()
   await expect(sidebar.getByRole('button', { name: 'Skala', exact: true })).toHaveAttribute('aria-current', 'page')
 
-  // All seven by name: Ebb Flow and meditation, too, without a second row.
+  // Each by name: Ebb Flow and meditation, too, without a second row.
   await sidebar.getByRole('button', { name: 'Meditation', exact: true }).click()
   await expect(page.getByRole('heading', { level: 1, name: 'Meditation' })).toBeVisible()
   await expect(page.getByRole('navigation')).toHaveCount(1)
   await sidebar.getByRole('button', { name: 'Ebb Flow', exact: true }).click()
   await expect(page.getByRole('heading', { level: 1, name: 'Ebb Flow' })).toBeVisible()
+  await sidebar.getByRole('button', { name: 'Matrix', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Entscheidungs-Matrix' })).toBeVisible()
 })
 
 test('a guided session leads step by step, hides the navigation and ends', async ({ page }) => {
@@ -530,4 +532,116 @@ test('the installed app opens without a network', async ({ page, context }) => {
   await expect(page.getByRole('heading', { name: 'Hawkins Flow', level: 1 })).toBeVisible()
   await startButton(page).click()
   await expect(page.getByText('1 / 34')).toBeVisible()
+})
+
+const DECISIONS_KEY = 'hawkinsflow.decisions.v1'
+
+const SEEDED = {
+  id: 'seeded-1',
+  day: '2026-10-01',
+  belief: 'Old belief',
+  decision: 'Old decision',
+  evidence: 'Old evidence',
+  at: '2026-10-01T08:00:00.000Z',
+}
+
+/** The three fields of the decision form, in order. */
+const fields = (page: Page) => page.locator('main textarea')
+
+/** Phone: tab "Üben", then the pill row's "Matrix". */
+async function openMatrix(page: Page) {
+  await tab(page, 'Üben').click()
+  await page.getByRole('navigation', { name: 'Üben', exact: true }).getByRole('button', { name: 'Matrix', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Entscheidungs-Matrix' })).toBeVisible()
+}
+
+test('the practice tab switches between Ebb Flow and the matrix', async ({ page }) => {
+  await page.goto('/')
+  await tab(page, 'Üben').click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Ebb Flow' })).toBeVisible()
+
+  const row = page.getByRole('navigation', { name: 'Üben', exact: true })
+  await row.getByRole('button', { name: 'Matrix', exact: true }).click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Entscheidungs-Matrix' })).toBeVisible()
+  await expect(tab(page, 'Üben')).toHaveAttribute('aria-current', 'page')
+
+  await tab(page, 'Heute').click()
+  await expect(tab(page, 'Heute')).toHaveAttribute('aria-current', 'page')
+  await tab(page, 'Üben').click()
+  await expect(page.getByRole('heading', { level: 1, name: 'Entscheidungs-Matrix' })).toBeVisible()
+})
+
+test('a decision is kept, edited and deleted', async ({ page }) => {
+  await page.goto('/')
+  await openMatrix(page)
+  await expect(page.getByText('Noch keine Einträge.')).toBeVisible()
+
+  await fields(page).nth(0).fill('I am too slow')
+  await fields(page).nth(1).fill('I decide to start')
+  await fields(page).nth(2).fill('I started before')
+  await page.getByRole('button', { name: 'Speichern' }).click()
+  await expect(page.getByText('I am too slow')).toBeVisible()
+  await expect(page.getByText('Noch keine Einträge.')).toHaveCount(0)
+
+  await page.reload()
+  await openMatrix(page)
+  await expect(page.getByText('I am too slow')).toBeVisible()
+  expect(await stored(page, DECISIONS_KEY)).toHaveLength(1)
+
+  await page.getByRole('button', { name: 'Bearbeiten' }).click()
+  await expect(page.getByRole('heading', { name: 'Entscheidung bearbeiten' })).toBeVisible()
+  await expect(fields(page).first()).toBeFocused()
+  await fields(page).first().fill('I am too careful')
+  await page.getByRole('button', { name: 'Speichern' }).click()
+  await expect(page.getByText('I am too careful')).toBeVisible()
+  const entries = (await stored(page, DECISIONS_KEY)) as { belief: string; revised?: string }[]
+  expect(entries).toHaveLength(1)
+  expect(entries[0]?.belief).toBe('I am too careful')
+  expect(entries[0]?.revised).toBeTruthy()
+
+  await page.getByRole('button', { name: 'Löschen' }).click()
+  await page.getByRole('button', { name: 'Endgültig löschen' }).click()
+  await expect(page.getByText('Noch keine Einträge.')).toBeVisible()
+  expect(await stored(page, DECISIONS_KEY)).toBeNull()
+  await expect(fields(page).first()).toBeFocused()
+})
+
+test('a template fills the form and never overwrites the entry in edit', async ({ page }) => {
+  await seed(page, { [DECISIONS_KEY]: [SEEDED] })
+  await openMatrix(page)
+
+  await page.getByRole('button', { name: 'Bearbeiten' }).click()
+  await page.getByRole('button', { name: 'So funktioniert die Matrix' }).click()
+  await page.getByRole('button', { name: 'Als Vorlage nutzen' }).first().click()
+
+  await expect(page.getByRole('heading', { name: 'Neue Entscheidung' })).toBeVisible()
+  await expect(fields(page).nth(0)).toHaveValue('Ich bin nicht gut genug, um befördert zu werden.')
+  await expect(fields(page).nth(1)).toHaveValue(/^Ich entscheide mich, Verantwortung zu übernehmen/)
+  await expect(fields(page).nth(2)).toHaveValue(/^Ich habe bereits Projekte erfolgreich geleitet/)
+
+  await page.getByRole('button', { name: 'Speichern' }).click()
+  const entries = (await stored(page, DECISIONS_KEY)) as { id: string }[]
+  expect(entries).toHaveLength(2)
+  expect(entries.find((entry) => entry.id === SEEDED.id)).toEqual(SEEDED)
+})
+
+test('deleting the entry being edited empties the form', async ({ page }) => {
+  await seed(page, { [DECISIONS_KEY]: [SEEDED] })
+  await openMatrix(page)
+
+  await page.getByRole('button', { name: 'Bearbeiten' }).click()
+  await expect(fields(page).first()).toHaveValue('Old belief')
+  await page.getByRole('button', { name: 'Löschen' }).click()
+  await page.getByRole('button', { name: 'Endgültig löschen' }).click()
+
+  await expect(page.getByRole('heading', { name: 'Neue Entscheidung' })).toBeVisible()
+  for (let index = 0; index < 3; index++) await expect(fields(page).nth(index)).toHaveValue('')
+  expect(await stored(page, DECISIONS_KEY)).toBeNull()
+})
+
+test('whitespace alone cannot be saved', async ({ page }) => {
+  await page.goto('/')
+  await openMatrix(page)
+  for (let index = 0; index < 3; index++) await fields(page).nth(index).fill('   ')
+  await expect(page.getByRole('button', { name: 'Speichern' })).toBeDisabled()
 })
