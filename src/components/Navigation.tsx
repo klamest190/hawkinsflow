@@ -6,12 +6,12 @@ import { Logo } from './Logo.tsx'
 import { KNOWLEDGE, tabOf, type Place, type Tab } from '../lib/places.ts'
 
 /** The order of the phone's tab bar: the moment flow in the middle, under the thumb. */
-const BAR: readonly Tab[] = ['today', 'quiz', 'moment', 'breathe', 'knowledge']
+const BAR: readonly Tab[] = ['today', 'quiz', 'moment', 'practice', 'knowledge']
 
 /** The sidebar's list above the group of places to look things up in. */
-const SIDE: readonly Place[] = ['today', 'quiz', 'breathe']
+const SIDE: readonly Place[] = ['today', 'quiz', 'breathe', 'decisions']
 
-type Icon = Place | 'knowledge'
+type Icon = Place | Exclude<Tab, Place>
 
 function labelOf(item: Icon, t: Copy): string {
   switch (item) {
@@ -25,6 +25,10 @@ function labelOf(item: Icon, t: Copy): string {
       return t.navBreathe
     case 'knowledge':
       return t.navKnowledge
+    case 'practice':
+      return t.navPractice
+    case 'decisions':
+      return t.navDecisions
     case 'scale':
       return t.navScale
     case 'thinking':
@@ -41,7 +45,8 @@ function labelOf(item: Icon, t: Copy): string {
  * Each says the place in a line or two — a sun for the day, a list for the
  * questions, two rings for the moment, two waves for the breath going in and
  * out, an open book for what can be looked up, a ladder for the scale, a
- * pyramid for the models of thinking, a seated figure for meditation. Always
+ * pyramid for the models of thinking, a seated figure for meditation, a path
+ * forking in two for the matrix. Always
  * next to a label, so always `aria-hidden`.
  */
 function Glyph({ item, className = 'h-6 w-6' }: { item: Icon; className?: string }) {
@@ -53,6 +58,8 @@ function Glyph({ item, className = 'h-6 w-6' }: { item: Icon; className?: string
     quiz: ['M9 6.5h11M9 12h11M9 17.5h11', 'M4.5 6.5h.01M4.5 12h.01M4.5 17.5h.01'],
     moment: ['M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z', 'M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z'],
     breathe: ['M3 9.5c2.25-2.5 4.5-2.5 6 0s3.75 2.5 6 0 3.75-2.5 6 0', 'M3 15.5c2.25-2.5 4.5-2.5 6 0s3.75 2.5 6 0 3.75-2.5 6 0'],
+    practice: ['M3 9.5c2.25-2.5 4.5-2.5 6 0s3.75 2.5 6 0 3.75-2.5 6 0', 'M3 15.5c2.25-2.5 4.5-2.5 6 0s3.75 2.5 6 0 3.75-2.5 6 0'],
+    decisions: ['M12 21v-7', 'M12 14 6 8M12 14l6-6', 'M6 8V4.5M6 4.5h3.5M18 8V4.5M18 4.5h-3.5'],
     knowledge: ['M12 6.5C10 5 7 4.75 3.5 5.5v13c3.5-.75 6.5-.5 8.5 1 2-1.5 5-1.75 8.5-1v-13C17 4.75 14 5 12 6.5Z', 'M12 6.5v13'],
     scale: ['M7 3v18M17 3v18', 'M7 7.5h10M7 12h10M7 16.5h10'],
     thinking: ['M12 3.5 21 20H3l9-16.5Z', 'M6.9 14.5h10.2M9.4 9.8h5.2'],
@@ -169,27 +176,32 @@ export function TabBar({ active, onSelect, t }: TabBarProps) {
 }
 
 /**
- * The row at the top of the places to look things up in, on a phone: the
- * scale, the two ways of thinking, meditation, the laws of winners. A navigation of its
- * own and not tabs of a page — each is a view with its own heading and its
- * own entry in the browser's history. Hidden from `lg` on, where the sidebar
- * lists them all.
+ * The row at the top of a group of places that share a tab on a phone: the
+ * places to look things up in (the scale, the two ways of thinking,
+ * meditation, the laws of winners) and the places to practise (Ebb Flow, the
+ * matrix). A navigation of its own and not tabs of a page — each is a view
+ * with its own heading and its own entry in the browser's history. Hidden
+ * from `lg` on, where the sidebar lists them all.
  */
-export function KnowledgeNav({
+export function GroupNav({
+  places,
+  label,
   active,
   onSelect,
   t,
 }: {
+  places: readonly Place[]
+  label: string
   active: Place
   onSelect: (place: Place) => void
   t: Copy
 }) {
   return (
-    <nav aria-label={t.navKnowledge} className="mx-auto w-full max-w-2xl px-5 pt-5 sm:px-6 lg:hidden">
+    <nav aria-label={label} className="mx-auto w-full max-w-2xl px-5 pt-5 sm:px-6 lg:hidden">
       {/* Wrapping and not scrolling sideways: a pill cut off at the edge is
           a place nobody sees. */}
       <ul className="flex flex-wrap gap-2">
-        {KNOWLEDGE.map((place) => {
+        {places.map((place) => {
           const here = active === place
           return (
             <li key={place}>
@@ -285,7 +297,7 @@ function SideItem({
 
 /**
  * Every place along the left edge, from 1024 px on: there is room for all
- * seven by name, and a bar at the foot of a wide screen sits far from
+ * nine by name, and a bar at the foot of a wide screen sits far from
  * everything. The places to look things up in stand as a group under their
  * own label, as they share a tab on the phone. The moment flow leaves the
  * list and becomes a card with its own line, for the same reason it is the

@@ -48,6 +48,10 @@ const de = {
   navScale: 'Skala',
   navThinking: 'Denken',
   navBreathe: 'Ebb Flow',
+  navDecisions: 'Matrix',
+  // On the phone, the one tab for the places to practise; in the sidebar,
+  // Ebb Flow and the matrix stand under their own names.
+  navPractice: 'Üben',
   navMeditation: 'Meditation',
   // Bodo Schäfer's laws of winners, in one short word for the row of pills.
   navWinners: 'Erfolg',
@@ -497,6 +501,8 @@ const en: Copy = {
   navScale: 'Scale',
   navThinking: 'Thinking',
   navBreathe: 'Ebb Flow',
+  navDecisions: 'Matrix',
+  navPractice: 'Practice',
   navMeditation: 'Meditation',
   navWinners: 'Success',
   navKnowledge: 'Learn',

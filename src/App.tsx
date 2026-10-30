@@ -6,7 +6,8 @@ import { Moment } from './components/Moment.tsx'
 import { Ebbflow } from './components/Ebbflow.tsx'
 import { GuidedSession } from './components/GuidedSession.tsx'
 import { Meditation } from './components/Meditation.tsx'
-import { AppBar, KnowledgeNav, Sidebar, TabBar } from './components/Navigation.tsx'
+import { AppBar, GroupNav, Sidebar, TabBar } from './components/Navigation.tsx'
+import { Decisions } from './components/Decisions.tsx'
 import { Quiz } from './components/Quiz.tsx'
 import { QuizHome } from './components/QuizHome.tsx'
 import { Result } from './components/Result.tsx'
@@ -15,6 +16,7 @@ import { Thinking } from './components/Thinking.tsx'
 import { Winners } from './components/Winners.tsx'
 import { QUESTIONS } from './data/questions.ts'
 import { copy } from './i18n/copy.ts'
+import { decisionsCopy } from './i18n/decisions.ts'
 import { ebbCopy } from './i18n/ebbflow.ts'
 import { meditationCopy } from './i18n/meditation.ts'
 import { sessionCopy } from './i18n/sessions.ts'
@@ -34,7 +36,7 @@ import { useLanguage } from './hooks/useLanguage.ts'
 import { itemAt } from './lib/array.ts'
 import type { BackupData } from './lib/backup.ts'
 import { notesOf } from './lib/notes.ts'
-import { KNOWLEDGE, type Place, type Tab } from './lib/places.ts'
+import { KNOWLEDGE, PRACTICE, type Place, type Tab } from './lib/places.ts'
 import { readableOnDark } from './lib/oklch.ts'
 import { sortedPlans } from './lib/plans.ts'
 import { answeredCount, evaluate } from './lib/scoring.ts'
@@ -50,6 +52,7 @@ type Phase =
   | 'moment'
   | 'thinking'
   | 'breathe'
+  | 'decisions'
   | 'meditation'
   | 'session'
   | 'winners'
@@ -63,6 +66,7 @@ const PHASES: readonly Phase[] = [
   'moment',
   'thinking',
   'breathe',
+  'decisions',
   'meditation',
   'session',
   'winners',
@@ -71,7 +75,7 @@ const PHASES: readonly Phase[] = [
 /**
  * The two views that run as a flow: the questionnaire and the moment flow.
  * They hide the navigation and keep their own "cancel". In the middle of 34
- * statements or of a minute of silence, five other places one tap away are
+ * statements or of a minute of silence, other places one tap away are
  * a distraction, and a stray tap throws someone out of the flow.
  */
 const FOCUS: readonly Phase[] = ['quiz', 'moment', 'session']
@@ -93,6 +97,8 @@ function placeOf(phase: Phase): Place {
       return 'thinking'
     case 'breathe':
       return 'breathe'
+    case 'decisions':
+      return 'decisions'
     case 'meditation':
     case 'session':
       return 'meditation'
@@ -134,7 +140,7 @@ export default function App() {
   /* What someone chose to keep from a writing practice — the only free text
      here besides the plans, and only on a tap. */
   const { notes, keepNote, removeNote, clearNotes, replaceNotes } = useNotes()
-  const { decisions, clearDecisions, replaceDecisions } = useDecisions()
+  const { decisions, addDecision, editDecision, removeDecision, clearDecisions, replaceDecisions } = useDecisions()
 
   /** A level's kept writing, for the views that show its practices. */
   const journalFor = (level: LevelId): Journal => ({
@@ -355,6 +361,9 @@ export default function App() {
       case 'breathe':
         go('breathe')
         return
+      case 'decisions':
+        go('decisions')
+        return
       case 'meditation':
         go('meditation')
         return
@@ -374,8 +383,17 @@ export default function App() {
     if (KNOWLEDGE.includes(place)) lastKnowledge.current = place
   }, [phase])
 
+  /* The same for the places to practise: Ebb Flow or the matrix, whichever
+     was open last. */
+  const lastPractice = useRef<Place>('breathe')
+  useEffect(() => {
+    const place = placeOf(phase)
+    if (PRACTICE.includes(place)) lastPractice.current = place
+  }, [phase])
+
   function selectTab(tab: Tab) {
     if (tab === 'knowledge') select(lastKnowledge.current)
+    else if (tab === 'practice') select(lastPractice.current)
     else select(tab)
   }
 
@@ -555,15 +573,31 @@ export default function App() {
           />
         )}
 
-        {/* On a phone, the three places to look things up in share a tab;
-            this row switches between them. The sidebar lists them itself. */}
-        {!focusMode && KNOWLEDGE.includes(place) && <KnowledgeNav active={place} onSelect={select} t={t} />}
+        {/* On a phone, the places to look things up in share a tab, and so do
+            the places to practise; these rows switch between them. The
+            sidebar lists them itself. */}
+        {!focusMode && KNOWLEDGE.includes(place) && (
+          <GroupNav places={KNOWLEDGE} label={t.navKnowledge} active={place} onSelect={select} t={t} />
+        )}
+        {!focusMode && PRACTICE.includes(place) && (
+          <GroupNav places={PRACTICE} label={t.navPractice} active={place} onSelect={select} t={t} />
+        )}
 
         {phase === 'thinking' && (
           <Thinking levels={levels} th={thinkingCopy[language]} />
         )}
 
         {phase === 'breathe' && <Ebbflow t={t} e={ebbCopy[language]} />}
+
+        {phase === 'decisions' && (
+          <Decisions
+            d={decisionsCopy[language]}
+            decisions={decisions}
+            onAdd={addDecision}
+            onEdit={editDecision}
+            onRemove={removeDecision}
+          />
+        )}
 
         {phase === 'meditation' && (
           <Meditation

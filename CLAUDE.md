@@ -123,10 +123,11 @@ conventions that are not obvious from a single file.
 - Each view has exactly one `<h1>`, and heading levels don't skip. The app's
   name in the phone's top bar and the sidebar is not a heading, and the logo
   next to it is `decorative`.
-- Eight places in the navigation (`Place` in `src/lib/places.ts`): a tab
+- Nine places in the navigation (`Place` in `src/lib/places.ts`): a tab
   bar on phones, a sidebar from `lg` on. On phones the scale, thinking,
   meditation and the laws of winners share the tab "Wissen" with a row at the top of each
-  (`KNOWLEDGE`, `KnowledgeNav`); the bar has five tabs and should stay at
+  (`KNOWLEDGE`, `GroupNav`), and Ebb Flow and the decision matrix share the
+  tab "Üben" the same way (`PRACTICE`); the bar has five tabs and should stay at
   five. `placeOf` in `App.tsx` says which view belongs to which place. The questionnaire and the moment flow are `FOCUS`
   views: no navigation, their own "cancel", the language switch fixed top
   right — keep that corner free there. A guided session (`'session'`) is one

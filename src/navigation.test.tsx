@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { renderToString } from 'react-dom/server'
 import { Intro } from './components/Intro.tsx'
-import { KnowledgeNav, Sidebar, TabBar } from './components/Navigation.tsx'
+import { GroupNav, Sidebar, TabBar } from './components/Navigation.tsx'
 import { QuizHome } from './components/QuizHome.tsx'
 import { copy } from './i18n/copy.ts'
 import { levelsIn } from './i18n/levels.ts'
+import { KNOWLEDGE, PRACTICE } from './lib/places.ts'
 import { momentCopy } from './i18n/moment.ts'
 import type { History, Language } from './types.ts'
 
@@ -26,16 +27,37 @@ describe.each(LANGUAGES)('navigation (%s)', (language) => {
   it('shows five tabs in the bar and marks the one the place sits under', () => {
     const html = renderToString(<TabBar active="meditation" onSelect={noop} t={t} />)
     expect(html).toContain(`aria-label="${t.navLabel}"`)
-    for (const label of [t.navToday, t.navQuiz, t.navMoment, t.navBreathe, t.navKnowledge]) {
+    for (const label of [t.navToday, t.navQuiz, t.navMoment, t.navPractice, t.navKnowledge]) {
       expect(html).toContain(label)
     }
+    expect(html).not.toContain(`>${t.navBreathe}<`)
     expect(html.match(/aria-current="page"/g)).toHaveLength(1)
     // Meditation sits under the tab for the places to look things up in.
     expect(html).toMatch(new RegExp(`aria-current="page"[^>]*>(?:(?!</button>).)*${t.navKnowledge}`))
   })
 
-  it('switches between the three places to look things up in, marking the current one', () => {
-    const html = renderToString(<KnowledgeNav active="thinking" onSelect={noop} t={t} />)
+  it('marks the practice tab for both Ebb Flow and the matrix', () => {
+    for (const place of ['decisions', 'breathe'] as const) {
+      const html = renderToString(<TabBar active={place} onSelect={noop} t={t} />)
+      expect(html.match(/aria-current="page"/g)).toHaveLength(1)
+      expect(html).toMatch(new RegExp(`aria-current="page"[^>]*>(?:(?!</button>).)*${t.navPractice}`))
+    }
+  })
+
+  it('switches between the places to practise, marking the current one', () => {
+    const html = renderToString(
+      <GroupNav places={PRACTICE} label={t.navPractice} active="decisions" onSelect={noop} t={t} />,
+    )
+    expect(html).toContain(`aria-label="${t.navPractice}"`)
+    expect(html).toContain(t.navBreathe)
+    expect(html).toContain(t.navDecisions)
+    expect(html).toMatch(new RegExp(`aria-current="page"[^>]*>(?:(?!</button>).)*${t.navDecisions}`))
+  })
+
+  it('switches between the places to look things up in, marking the current one', () => {
+    const html = renderToString(
+      <GroupNav places={KNOWLEDGE} label={t.navKnowledge} active="thinking" onSelect={noop} t={t} />,
+    )
     expect(html).toContain(`aria-label="${t.navKnowledge}"`)
     for (const label of [t.navScale, t.navThinking, t.navMeditation, t.navWinners]) expect(html).toContain(label)
     expect(html).toMatch(new RegExp(`aria-current="page"[^>]*>(?:(?!</button>).)*${t.navThinking}`))
@@ -43,7 +65,7 @@ describe.each(LANGUAGES)('navigation (%s)', (language) => {
 
   it('puts the moment flow in the middle of the bar', () => {
     const html = renderToString(<TabBar active={null} onSelect={noop} t={t} />)
-    const order = [t.navToday, t.navQuiz, t.navMoment, t.navBreathe, t.navKnowledge].map((label) =>
+    const order = [t.navToday, t.navQuiz, t.navMoment, t.navPractice, t.navKnowledge].map((label) =>
       html.indexOf(`>${label}<`),
     )
     expect(order).toEqual([...order].sort((a, b) => a - b))
@@ -56,11 +78,17 @@ describe.each(LANGUAGES)('navigation (%s)', (language) => {
     )
     expect(html).toContain(m.enter)
     expect(html).toContain(t.navMomentLead)
-    // All seven places by name, the three to look things up in under their label.
-    for (const label of [t.navToday, t.navQuiz, t.navBreathe, t.navScale, t.navThinking, t.navMeditation, t.navWinners]) {
+    // All places by name, the ones to look things up in under their label.
+    for (const label of [t.navToday, t.navQuiz, t.navBreathe, t.navDecisions, t.navScale, t.navThinking, t.navMeditation, t.navWinners]) {
       expect(html).toContain(label)
     }
     expect(html).toContain(t.navKnowledge)
+    // The matrix right under Ebb Flow, before the group to look things up in.
+    const breathe = html.indexOf(`>${t.navBreathe}<`)
+    const decisions = html.indexOf(`>${t.navDecisions}<`)
+    expect(breathe).toBeGreaterThan(-1)
+    expect(decisions).toBeGreaterThan(breathe)
+    expect(decisions).toBeLessThan(html.indexOf(`>${t.navKnowledge}<`))
     expect(html).toContain(t.languageLabel)
   })
 
