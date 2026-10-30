@@ -175,3 +175,14 @@ describe.each(LANGUAGES)('how the matrix works (%s)', (language) => {
     expect(html.match(/<h3/g)).toHaveLength(d.examples.length)
   })
 })
+
+/* A day that got past the guard must not take the screen down: the label
+   falls back to the stored text. */
+describe('an impossible stored day', () => {
+  it('renders as the raw string instead of throwing', () => {
+    const entry = ENTRIES[0]
+    expect(entry).toBeDefined()
+    const html = view('de', entry ? [{ ...entry, day: '2026-13-45' }] : [])
+    expect(html).toContain('2026-13-45')
+  })
+})

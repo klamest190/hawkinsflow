@@ -39,6 +39,7 @@ describe('isDecisions', () => {
     expect(isDecisions({})).toBe(false)
     expect(isDecisions([{ ...base, day: '30.10.2026' }])).toBe(false)
     expect(isDecisions([{ ...base, day: 5 }])).toBe(false)
+    expect(isDecisions([{ ...base, day: '2026-02-30' }])).toBe(false)
     expect(isDecisions([{ ...base, belief: 'x'.repeat(LONGEST + 1) }])).toBe(false)
     expect(isDecisions([{ ...base, belief: '  ', decision: '  ', evidence: '  ' }])).toBe(false)
     expect(isDecisions([{ ...base, at: 'yesterday' }])).toBe(false)
@@ -50,8 +51,12 @@ describe('isDecisions', () => {
 /* The date field can be cleared; a stored day of '' would make the guard
    drop the whole list on the next load. */
 describe('isDay', () => {
-  it('takes a local yyyy-MM-dd day and nothing else', () => {
+  it('takes a real calendar day written yyyy-MM-dd and nothing else', () => {
     expect(isDay('2026-10-30')).toBe(true)
+    expect(isDay('2028-02-29')).toBe(true)
+    expect(isDay('2026-13-45')).toBe(false)
+    expect(isDay('2026-02-30')).toBe(false)
+    expect(isDay('2026-02-29')).toBe(false)
     expect(isDay('')).toBe(false)
     expect(isDay('30.10.2026')).toBe(false)
     expect(isDay('+012026-10-30')).toBe(false)

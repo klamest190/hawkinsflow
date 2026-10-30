@@ -68,6 +68,11 @@ export function Decisions({ d, decisions, onAdd, onEdit, onRemove }: DecisionsPr
 
   const groups = byDay(decisions)
   const dayLabel = new Intl.DateTimeFormat(d.locale, { day: '2-digit', month: '2-digit', year: 'numeric' })
+  // A day that got past the guard some other way must not throw while drawing.
+  const labelOf = (day: string): string => {
+    const date = new Date(`${day}T00:00`)
+    return Number.isNaN(date.getTime()) ? day : dayLabel.format(date)
+  }
   const canSave = isFilled(form) && isDay(form.day)
 
   /* The form is already on the page; it only needs bringing into view, with
@@ -233,7 +238,7 @@ export function Decisions({ d, decisions, onAdd, onEdit, onRemove }: DecisionsPr
             {groups.map((group) => (
               <div key={group.day} className="flex flex-col gap-4">
                 <p className="tabular text-small font-semibold text-muted">
-                  <time dateTime={group.day}>{dayLabel.format(new Date(`${group.day}T00:00`))}</time>
+                  <time dateTime={group.day}>{labelOf(group.day)}</time>
                 </p>
                 <ul className="flex flex-col gap-6">
                   {group.entries.map((entry) => {

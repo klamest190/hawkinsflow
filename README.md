@@ -13,7 +13,9 @@ reaction: six slow breaths a minute in three rhythms. A meditation page
 explains the six main forms with what the research does and does not show,
 and its sources; five of them can be practised as guided sessions of 5, 10
 or 20 minutes, led step by step with a soft tone and, if wanted, the device's
-own voice. German and English.
+own voice. The decision matrix, next to Ebb Flow, is a place to write down a
+limiting belief, the decision you take instead and the evidence for it, after
+David Bayer; entries are dated and can be revised. German and English.
 
 The app says plainly that Hawkins' method is not scientifically supported; the
 result is meant as a prompt for reflection, not a measurement. It shows a level
@@ -75,7 +77,7 @@ first play on.
 
 ## Your data
 
-Plans, history, moments, daily check-ins, kept writing and unfinished answers
-live only in the browser that created them. Writing in a practice is not
+Plans, history, moments, daily check-ins, kept writing, decision matrix
+entries and unfinished answers live only in the browser that created them. Writing in a practice is not
 stored unless "keep" is tapped. The start page offers saving everything to a JSON file and
 loading it back on another device; loading replaces what is there.

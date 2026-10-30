@@ -25,7 +25,7 @@ const de = {
     },
     {
       title: 'Neue stärkende Entscheidung',
-      text: 'Bewusst entscheiden, nicht wünschen, was du stattdessen wählst. Eine Entscheidung ist eine Festlegung.',
+      text: 'Bewusst entscheiden – nicht wünschen –, was du stattdessen wählst. Eine Entscheidung ist eine Festlegung.',
     },
     {
       title: 'Bestehende Beweise',

@@ -420,7 +420,7 @@ const de = {
   // is something to do now and then, not an invitation on every visit.
   dataTitle: 'Deine Daten',
   dataLead:
-    'Pläne, Verlauf, Momente, Tage und behaltene Einträge liegen nur in diesem Browser auf diesem Gerät. Sichere sie als Datei, bevor du das Handy wechselst oder den Browser leerst.',
+    'Pläne, Verlauf, Momente, Tage, behaltene Einträge und die Matrix liegen nur in diesem Browser auf diesem Gerät. Sichere sie als Datei, bevor du das Handy wechselst oder den Browser leerst.',
   // Before anything exists, the only thing to do here is bring it in.
   dataLeadEmpty:
     'Du hast Hawkins Flow schon auf einem anderen Gerät benutzt? Dann lade hier die Sicherung von dort.',
@@ -740,7 +740,7 @@ const en: Copy = {
 
   dataTitle: 'Your data',
   dataLead:
-    'Your plans, history, moments, days and kept entries live only in this browser on this device. Save them to a file before you switch phones or clear the browser.',
+    'Your plans, history, moments, days, kept entries and the matrix live only in this browser on this device. Save them to a file before you switch phones or clear the browser.',
   dataLeadEmpty: 'Used Hawkins Flow on another device before? Load the backup from there.',
   dataExport: 'Save to a file',
   dataImport: 'Load a backup',

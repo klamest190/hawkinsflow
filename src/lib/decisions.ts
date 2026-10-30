@@ -32,12 +32,17 @@ export function trimmed(fields: DecisionFields): DecisionFields {
 const DAY = /^\d{4}-\d{2}-\d{2}$/
 
 /**
- * A local `yyyy-MM-dd` day, the shape the guard asks for. The form checks it
- * too: a date field can be cleared, and an entry stored with an empty day
- * would make the whole list fail its guard on the next load.
+ * A real calendar day written `yyyy-MM-dd`: the shape and a month and day that
+ * exist (no 2026-13-45, no 2026-02-30). The form checks it too: a date field
+ * can be cleared, and an entry stored with an empty day would make the whole
+ * list fail its guard on the next load. Built from the parts in UTC, so the
+ * result does not depend on the time zone or on how an engine reads a string.
  */
 export function isDay(value: string): boolean {
-  return DAY.test(value)
+  if (!DAY.test(value)) return false
+  const [year, month, day] = value.split('-').map(Number)
+  const date = new Date(Date.UTC(year ?? NaN, (month ?? NaN) - 1, day ?? NaN))
+  return date.getUTCMonth() === (month ?? NaN) - 1 && date.getUTCDate() === day
 }
 
 function isTime(value: unknown): value is string {
